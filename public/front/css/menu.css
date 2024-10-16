@@ -1,0 +1,229 @@
+.main-menu-container {
+	position: fixed;
+	width: 100%;
+	border-bottom: 2px solid #4d4d4d;
+	background-color: #000;
+	z-index: 2;
+}
+.nav-menu a {
+	text-transform: uppercase;
+	color:  #fff !important;
+	margin-right: 40px;
+	padding: 30px 0px 25px 0px;
+}
+.navbar-menu {
+	text-align: center;
+	padding-top: 25px;
+}
+.navbar-menu a {
+	position: relative;
+	transition: .3s all ease-in-out;
+}
+.navbar-menu a.active {
+	font-weight: 700;
+	position: relative;
+	transition: .3s all ease-in-out;
+}
+.nav-menu a.active:after,
+.nav-menu a:after {
+	height: 2px;
+	width: 0px;
+	content: '';
+	background-color: #ff5722;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	transition: .3s all ease-in-out;
+}
+.nav-menu a.active:after {
+	width: 45px;
+}
+.nav-menu a:hover::after {
+	width: 45px;
+}
+.navbar-header {
+	float: left;
+	padding: 10px 0px;
+}
+.loging-cart li {
+	margin-right: 40px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.loging-cart {
+	position: absolute;
+	right: 0;
+	top: 27px;
+}
+.loging-cart li a i {
+	color: #959595;
+	margin-right: 3px
+}
+.modal-backdrop {
+	z-index: 1;
+}
+.modal-body .contact_form input {
+	height: 50px;
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 15px;
+	border-radius: 20px;
+	border: none;
+	background-color: #eeeeee;
+}
+.modal-body .contact_form button {
+	background-color: #ff5722;
+	height: 50px;
+	width: 150px;
+	text-align: center;
+	border: none;
+	font-weight: 700;
+	color: #fff;
+	border-radius: 40px;
+}
+.modal-title {
+	font-size: 20px;
+	text-transform: uppercase;
+	color: #000;
+}
+.product-pic {
+	height: 80px;
+	margin-right: 10px;
+	width: 80px;
+	overflow: hidden;
+	float: left;
+}
+.product-name-price {
+	display: inline-block;
+	overflow: hidden;
+	margin-right: 10px
+}
+.cart-btn .product-cart {
+	box-shadow: 0px 15px 35px 5px rgba(0, 0, 0, 0.1);
+	padding: 0px 15px;
+	position:  absolute;
+	width: 280px;
+	right: 0px;
+	top: 70px;
+	opacity: 0;
+	visibility: hidden;
+	transition: .3s all ease-in-out;
+	padding-bottom: 20px;
+	padding-top: 20px;
+	background-color: #fff;
+}
+.product-cart h4 {
+	font-size: 14px;
+	font-weight: 700;
+	color: #ff5722;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+	float: left;
+}
+.product-cart h4 span {
+	background-color: #ff5722;
+	color: #fff;
+	padding: 1px 6px;
+	font-size: 14px;
+	border-radius: 100%;
+}
+.product-name {
+	font-size: 16px;
+	display: block;
+}
+.product-item li {
+	position: relative;
+	border-bottom: 1px solid #cccccc;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.remove-btn {
+	position: absolute;
+	right: 5px;
+	top: 0;
+}
+.remove-btn i {
+	color: red !important;
+}
+.product-item li {
+	margin-right: 0;
+	width: 100%;
+}
+.check-out-btn {
+	height: 30px;
+	border-radius: 20px;
+	width: 100px;
+	line-height: 30px;
+	margin: 0 auto;
+	margin-top: 10px;
+	background-color: #ff5722;	
+}
+
+.product-name-price span {
+	color: #000;
+}
+.cart-btn:hover .product-cart {
+	top: 40px;
+	opacity: 1;
+	visibility: visible;
+}
+.menu-item-has-children {
+	position: relative;
+}
+.menu-item-has-children li {
+	/* margin-bottom: 10px; */
+	transition: .3s all ease-in-out;
+}
+.menu-item-has-children li:hover {
+	margin-left: 3px;
+}
+
+.menu-item-has-children:after {
+	top: -5px;
+	right: 22px;
+	content: '\f0dd';
+	color: #fff;
+	position: absolute;
+	font-family: 'Font Awesome 5 Free';
+	font-weight: 900;
+	transition: .3s all ease-in-out;
+	font-size: 18px;
+}
+.navbar-default .navbar-nav>li>a:focus,
+.navbar-default .navbar-nav>li>a:hover {
+	color: #fff;
+}
+.sub-menu {
+	width: 170px;
+	display: table;
+	box-shadow: 0 5px 10px 0 rgba(83,82,82,.1);
+	background-color: #fff;
+	position: absolute;
+	transform: scaleY(0);
+	transform-origin: center top 0;
+	transition: .3s all ease-in-out;
+	top: 45px;
+	left: 5px;
+	text-align: left;
+	/* padding: 15px !important; */
+	padding-bottom: 15px !important;
+}
+.sub-menu a {
+	color: #000 !important;
+	display:  inline-block;
+	padding: 10px;
+	padding-bottom: 2px;
+}
+.sub-menu a:hover:after {
+	display: none;
+}
+.menu-item-has-children:hover .sub-menu {
+	transform: scaleY(1);
+}
+.modal-body {
+	padding: 50px;
+}
+.modal-body .nws-button {
+	margin-top: 30px;
+}

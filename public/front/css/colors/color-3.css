@@ -1,0 +1,140 @@
+.gradient-bg, .modal-body .nws-button button, 
+.teacher-pic-content .teacher-img-content:after,
+.course-details-category li:hover,
+.add-cart:after,
+.category-icon-title:after,
+.gradient-bdr {
+	background: #7b4397;
+	background: -moz-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, #4eb3bf), color-stop(51%, #7b4397), color-stop(100%, #4eb3bf));
+	background: -webkit-linear-gradient(left, #dc2430 0%, #7b4397 51%, #0071b0 100%);
+	background: -o-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+	background: -ms-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+	background: -webkit-gradient(linear, left top, right top, from(#dc2430), color-stop(51%, #7b4397), to(#dc2430));
+	background: -webkit-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+	background: linear-gradient(to right, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+	background-size: 200% auto;
+}
+.text-gradiant {
+	background: -moz-linear-gradient(left, #dc2430 0%, #7b4397 100%);
+	background: -webkit-gradient(left top, right top, color-stop(0%, #dc2430), color-stop(100%, #7b4397));
+	background: -webkit-linear-gradient(left, #dc2430 0%, #7b4397 100%);
+	background: -o-linear-gradient(left, #dc2430 0%, #7b4397 100%);
+	background: -ms-linear-gradient(left, #dc2430 0%, #7b4397 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent; }
+	.section-title .subtitle:before, 
+	.section-title .subtitle:after {
+		color: #dc2430;
+		text-shadow: 15px 0 #dc2430;
+	}
+	.breadcrumb-section .breadcrumb-item {
+		background-color: #dc2430;
+	}
+	.nav-menu li a:after {
+		background: #7b4397;
+		background: -moz-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+		background: -webkit-gradient(left top, right top, color-stop(0%, #4eb3bf), color-stop(51%, #7b4397), color-stop(100%, #4eb3bf));
+		background: -webkit-linear-gradient(left, #dc2430 0%, #7b4397 51%, #0071b0 100%);
+		background: -o-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+		background: -ms-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+		background: -webkit-gradient(linear, left top, right top, from(#dc2430), color-stop(51%, #7b4397), to(#dc2430));
+		background: -webkit-linear-gradient(left, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+		background: linear-gradient(to right, #dc2430 0%, #7b4397 51%, #dc2430 100%);
+		background-size: 200% auto;
+	}
+	.cart-search li {
+		border: 2px solid #7b4397;
+	}
+
+	.sub-menu:before {
+		border-top: 10px solid #7b4397;
+	}
+	.search-body .search-form .search-close {
+		background-color: #7b4397;
+	}
+	.sub-menu li a:hover {
+		color: #7b4397 !important;
+	}
+	.header-style-2 .sub-menu li a:hover {
+		color: #7b4397; 
+	}
+	#slider-item .genius-btn {
+		border: 2px solid #7b4397;
+	}
+	#slider-item .slider-course-category li:hover {
+		color: #7b4397; 
+	}
+	.coming-countdown li {
+		border: 2px solid #7b4397;
+	}
+	.home-secound-course-search .about-list li {
+		color: #7b4397;
+	}
+	.search-course-secound .counter-number p {
+		color: #7b4397;
+	}
+	.search-course-third .counter-icon-number:after {
+		background-color: #7b4397;
+	}
+	.select-lang select,
+	.nav-menu-4 .login-cart-lang .login a,
+	.course-meta .course-category, .latest-events .course-meta .course-author,
+	.about-teacher-2 .section-title-2 h2 b,
+	.testimonial-slide .student-name-designation span,
+	.view-all-btn i,
+	.teacher-img-content .teacher-category .st-name,
+	.secound-teacher-section .teacher-img-text .teacher-designation,
+	.teacher-pic-content .teacher-social-name li,
+	.teacher-pic-content .teacher-name-designation .teacher-designation,
+	.teacher-details-text .teacher-deg span,
+	.best-product-section .price-start span,
+	.best-sellers-pic-text .b-price,
+	.panel-group .panel-title .btn-link,
+	.panel-group .panel-title .btn-link:before,
+	.panel-group .panel-title .btn-link:after,
+	.panel-group .panel-title .btn-link:hover,
+	.version-four .features-icon .feat-tag span,
+	.blog-details-content .date-meta span,
+	.blog-details-content .author-comment .author-designation-comment span,
+	.blog-details-content .next-prev-post i,
+	.blog-comment-area .author-name-rate span,
+	.affiliate-market-accordion .panel-group .panel-title .btn-link span,
+	.course-by b,
+	.avrg-rating .avrg-rate,
+	.course-side-bar-widget h3 span,
+	.course-side-bar-widget h3 span,
+	.student-number,
+	.checkbox label .sub-text b,
+	.terms-text b,
+	.purchase-list .in-total span,
+	.footer-menu li i {
+		color: #dc2430;
+	}
+
+	.about-us-text .section-title:after,
+	.about-list li:before,
+	.testimonial-slide .student-name-designation span:before,
+	.teacher-img-content .teacher-img:after,
+	.teacher-desc-social li:hover,
+	.ui-slider-horizontal .ui-slider-handle,
+	ul.product-tab li:after,
+	.panel-group .panel-body:before,
+	.blog-button ul.product-tab li.active,
+	.side-bar-widget .tag-clouds li:hover,
+	.blog-details-content .blog-category li:hover,
+	.course-page-section .course-type-list span,
+	.avrg-rating .rating-overview:hover .start-bar,
+	.section-title-2 h2:after {
+		background-color: #dc2430;
+	}
+
+.cart-search li,
+#slider-item .genius-bt,
+.coming-countdown li,
+.secound-teacher-section .teacher-img-text .teacher-social-list li,
+.footer-social li,
+.subscribe-form li {
+	border: 2px solid #dc2430;
+}
