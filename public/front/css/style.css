@@ -1239,7 +1239,7 @@ button.alt-menu-btn.float-left {
 .slider-bg-3,
 .slider-bg-4,
 .slider-bg-5 {
-  height: 100vh;
+  height: 80vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center; }
@@ -1270,7 +1270,7 @@ button.alt-menu-btn.float-left {
 /*Search Course*/
 /*----------------------------------------------------*/
 .search-course-section {
-  padding: 125px 0px 125px 0px; }
+  padding: 45px 0px 125px 0px; }
 
 .search-course input, .search-course .register-form-area select, .register-form-area .search-course select, .search-course .register-form-area textarea, .register-form-area .search-course textarea,
 .subs-form input,
@@ -1462,7 +1462,7 @@ button.alt-menu-btn.float-left {
 /*popular Course*/
 /*----------------------------------------------------*/
 .popular-course-section {
-  padding-bottom: 125px; }
+  padding-bottom: 15px; }
   .popular-course-section .section-title .subtitle {
     margin-left: 42px; }
 
@@ -1944,7 +1944,7 @@ button.alt-menu-btn.float-left {
 /*latest section*/
 /*----------------------------------------------------*/
 .latest-area-section {
-  padding: 125px 0px 55px 0px; }
+  padding: 85px 0px 55px 0px; }
 
 .latest-news-thumbnile {
   height: 120px;

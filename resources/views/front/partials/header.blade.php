@@ -7,17 +7,16 @@
                         <a class="navbar-brand text-uppercase" href="#"><img src="assets/img/logo/logo.png" alt="logo"></a>
                     </div><!-- /.navbar-header -->
 
-                    <div class="select-lang">
+                    {{-- <div class="select-lang">
                         <select>
                             <option value="9" selected="">ENG</option>
                             <option value="10">BAN</option>
                             <option value="11">ARB</option>
                             <option value="12">FRN</option>
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="cart-search float-right ul-li">
                         <ul>
-                            <li><a href="#"><i class="fas fa-shopping-bag"></i></a></li>
                             <li>
                                 <button type="button" class="toggle-overlay search-btn">
                                     <i class="fas fa-search"></i>
