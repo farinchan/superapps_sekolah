@@ -35,7 +35,7 @@ Table of Content:
 17/ check out section
 18/ Course section
 19/ footer
- 
+
 
 
 =====================================================================*/
@@ -1244,7 +1244,7 @@ button.alt-menu-btn.float-left {
   background-repeat: no-repeat;
   background-position: center center; }
 
-.slider-bg-1 {
+/* .slider-bg-1 {
   background-image: url(../img/banner/s-1.jpg); }
 
 .slider-bg-2 {
@@ -1257,7 +1257,8 @@ button.alt-menu-btn.float-left {
   background-image: url(../img/banner/s-4.jpg); }
 
 .slider-bg-5 {
-  background-image: url(../img/banner/sd-1.jpg); }
+  background-image: url(../img/banner/sd-1.jpg); } */
+
   .slider-bg-5 .slider-text {
     max-width: 1170px;
     margin: 0 auto; }
@@ -1340,7 +1341,7 @@ button.alt-menu-btn.float-left {
   border-top: 1px solid #ddd6d6; }
 
 .home-secound-course-search {
-  background-image: url(../img/banner/hb-2.jpg);
+  background-image: url(../img/banner/fq-1.jpg);
   padding-bottom: 0; }
   .home-secound-course-search .search-app {
     padding-top: 50px; }

@@ -11,25 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('setting_website', function (Blueprint $table) {
+        Schema::create('teacher', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('logo')->nullable();
-            $table->string('favicon')->nullable();
+            $table->string('nip')->nullable();
+            $table->string('no_telp')->nullable();
             $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->text('address')->nullable();
-            $table->string('latitude')->nullable();
-            $table->string('longitude')->nullable();
+            $table->string('address')->nullable();
+            $table->string('mapel')->nullable();
+            $table->string('photo')->nullable();
+            $table->mediumText('about')->nullable();
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
-            $table->string('youtube')->nullable();
-            $table->string('whatsapp')->nullable();
-            $table->string('telegram')->nullable();
             $table->string('linkedin')->nullable();
-            $table->text('about')->nullable();
-            $table->text('terms_conditions')->nullable();
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -39,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('setting_website');
+        Schema::dropIfExists('teachers');
     }
 };
