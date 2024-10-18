@@ -1,4 +1,4 @@
-.gradient-bg, .modal-body .nws-button button, 
+.gradient-bg, .modal-body .nws-button button,
 .teacher-pic-content .teacher-img-content:after,
 .course-details-category li:hover,
 .add-cart:after,
@@ -25,7 +25,7 @@
 	background-clip: text;
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent; }
-	.section-title .subtitle:before, 
+	.section-title .subtitle:before,
 	.section-title .subtitle:after {
 		color: #81ee8e;
 		text-shadow: 15px 0 #81ee8e;
@@ -59,13 +59,13 @@
 		color: #00c9fd !important;
 	}
 	.header-style-2 .sub-menu li a:hover {
-		color: #00c9fd; 
+		color: #00c9fd;
 	}
 	#slider-item .genius-btn {
 		border: 2px solid #00c9fd;
 	}
 	#slider-item .slider-course-category li:hover {
-		color: #00c9fd; 
+		color: #00c9fd;
 	}
 	.coming-countdown li {
 		border: 2px solid #00c9fd;

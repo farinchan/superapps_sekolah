@@ -41,7 +41,7 @@
 .switcher-dark :focus, .switcher-light:focus {
     color: #000 !important;
     border: 1px solid #7d7d7d !important;
-    
+
 }
 
 .color-switcher .open{
@@ -101,15 +101,15 @@
 }
 
 .color-1{background: rgba(0, 0, 0, 0) linear-gradient(to right, #00c9fd 0%, #81ee8e 100%) repeat scroll 0 0}
-.color-2 { 
+.color-2 {
  background: rgba(0, 0, 0, 0) linear-gradient(to right, #00c9fd 0%, #81ee8e 100%) repeat scroll 0 0;
  border-radius: 100%;
 }
 
 .color-3{
-    background: #7b4397; 
-    background: -webkit-linear-gradient(to right, #dc2430, #7b4397);  
-    background: linear-gradient(to right, #dc2430, #7b4397); 
+    background: #7b4397;
+    background: -webkit-linear-gradient(to right, #dc2430, #7b4397);
+    background: linear-gradient(to right, #dc2430, #7b4397);
     border-radius: 100%;
 
 }
@@ -162,7 +162,7 @@
 .color-5 i,
 .color-6 i,
 .color-7 i,
-.color-8 i, 
+.color-8 i,
 .color-9 i {
  background-clip: text;
  -webkit-background-clip: text;

@@ -17,7 +17,7 @@
                 data-kt-menu-overflow="true">
                 <i class="ki-duotone ki-dots-square fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
             </button>
-@include('partials/menus/_menu-2')
+@include('back/partials/menus/_menu-2')
             <!--end::Menu-->
         </div>
         <!--end::Toolbar-->

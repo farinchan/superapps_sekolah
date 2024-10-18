@@ -40,27 +40,27 @@
     <div class="tab-content py-4 py-lg-8 px-lg-7">
         <!--begin:Tab pane-->
         <div class="tab-pane active w-lg-1000px" id="kt_app_header_menu_pages_pages">
-@include('layout/partials/header/_menu/__pages-general')
+@include('back/layout/partials/header/_menu/__pages-general')
         </div>
         <!--end:Tab pane-->
         <!--begin:Tab pane-->
         <div class="tab-pane  w-lg-600px" id="kt_app_header_menu_pages_account">
-@include('layout/partials/header/_menu/__pages-account')
+@include('back/layout/partials/header/_menu/__pages-account')
         </div>
         <!--end:Tab pane-->
         <!--begin:Tab pane-->
         <div class="tab-pane  w-lg-1000px" id="kt_app_header_menu_pages_authentication">
-@include('layout/partials/header/_menu/__pages-authentication')
+@include('back/layout/partials/header/_menu/__pages-authentication')
         </div>
         <!--end:Tab pane-->
         <!--begin:Tab pane-->
         <div class="tab-pane  w-lg-1000px" id="kt_app_header_menu_pages_utilities">
-@include('layout/partials/header/_menu/__pages-utilities')
+@include('back/layout/partials/header/_menu/__pages-utilities')
         </div>
         <!--end:Tab pane-->
         <!--begin:Tab pane-->
         <div class="tab-pane  w-lg-500px" id="kt_app_header_menu_pages_widgets">
-@include('layout/partials/header/_menu/__pages-widgets')
+@include('back/layout/partials/header/_menu/__pages-widgets')
         </div>
         <!--end:Tab pane-->
     </div>

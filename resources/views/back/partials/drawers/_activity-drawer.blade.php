@@ -458,7 +458,7 @@
         <!--end::Timeline heading-->
         <!--begin::Timeline details-->
         <div class="overflow-auto pb-5">
-@include('partials/general/_notice')
+@include('back/partials/general/_notice')
         </div>
         <!--end::Timeline details-->
     </div>

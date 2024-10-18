@@ -21,14 +21,14 @@
     <div data-kt-search-element="content" class="menu menu-sub menu-sub-dropdown p-7 w-325px w-md-375px">
         <!--begin::Wrapper-->
         <div data-kt-search-element="wrapper">
-@include('partials/search/partials/_form-dropdown')
-@include('partials/search/partials/_results')
-@include('partials/search/partials/_main')
-@include('partials/search/partials/_empty')
+@include('back/partials/search/partials/_form-dropdown')
+@include('back/partials/search/partials/_results')
+@include('back/partials/search/partials/_main')
+@include('back/partials/search/partials/_empty')
         </div>
         <!--end::Wrapper-->
-@include('partials/search/partials/_advanced-options')
-@include('partials/search/partials/_preferences')
+@include('back/partials/search/partials/_advanced-options')
+@include('back/partials/search/partials/_preferences')
     </div>
     <!--end::Menu-->
 </div>

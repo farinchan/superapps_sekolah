@@ -3,7 +3,7 @@
          >
             <!--begin::Toolbar container-->
         <div id="kt_app_toolbar_container" class="app-container  container-fluid d-flex flex-stack ">
-@include('layout/partials/_page-title')
+@include('back/layout/partials/_page-title')
 <!--begin::Actions-->
 <div class="d-flex align-items-center gap-2 gap-lg-3">
     <!--begin::Secondary button-->

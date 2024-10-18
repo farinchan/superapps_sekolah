@@ -116,7 +116,7 @@
                         <i class="ki-duotone ki-night-day theme-light-show fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span><span class="path7"></span><span class="path8"></span><span class="path9"></span><span class="path10"></span></i>                        <i class="ki-duotone ki-moon theme-dark-show fs-2"><span class="path1"></span><span class="path2"></span></i>                    </span>
                 </span>
             </a>
-@include('partials/theme-mode/__menu')
+@include('back/partials/theme-mode/__menu')
         </div>
         <!--end::Menu item-->
     <!--begin::Menu item-->

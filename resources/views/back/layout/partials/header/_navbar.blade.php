@@ -2,7 +2,7 @@
 <div class="app-navbar flex-shrink-0">
     <!--begin::Search-->
     <div class="app-navbar-item align-items-stretch ms-1 ms-md-4">
-@include('partials/search/_dropdown')
+@include('back/partials/search/_dropdown')
     </div>
     <!--end::Search-->
     <!--begin::Activities-->
@@ -18,7 +18,7 @@
         <!--begin::Menu- wrapper-->
         <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end" id="kt_menu_item_wow">
             <i class="ki-duotone ki-notification-status fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>        </div>
-@include('partials/menus/_notifications-menu')
+@include('back/partials/menus/_notifications-menu')
         <!--end::Menu wrapper-->
     </div>
     <!--end::Notifications-->
@@ -38,13 +38,13 @@
         <!--begin::Menu wrapper-->
         <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-35px h-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
             <i class="ki-duotone ki-element-11 fs-2"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>        </div>
-@include('partials/menus/_my-apps-menu')
+@include('back/partials/menus/_my-apps-menu')
         <!--end::Menu wrapper-->
     </div>
     <!--end::My apps links-->
     <!--begin::Theme mode-->
     <div class="app-navbar-item ms-1 ms-md-4">
-@include('partials/theme-mode/_main')
+@include('back/partials/theme-mode/_main')
     </div>
     <!--end::Theme mode-->
     <!--begin::User menu-->
@@ -56,7 +56,7 @@
             data-kt-menu-placement="bottom-end">
             <img src="assets/media/avatars/300-3.jpg" class="rounded-3" alt="user"/>
         </div>
-@include('partials/menus/_user-account-menu')
+@include('back/partials/menus/_user-account-menu')
         <!--end::Menu wrapper-->
     </div>
     <!--end::User menu-->

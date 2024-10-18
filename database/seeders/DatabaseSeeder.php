@@ -18,14 +18,15 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
 
         $admin =  Role::create(['name' => 'admin']);
         $guru =  Role::create(['name' => 'guru']);
         $siswa =  Role::create(['name' => 'siswa']);
+
+        user::create([
+            'email' => 'fajri@gariskode.com',
+            'password' => bcrypt('password'),
+        ])->assignRole('admin');
 
 
         SettingWebsite::create([

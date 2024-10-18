@@ -29,11 +29,14 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required'
+        ], [
+            'required' => 'Kolom :attribute harus diisi',
+            'email' => 'Format email tidak valid'
         ]);
 
         if ($validator->fails()) {
             Alert::error('Error', $validator->errors()->all());
-            return redirect()->back();
+            return redirect()->back()->withInput()->withErrors($validator);
         }
 
         $credentials = $request->only('email', 'password');
@@ -42,10 +45,10 @@ class AuthController extends Controller
             if (Auth::user()->status == 0) {
                 Auth::logout();
                 Alert::error('Error', 'Akun anda belum aktif, silahkan cek email anda untuk aktivasi akun');
-                return redirect()->back();
+                return redirect()->back()->withInput()->withErrors($validator);
             }else{
                 if (Auth::user()->hasRole('admin')) {
-                    return redirect()->route('admin.dashboard');
+                    return redirect()->route('back.dashboard');
                 }else{
                     return redirect()->route('home');
                 }

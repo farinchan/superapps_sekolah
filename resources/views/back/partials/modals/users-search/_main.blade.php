@@ -52,9 +52,9 @@
                     <!--end::Form-->
                     <!--begin::Wrapper-->
                     <div class="py-5">
-@include('partials/modals/users-search/partials/_suggestions')
-@include('partials/modals/users-search/partials/_results')
-@include('partials/modals/users-search/partials/_empty')
+@include('back/partials/modals/users-search/partials/_suggestions')
+@include('back/partials/modals/users-search/partials/_results')
+@include('back/partials/modals/users-search/partials/_empty')
                     </div>
                     <!--end::Wrapper-->
                 </div>

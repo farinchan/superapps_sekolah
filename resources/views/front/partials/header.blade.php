@@ -1,10 +1,11 @@
 <header>
-    <div id="main-menu"  class="main-menu-container">
-        <div  class="main-menu">
+    <div id="main-menu" class="main-menu-container">
+        <div class="main-menu">
             <div class="container">
                 <div class="navbar-default">
                     <div class="navbar-header float-left">
-                        <a class="navbar-brand text-uppercase" href="#"><img src="assets/img/logo/logo.png" alt="logo"></a>
+                        <a class="navbar-brand text-uppercase" href="#"><img src="assets/img/logo/logo.png"
+                                alt="logo"></a>
                     </div><!-- /.navbar-header -->
 
                     {{-- <div class="select-lang">
@@ -37,7 +38,7 @@
                         </ul>
                     </div>
                     <div class="log-in float-right">
-                        <a  data-toggle="modal" data-target="#myModal" href="#">log in</a>
+                        <a data-toggle="modal" data-target="#myModal" href="#">log in</a>
                         <!-- The Modal -->
                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
                             <div class="modal-dialog">
@@ -47,42 +48,46 @@
                                     <div class="modal-header backgroud-style">
                                         <div class="gradient-bg"></div>
                                         <div class="popup-logo">
-                                            <img src="assets/img/logo/p-logo.jpg" alt="">
+                                            <img src="https://i.pinimg.com/originals/01/8d/35/018d35a1404ba58c9f80f4ac345a2c9c.png"
+                                                width="100" alt="">
                                         </div>
                                         <div class="popup-text text-center">
-                                            <h2> <span>Login</span> Your Account.</h2>
-                                            <p>Login to our website, or <span>REGISTER</span></p>
+                                            <h2> <span>Masuk</span> Ke Akun Kamu.</h2>
+                                            <p>Belum punya akun? silahkan hubungi Staff TU</p>
                                         </div>
                                     </div>
 
                                     <!-- Modal body -->
                                     <div class="modal-body">
-                                        <div class="facebook-login">
-                                            <a href="#">
-                                                <div class="log-in-icon">
-                                                    <i class="fab fa-facebook-f"></i>
-                                                </div>
-                                                <div class="log-in-text text-center">
-                                                    Login with Facebook
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="alt-text text-center"><a href="#">OR SIGN IN</a> </div>
-                                        <form class="contact_form" action="#" method="POST" enctype="multipart/form-data">
+                                        <form class="contact_form" action="{{route("login.process")}}" method="POST"
+                                            enctype="multipart/form-data">
+                                            @csrf
                                             <div class="contact-info">
-                                                <input class="name" name="Email" type="email" placeholder="Your@email.com*">
+                                                <input class="name" name="email" type="email" value="{{ old('email') }}"
+                                                    placeholder="Your@email.com*">
+                                                @error('email')
+                                                    <small class="text-danger">
+                                                        {{ $message }}
+                                                    </small>
+                                                @enderror
                                             </div>
+
                                             <div class="contact-info">
-                                                <input class="pass" name="name" type="password" placeholder="Your password*">
+                                                <input class="pass" name="password" type="password"
+                                                    placeholder="Your password*">
+                                                @error('password')
+                                                    <small class="text-danger">
+                                                        {{ $message }}
+                                                    </small>
+                                                @enderror
                                             </div>
+                                            <p class="text-right mb-3">
+                                                <a href="#" class="text-info">Lupa Password?</a>
+                                            </p>
                                             <div class="nws-button text-center white text-capitalize">
-                                                <button type="submit" value="Submit">LOg in Now</button>
+                                                <button type="submit" value="Submit">Masuk Sekarang</button>
                                             </div>
                                         </form>
-                                        <div class="log-in-footer text-center">
-                                            <p>* Denotes mandatory field.</p>
-                                            <p>** At least one telephone number is required.</p>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +127,8 @@
                     </nav>
 
                     <div class="mobile-menu">
-                        <div class="logo"><a href="index-1.html"><img src="assets/img/logo/logo.png" alt="Logo"></a></div>
+                        <div class="logo"><a href="index-1.html"><img src="assets/img/logo/logo.png"
+                                    alt="Logo"></a></div>
                         <nav>
                             <ul>
                                 <li><a href="index-1.html">Home</a>

@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('no_telp')->nullable();
             $table->string('email')->nullable();
             $table->string('address')->nullable();
-            $table->string('mapel')->nullable();
+            $table->string('position')->nullable();
             $table->string('photo')->nullable();
             $table->mediumText('about')->nullable();
+            $table->enum('type', ['tenaga pendidik', 'tenaga kependidikan'])->default('tenaga pendidik');
             $table->string('facebook')->nullable();
             $table->string('instagram')->nullable();
             $table->string('twitter')->nullable();
