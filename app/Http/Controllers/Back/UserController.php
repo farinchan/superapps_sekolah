@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -13,220 +14,220 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function index()
+    public function staff()
     {
         $data = [
-            'title' => 'List Anggota Aktif',
-            'menu' => 'Anggota',
-            'sub_menu' => '',
-            'users' => User::where('status', 1)->get()
+            'title' => 'Tenaga Pendidik dan Tenaga Kependidikan',
+            'menu' => 'User',
+            'sub_menu' => 'Staff',
+            'users' => Teacher::latest()->get(),
         ];
-        return view('back.pages.user.index', $data);
+
+        return view('back.pages.user.guru', $data);
     }
 
-    public function create()
+    public function staffCreate()
     {
         $data = [
-            'title' => 'Tambah Anggota',
-            'menu' => 'Anggota',
-            'sub_menu' => '',
+            'title' => 'Tambah user',
+            'menu' => 'user',
+            'sub_menu' => 'user',
         ];
+
         return view('back.pages.user.create', $data);
     }
 
-    public function store(Request $request)
+    public function staffStore(Request $request)
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required',
-            'gender' => 'required',
-            'place_of_birth' => 'required',
-            'birth_date' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'job' => 'required',
-            'kepakaran' => 'nullable',
-            'keanggotaan' => 'required',
+            'nip' => 'nullable',
+            'gender' => 'nullable',
+            'birth_date' => 'nullable',
+            'birth_place' => 'nullable',
+            'no_telp' => 'nullable',
             'email' => 'required|email|unique:users',
-            'password' => 'required|min:6',
-        ],[
-            'required' => ':attribute tidak boleh kosong',
-            'unique' => ':attribute sudah terdaftar',
-            'email' => ':attribute tidak valid',
-            'min' => ':attribute minimal :min karakter',
-            'image' => ':attribute harus berupa gambar',
-            'mimes' => 'Format file harus :values',
-            'max' => 'Ukuran file maksimal :max KB',
+            'address' => 'nullable|max:255',
+            'position' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'about' => 'nullable',
+            'type' => 'required',
+            'facebook' => 'nullable|url',
+            'instagram' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'meta_title' => 'nullable',
+            'meta_description' => 'nullable',
+            'meta_keywords' => 'nullable',
+            'password' => 'required|min:8',
+        ], [
+            'required' => ':attribute harus diisi',
+            'email.unique' => 'Email sudah terdaftar',
+            'email' => 'Email tidak valid',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'in' => 'Pilih :attribute yang benar',
+            'url' => 'URL tidak valid',
         ]);
 
         if ($validator->fails()) {
             Alert::error('Error', $validator->errors()->all());
-            return redirect()->back()->withInput()->withErrors($validator);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
         $user = new User();
-        if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoPath = $photo->storeAs('public/anggota', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $photo->getClientOriginalExtension());
-            $user->photo = str_replace('public/', '', $photoPath);
-        }
-        $user->name = $request->name;
-        $user->gender = $request->gender;
-        $user->place_of_birth = $request->place_of_birth;
-        $user->birth_date = $request->birth_date;
-        $user->address = $request->address;
-        $user->phone = $request->phone;
-        $user->job = json_encode($request->job);
-        $user->kepakaran = $request->kepakaran;
-        $user->keanggotaan = $request->keanggotaan;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-        $user->status = 1;
         $user->save();
 
-        if ($request->role_user) {
-            $user->assignRole("user");
-        }
-
         if ($request->role_admin) {
-            $user->assignRole("admin");
+            $user->assignRole('admin');
         }
 
-        try {
-            Mail::send('email.create_user', ['user' => $user], function ($message) use ($user) {
-                $message->to($user->email);
-                $message->subject('Anda telah terdaftar sebagai anggota');
-            });
-
-        } catch (\Exception $e) {
-            // Alert::error('Error', 'Gagal mengirim email');
-            // return redirect()->back();
+        if ($request->role_kepsek) {
+            $user->assignRole('kepsek');
         }
 
-        Alert::success('Success', 'Anggota berhasil ditambahkan');
-        return redirect()->route('back.user.index');
+        if ($request->role_guru) {
+            $user->assignRole('guru');
+        }
+
+        if ($request->role_guru_bk) {
+            $user->assignRole('guru_bk');
+        }
+
+        if ($request->role_bendahara) {
+            $user->assignRole('bendahara');
+        }
+
+        if ($request->role_staff) {
+            $user->assignRole('staff');
+        }
+
+        $teacher = new Teacher();
+        $teacher->name = $request->name;
+        $teacher->nip = $request->nip;
+        $teacher->gender = $request->gender;
+        $teacher->birth_date = $request->birth_date;
+        $teacher->birth_place = $request->birth_place;
+        $teacher->no_telp = $request->no_telp;
+        $teacher->email = $request->email;
+        $teacher->address = $request->address;
+        $teacher->position = $request->position;
+        $teacher->about = $request->about;
+        $teacher->type = $request->type;
+        $teacher->facebook = $request->facebook;
+        $teacher->instagram = $request->instagram;
+        $teacher->twitter = $request->twitter;
+        $teacher->linkedin = $request->linkedin;
+        $teacher->meta_title = $request->name;
+        $teacher->meta_description = $request->about;
+        $teacher->meta_keywords = "Guru, Staff, Tenaga Pendidik, Tenaga Kependidikan" . $request->name . $request->position . $request->type;
+        $teacher->user_id = $user->id;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $teacher->photo = $image->storeAs('teacher', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $teacher->save();
+
+        Alert::success('Sukses', 'User berhasil ditambahkan');
+        return redirect()->route('back.user.staff.index');
+
     }
 
-    public function edit($id)
+    public function staffEdit($id)
     {
         $data = [
-            'title' => 'Edit Anggota',
-            'menu' => 'Anggota',
-            'sub_menu' => '',
-            'user' => User::find($id)
+            'title' => 'Edit user',
+            'menu' => 'user',
+            'sub_menu' => 'user',
+            'user' => Teacher::findOrFail($id),
         ];
 
         return view('back.pages.user.edit', $data);
     }
 
-    public function update(Request $request, $id)
+    public function staffUpdate(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name' => 'required',
-            'gender' => 'required',
-            'place_of_birth' => 'required',
-            'birth_date' => 'required',
-            'address' => 'required',
-            'phone' => 'required',
-            'job' => 'required',
-            'kepakaran' => 'nullable',
-            'keanggotaan' => 'required',
+            'nip' => 'nullable',
+            'gender' => 'nullable',
+            'birth_date' => 'nullable',
+            'birth_place' => 'nullable',
+            'no_telp' => 'nullable',
             'email' => 'required|email|unique:users,email,' . $id,
-        ],[
-            'required' => ':attribute tidak boleh kosong',
-            'unique' => ':attribute sudah terdaftar',
-            'email' => ':attribute tidak valid',
-            'image' => ':attribute harus berupa gambar',
-            'mimes' => 'Format file harus :values',
-            'max' => 'Ukuran file maksimal :max KB',
+            'address' => 'nullable|max:255',
+            'position' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'about' => 'nullable',
+            'type' => 'required',
+            'facebook' => 'nullable|url',
+            'instagram' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'meta_title' => 'nullable',
+            'meta_description' => 'nullable',
+            'meta_keywords' => 'nullable',
+            'password' => 'nullable|min:8',
+        ], [
+            'required' => ':attribute harus diisi',
+            'email.unique' => 'Email sudah terdaftar',
+            'email' => 'Email tidak valid',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'in' => 'Pilih :attribute yang benar',
+            'url' => 'URL tidak valid',
         ]);
 
         if ($validator->fails()) {
             Alert::error('Error', $validator->errors()->all());
-            return redirect()->back()->withInput()->withErrors($validator);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $user = User::find($id);
+        $teacher = Teacher::findOrFail($id);
+        $teacher->name = $request->name;
+        $teacher->nip = $request->nip;
+        $teacher->gender = $request->gender;
+        $teacher->birth_date = $request->birth_date;
+        $teacher->birth_place = $request->birth_place;
+        $teacher->no_telp = $request->no_telp;
+        $teacher->email = $request->email;
+        $teacher->address = $request->address;
+        $teacher->position = $request->position;
+        $teacher->about = $request->about;
+        $teacher->type = $request->type;
+        $teacher->facebook = $request->facebook;
+        $teacher->instagram = $request->instagram;
+        $teacher->twitter = $request->twitter;
+        $teacher->linkedin = $request->linkedin;
+        $teacher->meta_title = $request->name;
+        $teacher->meta_description = $request->about;
+        $teacher->meta_keywords = "Guru, Staff, Tenaga Pendidik, Tenaga Kependidikan" . $request->name . $request->position . $request->type;
+
         if ($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $photoPath = $photo->storeAs('public/anggota', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $photo->getClientOriginalExtension());
-            $user->photo = str_replace('public/', '', $photoPath);
+            $image = $request->file('photo');
+            Storage::disk('public')->delete($teacher->photo);
+            $teacher->photo = $image->storeAs('teacher', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
         }
 
-        $user->name = $request->name;
-        $user->gender = $request->gender;
-        $user->place_of_birth = $request->place_of_birth;
-        $user->birth_date = $request->birth_date;
-        $user->address = $request->address;
-        $user->phone = $request->phone;
-        $user->job = json_encode($request->job);
-        $user->kepakaran = $request->kepakaran;
-        $user->keanggotaan = $request->keanggotaan;
+        $teacher->save();
+
+        $user = User::findOrFail($teacher->user_id);
         $user->email = $request->email;
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }
         $user->save();
 
-        if ($request->role_user) {
-            $user->assignRole("user");
-        } else {
-            $user->removeRole("user");
-        }
-
-        if ($request->role_admin) {
-            $user->assignRole("admin");
-        } else {
-            $user->removeRole("admin");
-        }
-
-
-        Alert::success('Success', 'Anggota berhasil diubah');
-        return redirect()->route('back.user.index');
-    }
-
-    public function destroy($id)
-    {
-        $user = User::find($id);
-        Storage::delete('public/' . $user->photo);
-        $user->delete();
-
-        Alert::success('Success', 'Anggota berhasil dihapus');
-        return redirect()->route('back.user.index');
+        Alert::success('Sukses', 'User berhasil diubah');
+        return redirect()->route('back.user.staff.index');
     }
 
 
-    public function register()
-    {
-        $data = [
-            'title' => 'List Pendaftar',
-            'menu' => 'Anggota',
-            'sub_menu' => '',
-            'users' => User::where('status', 0)->get()
-        ];
-        return view('back.pages.user.regis', $data);
-    }
-
-    public function registerApprove($id)
-    {
-        $user = User::find($id);
-        $user->status = 1;
-        $user->save();
-
-        try {
-            Mail::send('email.register_approved_mail', ['user' => $user], function ($message) use ($user) {
-                $message->to($user->email);
-                $message->subject('Permintaan Pendaftaran anda diterima');
-            });
-
-        } catch (\Exception $e) {
-            // Alert::error('Error', 'Gagal mengirim email');
-            // return redirect()->back();
-        }
-
-        Alert::success('Success', 'Pendaftar berhasil diaktifkan');
-        return redirect()->route('back.user.register');
-    }
 }

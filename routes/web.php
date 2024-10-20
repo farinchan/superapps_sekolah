@@ -3,10 +3,14 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\NewsController;
+use App\Http\Controllers\Front\PersonaliaMenu;
 
 use App\Http\Controllers\Back\DashboardController as BackDashboardController;
+use App\Http\Controllers\Back\EventController as BackEventController;
 use App\Http\Controllers\Back\NewsController as BackNewsController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
+use App\Http\Controllers\Back\UserController as BackUserController;
+use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,6 +26,11 @@ Route::post('/forgot-password', [AuthController::class, 'forgotPasswordProcess']
 Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset.password');
 Route::post('/reset-password/{token}', [AuthController::class, 'resetPasswordProcess'])->name('reset.password.process');
 
+Route::get('/tenaga-pendidik', [PersonaliaMenu::class, 'teacher'])->name('teacher');
+Route::get('/tenaga-kependidikan', [PersonaliaMenu::class, 'staff'])->name('staff');
+Route::get('/staff/{id}', [PersonaliaMenu::class, 'staffDetail'])->name('staff.detail');
+Route::get('/personalia/{slug}', [PersonaliaMenu::class, 'personalia'])->name('personalia.show');
+
 Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', [NewsController::class, 'index'])->name('index');
     route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
@@ -29,8 +38,20 @@ Route::prefix('news')->name('news.')->group(function () {
     Route::post('/{slug}', [NewsController::class, 'comment'])->name('comment');
 });
 
+
+
 Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
     Route::get('/dashboard', [BackDashboardController::class, 'index'])->name('dashboard');
+
+    Route::prefix('event')->name('event.')->group(function () {
+        Route::get('/', [BackEventController::class, 'index'])->name('index');
+        Route::get('/create', [BackEventController::class, 'create'])->name('create');
+        Route::post('/create', [BackEventController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [BackEventController::class, 'edit'])->name('edit');
+        Route::put('/edit/{id}', [BackEventController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackEventController::class, 'destroy'])->name('destroy');
+    });
+
 
     Route::prefix('news')->name('news.')->group(function () {
         Route::get('/category', [BackNewsController::class, 'category'])->name('category');
@@ -59,6 +80,45 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::post('/create', [BackGalleryController::class, 'store'])->name('store');
         Route::put('/edit/{id}', [BackGalleryController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [BackGalleryController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('user')->name('user.')->group(function () {
+        Route::prefix('staff')->name('staff.')->group(function () {
+            Route::get('/', [BackUserController::class, 'staff'])->name('index');
+            Route::get('/create', [BackUserController::class, 'staffCreate'])->name('create');
+            Route::post('/create', [BackUserController::class, 'staffStore'])->name('store');
+            Route::get('/edit/{id}', [BackUserController::class, 'staffEdit'])->name('edit');
+            Route::put('/edit/{id}', [BackUserController::class, 'staffUpdate'])->name('update');
+            Route::delete('/delete/{id}', [BackUserController::class, 'staffDestroy'])->name('destroy');
+        });
+
+        Route::prefix('student')->name('student.')->group(function () {
+            Route::get('/', [BackUserController::class, 'student'])->name('index');
+            Route::get('/create', [BackUserController::class, 'studentCreate'])->name('create');
+            Route::post('/create', [BackUserController::class, 'studentStore'])->name('store');
+            Route::get('/edit/{id}', [BackUserController::class, 'studentEdit'])->name('edit');
+            Route::put('/edit/{id}', [BackUserController::class, 'studentUpdate'])->name('update');
+            Route::delete('/delete/{id}', [BackUserController::class, 'studentDestroy'])->name('destroy');
+        });
+
+        Route::prefix('parent')->name('parent.')->group(function () {
+            Route::get('/', [BackUserController::class, 'parent'])->name('index');
+            Route::get('/create', [BackUserController::class, 'parentCreate'])->name('create');
+            Route::post('/create', [BackUserController::class, 'parentStore'])->name('store');
+            Route::get('/edit/{id}', [BackUserController::class, 'parentEdit'])->name('edit');
+            Route::put('/edit/{id}', [BackUserController::class, 'parentUpdate'])->name('update');
+            Route::delete('/delete/{id}', [BackUserController::class, 'parentDestroy'])->name('destroy');
+        });
+    });
+
+    Route::prefix('menu')->name('menu.')->group(function () {
+        Route::prefix('personalia')->name('personalia.')->group(function () {
+            Route::get('/', [BackMenuPersonaliaController::class, 'index'])->name('index');
+            Route::post('/create', [BackMenuPersonaliaController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [BackMenuPersonaliaController::class, 'edit'])->name('edit');
+            Route::put('/edit/{id}', [BackMenuPersonaliaController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [BackMenuPersonaliaController::class, 'destroy'])->name('destroy');
+        });
     });
 
     Route::prefix('setting')->name('setting.')->group(function () {

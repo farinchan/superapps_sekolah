@@ -100,7 +100,7 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route("back.user.create") }}" class="btn btn-primary">
+                            <a href="{{ route('back.user.staff.create') }}" class="btn btn-primary">
                                 <i class="ki-duotone ki-plus fs-2"></i>Tambah Anggota</a>
                         </div>
                         <div class="d-flex justify-content-end align-items-center d-none" {{-- data-kt-user-table-toolbar="selected" --}}>
@@ -124,12 +124,12 @@
                                             data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                     </div>
                                 </th>
-                                <th class="min-w-125px">Anggota</th>
-                                <th class="min-w-125px">Pekerjaan</th>
-                                <th class="min-w-125px">Keanggotaan</th>
+                                <th class="min-w-125px">Staff</th>
+                                <th class="min-w-125px">Info</th>
+                                <th class="min-w-125px">Jenis Kelamin</th>
+                                <th class="min-w-125px">Tipe Staff</th>
                                 <th class="min-w-125px">Role</th>
                                 <th class="min-w-125px">Waktu Bergabung</th>
-                                <th class="min-w-125px">Status</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
                         </thead>
@@ -146,47 +146,42 @@
                                             <a href="#">
                                                 <div class="symbol-label">
                                                     <img src="@if ($user->photo) {{ Storage::url($user->photo) }} @else https://ui-avatars.com/api/?background=000C32&color=fff&name={{ $user->name }} @endif"
-                                                        alt="{{ $user->name }}"
-                                                        width="50px" />
+                                                        alt="{{ $user->name }}" width="50px" />
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="d-flex flex-column">
                                             <a href="#"
                                                 class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
-                                            <span>{{ $user->email }}</span>
+                                            <span> NIP.{{ $user->nip }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column">
                                             <ul>
-                                                <li><span class="fw-bold">Pekerjaan:
-                                                    </span>{{ implode(', ', json_decode($user->job) ?? []) }}</li>
-                                                <li><span class="fw-bold">Kepakaran: </span>{{ $user->kepakaran }}</li>
+                                                <li><span class="fw-bold">Email:</span>{{ $user->email }}</li>
+                                                </li>
+                                                <li><span class="fw-bold">No. Telp: </span>{{ $user->no_telp }}</li>
                                             </ul>
                                         </div>
                                     </td>
                                     <td>
-                                        <span
-                                            class="text-dark fw-bolder text-hover-primary">{{ $user->keanggotaan }}</span>
+                                        @if ($user->gender == 'laki-laki')
+                                            Laki-laki
+                                        @else
+                                            Perempuan
+                                        @endif
                                     </td>
                                     <td>
-                                        @foreach ($user->getRoleNames() as $role)
-                                            @if ($role == 'user')
-                                                <div class="badge badge-light-primary fw-bold">{{ $role }}</div>
-                                            @elseif ($role == 'admin')
-                                                <div class="badge badge-light-danger fw-bold">{{ $role }}</div>
-                                            @endif
+                                        <span class="text-dark fw-bolder text-hover-primary">{{ $user->type }}</span>
+                                    </td>
+                                    <td>
+                                        @foreach ($user->user->getRoleNames() as $role)
+                                            <span class="badge badge-light-primary">{{ $role }}</span>
                                         @endforeach
                                     </td>
                                     <td>{{ $user->created_at->diffForHumans() }}</td>
-                                    <td>
-                                        @if ($user->status == 1)
-                                            <span class="badge badge-light-success">Aktif</span>
-                                        @else
-                                            <span class="badge badge-light-danger">Tidak Aktif</span>
-                                        @endif
-                                    </td>
+
                                     <td class="text-end">
                                         <a href="#"
                                             class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
@@ -195,7 +190,8 @@
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route("back.user.edit", $user->id) }}"  class="menu-link px-3">Edit</a>
+                                                <a href="{{ route('back.user.staff.edit', $user->id) }}"
+                                                    class="menu-link px-3">Edit</a>
                                             </div>
                                             <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3" data-bs-toggle="modal"
@@ -224,7 +220,7 @@
                         </div>
                     </div>
                     <div class="modal-body px-5">
-                        <form class="form" method="POST" action="{{ route('back.user.destroy', $user->id) }}">
+                        <form class="form" method="POST" action="{{ route('back.user.staff.destroy', $user->id) }}">
                             @method('DELETE')
                             @csrf
                             <h3 class="text-center">

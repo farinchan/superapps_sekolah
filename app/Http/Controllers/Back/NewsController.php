@@ -152,8 +152,7 @@ class NewsController extends Controller
 
         if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
-            $thumbnailPath = $thumbnail->storeAs('public/news', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $thumbnail->getClientOriginalExtension());
-            $news->thumbnail = str_replace('public/', '', $thumbnailPath);
+            $news->thumbnail = $thumbnail->storeAs('news', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $thumbnail->getClientOriginalExtension(), 'public');
         }
 
         $news->save();
@@ -210,8 +209,7 @@ class NewsController extends Controller
 
         if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
-            $thumbnailPath = $thumbnail->storeAs('public/news', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $thumbnail->getClientOriginalExtension());
-            $news->thumbnail = str_replace('public/', '', $thumbnailPath);
+            $news->thumbnail = $thumbnail->storeAs('news', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $thumbnail->getClientOriginalExtension(), 'public');
         }
 
         $news->save();

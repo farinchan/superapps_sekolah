@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\Event;
 use App\Models\SettingBanner;
 use App\Models\SettingWebsite;
+use App\Models\Teacher;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -20,8 +22,13 @@ class DatabaseSeeder extends Seeder
 
 
         $admin =  Role::create(['name' => 'admin']);
+        $kepsek =  Role::create(['name' => 'kepsek']);
         $guru =  Role::create(['name' => 'guru']);
+        $guru_bk =  Role::create(['name' => 'guru_bk']);
+        $bendahara =  Role::create(['name' => 'bendahara']);
+        $staff =  Role::create(['name' => 'staff']);
         $siswa =  Role::create(['name' => 'siswa']);
+        $orangtua =  Role::create(['name' => 'orangtua']);
 
         user::create([
             'email' => 'fajri@gariskode.com',
@@ -59,5 +66,17 @@ class DatabaseSeeder extends Seeder
         $this->call([
             NewsSeeder::class,
         ]);
+
+        User::factory(15)->create()->each(function ($user) {
+            $user->assignRole('guru');
+        });
+
+        for ($i = 2; $i <= 15; $i++) {
+            Teacher::factory()->create([
+                'user_id' => $i,
+            ]);
+        }
+
+        Event::factory(10)->create();
     }
 }

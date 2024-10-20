@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Extracurricular extends Model
 {
     protected $table = 'extracurricular';
-    protected $fillable = ['name', 'slug', 'description', 'image'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 }

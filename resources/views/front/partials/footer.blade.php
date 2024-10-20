@@ -9,34 +9,30 @@
                                 <img src="assets/img/logo/f-logo.png" alt="">
                             </div>
                             <div class="footer-about-text">
-                                <p>We take our mission of increasing global access to quality education seriously. We connect learners to the best universities and institutions from around the world.</p>
-                                <p>Lorem ipsum dolor sit amet we take our mission of increasing global access to quality education seriously. </p>
+                                <p>
+                                    {{ strip_tags(Str::limit($setting_web->about, 200)) }}
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="footer-widget "  >
                             <div class="footer-menu ul-li-block">
-                                <h2 class="widget-title">Useful Links</h2>
+                                <h2 class="widget-title">Weblink</h2>
                                 <ul>
-                                    <li><a href="#"><i class="fas fa-caret-right"></i>About Us</a></li>
-                                    <li><a href="#"><i class="fas fa-caret-right"></i>Graphic Design</a></li>
-                                    <li><a href="#"><i class="fas fa-caret-right"></i>Mobile Apps</a></li>
-                                    <li><a href="#"><i class="fas fa-caret-right"></i>Responsive Website</a></li>
-                                    <li><a href="#"><i class="fas fa-caret-right"></i>Graphic Design</a></li>
-                                    <li><a href="#"><i class="fas fa-caret-right"></i>Mobile Apps</a></li>
+                                    <li><a href="#"><i class="fas fa-caret-right"></i>Berita</a></li>
+                                    <li><a href="#"><i class="fas fa-caret-right"></i>Agenda</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="footer-menu ul-li-block "  >
-                            <h2 class="widget-title">Account Info</h2>
+                            <h2 class="widget-title">External Link</h2>
                             <ul>
-                                <li><a href="#"><i class="fas fa-caret-right"></i>Setting Account</a></li>
-                                <li><a href="#"><i class="fas fa-caret-right"></i>Login & Register</a></li>
-                                <li><a href="#"><i class="fas fa-caret-right"></i>Contact Us</a></li>
-                                <li><a href="#"><i class="fas fa-caret-right"></i>Graphic Design</a></li>
-                                <li><a href="#"><i class="fas fa-caret-right"></i>Mobile Apps</a></li>
-                                <li><a href="#"><i class="fas fa-caret-right"></i>Responsive Website</a></li>
+                                <li><a href="#"><i class="fas fa-caret-right"></i>PPDB</a></li>
+                                <li><a href="#"><i class="fas fa-caret-right"></i>PPID</a></li>
+                                <li><a href="#"><i class="fas fa-caret-right"></i>PTSP</a></li>
+                                <li><a href="#"><i class="fas fa-caret-right"></i>Pustaka Digital</a></li>
+                                <li><a href="#"><i class="fas fa-caret-right"></i>E-learning</a></li>
                             </ul>
                         </div>
                     </div>
@@ -45,53 +41,21 @@
                             <h2 class="widget-title">Photo Gallery</h2>
                             <div class="photo-list ul-li">
                                 <ul>
-                                    <li>
-                                        <img src="assets/img/gallery/g-1.jpg" alt="">
-                                        <div class="blakish-overlay"></div>
-                                        <div class="pop-up-icon">
-                                            <a href="assets/img/gallery/g-1.jpg" data-lightbox="roadtrip">
-                                                <i class="fas fa-search"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="assets/img/gallery/g-2.jpg" alt="">
-                                        <div class="blakish-overlay"></div>
-                                        <div class="pop-up-icon">
-                                            <a href="assets/img/gallery/g-2.jpg" data-lightbox="roadtrip">
-                                                <i class="fas fa-search"></i>
-                                            </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="assets/img/gallery/g-3.jpg" alt="">
-                                        <div class="blakish-overlay"></div>
-                                        <div class="pop-up-icon">
-                                            <a href="assets/img/gallery/g-3.jpg" data-lightbox="roadtrip">	<i class="fas fa-search"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="assets/img/gallery/g-4.jpg" alt="">
-                                        <div class="blakish-overlay"></div>
-                                        <div class="pop-up-icon">
-                                            <a href="assets/img/gallery/g-4.jpg" data-lightbox="roadtrip">	<i class="fas fa-search"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="assets/img/gallery/g-5.jpg" alt="">
-                                        <div class="blakish-overlay"></div>
-                                        <div class="pop-up-icon">
-                                            <a href="assets/img/gallery/g-5.jpg" data-lightbox="roadtrip">	<i class="fas fa-search"></i></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <img src="assets/img/gallery/g-6.jpg" alt="">
-                                        <div class="blakish-overlay"></div>
-                                        <div class="pop-up-icon">
-                                            <a href="assets/img/gallery/g-6.jpg" data-lightbox="roadtrip">	<i class="fas fa-search"></i></a>
-                                        </div>
+                                    @php
+                                        $foto_gallery = App\Models\Gallery::where('type', 'foto')->latest()->take(6)->get();
+                                    @endphp
+                                    @foreach ( $foto_gallery as $foto )
+                                        <li>
+                                            <img src="{{ asset('storage/gallery/' . $foto->image) }}" alt="">
+                                            <div class="blakish-overlay"></div>
+                                            <div class="pop-up-icon">
+                                                <a href="{{ asset('storage/gallery/' . $foto->image) }}" data-lightbox="roadtrip">
+                                                    <i class="fas fa-search"></i>
+                                                </a>
+                                            </div>
+                                        </li>
+                                    @endforeach
 
-                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -105,9 +69,25 @@
                         <div class="footer-social ul-li "  >
                             <h2 class="widget-title">Social Network</h2>
                             <ul>
-                                <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                @if ($setting_web->facebook)
+                                    <li><a href="{{ $setting_web->facebook }}"><i class="fab fa-facebook-f"></i></a></li>
+                                @endif
+                                @if ($setting_web->twitter)
+                                    <li><a href="{{ $setting_web->twitter }}"><i class="fab fa-twitter"></i></a></li>
+                                @endif
+                                @if ($setting_web->instagram)
+                                    <li><a href="{{ $setting_web->instagram }}"><i class="fab fa-instagram"></i></a></li>
+                                @endif
+                                @if ($setting_web->linkedin)
+                                    <li><a href="{{ $setting_web->linkedin }}"><i class="fab fa-linkedin"></i></a></li>
+                                @endif
+                                @if ($setting_web->youtube)
+                                    <li><a href="{{ $setting_web->youtube }}"><i class="fab fa-youtube"></i></a></li>
+                                @endif
+                                @if ($setting_web->whatsapp)
+                                    <li><a href="{{ $setting_web->whatsapp }}"><i class="fab fa-whatsapp"></i></a></li>
+                                @endif
+
                             </ul>
                         </div>
                     </div>
@@ -132,15 +112,14 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="copy-right-text">
-                            <p>© 2018 - www.GeniusCourse.com. All rights reserved</p>
+                            <p>© {{ date('Y') }} - {{ $setting_web->name?? "" }}. All rights reserved</p>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="copy-right-menu-item float-right ul-li">
                             <ul>
                                 <li><a href="#">License</a></li>
-                                <li><a href="#">Privacy & Policy</a></li>
-                                <li><a href="#">Term Of Service</a></li>
+                                <li><a href="#">Ketentuan dan Kebijakan</a></li>
                             </ul>
                         </div>
                     </div>

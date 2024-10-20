@@ -11,5 +11,5 @@ class SettingWebsite extends Model
 
     protected $table = 'setting_website';
     protected $guarded = ['id', 'created_at', 'updated_at'];
-    
+
 }

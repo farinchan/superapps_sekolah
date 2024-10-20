@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="navbar-default">
                     <div class="navbar-header float-left">
-                        <a class="navbar-brand text-uppercase" href="#"><img src="assets/img/logo/logo.png"
+                        <a class="navbar-brand text-uppercase" href="{{route('home')}}"><img src="{{ Storage::url($setting_web->logo) }}" style="height: 60px;"
                                 alt="logo"></a>
                     </div><!-- /.navbar-header -->
 
@@ -49,7 +49,7 @@
                                         <div class="modal-header backgroud-style">
                                             <div class="gradient-bg"></div>
                                             <div class="popup-logo">
-                                                <img src="https://i.pinimg.com/originals/01/8d/35/018d35a1404ba58c9f80f4ac345a2c9c.png"
+                                                <img src=" {{ Storage::url($setting_web->logo) }} "
                                                     width="100" alt="">
                                             </div>
                                             <div class="popup-text text-center">
@@ -129,8 +129,16 @@
                                 <li class="menu-item-has-children ul-li-block">
                                     <a href="#!">Personalia</a>
                                     <ul class="sub-menu">
-                                        <li><a href="teacher.html">Teacher</a></li>
-                                        <li><a href="teacher-details.html">Teacher Details</a></li>
+                                        @php
+                                            $personalia_menu = \App\Models\MenuPersonalia::all();
+                                        @endphp
+                                        @foreach ($personalia_menu as $personalia)
+                                            <li><a href="{{ route('personalia.show', $personalia->slug) }}">{{ $personalia->name }}</a>
+                                            </li>
+                                        @endforeach
+                                        <li><a href="{{ route("teacher") }}">Tenaga Pendidik</a></li>
+                                        <li><a href="{{ route("staff") }}">Tenaga Kependidikan</a></li>
+
                                     </ul>
                                 </li>
                                 <li><a href="">E-Learning</a></li>
@@ -142,7 +150,9 @@
                     </nav>
 
                     <div class="mobile-menu">
-                        <div class="logo"><a href="index-1.html"><img src="assets/img/logo/logo.png"
+                        <div class="logo"><a href="{{ route('home') }}"><img
+                                    src="{{ Storage::url($setting_web->logo) }}
+                            "
                                     alt="Logo"></a></div>
                         <nav>
                             <ul>

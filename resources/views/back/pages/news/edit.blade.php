@@ -89,7 +89,7 @@
                             <div class="mb-10 fv-row">
                                 <label class="required form-label">Judul</label>
                                 <input type="text" name="title" class="form-control mb-2"
-                                    placeholder="Judul Pengumuman" value="{{ $news->title }}" required />
+                                    placeholder="Judul Berita" value="{{ $news->title }}" required />
                                 @error('title')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
-                        <a href="{{ route('back.pengumuman.index') }}" id="kt_ecommerce_add_product_cancel"
+                        <a href="{{ route('back.news.index') }}" id="kt_ecommerce_add_product_cancel"
                             class="btn btn-light me-5">Batal</a>
                         <button type="submit" class="btn btn-primary">
                             <span class="indicator-label">Simpan Perubahan</span>
@@ -195,7 +195,7 @@
                     ['clean'] // remove formatting button
                 ]
             },
-            placeholder: 'Tulis Pengumuman disini...',
+            placeholder: 'Tulis Berita disini...',
             theme: 'snow' // or 'bubble'
         });
 
