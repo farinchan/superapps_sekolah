@@ -55,5 +55,9 @@ class DatabaseSeeder extends Seeder
             'url' => 'https://gariskode.com',
             'status' => 1,
         ]);
+
+        $this->call([
+            NewsSeeder::class,
+        ]);
     }
 }

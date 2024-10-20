@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use App\Models\SettingWebsite;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,8 @@ class HomeController extends Controller
             'meta_keywords' => 'Home, Muhammadiyah, Bukittinggi',
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
+
+            'list_news' => News::latest()->where('status', 'published')->limit(6)->get(),
 
         ];
 

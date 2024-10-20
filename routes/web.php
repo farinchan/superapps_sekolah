@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\NewsController;
 
 use App\Http\Controllers\Back\DashboardController as BackDashboardController;
 use App\Http\Controllers\Back\NewsController as BackNewsController;
@@ -20,6 +21,13 @@ Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name(
 Route::post('/forgot-password', [AuthController::class, 'forgotPasswordProcess'])->name('forgot.password.process');
 Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset.password');
 Route::post('/reset-password/{token}', [AuthController::class, 'resetPasswordProcess'])->name('reset.password.process');
+
+Route::prefix('news')->name('news.')->group(function () {
+    Route::get('/', [NewsController::class, 'index'])->name('index');
+    route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
+    Route::get('/{slug}', [NewsController::class, 'show'])->name('show');
+    Route::post('/{slug}', [NewsController::class, 'comment'])->name('comment');
+});
 
 Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
     Route::get('/dashboard', [BackDashboardController::class, 'index'])->name('dashboard');

@@ -25,7 +25,7 @@
                                 <option value="archived">Archived</option>
                             </select>
                         </div>
-                        <a href="{{ route("admin.news.create") }}" class="btn btn-primary">
+                        <a href="{{ route('back.news.create') }}" class="btn btn-primary">
                             <i class="ki-duotone ki-plus fs-2"></i>Tambah Berita</a>
                     </div>
                 </div>
@@ -59,7 +59,7 @@
                                         <div class="d-flex align-items-center">
                                             <a href="#" class="symbol symbol-50px">
                                                 <span class="symbol-label"
-                                                    style="background-image:url( @if($news->thumbnail) {{ Storage::url($news->thumbnail) }} @else {{ asset('back/media/svg/files/blank-image.svg') }} @endif);"></span>
+                                                    style="background-image:url( @if ($news->thumbnail) {{ Storage::url($news->thumbnail) }} @else {{ asset('back/media/svg/files/blank-image.svg') }} @endif);"></span>
                                             </a>
                                             <div class="ms-5">
                                                 <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1"
@@ -73,12 +73,11 @@
                                         <span class="fw-bold">{{ $news->category->name }}</span>
                                     </td>
                                     <td class="text-end pe-0">
-                                            <div class="d-flex justify-content-start flex-column">
-                                                <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
-                                                    {{ $news->user->name }}</a>
-                                                <span
-                                                    class="text-muted fw-bold">{{ $news->created_at->diffForHumans() }}</span>
-                                            </div>
+                                        <div class="d-flex justify-content-start flex-column">
+                                            <a href="#" class="text-gray-800 text-hover-primary fw-bolder fs-6">
+                                                {{ $news->user->name }}</a>
+                                            <span class="text-muted fw-bold">{{ $news->created_at->diffForHumans() }}</span>
+                                        </div>
                                     </td>
                                     <td class="text-end pe-0">
                                         @if ($news->status == 'published')
@@ -97,11 +96,12 @@
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route("admin.news.edit", $news->id) }}" class="menu-link px-3">Edit</a>
+                                                <a href="{{ route('back.news.edit', $news->id) }}"
+                                                    class="menu-link px-3">Edit</a>
                                             </div>
                                             <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3" data-bs-toggle="modal"
-                                                data-bs-target="#delete_news{{ $news->id }}">Delete</a>
+                                                    data-bs-target="#delete_news{{ $news->id }}">Delete</a>
                                             </div>
                                         </div>
                                     </td>

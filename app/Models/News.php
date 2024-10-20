@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class News extends Model
 {
@@ -31,5 +32,9 @@ class News extends Model
     {
         return $this->hasMany(NewsViewer::class, 'news_id');
     }
-    
+
+    public function getThumbnail(){
+        return $this->thumbnail ? Storage::url($this->thumbnail) : 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg';
+    }
+
 }
