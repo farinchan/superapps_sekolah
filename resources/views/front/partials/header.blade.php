@@ -122,8 +122,13 @@
                                 <li class="menu-item-has-children ul-li-block">
                                     <a href="#!">Profil</a>
                                     <ul class="sub-menu">
-                                        <li><a href="teacher.html">Teacher</a></li>
-                                        <li><a href="teacher-details.html">Teacher Details</a></li>
+                                        @php
+                                            $profil_menu = \App\Models\MenuProfil::all();
+                                        @endphp
+                                        @foreach ($profil_menu as $profil)
+                                            <li><a href="{{ route('profil.show', $profil->slug) }}">{{ $profil->name }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </li>
                                 <li class="menu-item-has-children ul-li-block">

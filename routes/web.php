@@ -11,7 +11,9 @@ use App\Http\Controllers\Back\NewsController as BackNewsController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\UserController as BackUserController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
+use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
+use App\Http\Controllers\Front\ProfilMenu;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -30,6 +32,8 @@ Route::get('/tenaga-pendidik', [PersonaliaMenu::class, 'teacher'])->name('teache
 Route::get('/tenaga-kependidikan', [PersonaliaMenu::class, 'staff'])->name('staff');
 Route::get('/staff/{id}', [PersonaliaMenu::class, 'staffDetail'])->name('staff.detail');
 Route::get('/personalia/{slug}', [PersonaliaMenu::class, 'personalia'])->name('personalia.show');
+
+Route::get('/profil/{slug}', [ProfilMenu::class, 'index'])->name('profil.show');
 
 Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', [NewsController::class, 'index'])->name('index');
@@ -119,7 +123,17 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::put('/edit/{id}', [BackMenuPersonaliaController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [BackMenuPersonaliaController::class, 'destroy'])->name('destroy');
         });
+
+        Route::prefix('profil')->name('profil.')->group(function () {
+            Route::get('/', [BackMenuProfilController::class, 'index'])->name('index');
+            Route::post('/create', [BackMenuProfilController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [BackMenuProfilController::class, 'edit'])->name('edit');
+            Route::put('/edit/{id}', [BackMenuProfilController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [BackMenuProfilController::class, 'destroy'])->name('destroy');
+        });
+
     });
+
 
     Route::prefix('setting')->name('setting.')->group(function () {
         Route::get('/website', [BackSettingController::class, 'website'])->name('website');

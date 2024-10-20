@@ -222,8 +222,8 @@
                     </div>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link "
-                        href="#">
+                    <a class="menu-link @if (request()->routeIs('back.menu.profil.*')) active @endif"
+                        href="{{route("back.menu.profil.index")}}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-setting-3 fs-2">
                                 <span class="path1"></span>
@@ -301,6 +301,19 @@
                         </div>
                     </div>
                 </div> --}}
+
+                <div class="menu-item">
+                    <a class="menu-link"
+                        href="">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-sms fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Partner Link</span>
+                    </a>
+                </div>
 
                 <div class="menu-item">
                     <a class="menu-link"
