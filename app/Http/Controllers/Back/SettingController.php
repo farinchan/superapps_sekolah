@@ -145,7 +145,7 @@ class SettingController extends Controller
 
         $image = $request->file('image');
         $fileName = time() . '_' . $image->getClientOriginalName();
-        $filePath = $image->storeAs('banner/', $fileName, 'public');
+        $filePath = $image->storeAs('banner', $fileName, 'public');
         $banner->image = $filePath;
 
         $banner->save();

@@ -15,7 +15,7 @@ class SettingBanner extends Model
 
     public function getImage()
     {
-        return $this->image ? Storage::url($this->image) : asset('images/default.png');
+        return $this->image ? Storage::url($this->image) : asset('front/img/banner/s-1.jpg');
     }
-    
+
 }

@@ -38,7 +38,7 @@
                     </div>
                 </div>
 
-                <div class="menu-item">
+                <div class= "menu-item">
                     <a class="menu-link "
                         href="">
                         <span class="menu-icon">
@@ -48,7 +48,7 @@
                                 <span class="path3"></span>
                             </i>
                         </span>
-                        <span class="menu-title">Event</span>
+                        <span class="menu-title">Agenda</span>
                     </a>
                 </div>
 

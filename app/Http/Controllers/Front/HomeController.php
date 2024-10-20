@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
+use App\Models\SettingBanner;
 use App\Models\SettingWebsite;
 use Illuminate\Http\Request;
 
@@ -20,6 +21,7 @@ class HomeController extends Controller
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
 
+            'list_banner' => SettingBanner::where('status', 1)->get(),
             'list_news' => News::latest()->where('status', 'published')->limit(6)->get(),
 
         ];

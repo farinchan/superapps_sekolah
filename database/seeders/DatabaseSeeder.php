@@ -49,9 +49,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         SettingBanner::create([
-            'title' => 'MAN 1 Padang Panjang Membuka Pendaftaran Siswa Baru',
-            'subtitle' => 'Pendaftaran Siswa Baru Tahun Ajaran 2024/2025 Telah Dibuka',
-            'image' => 'banner/1.png',
+            'title' => 'Website Resmi',
+            'subtitle' => 'MAN 1 Padang Panjang',
+            'image' => 'banner/1729394266_man1.png',
             'url' => 'https://gariskode.com',
             'status' => 1,
         ]);

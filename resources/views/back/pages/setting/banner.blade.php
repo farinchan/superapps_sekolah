@@ -51,7 +51,7 @@
                         <div class="mb-3">
                             <label for="name" class="form-label required">Remote URL</label>
                             <input type="url" class="form-control form-control-solid" id="url" name="url"
-                                placeholder="https://muhammadiyahbukittinggi.org/XXXXXXX" required>
+                                placeholder="https://man1kotapadangpanjang.sch.id/XXXXXXX" required>
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@
                                     <div class="card card-custom card-stretch" style="cursor: pointer;"
                                         onclick="$('#banner{{ $banner->id }}').click()">
                                         <div class="card-body">
-                                            <img src="{{ Storage::url($banner->image) }}"
+                                            <img src="{{ $banner->getImage() }}"
                                                 id="banner_preview{{ $banner->id }}" class="rounded" alt=""
                                                 style="height: 200px; margin: auto; display: block; object-fit: cover;" />
                                         </div>
