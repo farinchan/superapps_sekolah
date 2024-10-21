@@ -9,7 +9,7 @@
 <meta property="og:description" content="{{ $meta_description }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ route('personalia.show', $personalia->slug) }}">
-<link rel="canonical" href="{{ route('asset', $personalia->slug) }}">
+<link rel="canonical" href="{{ route('personalia.show', $personalia->slug) }}">
 <meta property="og:image" content="{{ Storage::url($favicon) }}">
 @endsection
 
