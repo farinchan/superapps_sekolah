@@ -783,8 +783,8 @@
                                     <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
                                 </ul>
                                 <div class="teacher-name">
-                                    <span>Daniel
-                                        Alvares</span>
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
                                 </div>
                             </div>
                         </div>
@@ -802,8 +802,8 @@
                                     <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
                                 </ul>
                                 <div class="teacher-name">
-                                    <span>Daniel
-                                        Alvares</span>
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
                                 </div>
                             </div>
                         </div>
@@ -826,8 +826,8 @@
                                     <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
                                 </ul>
                                 <div class="teacher-name">
-                                    <span>Daniel
-                                        Alvares</span>
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
                                 </div>
                             </div>
                         </div>
@@ -845,8 +845,128 @@
                                     <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
                                 </ul>
                                 <div class="teacher-name">
-                                    <span>Daniel
-                                        Alvares</span>
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="teacher-category float-right">
+                            <span class="st-name">Mobile Apps </span>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="teacher-double">
+                    <div class="teacher-img-content relative-position">
+                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
+                        <div class="teacher-cntent">
+                            <div class="teacher-social-name ul-li-block">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
+                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                </ul>
+                                <div class="teacher-name">
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="teacher-category float-right">
+                            <span class="st-name">Mobile Apps </span>
+                        </div> --}}
+                    </div>
+                    <div class="teacher-img-content relative-position">
+                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
+                        <div class="teacher-cntent">
+                            <div class="teacher-social-name ul-li-block">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
+                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                </ul>
+                                <div class="teacher-name">
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="teacher-category float-right">
+                            <span class="st-name">Mobile Apps </span>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="teacher-double">
+                    <div class="teacher-img-content relative-position">
+                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
+                        <div class="teacher-cntent">
+                            <div class="teacher-social-name ul-li-block">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
+                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                </ul>
+                                <div class="teacher-name">
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="teacher-category float-right">
+                            <span class="st-name">Mobile Apps </span>
+                        </div> --}}
+                    </div>
+                    <div class="teacher-img-content relative-position">
+                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
+                        <div class="teacher-cntent">
+                            <div class="teacher-social-name ul-li-block">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
+                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                </ul>
+                                <div class="teacher-name">
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="teacher-category float-right">
+                            <span class="st-name">Mobile Apps </span>
+                        </div> --}}
+                    </div>
+                </div>
+                <div class="teacher-double">
+                    <div class="teacher-img-content relative-position">
+                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
+                        <div class="teacher-cntent">
+                            <div class="teacher-social-name ul-li-block">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
+                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                </ul>
+                                <div class="teacher-name">
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
+                                </div>
+                            </div>
+                        </div>
+                        {{-- <div class="teacher-category float-right">
+                            <span class="st-name">Mobile Apps </span>
+                        </div> --}}
+                    </div>
+                    <div class="teacher-img-content relative-position">
+                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
+                        <div class="teacher-cntent">
+                            <div class="teacher-social-name ul-li-block">
+                                <ul>
+                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
+                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                </ul>
+                                <div class="teacher-name">
+                                    {{-- <span>Daniel
+                                        Alvares</span> --}}
                                 </div>
                             </div>
                         </div>

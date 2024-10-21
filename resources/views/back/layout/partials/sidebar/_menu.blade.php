@@ -3,6 +3,8 @@
         <div id="kt_app_sidebar_menu_scroll" class="scroll-y my-5 mx-3" data-kt-scroll="true" data-kt-scroll-activate="true"
             data-kt-scroll-height="auto" data-kt-scroll-dependencies="#kt_app_sidebar_logo, #kt_app_sidebar_footer"
             data-kt-scroll-wrappers="#kt_app_sidebar_menu" data-kt-scroll-offset="5px" data-kt-scroll-save-state="true">
+
+
             <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu"
                 data-kt-menu="true" data-kt-menu-expand="false">
                 <div data-kt-menu-trigger="click"
@@ -32,6 +34,9 @@
                         </div> --}}
                     </div>
                 </div>
+
+
+
 
                 <div class="menu-item pt-5">
                     <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">Post</span>
@@ -96,8 +101,7 @@
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion ">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-award fs-2">
@@ -111,8 +115,7 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link "
-                                href="">
+                            <a class="menu-link " href="">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -120,8 +123,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link "
-                                href="">
+                            <a class="menu-link " href="">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -167,14 +169,15 @@
 
 
                 <div class="menu-item pt-5">
-                    <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">manajemen Pengguna</span>
+                    <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">Master
+                            Data</span>
                     </div>
                 </div>
                 <div class="menu-item">
                     <a class="menu-link @if (request()->routeIs('back.user.staff.*')) active @endif"
-                        href="{{route("back.user.staff.index")}}">
+                        href="{{ route('back.user.staff.index') }}">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-setting-3 fs-2">
+                            <i class="ki-duotone ki-people fs-2">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                                 <span class="path3"></span>
@@ -187,14 +190,11 @@
                 </div>
                 <div class="menu-item">
                     <a class="menu-link @if (request()->routeIs('back.user.student.*')) active @endif"
-                        href="{{route("back.user.student.index")}}">
+                        href="{{ route('back.user.student.index') }}">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-setting-3 fs-2">
+                            <i class="ki-duotone ki-user fs-2">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
-                                <span class="path3"></span>
-                                <span class="path4"></span>
-                                <span class="path5"></span>
                             </i>
                         </span>
                         <span class="menu-title">Siswa</span>
@@ -202,19 +202,69 @@
                 </div>
                 <div class="menu-item">
                     <a class="menu-link @if (request()->routeIs('back.user.parent.*')) active @endif"
-                        href="{{route("back.user.parent.index")}}">
+                        href="{{ route('back.user.parent.index') }}">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-setting-3 fs-2">
+                            <i class="ki-duotone ki-profile-user fs-2">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                                 <span class="path3"></span>
                                 <span class="path4"></span>
-                                <span class="path5"></span>
                             </i>
                         </span>
                         <span class="menu-title">Orang Tua</span>
                     </a>
                 </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-bank fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Kelas</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-calendar-8 fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                                <span class="path6"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Tahun Ajaran</span>
+                    </a>
+                </div>
+                <div class="menu-item">
+                    <a class="menu-link" href="">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-scroll fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Ekstrakurikuler</span>
+                    </a>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link" href="">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-fasten fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Partner</span>
+                    </a>
+                </div>
+
 
 
                 <div class="menu-item pt-5">
@@ -223,7 +273,7 @@
                 </div>
                 <div class="menu-item">
                     <a class="menu-link @if (request()->routeIs('back.menu.profil.*')) active @endif"
-                        href="{{route("back.menu.profil.index")}}">
+                        href="{{ route('back.menu.profil.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-setting-3 fs-2">
                                 <span class="path1"></span>
@@ -238,7 +288,7 @@
                 </div>
                 <div class="menu-item">
                     <a class="menu-link @if (request()->routeIs('back.menu.personalia.*')) active @endif"
-                        href="{{route("back.menu.personalia.index")}}">
+                        href="{{ route('back.menu.personalia.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-setting-3 fs-2">
                                 <span class="path1"></span>
@@ -302,22 +352,9 @@
                     </div>
                 </div> --}}
 
-                <div class="menu-item">
-                    <a class="menu-link"
-                        href="">
-                        <span class="menu-icon">
-                            <i class="ki-duotone ki-sms fs-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </span>
-                        <span class="menu-title">Partner Link</span>
-                    </a>
-                </div>
 
                 <div class="menu-item">
-                    <a class="menu-link"
-                        href="">
+                    <a class="menu-link" href="">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-sms fs-2">
                                 <span class="path1"></span>
