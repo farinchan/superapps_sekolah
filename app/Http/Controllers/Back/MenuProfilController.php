@@ -20,7 +20,7 @@ class MenuProfilController extends Controller
              'list_profil' => MenuProfil::all()
          ];
 
-         return view('back.pages.Profil.index', $data);
+         return view('back.pages.profil.index', $data);
      }
 
      public function store(Request $request)
