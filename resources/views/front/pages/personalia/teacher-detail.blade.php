@@ -151,13 +151,6 @@
 
                     <div class="col-md-3">
                         <div class="side-bar">
-                            <div class="side-bar-search">
-                                <form action="#" method="get">
-                                    <input type="text" class="" placeholder="Search" name="q"
-                                        value="{{ request('q') }}">
-                                    <button type="submit"><i class="fas fa-search"></i></button>
-                                </form>
-                            </div>
 
                             <div class="side-bar-widget ">
                                 <h2 class="widget-title text-capitalize"><span>Tentang</span> MAN 1 Padang Panjang.</h2>
