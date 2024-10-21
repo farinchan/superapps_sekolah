@@ -29,7 +29,6 @@ class PersonaliaMenu extends Controller
                 ->where('status', 'published')
                 ->limit(3)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')
                 ->orderBy('name', 'asc')
                 ->where(function ($query) use ($search) {
@@ -59,7 +58,6 @@ class PersonaliaMenu extends Controller
                 ->where('status', 'published')
                 ->limit(3)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
             'list_teacher' => Teacher::where('type', 'tenaga kependidikan')
                 ->orderBy('name', 'asc')
                 ->where(function ($query) use ($search) {
@@ -87,7 +85,6 @@ class PersonaliaMenu extends Controller
                 ->where('status', 'published')
                 ->limit(3)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
             'teacher' => $teacher,
         ];
 
@@ -111,7 +108,6 @@ class PersonaliaMenu extends Controller
                 ->where('status', 'published')
                 ->limit(3)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
             'personalia' => $personalia,
         ];
 

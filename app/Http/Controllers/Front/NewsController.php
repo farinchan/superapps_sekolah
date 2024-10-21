@@ -28,7 +28,7 @@ class NewsController extends Controller
                 ->where('status', 'published')
                 ->limit(3)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
+
             'list_news' => News::latest()
                 ->with(['category', 'user', 'viewers', 'comments'])
                 ->where('status', 'published')->where(function ($query) use ($search) {
@@ -50,7 +50,7 @@ class NewsController extends Controller
                 ->where('status', 'published')
                 ->limit(4)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
+
             'news' => $news,
             'related_news' => News::latest()
                 ->with(['category', 'user', 'viewers', 'comments'])
@@ -100,7 +100,6 @@ class NewsController extends Controller
                 ->where('status', 'published')
                 ->limit(4)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
             'list_news' => News::latest()
                 ->with(['category', 'user', 'viewers', 'comments'])
                 ->where('status', 'published')

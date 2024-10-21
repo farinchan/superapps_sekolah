@@ -29,7 +29,6 @@ class ProfilMenu extends Controller
                 ->where('status', 'published')
                 ->limit(3)
                 ->get(),
-            'categories' => NewsCategory::with('news')->get(),
             'profil' => $profil,
         ];
 
