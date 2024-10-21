@@ -26,12 +26,12 @@
 			<div class="container">
 				<div class="page-breadcrumb-content text-center">
 					<div class="page-breadcrumb-title">
-						<h2 class="breadcrumb-head black bold">Genius <span>Blog</span></h2>
+						<h2 class="breadcrumb-head black bold">Detail <span>Berita  </span></h2>
 					</div>
 					<div class="page-breadcrumb-item ul-li">
 						<ul class="breadcrumb text-uppercase black">
 							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active">blog Single</li>
+							<li class="breadcrumb-item active">News</li>
 						</ul>
 					</div>
 				</div>
