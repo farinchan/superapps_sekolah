@@ -8,9 +8,9 @@
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $meta_description }}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{ route('asset') }}">
-<link rel="canonical" href="{{ route('asset') }}">
-<meta property="og:image" content="{{ Storage::url($favicon) }}">
+<meta property="og:url" content="{{ route('news.show', $news->slug) }}">
+<link rel="canonical" href="{{ route('news.show', $news->slug) }}">
+<meta property="og:image" content="{{ $news->getThumbnail() }}">
 
 @endsection
 

@@ -10,7 +10,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ route('staff.detail', $teacher->id) }}">
 <link rel="canonical" href="{{ route('staff.detail', $teacher->id) }}">
-<meta property="og:image" content="{{ Storage::url($favicon) }}">
+<meta property="og:image" content="{{ $teacher->getPhoto() }}">
 @endsection
 
 @section('styles')
