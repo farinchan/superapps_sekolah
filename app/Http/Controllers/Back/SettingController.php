@@ -69,7 +69,7 @@ class SettingController extends Controller
         if ($request->hasFile('logo')) {
             Storage::delete('public/' . $setting->logo);
             $logo = $request->file('logo');
-            $setting->logo  = $logo->storeAs('setting', 'logo.' . $logo->getClientOriginalExtension(), 'public');
+            $setting->logo  = $logo->storeAs('setting', rand() . '.' . $logo->getClientOriginalExtension(), 'public');
         }
 
         if ($request->hasFile('favicon')) {
