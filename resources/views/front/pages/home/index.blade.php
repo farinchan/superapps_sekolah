@@ -130,12 +130,12 @@
                                                 {{ Carbon\Carbon::parse($agenda->start)->format('M Y') }}
                                             </div>
                                             <div class="event-text">
-                                                <h3 class="latest-title bold-font"><a href="#">Fully Responsive Web
-                                                        Design &
-                                                        Development.</a></h3>
+                                                <h3 class="latest-title bold-font"><a href="#">
+                                                        {{ $agenda->title }}
+                                                    </a></h3>
                                                 <div class="course-meta">
-                                                    <span class="course-category"><a href="#">Web Design</a></span>
-                                                    <span class="course-author"><a href="#">Koke</a></span>
+                                                    <span class="course-category"><a href="#">HUMAS</a></span>
+                                                    {{-- <span class="course-author"><a href="#">HUMAS</a></span> --}}
                                                 </div>
                                             </div>
                                         </div>
