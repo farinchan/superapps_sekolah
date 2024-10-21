@@ -4,8 +4,8 @@
             <div class="container">
                 <div class="navbar-default">
                     <div class="navbar-header float-left">
-                        <a class="navbar-brand text-uppercase" href="{{route('home')}}"><img src="{{ $setting_web->getLogo() }}" style="height: 60px;"
-                                alt="logo"></a>
+                        <a class="navbar-brand text-uppercase" href="{{ route('home') }}"><img
+                                src="{{ $setting_web->getLogo() }}" style="height: 60px;" alt="logo"></a>
                     </div><!-- /.navbar-header -->
 
                     {{-- <div class="select-lang">
@@ -49,8 +49,8 @@
                                         <div class="modal-header backgroud-style">
                                             <div class="gradient-bg"></div>
                                             <div class="popup-logo">
-                                                <img src=" {{ Storage::url($setting_web->logo) }} "
-                                                    width="100" alt="">
+                                                <img src=" {{ Storage::url($setting_web->logo) }} " width="100"
+                                                    alt="">
                                             </div>
                                             <div class="popup-text text-center">
                                                 <h2> <span>Masuk</span> Ke Akun Kamu.</h2>
@@ -126,7 +126,8 @@
                                             $profil_menu = \App\Models\MenuProfil::all();
                                         @endphp
                                         @foreach ($profil_menu as $profil)
-                                            <li><a href="{{ route('profil.show', $profil->slug) }}">{{ $profil->name }}</a>
+                                            <li><a
+                                                    href="{{ route('profil.show', $profil->slug) }}">{{ $profil->name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -138,11 +139,12 @@
                                             $personalia_menu = \App\Models\MenuPersonalia::all();
                                         @endphp
                                         @foreach ($personalia_menu as $personalia)
-                                            <li><a href="{{ route('personalia.show', $personalia->slug) }}">{{ $personalia->name }}</a>
+                                            <li><a
+                                                    href="{{ route('personalia.show', $personalia->slug) }}">{{ $personalia->name }}</a>
                                             </li>
                                         @endforeach
-                                        <li><a href="{{ route("teacher") }}">Tenaga Pendidik</a></li>
-                                        <li><a href="{{ route("staff") }}">Tenaga Kependidikan</a></li>
+                                        <li><a href="{{ route('teacher') }}">Tenaga Pendidik</a></li>
+                                        <li><a href="{{ route('staff') }}">Tenaga Kependidikan</a></li>
 
                                     </ul>
                                 </li>
@@ -155,34 +157,49 @@
                     </nav>
 
                     <div class="mobile-menu">
-                        <div class="logo"><a href="{{ route('home') }}"><img
-                                    src="{{ Storage::url($setting_web->logo) }}
-                            "
-                                    alt="Logo"></a></div>
+                        <div class="logo">
+                            <a href="{{ route('home') }}">
+                                <img src="{{ $setting_web->getLogo() }}" alt="Logo">
+                            </a>
+                        </div>
                         <nav>
                             <ul>
-                                <li><a href="index-1.html">Home</a>
-                                </li>
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="blog.html">Blog</a>
+                                <li><a href="{{ route('home') }}">Home</a></li>
+                                <li>
+                                    <a href="{{ route('news.index') }}">Berita</a>
                                     <ul>
-                                        <li><a href="blog.html">Blog</a></li>
-                                        <li><a href="blog-single.html">Blog sinlge</a></li>
+                                        @foreach ($categories as $category)
+                                            <li><a
+                                                    href="{{ route('news.category', $category->slug) }}">{{ $category->name }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </li>
-                                <li><a href="shop.html">Shop</a>
-                                </li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="#">Pages</a>
+                                <li><a href="#!">Profil</a>
                                     <ul>
-                                        <li><a href="course.html">Course</a></li>
-                                        <li><a href="course-details.html">course sinlge</a></li>
-                                        <li><a href="teacher.html">teacher</a></li>
-                                        <li><a href="teacher-details.html">teacher details</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                        <li><a href="check-out.html">Check Out</a></li>
+                                        @foreach ($profil_menu as $profil)
+                                            <li><a
+                                                    href="{{ route('profil.show', $profil->slug) }}">{{ $profil->name }}</a>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </li>
+                                <li >
+                                    <a href="#!">Personalia</a>
+                                    <ul>
+                                        @foreach ($personalia_menu as $personalia)
+                                            <li><a
+                                                    href="{{ route('personalia.show', $personalia->slug) }}">{{ $personalia->name }}</a>
+                                            </li>
+                                        @endforeach
+                                        <li><a href="{{ route('teacher') }}">Tenaga Pendidik</a></li>
+                                        <li><a href="{{ route('staff') }}">Tenaga Kependidikan</a></li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="">E-Learning</a></li>
+                                <li><a href="">PPDB</a></li>
+
                             </ul>
                         </nav>
 
