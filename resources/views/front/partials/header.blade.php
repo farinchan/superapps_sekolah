@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="navbar-default">
                     <div class="navbar-header float-left">
-                        <a class="navbar-brand text-uppercase" href="{{route('home')}}"><img src="{{ Storage::url($setting_web->logo) }}" style="height: 60px;"
+                        <a class="navbar-brand text-uppercase" href="{{route('home')}}"><img src="{{ $setting_web->getLogo() }}" style="height: 60px;"
                                 alt="logo"></a>
                     </div><!-- /.navbar-header -->
 
