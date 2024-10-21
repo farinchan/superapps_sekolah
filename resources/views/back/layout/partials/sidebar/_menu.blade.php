@@ -215,7 +215,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="">
+                    <a class="menu-link" href="#">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-bank fs-2">
                                 <span class="path1"></span>
@@ -226,7 +226,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="">
+                    <a class="menu-link" href="#">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-calendar-8 fs-2">
                                 <span class="path1"></span>
@@ -241,7 +241,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="">
+                    <a class="menu-link" href="#">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-scroll fs-2">
                                 <span class="path1"></span>
@@ -254,7 +254,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link" href="">
+                    <a class="menu-link" href="#">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-fasten fs-2">
                                 <span class="path1"></span>
