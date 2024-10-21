@@ -266,7 +266,7 @@
                     <div class="pl-5 col-sm-8">
                         <div class="about-us-text">
                             <div class="section-title relative-position mb20 headline text-left">
-                                <h2 style="font-size: 40px;">Julpiadi Hutabarat S.Ag M.S.I</h2>
+                                <h2 style="font-size: 40px;">LAINAH, S. Ag, M. Pd.I</h2>
                             </div>
                             <div class="about-content-text">
                                 <p class="text-white">
