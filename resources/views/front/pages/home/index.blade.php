@@ -256,12 +256,10 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="extra-pic text-center ">
-                            <img src="https://jthemes.net/themes/html/genius-course/assets/img/banner/wc-2.png"
+                            <img src="https://res.cloudinary.com/duuawbwih/image/upload/v1729514280/lainah_ed5fm4.png"
                                 alt="img">
                         </div>
                     </div>
-
-
 
                     <div class="pl-5 col-sm-8">
                         <div class="about-us-text">
