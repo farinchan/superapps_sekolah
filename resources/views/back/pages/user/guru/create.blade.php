@@ -176,17 +176,17 @@
                                 @enderror
                             </div>
                             <div class="mb-5 fv-row">
-                                <label class="required form-label">Email</label>
+                                <label class=" form-label">Email</label>
                                 <input type="email" name="email" class="form-control mb-2" placeholder="Email"
-                                    value="{{ old('email') }}" required />
+                                    value="{{ old('email') }}"  />
                                 @error('email')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-5 fv-row">
-                                <label class="required form-label">No. Telepon</label>
+                                <label class=" form-label">No. Telepon</label>
                                 <input type="text" name="no_telp" class="form-control mb-2"
-                                    placeholder="Nomor Telepon" value="{{ old('no_telp') }}" required />
+                                    placeholder="Nomor Telepon" value="{{ old('no_telp') }}"  />
                                 @error('no_telp')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror

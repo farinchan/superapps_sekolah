@@ -9,6 +9,9 @@ use App\Http\Controllers\Back\DashboardController as BackDashboardController;
 use App\Http\Controllers\Back\EventController as BackEventController;
 use App\Http\Controllers\Back\NewsController as BackNewsController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
+use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
+use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
+use App\Http\Controllers\Back\PartnerLinkController as BackPartnerLinkController;
 use App\Http\Controllers\Back\UserController as BackUserController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
 use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
@@ -86,6 +89,23 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::delete('/delete/{id}', [BackGalleryController::class, 'destroy'])->name('destroy');
     });
 
+    Route::prefix('school-year')->name('school-year.')->group(function () {
+        Route::get('/', [BackSchoolYearController::class, 'index'])->name('index');
+        Route::post('/create', [BackSchoolYearController::class, 'store'])->name('store');
+        Route::put('/edit/{id}', [BackSchoolYearController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackSchoolYearController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('classroom')->name('classroom.')->group(function () {
+        Route::get('/', [BackClassroomController::class, 'index'])->name('index');
+        Route::post('/create', [BackClassroomController::class, 'store'])->name('store');
+        Route::put('/edit/{id}', [BackClassroomController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackClassroomController::class, 'destroy'])->name('destroy');
+    });
+
+
+
+
     Route::prefix('user')->name('user.')->group(function () {
         Route::prefix('staff')->name('staff.')->group(function () {
             Route::get('/', [BackUserController::class, 'staff'])->name('index');
@@ -113,6 +133,13 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::put('/edit/{id}', [BackUserController::class, 'parentUpdate'])->name('update');
             Route::delete('/delete/{id}', [BackUserController::class, 'parentDestroy'])->name('destroy');
         });
+    });
+
+    Route::prefix('partner-link')->name('partner-link.')->group(function () {
+        Route::get('/', [BackPartnerLinkController::class, 'index'])->name('index');
+        Route::post('/create', [BackPartnerLinkController::class, 'store'])->name('store');
+        Route::put('/edit/{id}', [BackPartnerLinkController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackPartnerLinkController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('menu')->name('menu.')->group(function () {

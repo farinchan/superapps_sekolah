@@ -11,7 +11,7 @@
                                 <span class="path2"></span>
                             </i>
                             <input type="text" data-kt-user-table-filter="search"
-                                class="form-control form-control-solid w-250px ps-13" placeholder="Cari Anggota" />
+                                class="form-control form-control-solid w-250px ps-13" placeholder="Cari Siswa" />
                         </div>
                     </div>
                     <div class="card-toolbar">
@@ -29,65 +29,13 @@
                                 <div class="separator border-gray-200"></div>
                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                     <div class="mb-5">
-                                        <label class="form-label fs-6 fw-semibold">Keanggotaan</label>
+                                        <label class="form-label fs-6 fw-semibold">Jenis Kelamin</label>
                                         <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
                                             data-placeholder="Select option" data-allow-clear="true"
-                                            data-kt-user-table-filter="keanggotaan" data-hide-search="true">
+                                            data-kt-user-table-filter="keSiswaan" data-hide-search="true">
                                             <option></option>
-                                            <option value="Kader Muhammadiyah">Kader Muhammadiyah</option>
-                                            <option value="Warga Muhammadiyah">Warga Muhammadiyah</option>
-                                            <option value="Simpatisan Muhammadiyah">Simpatisan Muhammadiyah</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-5">
-                                        <label class="form-label fs-6 fw-semibold">Pekerjaan</label>
-                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                            data-placeholder="Select option" data-allow-clear="true"
-                                            data-kt-user-table-filter="pekerjaan">
-                                            <option></option>
-                                            <option value="Ustadz">Ustadz</option>
-                                            <option value="Dosen">Dosen</option>
-                                            <option value="Guru">Guru</option>
-                                            <option value="Arsitek">Arsitek</option>
-                                            <option value="Nelayan">Nelayan</option>
-                                            <option value="Perawat">Perawat</option>
-                                            <option value="Dokter">Dokter</option>
-                                            <option value="Bidan">Bidan</option>
-                                            <option value="Pemadam Kebakaran">Pemadam Kebakaran</option>
-                                            <option value="Kondektur">Kondektur</option>
-                                            <option value="Pilot">Pilot</option>
-                                            <option value="Masinis">Masinis</option>
-                                            <option value="Wartawan">Wartawan</option>
-                                            <option value="Penulis">Penulis</option>
-                                            <option value="Insinyur Mesin">Insinyur Mesin</option>
-                                            <option value="Ahli Gizi">Ahli Gizi</option>
-                                            <option value="Pustakawan">Pustakawan</option>
-                                            <option value="Hakim">Hakim</option>
-                                            <option value="Notaris">Notaris</option>
-                                            <option value="Teller Bank">Teller Bank</option>
-                                            <option value="Koki">Koki</option>
-                                            <option value="Artis">Artis</option>
-                                            <option value="Penerjemah">Penerjemah</option>
-                                            <option value="Tentara">Tentara</option>
-                                            <option value="Tukang Cukur">Tukang Cukur</option>
-                                            <option value="Petani">Petani</option>
-                                            <option value="Akuntan">Akuntan</option>
-                                            <option value="Pengacara">Pengacara</option>
-                                            <option value="Polisi">Polisi</option>
-                                            <option value="Pegawai Negeri">Pegawai Negeri</option>
-                                            <option value="Pegawai Swasta">Pegawai Swasta</option>
-                                            <option value="Wiraswasta">Wiraswasta</option>
-                                            <option value="Lainnya">Lainnya</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-5">
-                                        <label class="form-label fs-6 fw-semibold">Role</label>
-                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                            data-placeholder="Select option" data-allow-clear="true"
-                                            data-kt-user-table-filter="role" data-hide-search="true">
-                                            <option></option>
-                                            <option value="admin">admin</option>
-                                            <option value="user">user</option>
+                                            <option value="laki-laki">Laki-laki</option>
+                                            <option value="perempuan">Perempuan</option>
                                         </select>
                                     </div>
                                     <div class="d-flex justify-content-end">
@@ -100,8 +48,8 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('back.user.staff.create') }}" class="btn btn-primary">
-                                <i class="ki-duotone ki-plus fs-2"></i>Tambah Anggota</a>
+                            <a href="{{ route('back.user.student.create') }}" class="btn btn-primary">
+                                <i class="ki-duotone ki-plus fs-2"></i>Tambah Siswa</a>
                         </div>
                         <div class="d-flex justify-content-end align-items-center d-none" {{-- data-kt-user-table-toolbar="selected" --}}>
                             <div class="fw-bold me-5">
@@ -127,8 +75,8 @@
                                 <th class="min-w-125px">Staff</th>
                                 <th class="min-w-125px">Info</th>
                                 <th class="min-w-125px">Jenis Kelamin</th>
-                                <th class="min-w-125px">Tipe Staff</th>
-                                <th class="min-w-125px">Role</th>
+                                <th class="min-w-125px">Kebutuhan Khusus</th>
+                                <th class="min-w-125px">Disabilitas</th>
                                 <th class="min-w-125px">Waktu Bergabung</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
@@ -153,7 +101,8 @@
                                         <div class="d-flex flex-column">
                                             <a href="#"
                                                 class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
-                                            <span> NIP.{{ $user->nip }}</span>
+                                            <span> NISN.{{ $user->nisn }}</span>
+                                            <span> NIK.{{ $user->nik }}</span>
                                         </div>
                                     </td>
                                     <td>
@@ -173,12 +122,18 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <span class="text-dark fw-bolder text-hover-primary">{{ $user->type }}</span>
+                                        @if ($user->kebutuhan_khusus == 0)
+                                            Tidak
+                                        @else
+                                            Ya
+                                        @endif
                                     </td>
                                     <td>
-                                        @foreach ($user->user->getRoleNames() as $role)
-                                            <span class="badge badge-light-primary">{{ $role }}</span>
-                                        @endforeach
+                                        @if ($user->disabilitas == 0)
+                                            Tidak
+                                        @else
+                                            Ya
+                                        @endif
                                     </td>
                                     <td>{{ $user->created_at->diffForHumans() }}</td>
 
@@ -190,7 +145,7 @@
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
                                             <div class="menu-item px-3">
-                                                <a href="{{ route('back.user.staff.edit', $user->id) }}"
+                                                <a href="{{ route('back.user.student.edit', $user->id) }}"
                                                     class="menu-link px-3">Edit</a>
                                             </div>
                                             <div class="menu-item px-3">
@@ -212,7 +167,7 @@
             <div class="modal-dialog modal-dialog-centered mw-650px">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="fw-bold">Hapus Anggota</h2>
+                        <h2 class="fw-bold">Hapus Siswa</h2>
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
                             aria-label="Close">
                             <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
@@ -220,11 +175,11 @@
                         </div>
                     </div>
                     <div class="modal-body px-5">
-                        <form class="form" method="POST" action="{{ route('back.user.staff.destroy', $user->id) }}">
+                        <form class="form" method="POST" action="{{ route('back.user.student.destroy', $user->id) }}">
                             @method('DELETE')
                             @csrf
                             <h3 class="text-center">
-                                Apakah Anda Yakin Ingin Menghapus Anggota {{ $user->name }} ?
+                                Apakah Anda Yakin Ingin Menghapus Siswa {{ $user->name }} ?
                             </h3>
                             <div class="text-center pt-10">
                                 <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal"

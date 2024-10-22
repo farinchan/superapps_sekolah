@@ -20,8 +20,7 @@
                     $settingWebsite = new \App\Models\SettingWebsite();
                     $settingWebsite = $settingWebsite->first();
                 @endphp
-                <img alt="Logo" src="{{ Storage::url($settingWebsite->logo)
-                 }}" class="h-50px" />
+                <img alt="Logo" src="{{ Storage::url($settingWebsite->logo) }}" class="h-50px" />
             </a>
         </div>
         <!--end::Mobile logo-->

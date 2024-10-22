@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class UserController extends Controller
             'users' => Teacher::latest()->get(),
         ];
 
-        return view('back.pages.user.guru', $data);
+        return view('back.pages.user.guru.index', $data);
     }
 
     public function staffCreate()
@@ -34,7 +35,7 @@ class UserController extends Controller
             'sub_menu' => 'user',
         ];
 
-        return view('back.pages.user.create', $data);
+        return view('back.pages.user.guru.create', $data);
     }
 
     public function staffStore(Request $request)
@@ -148,7 +149,7 @@ class UserController extends Controller
             'user' => Teacher::findOrFail($id),
         ];
 
-        return view('back.pages.user.edit', $data);
+        return view('back.pages.user.guru.edit', $data);
     }
 
     public function staffUpdate(Request $request, $id)
@@ -227,6 +228,202 @@ class UserController extends Controller
 
         Alert::success('Sukses', 'User berhasil diubah');
         return redirect()->route('back.user.staff.index');
+    }
+
+    public function staffDestroy($id)
+    {
+        $teacher = Teacher::findOrFail($id);
+        $user = User::findOrFail($teacher->user_id);
+        Storage::disk('public')->delete($teacher->photo);
+        $teacher->delete();
+        $user->delete();
+
+        Alert::success('Sukses', 'User berhasil dihapus');
+        return redirect()->route('back.user.staff.index');
+    }
+
+    public function student()
+    {
+        $data = [
+            'title' => 'Siswa',
+            'menu' => 'User',
+            'sub_menu' => 'Siswa',
+            'users' => Student::latest()->get(),
+        ];
+
+        return view('back.pages.user.siswa.index', $data);
+    }
+
+    public function studentCreate()
+    {
+        $data = [
+            'title' => 'Tambah Siswa',
+            'menu' => 'user',
+            'sub_menu' => 'Siswa',
+        ];
+
+        return view('back.pages.user.siswa.create', $data);
+    }
+
+    public function studentStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'nisn' => 'required|unique:student',
+            'nik' => 'nullable|unique:student',
+            'birth_place' => 'nullable',
+            'birth_date' => 'nullable|date',
+            'gender' => 'required',
+            'address' => 'nullable|max:255',
+            'no_telp' => 'nullable',
+            'email' => 'nullable|email|unique:student',
+            'kebutuhan_khusus' => 'nullable',
+            'disabilitas' => 'nullable',
+            'father_name' => 'nullable',
+            'mother_name' => 'nullable',
+
+        ], [
+            'required' => ':attribute harus diisi',
+            'unique' => ':attribute sudah terdaftar',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'email' => 'Email tidak valid',
+            'date' => 'Tanggal tidak valid',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+        $user = new User();
+        $user->email = $request->email;
+        $user->password = bcrypt($request->nisn);
+        $user->save();
+        $user->assignRole('siswa');
+
+        $student = new Student();
+        $student->name = $request->name;
+        $student->nisn = $request->nisn;
+        $student->nik = $request->nik;
+        $student->birth_place = $request->birth_place;
+        $student->birth_date = $request->birth_date;
+        $student->gender = $request->gender;
+        $student->address = $request->address;
+        $student->no_telp = $request->no_telp;
+        $student->email = $request->email;
+        $student->kebutuhan_khusus = $request->kebutuhan_khusus;
+        $student->disabilitas = $request->disabilitas;
+        $student->father_name = $request->father_name;
+        $student->mother_name = $request->mother_name;
+        $student->status = true;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $student->photo = $image->storeAs('student', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $student->user_id = $user->id;
+        $student->save();
+
+        Alert::success('Sukses', 'Siswa berhasil ditambahkan');
+        return redirect()->route('back.user.student.index');
+
+    }
+
+    public function studentEdit($id)
+    {
+        $data = [
+            'title' => 'Edit Siswa',
+            'menu' => 'user',
+            'sub_menu' => 'user',
+            'user' => Student::findOrFail($id),
+        ];
+
+        return view('back.pages.user.siswa.edit', $data);
+    }
+
+    public function studentUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'nisn' => 'required|unique:student,nisn,' . $id,
+            'nik' => 'nullable|unique:student,nik,' . $id,
+            'birth_place' => 'nullable',
+            'birth_date' => 'nullable|date',
+            'gender' => 'required',
+            'address' => 'nullable|max:255',
+            'no_telp' => 'nullable',
+            'email' => 'nullable|email|unique:student,email,' . $id,
+            'kebutuhan_khusus' => 'nullable',
+            'disabilitas' => 'nullable',
+            'father_name' => 'nullable',
+            'mother_name' => 'nullable',
+        ], [
+            'required' => ':attribute harus diisi',
+            'unique' => ':attribute sudah terdaftar',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'email' => 'Email tidak valid',
+            'date' => 'Tanggal tidak valid',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $student = Student::findOrFail($id);
+        $student->name = $request->name;
+        $student->nisn = $request->nisn;
+        $student->nik = $request->nik;
+        $student->birth_place = $request->birth_place;
+        $student->birth_date = $request->birth_date;
+        $student->gender = $request->gender;
+        $student->address = $request->address;
+        $student->no_telp = $request->no_telp;
+        $student->email = $request->email;
+        $student->kebutuhan_khusus = $request->kebutuhan_khusus;
+        $student->disabilitas = $request->disabilitas;
+        $student->father_name = $request->father_name;
+        $student->mother_name = $request->mother_name;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            Storage::disk('public')->delete($student->photo);
+            $student->photo = $image->storeAs('student', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $student->save();
+
+        $user = User::findOrFail($student->user_id);
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        Alert::success('Sukses', 'Siswa berhasil diubah');
+        return redirect()->route('back.user.student.index');
+
+    }
+
+    public function studentDestroy($id)
+    {
+        $student = Student::findOrFail($id);
+        $user = User::findOrFail($student->user_id);
+        Storage::disk('public')->delete($student->photo);
+        $student->delete();
+        $user->delete();
+
+        Alert::success('Sukses', 'Siswa berhasil dihapus');
+        return redirect()->route('back.user.student.index');
     }
 
 

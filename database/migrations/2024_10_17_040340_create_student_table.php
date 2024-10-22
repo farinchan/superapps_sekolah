@@ -13,13 +13,23 @@ return new class extends Migration
     {
         Schema::create('student', function (Blueprint $table) {
             $table->id();
+            $table->string('photo')->nullable();
             $table->string('name');
-            $table->string('nis');
-            $table->string('nisn');
-            $table->string('photo');
-            $table->foreignId('classroom_id')->constrained('classroom')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('parent_id')->constrained('parent_student')->onDelete('cascade');
+            $table->string('nisn')->unique();
+            $table->string('nik')->unique()->nullable();
+            $table->string('birth_place')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', ['laki-laki', 'perempuan'])->nullable();
+            $table->string('address')->nullable();
+            $table->string('no_telp')->nullable();
+            $table->string('email')->nullable();
+            $table->boolean('kebutuhan_khusus')->default(false);
+            $table->boolean('disabilitas')->default(false);
+            $table->string('father_name')->nullable();
+            $table->string('mother_name')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
+            $table->foreignId('parent_id')->nullable()->constrained('parent_student')->onDelete('cascade');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
