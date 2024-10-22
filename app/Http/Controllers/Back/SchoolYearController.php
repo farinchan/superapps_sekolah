@@ -17,9 +17,10 @@ class SchoolYearController extends Controller
             'title' => 'Tahun Ajaran',
             'menu' => 'Tahun Ajaran',
             'sub_menu' => '',
+            'list_school_year' => SchoolYear::orderBy('start_year', 'asc')->get(),
         ];
 
-        return view('back.pages.school-year.index', $data);
+        return view('back.pages.school_year.index', $data);
     }
 
     public function store(Request $request)

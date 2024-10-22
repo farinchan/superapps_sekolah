@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use App\Models\News;
+use App\Models\Partner;
 use App\Models\SettingBanner;
 use App\Models\SettingWebsite;
 use App\Models\Student;
@@ -28,6 +29,7 @@ class HomeController extends Controller
             'list_news' => News::latest()->where('status', 'published')->limit(6)->get(),
             'list_agenda' => Event::orderBy('start', 'desc')->limit(6)->get(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')->inRandomOrder()->limit(7)->get(),
+            'list_partner' => Partner::all(),
 
             'tenaga_pendidik_count' => Teacher::where('type', 'tenaga pendidik')->count(),
             'tenaga_kependidikan_count' => Teacher::where('type', 'tenaga kependidikan')->count(),

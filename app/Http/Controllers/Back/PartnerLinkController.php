@@ -18,28 +18,36 @@ class PartnerLinkController extends Controller
             'title' => 'Partner Link',
             'menu' => 'Partner Link',
             'sub_menu' => '',
+            'list_partner' => Partner::all(),
         ];
 
-        return view('back.pages.partner-link.index', $data);
+        return view('back.pages.partner.index', $data);
     }
 
-    public function strore(Request $request)
+    public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'link' => 'required',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ], [
+            'name.required' => 'Nama wajib diisi',
+            'link.required' => 'Link wajib diisi',
+            'logo.image' => 'Logo harus berupa gambar',
+            'logo.mimes' => 'Logo harus berformat jpeg, png, jpg, gif, svg',
+            'logo.max' => 'Ukuran logo maksimal 2MB',
         ]);
 
         if ($validator->fails()) {
-            Alert::error('Gagal', 'Data gagal disimpan');
+            Alert::error('Gagal', $validator->errors()->all());
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $data = $request->all();
-        $data['logo'] = $request->file('logo')->storeAs('partner', Str::slug($request->name) . '.' . $request->file('logo')->extension(), 'public');
-
-        Partner::create($data);
+        Partner::create([
+            'name' => $request->name,
+            'url' => $request->link,
+            'logo' => $request->file('logo')->storeAs('partner', Str::slug($request->name) . '.' . $request->file('logo')->extension(), 'public'),
+        ]);
 
         Alert::success('Berhasil', 'Data berhasil disimpan');
         return redirect()->route('back.partner-link.index');
@@ -60,7 +68,7 @@ class PartnerLinkController extends Controller
 
         $data = Partner::find($id);
         $data->name = $request->name;
-        $data->link = $request->link;
+        $data->url = $request->link;
 
         if ($request->hasFile('logo')) {
             Storage::disk('public')->delete($data->logo);

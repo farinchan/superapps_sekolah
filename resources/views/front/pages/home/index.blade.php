@@ -989,33 +989,11 @@
                 <h2><span>Partner</span> Link</h2>
             </div>
             <div class="sponsor-item sponsor-1 ">
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-1.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-2.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-3.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-4.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-5.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-6.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-6.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-6.jpg') }}" alt="">
-                </div>
-                <div class="sponsor-pic text-center">
-                    <img src="{{ asset('front/img/sponsor/s-6.jpg') }}" alt="">
-                </div>
+                @foreach ($list_partner as $partner)
+                    <div class="sponsor-pic text-center">
+                        <a href="{{ $partner->url }}" target="_blank"><img src="{{ $partner->getLogo() }}" alt=""></a>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

@@ -148,6 +148,27 @@
 
                                     </ul>
                                 </li>
+                                <li class="menu-item-has-children ul-li-block">
+                                    <a href="#!">Ekstrakurikuler</a>
+                                    <ul class="sub-menu">
+                                        @php
+                                            $extracurriculars = \App\Models\Extracurricular::all();
+                                        @endphp
+                                        @foreach ($extracurriculars as $extracurricular)
+                                            <li><a href="">{{ $extracurricular->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children ul-li-block">
+                                    <a href="#!">Prestasi</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="">Prestasi Siswa</a></li>
+                                        <li><a href="">Prestasi Guru</a></li>
+                                        <li><a href="">Prestasi Sekolah</a></li>
+                                    </ul>
+                                </li>
+
                                 <li><a href="">E-Learning</a></li>
                                 <li><a href="">PPDB</a></li>
 
@@ -184,7 +205,7 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li >
+                                <li>
                                     <a href="#!">Personalia</a>
                                     <ul>
                                         @foreach ($personalia_menu as $personalia)
@@ -195,6 +216,23 @@
                                         <li><a href="{{ route('teacher') }}">Tenaga Pendidik</a></li>
                                         <li><a href="{{ route('staff') }}">Tenaga Kependidikan</a></li>
 
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#!">Ekstrakurikuler</a>
+                                    <ul>
+                                        @foreach ($extracurriculars as $extracurricular)
+                                            <li><a href="">{{ $extracurricular->name }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#!">Prestasi</a>
+                                    <ul>
+                                        <li><a href="">Prestasi Siswa</a></li>
+                                        <li><a href="">Prestasi Guru</a></li>
+                                        <li><a href="">Prestasi Sekolah</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="">E-Learning</a></li>

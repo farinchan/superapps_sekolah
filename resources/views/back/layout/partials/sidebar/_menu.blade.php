@@ -215,7 +215,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link @if (request()->routeIs('back.user.alumni.*')) active @endif"
+                        href="{{ route('back.classroom.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-bank fs-2">
                                 <span class="path1"></span>
@@ -226,7 +227,8 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link @if (request()->routeIs('back.school-year.index')) active @endif"0
+                        href="{{ route('back.school-year.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-calendar-8 fs-2">
                                 <span class="path1"></span>
@@ -254,7 +256,8 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link @if (request()->routeIs('back.partner-link.index')) active @endif"
+                        href="{{ route('back.partner-link.index') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-fasten fs-2">
                                 <span class="path1"></span>

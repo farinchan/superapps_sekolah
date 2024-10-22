@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use App\Models\Classroom;
+use App\Models\SchoolYear;
+use App\Models\Teacher;
 
 class ClassroomController extends Controller
 {
@@ -17,6 +19,9 @@ class ClassroomController extends Controller
             'title' => 'Kelas',
             'menu' => 'Kelas',
             'sub_menu' => '',
+            'list_classroom' => Classroom::orderBy('name', 'asc')->get(),
+            'list_teacher' => Teacher::orderBy('name', 'asc')->get(),
+            'list_school_year' => SchoolYear::orderBy('start_year', 'asc')->get(),
         ];
 
         return view('back.pages.classroom.index', $data);
