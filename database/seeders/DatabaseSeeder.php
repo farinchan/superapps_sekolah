@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Event;
+use App\Models\Extracurricular;
 use App\Models\SettingBanner;
 use App\Models\SettingWebsite;
 use App\Models\Teacher;
@@ -78,5 +79,68 @@ class DatabaseSeeder extends Seeder
         }
 
         Event::factory(10)->create();
+
+        Extracurricular::create([
+            'name' => 'MPK',
+            'slug' => 'mpk',
+            'description' => 'Majelist Pimpinan Kelas adalah wadan kelas yang bertugas mengatur kegiatan kelas.',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'OSIM',
+            'slug' => 'osim',
+            'description' => 'Organisasi Siswa Intra Madrasah adalah organisasi yang bertugas mengatur kegiatan ekstrakurikuler.',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'Dewan Ambalan',
+            'slug' => 'dewan-ambalan',
+            'description' => 'Dewan Ambalan adalah dewan yang bertugas mengatur kegiatan kepramukaan.',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'PIK-R',
+            'slug' => 'pik-r',
+            'description' => 'PIK-R Adalahh ........',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'Sispala',
+            'slug' => 'sispala',
+            'description' => 'Sispala adalah organisasi siswa pecinta alam ........',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'UKS',
+            'slug' => 'uks',
+            'description' => 'UKS adalah unit kesehatan sekolah yang bertugas mengatur kegiatan kesehatan.',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'PMR',
+            'slug' => 'pmr',
+            'description' => 'Palang Merah Remaja adalah organisasi yang bertugas mengatur kegiatan kemanusiaan.',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'KIR dan Riset',
+            'slug' => 'kir-dan-riset',
+            'description' => 'KIR dan Riset adalah kegiatan yang bertujuan untuk mengembangkan minat dan bakat siswa.',
+            'image' => 'extracurricular/example.png',
+        ]);
+
+        Extracurricular::create([
+            'name' => 'ER (robotic)',
+            'slug' => 'er-robotic',
+            'description' => 'ER (robotic) adalah kegiatan ......',
+            'image' => 'extracurricular/example.png',
+        ]);
     }
 }
