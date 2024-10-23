@@ -16,6 +16,7 @@ class SekapurSirihController extends Controller
             'title' => 'Sekapur Sirih',
             'menu' => 'Sekapur Sirih',
             'sub_menu' => '',
+            'data' => SekapurSirih::first(),
         ];
 
         return view('back.pages.sekapur_sirih', $data);

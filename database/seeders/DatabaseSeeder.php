@@ -37,6 +37,26 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ])->assignRole('admin');
 
+        Teacher::create([
+            'user_id' => 1,
+            'nip' => '1234567890',
+            'name' => 'Fajri Rinaldi Chan',
+            'gender' => 'laki-laki',
+            'birth_date' => '2002-04-06',
+            'birth_place' => 'Medan',
+            'no_telp' => '089613390766',
+            'email' => 'fajri@gariskode.com',
+            'address' => 'Jl Jala Raya, Griya Martubung, Medan',
+            'position' => 'Web Developer',
+            'photo' => 'teacher/1234567890.jpg',
+            'about' => 'Saya adalah Project Manager di Garis Kode',
+            'type' => 'tenaga kependidikan',
+            'facebook' => 'https://facebook.com',
+            'instagram' => 'https://instagram.com',
+            'twitter' => 'https://twitter.com',
+            'linkedin' => 'https://linkedin.com',
+        ]);
+
 
         SettingWebsite::create([
             'name' => 'MAN 1 Padang Panjang',

@@ -50,7 +50,7 @@
                                 </span>
                             </div>
                             <div class="text-muted fs-7">
-                                Set Thumbnail agenda, Hanya menerima file dengan ekstensi png, jpg, jpeg
+                                Set foto kepala madrasah disini
                             </div>
                         </div>
                     </div>
