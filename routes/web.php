@@ -11,6 +11,7 @@ use App\Http\Controllers\Back\NewsController as BackNewsController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
 use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
+use App\Http\Controllers\Back\ExtracurricularController as BackExtracurricularController;
 use App\Http\Controllers\Back\PartnerLinkController as BackPartnerLinkController;
 use App\Http\Controllers\Back\UserController as BackUserController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
@@ -133,6 +134,13 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::put('/edit/{id}', [BackUserController::class, 'parentUpdate'])->name('update');
             Route::delete('/delete/{id}', [BackUserController::class, 'parentDestroy'])->name('destroy');
         });
+    });
+
+    Route::prefix('extracurricular')->name('extracurricular.')->group(function () {
+        Route::get('/', [BackExtracurricularController::class, 'index'])->name('index');
+        Route::post('/create', [BackExtracurricularController::class, 'store'])->name('store');
+        Route::put('/edit/{id}', [BackExtracurricularController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackExtracurricularController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('partner-link')->name('partner-link.')->group(function () {

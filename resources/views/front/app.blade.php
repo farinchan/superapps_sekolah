@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{ asset('front/css/animate.min.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css">
 
     <link rel="stylesheet" href="{{ asset('front/css/colors/switch.css') }}">
     {{-- <link href="{{ asset('front/css/colors/color-2.css') }}" rel="alternate stylesheet" type="text/css"

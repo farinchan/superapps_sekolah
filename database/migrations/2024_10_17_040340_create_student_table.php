@@ -28,7 +28,6 @@ return new class extends Migration
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
-            $table->foreignId('parent_id')->nullable()->constrained('parent_student')->onDelete('cascade');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

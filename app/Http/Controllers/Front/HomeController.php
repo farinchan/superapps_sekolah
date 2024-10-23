@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Models\Extracurricular;
 use App\Models\News;
 use App\Models\Partner;
 use App\Models\SettingBanner;
@@ -28,6 +29,7 @@ class HomeController extends Controller
             'list_banner' => SettingBanner::where('status', 1)->get(),
             'list_news' => News::latest()->where('status', 'published')->limit(6)->get(),
             'list_agenda' => Event::orderBy('start', 'desc')->limit(6)->get(),
+            'list_extracurricular' => Extracurricular::all(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')->inRandomOrder()->limit(7)->get(),
             'list_partner' => Partner::all(),
 

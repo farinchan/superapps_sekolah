@@ -17,7 +17,7 @@
                     <div class="card-toolbar">
                         <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
                             <i class="ki-duotone ki-plus fs-2"></i>
-                            Tambah Partner
+                            Tambah Ekstrakurikuler
                         </a>
                     </div>
                 </div>
@@ -32,13 +32,13 @@
                                             value="1" />
                                     </div>
                                 </th>
-                                <th class="min-w-250px">Partner</th>
-                                <th class="min-w-250px">Link</th>
+                                <th class="min-w-250px">Ekstrakurikuler</th>
+                                <th class="min-w-250px">Deskripsi</th>
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
-                            @foreach ($list_partner as $item)
+                            @foreach ($list_extracurricular as $item)
                                 <tr>
                                     <td>
                                         <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -58,7 +58,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{ $item->url }}">{{ $item->url }}</a>
+                                        {{ $item->description }}
                                     </td>
                                     <td class="text-end">
                                         <a href="#"
@@ -93,7 +93,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h3 class="modal-title">Tambah Partner</h3>
+                    <h3 class="modal-title">Tambah Ekstrakurikuler</h3>
 
                     <!--begin::Close-->
                     <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
@@ -103,23 +103,23 @@
                     <!--end::Close-->
                 </div>
 
-                <form action="{{ route('back.partner-link.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('back.extracurricular.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="title" class="form-label">Nama Partner</label>
+                            <label for="title" class="form-label">Nama Ekstrakurikuler</label>
                             <input type="text" class="form-control" id="title" name="name"
-                                placeholder="Nama partner" required>
+                                placeholder="Nama Ekstrakurikuler" required>
                         </div>
                         <div class="mb-3">
-                            <label for="title" class="form-label">Link Partner</label>
-                            <input type="text" class="form-control" id="title" name="link"
-                                placeholder="https://example.com" required>
+                            <label for="title" class="form-label">Deskripsi</label>
+                            <textarea  class="form-control" placeholder="Deskripsi Ekstrakurikuler"
+                             name="description" id="description" cols="30" ></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="title" class="form-label">Logo Partner</label>
-                            <input type="file" class="form-control" id="title" name="logo"
-                                placeholder="Logo partner" accept="image/*" required>
+                            <label for="title" class="form-label">Logo Ekstrakurikuler</label>
+                            <input type="file" class="form-control" id="title" name="image"
+                                placeholder="Logo Ekstrakurikuler" accept="image/*" required>
                             <small>File harus berformat .jpg, .jpeg, .png, .gif, .svg <br>
                                 Ukuran maksimal 2MB</small>
                         </div>
@@ -136,12 +136,12 @@
 
 
 
-    @foreach ($list_partner as $item)
+    @foreach ($list_extracurricular as $item)
         <div class="modal fade" tabindex="-1" id="edit{{ $item->id }}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title">Edit Partner</h3>
+                        <h3 class="modal-title">Edit Ekstrakurikuler</h3>
 
                         <!--begin::Close-->
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
@@ -152,26 +152,26 @@
                         <!--end::Close-->
                     </div>
 
-                    <form action="{{ route('back.partner-link.update', $item->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('back.extracurricular.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
-                                <label for="title" class="form-label">Nama Partner</label>
+                                <label for="title" class="form-label">Nama Ekstrakurikuler</label>
                                 <input type="text" class="form-control" id="title" name="name"
-                                    placeholder="Nama partner" value="{{ $item->name }}" required>
+                                    placeholder="Nama Ekstrakurikuler" value="{{ $item->name }}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="title" class="form-label">Link Partner</label>
-                                <input type="text" class="form-control" id="title" name="link"
-                                    placeholder="https://example.com" value="{{ $item->url }}" required>
+                                <label for="title" class="form-label">Deskripsi</label>
+                                <textarea  class="form-control" placeholder="Deskripsi Ekstrakurikuler"
+                                 name="description" id="description" cols="30" >{{ $item->description }}</textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="title" class="form-label">Logo Partner</label>
-                                <input type="file" class="form-control" id="title" name="logo"
-                                    placeholder="Logo partner" accept="image/*">
+                                <label for="title" class="form-label">Logo Ekstrakurikuler</label>
+                                <input type="file" class="form-control" id="title" name="image"
+                                    placeholder="Logo Ekstrakurikuler" accept="image/*">
                                     <small>
-                                        Logo saat ini: <a href="{{ $item->getLogo() }}" target="_blank">{{ $item->logo }}</a>
+                                        Logo saat ini: <a href="{{ $item->getLogo() }}" target="_blank">{{ $item->image }}</a>
                                     </small> <br>
                                 <small>File harus berformat .jpg, .jpeg, .png, .gif, .svg <br>
                                     Ukuran maksimal 2MB</small>
@@ -190,7 +190,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title">Hapus Partner</h3>
+                        <h3 class="modal-title">Hapus Ekstrakurikuler</h3>
 
                         <!--begin::Close-->
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
@@ -201,12 +201,12 @@
                         <!--end::Close-->
                     </div>
 
-                    <form action="{{ route('back.partner-link.destroy', $item->id) }}" method="POST">
+                    <form action="{{ route('back.extracurricular.destroy', $item->id) }}" method="POST">
                         @method('DELETE')
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
-                                <p>Apakah Anda yakin ingin menghapus Partner <strong>{{ $item->name }}/</strong>?</p>
+                                <p>Apakah Anda yakin ingin menghapus Ekstrakurikuler <strong> {{ $item->name }} </strong>?</p>
                             </div>
                         </div>
 

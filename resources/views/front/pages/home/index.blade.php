@@ -1,23 +1,44 @@
 @extends('front.app')
 
-@section("seo")
-<title>{{ $title }}</title>
-<meta name="description" content="{{ $meta_description }}">
-<meta name="keywords" content="{{ $meta_keywords }}">
-<meta name="author" content="Fajri Rinaldi Chan">
+@section('seo')
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $meta_description }}">
+    <meta name="keywords" content="{{ $meta_keywords }}">
+    <meta name="author" content="Fajri Rinaldi Chan">
 
-<meta property="og:title" content="{{ $title }}">
-<meta property="og:description" content="{{ $meta_description }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ route('home') }}">
-<link rel="canonical" href="{{ route('home') }}">
-<meta property="og:image" content="{{ Storage::url($favicon) }}">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $meta_description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ route('home') }}">
+    <link rel="canonical" href="{{ route('home') }}">
+    <meta property="og:image" content="{{ Storage::url($favicon) }}">
+@endsection
 
+@section('styles')
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth'
+        });
+        calendar.render();
+      });
+    </script>
+    {{-- <style>
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+    </style> --}}
 @endsection
 
 @section('content')
     <!-- Start of slider section
-                                                      ============================================= -->
+                                                                                      ============================================= -->
     <section id="slide" class="slider-section">
         <div id="slider-item" class="slider-item-details">
             @foreach ($list_banner as $banner)
@@ -48,10 +69,10 @@
         </div>
     </section>
     <!-- End of slider section
-                                                    ============================================= -->
+                                                                                    ============================================= -->
 
     <!-- Start Latest News
-                                                    ============================================= -->
+                                                                                    ============================================= -->
     <section id="popular-course" class="popular-course-section mt-5">
         <div class="container">
             <div class="section-title mb20 headline text-left ">
@@ -105,15 +126,15 @@
         </div>
     </section>
     <!-- End Latest News
-                                                    ============================================= -->
+                                                                                    ============================================= -->
 
     <!-- Start latest section
-                                                    ============================================= -->
+                                                                                    ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
 
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="latest-area-content ">
                         <div class="section-title-2 mb65 headline text-left">
                             <h2><span>Agenda</span></h2>
@@ -148,104 +169,25 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-md-4">
+
+                <div class="col-md-5">
                     <div class="latest-area-content ">
                         <div class="section-title-2 mb65 headline text-left">
-                            <h2>Upcoming <span>Events.</span></h2>
+                            <h2><span>Kalender</span> Akademik.</h2>
                         </div>
-                        <div class="latest-events">
-                            <div class="latest-event-item">
-                                <div class="events-date  relative-position text-center">
-                                    <div class="gradient-bdr"></div>
-                                    <span class="event-date bold-font">22</span>
-                                    April 2018
-                                </div>
-                                <div class="event-text">
-                                    <h3 class="latest-title bold-font"><a href="#">Fully Responsive Web Design &
-                                            Development.</a></h3>
-                                    <div class="course-meta">
-                                        <span class="course-category"><a href="#">Web Design</a></span>
-                                        <span class="course-author"><a href="#">Koke</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="latest-events">
-                            <div class="latest-event-item">
-                                <div class="events-date  relative-position text-center">
-                                    <div class="gradient-bdr"></div>
-                                    <span class="event-date bold-font">07</span>
-                                    August 2018
-                                </div>
-                                <div class="event-text">
-                                    <h3 class="latest-title bold-font"><a href="#">Introduction to Mobile
-                                            Application Development.</a></h3>
-                                    <div class="course-meta">
-                                        <span class="course-category"><a href="#">Web Design</a></span>
-                                        <span class="course-author"><a href="#">Koke</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="latest-events">
-                            <div class="latest-event-item">
-                                <div class="events-date  relative-position text-center">
-                                    <div class="gradient-bdr"></div>
-                                    <span class="event-date bold-font">30</span>
-                                    Sept 2018
-                                </div>
-                                <div class="event-text">
-                                    <h3 class="latest-title bold-font"><a href="#">IOS Apps Programming &
-                                            Development.</a></h3>
-                                    <div class="course-meta">
-                                        <span class="course-category"><a href="#">Web Design</a></span>
-                                        <span class="course-author"><a href="#">Koke</a></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="view-all-btn bold-font">
-                            <a href="#">Check Calendar <i class="fas fa-calendar-alt"></i></a>
-                        </div>
-                    </div>
-                </div> --}}
-                <!-- /events -->
-
-                <div class="col-md-4">
-                    <div class="latest-area-content ">
-                        <div class="section-title-2 mb65 headline text-left">
-                            <h2><span>Video</span> Terbaru.</h2>
-                        </div>
-                        <div class="latest-video-poster relative-position mb20">
-                            <img src="{{ asset('front/img/banner/v-1.jpg') }}" alt="">
-                            <div class="video-play-btn text-center gradient-bg">
-                                <a class="popup-with-zoom-anim" href="https://www.youtube.com/watch?v=-g4TnixUdSc"><i
-                                        class="fas fa-play"></i></a>
-                            </div>
-                        </div>
-                        <div class="vidoe-text">
-                            <h3 class="latest-title bold-font"><a href="#">Learning IOS Apps in Amsterdam.</a>
-                            </h3>
-                            <p class="mb25">Lorem ipsum dolor sit amet, consectetuer delacosta adipiscing elit, sed
-                                diam nonummy.</p>
-                        </div>
-                        <div class="view-all-btn bold-font">
-                            <a href="#">View All Videos <i class="fas fa-chevron-circle-right"></i></a>
-                        </div>
+                        <div id='calendar'></div>
                     </div>
                 </div>
+
                 <!-- /. -->
             </div>
         </div>
     </section>
     <!-- End latest section
-                                                    ============================================= -->
+                                                                                    ============================================= -->
 
     <!-- Start why choose section
-                                                  ========================================= ==== -->
+                                                                                  ========================================= ==== -->
     <section id="why-choose" class="why-choose-section backgroud-style">
         <div class="container">
             <div class="section-title mb20 headline text-center ">
@@ -295,11 +237,11 @@
         </div>
     </section>
     <!-- End why choose section
-                                                  ============================================= -->
+                                                                                  ============================================= -->
 
 
     <!-- Start of Search Courses
-                                    ============================================= -->
+                                                                    ============================================= -->
     <section id="search-course" class="search-course-section">
         <div class="container">
             <div class="section-title mb20 headline text-center mb-5">
@@ -375,10 +317,10 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                    ============================================= -->
+                                                                    ============================================= -->
 
     <!-- Start Course category
-                                        ============================================= -->
+                                                                        ============================================= -->
     <section id="course-category" class="course-category-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -387,111 +329,34 @@
             </div>
             <div class="category-item">
                 <div class="row">
-                    <div class="col-md-3">
+                    @foreach ($list_extracurricular as $extracurricular)
+
+                    <div class="col-md-3"><a href="">
+
                         <div class="category-icon-title text-center ">
                             <div class="category-icon">
-                                <i class="text-gradiant flaticon-technology"></i>
+                                {{-- <i class="text-gradiant flaticon-technology"></i> --}}
+                                <img src="{{ $extracurricular->getLogo() }}" alt="" style="width: 100px;">
                             </div>
                             <div class="category-title">
-                                <h4>Responsive Website</h4>
+                                <h4>{{ $extracurricular->name }}</h4>
                             </div>
                         </div>
+                    </a>
                     </div>
+                    @endforeach
                     <!-- /category -->
 
-                    <div class="col-md-3">
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                <i class="text-gradiant flaticon-app-store"></i>
-                            </div>
-                            <div class="category-title">
-                                <h4>IOS Applications</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /category -->
-
-                    <div class="col-md-3">
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                <i class="text-gradiant flaticon-artist-tools"></i>
-                            </div>
-                            <div class="category-title">
-                                <h4>Graphic Design</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /category -->
-
-                    <div class="col-md-3">
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                <i class="text-gradiant flaticon-business"></i>
-                            </div>
-                            <div class="category-title">
-                                <h4>Marketing</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /category -->
-
-                    <div class="col-md-3">
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                <i class="text-gradiant flaticon-dna"></i>
-                            </div>
-                            <div class="category-title">
-                                <h4>Science</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /category -->
-
-                    <div class="col-md-3">
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                <i class="text-gradiant flaticon-cogwheel"></i>
-                            </div>
-                            <div class="category-title">
-                                <h4>Enginering</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /category -->
-
-                    <div class="col-md-3">
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                <i class="text-gradiant flaticon-technology-1"></i>
-                            </div>
-                            <div class="category-title">
-                                <h4>Photography</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /category -->
-
-                    <div class="col-md-3">
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                <i class="text-gradiant flaticon-technology-2"></i>
-                            </div>
-                            <div class="category-title">
-                                <h4>Mobile Application</h4>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /category -->
                 </div>
             </div>
         </div>
     </section>
     <!-- End Course category
-                                    ============================================= -->
+                                                                    ============================================= -->
 
 
     <!-- Start of course teacher
-                                    ============================================= -->
+                                                                    ============================================= -->
     <section id="course-teacher" class="course-teacher-section">
         <div class="jarallax">
             <div class="container">
@@ -508,9 +373,12 @@
                                     <div class="teacher-cntent">
                                         <div class="teacher-social-name ul-li-block">
                                             <ul>
-                                                <li><a href="{{ $teacher->facebook }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                                <li><a href="{{ $teacher->instagram }}" target="_blank"><i class="fab fa-instagram"></i></a></li>
-                                                <li><a href="{{ $teacher->linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a></li>
+                                                <li><a href="{{ $teacher->facebook }}" target="_blank"><i
+                                                            class="fab fa-facebook-f"></i></a></li>
+                                                <li><a href="{{ $teacher->instagram }}" target="_blank"><i
+                                                            class="fab fa-instagram"></i></a></li>
+                                                <li><a href="{{ $teacher->linkedin }}" target="_blank"><i
+                                                            class="fab fa-linkedin"></i></a></li>
 
                                             </ul>
                                             {{-- <div class="teacher-name">
@@ -527,13 +395,14 @@
                                                 </div>
                                             </div>
                                             <div class="teacher-category float-right">
-                                                <a href="{{route("staff.detail", $teacher->id)}}"><span style="font-size: 18px;"
-                                                    class="st-name">{{ $teacher->name }} </span></a>
+                                                <a href="{{ route('staff.detail', $teacher->id) }}"><span
+                                                        style="font-size: 18px;" class="st-name">{{ $teacher->name }}
+                                                    </span></a>
 
-                                                 <br>
-                                                 <div class="float-right" style="font-size: 14px; color: #e0e0e0;">
+                                                <br>
+                                                <div class="float-right" style="font-size: 14px; color: #e0e0e0;">
                                                     {{ $teacher->position }}
-                                                 </div>
+                                                </div>
 
                                             </div>
                                         </div>
@@ -545,17 +414,17 @@
                     </div>
 
                     <div class="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font ">
-                        <a href="{{ route("teacher") }}">Lihat Semua Guru <i class="fas fa-caret-right"></i></a>
+                        <a href="{{ route('teacher') }}">Lihat Semua Guru <i class="fas fa-caret-right"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <!-- End of course teacher
-                                    ============================================= -->
+                                                                    ============================================= -->
 
     <!-- Start of best course
-                                    ============================================= -->
+                                                                    ============================================= -->
     <section id="best-course" class="best-course-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -759,10 +628,10 @@
         </div>
     </section>
     <!-- End of best course
-                                    ============================================= -->
+                                                                    ============================================= -->
 
     <!-- Start of genius teacher v2
-                          ============================================= -->
+                                                          ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title mb20  headline text-left">
@@ -978,11 +847,24 @@
         </div>
     </section>
     <!-- End of genius teacher v2
-                          ============================================= -->
+                                        ============================================= -->
 
 
     <!-- Start of sponsor section
-                                                    ============================================= -->
+                                        ============================================= -->
+    <section id="sponsor" class="sponsor-section">
+        <div class="container">
+            <div class="section-title-2 mb65 headline text-left ">
+                <h2><span>Video</span> Youtube Terbaru</h2>
+            </div>
+            <div class="row" id="youtube">
+            </div>
+    </section>
+    <!-- End of sponsor section
+                                     ============================================= -->
+
+    <!-- Start of sponsor section
+                                        ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -991,19 +873,20 @@
             <div class="sponsor-item sponsor-1 ">
                 @foreach ($list_partner as $partner)
                     <div class="sponsor-pic text-center">
-                        <a href="{{ $partner->url }}" target="_blank"><img src="{{ $partner->getLogo() }}" alt=""></a>
+                        <a href="{{ $partner->url }}" target="_blank"><img src="{{ $partner->getLogo() }}"
+                                alt=""></a>
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
     <!-- End of sponsor section
-                                    ============================================= -->
+                                     ============================================= -->
 
 
 
     <!-- Start of Search Courses
-                                    ============================================= -->
+                                                                    ============================================= -->
     <section id="search-course" class="search-course-section home-secound-course-search backgroud-style">
         <div class="container">
 
@@ -1059,5 +942,60 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                      ============================================= -->
+                                                                                      ============================================= -->
+@endsection
+
+@section('scripts')
+
+
+    <script>
+        var youtube = document.getElementById('youtube');
+        fetch(
+                'https://www.googleapis.com/youtube/v3/search?key={{ env("GOOGLE_API_KEY") }}&channelId=UCAWYvs8B_MPdRpKGd1rOWOQ&part=snippet,id&type=video&order=date&maxResults=8'
+            )
+            .then(response => response.json())
+            .then(data => {
+                items = data.items;
+                items.forEach(item => {
+
+                    if (item.id.kind === 'youtube#video') {
+                        youtube.innerHTML += `
+                        <div class="col-md-3">
+                            <div class="latest-video-poster relative-position mb20">
+                                <img src="${item.snippet.thumbnails.high.url}" alt="">
+                                <div class="video-play-btn text-center gradient-bg">
+                                    <a class="popup-youtube" href="https://www.youtube.com/watch?v=${item.id.videoId}"><i
+                                            class="fas fa-play"></i></a>
+                                </div>
+                            </div>
+                            <div class="vidoe-text">
+                                <h3 class="latest-title bold-font"><a href="#">${item.snippet.title}</a>
+                                </h3>
+                                <p class="mb25">${item.snippet.description}</p>
+                            </div>
+                        </div>
+                        `
+
+                        $(`.popup-youtube`).magnificPopup({
+                            type: 'iframe',
+                            iframe: {
+                                markup: '<div class="mfp-iframe-scaler">' +
+                                    '<div class="mfp-close"></div>' +
+                                    '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' +
+                                    '</div>',
+                                patterns: {
+                                    youtube: {
+                                        index: 'youtube.com/',
+                                        id: 'v=',
+                                        src: 'https://www.youtube.com/embed/%id%?autoplay=1'
+                                    }
+                                },
+                                srcAction: 'iframe_src',
+                            }
+                        });
+                    }
+                });
+
+            });
+    </script>
 @endsection
