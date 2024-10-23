@@ -167,6 +167,15 @@
                     </div>
                 </div>
 
+                <div class= "menu-item">
+                    <a class="menu-link @if (request()->routeIs('back.sekapur_sirih')) active @endif" href="{{ route('back.sekapur_sirih') }}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-star fs-2"></i>
+                        </span>
+                        <span class="menu-title">Sekapur Sirih</span>
+                    </a>
+                </div>
+
 
                 <div class="menu-item pt-5">
                     <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
@@ -291,7 +300,10 @@
                 </div>
 
                 <div data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion @if (request()->routeIs('back.setting.*')) here show @endif">
+                    class="menu-item menu-accordion @if (request()->routeIs('back.user.*') ||
+                            request()->routeIs('back.classroom.*') ||
+                            request()->routeIs('back.school-year.*') ||
+                            request()->routeIs('back.extracurricular.*')) here show @endif">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-like-folder fs-2">

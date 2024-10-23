@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Event;
 use App\Models\Extracurricular;
+use App\Models\SekapurSirih;
 use App\Models\SettingBanner;
 use App\Models\SettingWebsite;
 use App\Models\Teacher;
@@ -141,6 +142,11 @@ class DatabaseSeeder extends Seeder
             'slug' => 'er-robotic',
             'description' => 'ER (robotic) adalah kegiatan ......',
             'image' => 'extracurricular/example.png',
+        ]);
+
+        SekapurSirih::create([
+            'image' => 'sekapur_sirih/sekapur_sirih.png',
+            'content' => '<h6> Assalamu\'alaikum Wr. Wb. </h6> <p> Selamat datang di website MAN 1 Padang Panjang. Semoga dengan adanya website ini, kita dapat lebih mudah dalam mendapatkan informasi seputar kegiatan sekolah. </p> <p> Terima kasih. Wassalamu\'alaikum Wr. Wb. </p>',
         ]);
     }
 }

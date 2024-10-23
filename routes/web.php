@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\PersonaliaMenu;
 use App\Http\Controllers\Back\DashboardController as BackDashboardController;
 use App\Http\Controllers\Back\EventController as BackEventController;
 use App\Http\Controllers\Back\NewsController as BackNewsController;
+use App\Http\Controllers\Back\SekapurSirihController as BackSekapurSirihController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
 use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
@@ -90,6 +91,9 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::delete('/delete/{id}', [BackGalleryController::class, 'destroy'])->name('destroy');
     });
 
+    Route::get('/sekapur-sirih', [BackSekapurSirihController::class, 'index'])->name('sekapur_sirih');
+    Route::put('/sekapur-sirih', [BackSekapurSirihController::class, 'update'])->name('sekapur_sirih.update');
+
     Route::prefix('school-year')->name('school-year.')->group(function () {
         Route::get('/', [BackSchoolYearController::class, 'index'])->name('index');
         Route::post('/create', [BackSchoolYearController::class, 'store'])->name('store');
@@ -103,8 +107,6 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::put('/edit/{id}', [BackClassroomController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [BackClassroomController::class, 'destroy'])->name('destroy');
     });
-
-
 
 
     Route::prefix('user')->name('user.')->group(function () {

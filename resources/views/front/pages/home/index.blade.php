@@ -191,8 +191,8 @@
     <section id="why-choose" class="why-choose-section backgroud-style">
         <div class="container">
             <div class="section-title mb20 headline text-center ">
-                <span class="subtitle text-uppercase">Kata Sambuatan</span>
-                <h2><span>Kepala Sekolah</span> MAN 1 Padang Panjang</h2>
+                <span class="subtitle text-uppercase">Sekapur Sirih</span>
+                <h2><span>Kepala</span> MAN 1 Padang Panjang</h2>
             </div>
             <div class="extra-features-content">
                 <div class="row">
