@@ -23,11 +23,6 @@ class NewsController extends Controller
 
         $data = [
             'category' => '',
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(3)
-                ->get(),
 
             'list_news' => News::latest()
                 ->with(['category', 'user', 'viewers', 'comments'])
@@ -45,11 +40,6 @@ class NewsController extends Controller
         $news = News::where('slug', $slug)->first();
         $data = [
             'category' => '',
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(4)
-                ->get(),
 
             'news' => $news,
             'related_news' => News::latest()
@@ -95,11 +85,6 @@ class NewsController extends Controller
         $category = NewsCategory::where('slug', $slug)->first();
         $data = [
             'category' => $category,
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(4)
-                ->get(),
             'list_news' => News::latest()
                 ->with(['category', 'user', 'viewers', 'comments'])
                 ->where('status', 'published')

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogTeacher;
 use App\Models\Event;
 use App\Models\Extracurricular;
 use App\Models\News;
@@ -33,6 +34,7 @@ class HomeController extends Controller
             'sekapur_sirih' => SekapurSirih::first(),
             'list_extracurricular' => Extracurricular::all(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')->inRandomOrder()->limit(7)->get(),
+            'list_blog_teacher' => BlogTeacher::latest()->limit(8)->get(),
             'list_partner' => Partner::all(),
 
             'tenaga_pendidik_count' => Teacher::where('type', 'tenaga pendidik')->count(),
@@ -56,11 +58,6 @@ class HomeController extends Controller
             'meta_keywords' => 'Sekapur Sirih, Muhammadiyah, Bukittinggi',
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(3)
-                ->get(),
 
             'sekapur_sirih' => $sekapur_sirih,
         ];

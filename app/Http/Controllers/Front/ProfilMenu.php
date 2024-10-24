@@ -24,11 +24,6 @@ class ProfilMenu extends Controller
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
 
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(3)
-                ->get(),
             'profil' => $profil,
         ];
 

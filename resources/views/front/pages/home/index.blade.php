@@ -20,12 +20,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            calendar.render();
         });
-        calendar.render();
-      });
     </script>
     {{-- <style>
         #calendar {
@@ -38,7 +38,7 @@
 
 @section('content')
     <!-- Start of slider section
-                                                                                      ============================================= -->
+                                                                                          ============================================= -->
     <section id="slide" class="slider-section">
         <div id="slider-item" class="slider-item-details">
             @foreach ($list_banner as $banner)
@@ -69,10 +69,10 @@
         </div>
     </section>
     <!-- End of slider section
-                                                                                    ============================================= -->
+                                                                                        ============================================= -->
 
     <!-- Start Latest News
-                                                                                    ============================================= -->
+                                                                                        ============================================= -->
     <section id="popular-course" class="popular-course-section mt-5">
         <div class="container">
             <div class="section-title mb20 headline text-left ">
@@ -126,10 +126,10 @@
         </div>
     </section>
     <!-- End Latest News
-                                                                                    ============================================= -->
+                                                                                        ============================================= -->
 
     <!-- Start latest section
-                                                                                    ============================================= -->
+                                                                                        ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -184,10 +184,10 @@
         </div>
     </section>
     <!-- End latest section
-                                                                                    ============================================= -->
+                                                                                        ============================================= -->
 
     <!-- Start why choose section
-                                                                                  ========================================= ==== -->
+                                                                                      ========================================= ==== -->
     <section id="why-choose" class="why-choose-section backgroud-style">
         <div class="container">
             <div class="section-title mb20 headline text-center ">
@@ -198,8 +198,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="extra-pic text-center ">
-                            <img src="{{ $sekapur_sirih->getImage() }}"
-                                alt="img">
+                            <img src="{{ $sekapur_sirih->getImage() }}" alt="img">
                         </div>
                     </div>
 
@@ -209,14 +208,15 @@
                                 <h2 style="font-size: 40px;">{{ $sekapur_sirih->name }}</h2>
                             </div>
                             <div class="about-content-text">
-                                <p class="text-white" >Assalaamu'alaikum Warahmatullahi Wabarakatuh.</p>
+                                <p class="text-white">Assalaamu'alaikum Warahmatullahi Wabarakatuh.</p>
                                 <p class="text-white">
                                     {{ Str::limit(strip_tags($sekapur_sirih->content), 400) }}
                                 </p>
 
                                 <div class="about-btn ">
                                     <div class="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font">
-                                        <a href="{{ route("sekapur_sirih") }}">Lihat Selengkapnya <i class="fas fa-caret-right"></i></a>
+                                        <a href="{{ route('sekapur_sirih') }}">Lihat Selengkapnya <i
+                                                class="fas fa-caret-right"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -228,11 +228,11 @@
         </div>
     </section>
     <!-- End why choose section
-                                                                                  ============================================= -->
+                                                                                      ============================================= -->
 
 
     <!-- Start of Search Courses
-                                                                    ============================================= -->
+                                                                        ============================================= -->
     <section id="search-course" class="search-course-section">
         <div class="container">
             <div class="section-title mb20 headline text-center mb-5">
@@ -308,10 +308,10 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                    ============================================= -->
+                                                                        ============================================= -->
 
     <!-- Start Course category
-                                                                        ============================================= -->
+                                                                            ============================================= -->
     <section id="course-category" class="course-category-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -321,20 +321,20 @@
             <div class="category-item">
                 <div class="row">
                     @foreach ($list_extracurricular as $extracurricular)
+                        <div class="col-md-3"><a href="">
 
-                    <div class="col-md-3"><a href="">
-
-                        <div class="category-icon-title text-center ">
-                            <div class="category-icon">
-                                {{-- <i class="text-gradiant flaticon-technology"></i> --}}
-                                <img src="{{ $extracurricular->getLogo() }}" alt="" style="width: 100px;">
-                            </div>
-                            <div class="category-title">
-                                <h4>{{ $extracurricular->name }}</h4>
-                            </div>
+                                <div class="category-icon-title text-center ">
+                                    <div class="category-icon">
+                                        {{-- <i class="text-gradiant flaticon-technology"></i> --}}
+                                        <img src="{{ $extracurricular->getLogo() }}" alt=""
+                                            style="width: 100px;">
+                                    </div>
+                                    <div class="category-title">
+                                        <h4>{{ $extracurricular->name }}</h4>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                    </div>
                     @endforeach
                     <!-- /category -->
 
@@ -343,11 +343,11 @@
         </div>
     </section>
     <!-- End Course category
-                                                                    ============================================= -->
+                                                                        ============================================= -->
 
 
     <!-- Start of course teacher
-                                                                    ============================================= -->
+                                                                        ============================================= -->
     <section id="course-teacher" class="course-teacher-section">
         <div class="jarallax">
             <div class="container">
@@ -412,10 +412,10 @@
         </div>
     </section>
     <!-- End of course teacher
-                                                                    ============================================= -->
+                                                                        ============================================= -->
 
     <!-- Start of best course
-                                                                    ============================================= -->
+                                                                        ============================================= -->
     <section id="best-course" class="best-course-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -424,205 +424,45 @@
             </div>
             <div class="best-course-area mb45">
                 <div class="row">
-
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="trend-badge-2 text-center text-uppercase">
-                                    <i class="fas fa-bolt"></i>
-                                    <span>Trending</span>
+                    @foreach ($list_blog_teacher as $blog_teacher)
+                        <div class="col-md-3">
+                            <div class="best-course-pic-text relative-position ">
+                                <div class="best-course-pic relative-position">
+                                    <img src="{{ $blog_teacher->getThumbnail() }}" alt="" style="height: 200px; width: 100%; object-fit: cover;">
+                                    @if ($blog_teacher->viewers->count() > 100)
+                                        <div class="trend-badge-2 text-center text-uppercase">
+                                            <i class="fas fa-bolt"></i>
+                                            <span>Trending</span>
+                                        </div>
+                                    @endif
+                                    <div class="course-details-btn">
+                                        <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                                    </div>
+                                    <div class="blakish-overlay"></div>
                                 </div>
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /course -->
-
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
+                                <div class="best-course-text">
+                                    <div class="course-title mb20 headline relative-position">
+                                        <h3><a href="#">
+                                                {{ Str::limit($blog_teacher->title, 50) }}
+                                            </a></h3>
+                                    </div>
+                                    <div class="course-meta">
+                                        <span class="course-category"><a href="#">{{ $blog_teacher->teacher->name }}</a></span>
+                                        <span class="course-author"><a href="#"> {{ $blog_teacher->viewers->count() }} dilihat</a></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="trend-badge-2 text-center text-uppercase">
-                                    <i class="fas fa-bolt"></i>
-                                    <span>Trending</span>
-                                </div>
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="best-course-pic-text relative-position ">
-                            <div class="best-course-pic relative-position">
-                                <img src="{{ asset('front/img/course/bc-1.jpg') }}" alt="">
-                                <div class="course-details-btn">
-                                    <a href="#">Selengkapnya <i class="fas fa-arrow-right"></i></a>
-                                </div>
-                                <div class="blakish-overlay"></div>
-                            </div>
-                            <div class="best-course-text">
-                                <div class="course-title mb20 headline relative-position">
-                                    <h3><a href="#">
-                                            Opini tentang kurikulum merdeka bagi guru
-                                        </a></h3>
-                                </div>
-                                <div class="course-meta">
-                                    <span class="course-category"><a href="#">Fulan</a></span>
-                                    <span class="course-author"><a href="#"> 12 Dilihat</a></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
-
-
         </div>
     </section>
     <!-- End of best course
-                                                                    ============================================= -->
+                                                                        ============================================= -->
 
     <!-- Start of genius teacher v2
-                                                          ============================================= -->
+                                                              ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title mb20  headline text-left">
@@ -838,11 +678,11 @@
         </div>
     </section>
     <!-- End of genius teacher v2
-                                        ============================================= -->
+                                            ============================================= -->
 
 
     <!-- Start of sponsor section
-                                        ============================================= -->
+                                            ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -852,10 +692,10 @@
             </div>
     </section>
     <!-- End of sponsor section
-                                     ============================================= -->
+                                         ============================================= -->
 
     <!-- Start of sponsor section
-                                        ============================================= -->
+                                            ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -872,12 +712,12 @@
         </div>
     </section>
     <!-- End of sponsor section
-                                     ============================================= -->
+                                         ============================================= -->
 
 
 
     <!-- Start of Search Courses
-                                                                    ============================================= -->
+                                                                        ============================================= -->
     <section id="search-course" class="search-course-section home-secound-course-search backgroud-style">
         <div class="container">
 
@@ -933,16 +773,14 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                                      ============================================= -->
+                                                                                          ============================================= -->
 @endsection
 
 @section('scripts')
-
-
     <script>
         var youtube = document.getElementById('youtube');
         fetch(
-                'https://www.googleapis.com/youtube/v3/search?key={{ env("GOOGLE_API_KEY") }}&channelId=UCAWYvs8B_MPdRpKGd1rOWOQ&part=snippet,id&type=video&order=date&maxResults=8'
+                'https://www.googleapis.com/youtube/v3/search?key={{ env('GOOGLE_API_KEY') }}&channelId=UCAWYvs8B_MPdRpKGd1rOWOQ&part=snippet,id&type=video&order=date&maxResults=8'
             )
             .then(response => response.json())
             .then(data => {

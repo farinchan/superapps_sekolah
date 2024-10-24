@@ -101,7 +101,8 @@
                         </div>
                     </div>
                 </div>
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion ">
+                <div data-kt-menu-trigger="click"
+                    class="menu-item menu-accordion @if (request()->routeIs('back.blog_teacher.*')) here show @endif">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-award fs-2">
@@ -115,7 +116,9 @@
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link " href="">
+                            <a class="menu-link @if (request()->routeIs('back.blog_teacher.index')) active @endif
+                            "
+                                href="{{ route('back.blog_teacher.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -123,7 +126,8 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link " href="">
+                            <a class="menu-link @if (request()->routeIs('back.blog_teacher.comment')) active @endif"
+                                href="{{ route('back.blog_teacher.comment') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
@@ -168,7 +172,8 @@
                 </div>
 
                 <div class= "menu-item">
-                    <a class="menu-link @if (request()->routeIs('back.sekapur_sirih')) active @endif" href="{{ route('back.sekapur_sirih') }}">
+                    <a class="menu-link @if (request()->routeIs('back.sekapur_sirih')) active @endif"
+                        href="{{ route('back.sekapur_sirih') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-star fs-2"></i>
                         </span>

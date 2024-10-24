@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class BlogTeacher extends Model
 {
@@ -24,5 +25,10 @@ class BlogTeacher extends Model
     public function viewers()
     {
         return $this->hasMany(BlogTeacherViewer::class);
+    }
+
+    public function getThumbnail()
+    {
+        return $this->thumbnail ? Storage::url($this->thumbnail) : asset('img_ext/no-image.png');
     }
 }

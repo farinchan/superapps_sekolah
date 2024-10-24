@@ -8,6 +8,7 @@ use App\Http\Controllers\Front\PersonaliaMenu;
 use App\Http\Controllers\Back\DashboardController as BackDashboardController;
 use App\Http\Controllers\Back\EventController as BackEventController;
 use App\Http\Controllers\Back\NewsController as BackNewsController;
+use App\Http\Controllers\Back\BlogTeacherController as BackBlogTeacherController;
 use App\Http\Controllers\Back\SekapurSirihController as BackSekapurSirihController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
@@ -78,6 +79,18 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
 
         Route::get('/comment', [BackNewsController::class, 'comment'])->name('comment');
         Route::post('/comment/spam/{id}', [BackNewsController::class, 'commentSpam'])->name('comment.spam');
+    });
+
+    Route::prefix('blog-teacher')->name('blog_teacher.')->group(function () {
+        Route::get('/', [BackBlogTeacherController::class, 'index'])->name('index');
+        Route::get('/create', [BackBlogTeacherController::class, 'create'])->name('create');
+        Route::post('/create', [BackBlogTeacherController::class, 'store'])->name('store');
+        Route::get('/edit/{id}', [BackBlogTeacherController::class, 'edit'])->name('edit');
+        Route::put('/edit/{id}', [BackBlogTeacherController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackBlogTeacherController::class, 'destroy'])->name('destroy');
+
+        Route::get('/comment', [BackBlogTeacherController::class, 'comment'])->name('comment');
+        Route::post('/comment/spam/{id}', [BackBlogTeacherController::class, 'commentSpam'])->name('comment.spam');
     });
 
     Route::prefix('gallery')->name('gallery.')->group(function () {

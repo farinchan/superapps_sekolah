@@ -23,12 +23,6 @@ class PersonaliaMenu extends Controller
             'meta_keywords' => 'Teacher, Tenaga Pendidik, Tenaga Kependidikan, MAN 1 Padang Panjang, Padang Panjang',
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
-
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(3)
-                ->get(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')
                 ->orderBy('name', 'asc')
                 ->where(function ($query) use ($search) {
@@ -53,11 +47,6 @@ class PersonaliaMenu extends Controller
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
 
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(3)
-                ->get(),
             'list_teacher' => Teacher::where('type', 'tenaga kependidikan')
                 ->orderBy('name', 'asc')
                 ->where(function ($query) use ($search) {
@@ -80,11 +69,6 @@ class PersonaliaMenu extends Controller
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
 
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(3)
-                ->get(),
             'teacher' => $teacher,
         ];
 
@@ -103,11 +87,6 @@ class PersonaliaMenu extends Controller
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
 
-            'latest_news' => News::latest()
-                ->with(['category', 'user', 'viewers', 'comments'])
-                ->where('status', 'published')
-                ->limit(3)
-                ->get(),
             'personalia' => $personalia,
         ];
 
