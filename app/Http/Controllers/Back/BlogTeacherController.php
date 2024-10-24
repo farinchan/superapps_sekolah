@@ -126,7 +126,7 @@ class BlogTeacherController extends Controller
 
         if ($request->hasFile('thumbnail')) {
             $thumbnail = $request->file('thumbnail');
-            Storage::disk('public')->delete($blog_teacher->thumbnail);
+            Storage::delete($blog_teacher->thumbnail);
             $blog_teacher->thumbnail = $thumbnail->storeAs('blog_teacher', Str::random(16) . '.' . $thumbnail->getClientOriginalExtension(), 'public');
         }
 
@@ -139,6 +139,9 @@ class BlogTeacherController extends Controller
     public function destroy($id)
     {
         $blog_teacher = BlogTeacher::find($id);
+        if ($blog_teacher->thumbnail) {
+            Storage::delete($blog_teacher->thumbnail);
+        }
         $blog_teacher->delete();
 
         Alert::success('Sukses', 'Blog Guru berhasil dihapus');

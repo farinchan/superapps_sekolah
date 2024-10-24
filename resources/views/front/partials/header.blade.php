@@ -184,8 +184,8 @@
                                 <li class="menu-item-has-children ul-li-block">
                                     <a href="#!">Prestasi</a>
                                     <ul class="sub-menu">
-                                        <li><a href="">Prestasi Siswa</a></li>
-                                        <li><a href="">Prestasi Guru</a></li>
+                                        <li><a href="{{ route('achievement.student') }}">Prestasi Siswa</a></li>
+                                        <li><a href="{{ route('achievement.teacher') }}">Prestasi Guru</a></li>
                                         <li><a href="">Prestasi Sekolah</a></li>
                                     </ul>
                                 </li>
@@ -253,8 +253,8 @@
                                 <li>
                                     <a href="#!">Prestasi</a>
                                     <ul>
-                                        <li><a href="">Prestasi Siswa</a></li>
-                                        <li><a href="">Prestasi Guru</a></li>
+                                        <li><a href="{{ route('achievement.student') }}">Prestasi Siswa</a></li>
+                                        <li><a href="{{ route('achievement.teacher') }}">Prestasi Guru</a></li>
                                         <li><a href="">Prestasi Sekolah</a></li>
                                     </ul>
                                 </li>

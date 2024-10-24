@@ -5,6 +5,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\NewsController;
 use App\Http\Controllers\Front\BlogTeacherController;
 use App\Http\Controllers\Front\ExtracurricularController;
+use App\Http\Controllers\Front\AchievementController;
 use App\Http\Controllers\Front\ProfilMenu;
 use App\Http\Controllers\Front\PersonaliaMenu;
 
@@ -59,6 +60,11 @@ Route::prefix('blog-teacher')->name('blog_teacher.')->group(function () {
     Route::get('/', [BlogTeacherController::class, 'index'])->name('index');
     Route::get('/{slug}', [BlogTeacherController::class, 'show'])->name('show');
     Route::post('/{slug}', [BlogTeacherController::class, 'comment'])->name('comment');
+});
+
+Route::prefix('achievement')->name('achievement.')->group(function () {
+    Route::get('/student', [AchievementController::class, 'student'])->name('student');
+    Route::get('/teacher', [AchievementController::class, 'teacher'])->name('teacher');
 });
 
 

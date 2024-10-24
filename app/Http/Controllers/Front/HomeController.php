@@ -12,6 +12,7 @@ use App\Models\SekapurSirih;
 use App\Models\SettingBanner;
 use App\Models\SettingWebsite;
 use App\Models\Student;
+use App\Models\StudentAchievement;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,7 @@ class HomeController extends Controller
             'list_agenda' => Event::orderBy('start', 'desc')->limit(6)->get(),
             'sekapur_sirih' => SekapurSirih::first(),
             'list_extracurricular' => Extracurricular::all(),
+            'list_student_achievement' => StudentAchievement::latest()->limit(6)->get(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')->inRandomOrder()->limit(7)->get(),
             'list_blog_teacher' => BlogTeacher::latest()->limit(8)->get(),
             'list_partner' => Partner::all(),

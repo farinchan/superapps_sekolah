@@ -2,20 +2,25 @@
 @section('content')
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
-            <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" action="{{ route("back.event.update", $event->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row"
+                action="{{ route('back.achievement.student.update', $student_achievement->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
                     <div class="card card-flush py-4">
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>Thumbnail</h2>
+                                <h2>Gambar</h2>
                             </div>
                         </div>
                         <div class="card-body text-center pt-0">
                             <style>
                                 .image-input-placeholder {
-                                    background-image: url('@if($event->image) {{ Storage::url($event->image) }} @else {{ asset('back/media/svg/files/blank-image.svg') }} @endif');'
+                                    background-image: url('{{ $student_achievement->getImage() }}');
+                                }
+
+                                [data-bs-theme="dark"] .image-input-placeholder {
+                                    background-image: url('{{ $student_achievement->getImage() }}');
                                 }
                             </style>
                             <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
@@ -46,14 +51,14 @@
                                 </span>
                             </div>
                             <div class="text-muted fs-7">
-                                Set Thumbnail agenda, Hanya menerima file dengan ekstensi png, jpg, jpeg
+                                Set Gambar Prestasi, Hanya menerima file dengan ekstensi png, jpg, jpeg
                             </div>
                         </div>
                     </div>
                     <div class="card card-flush py-4">
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>Status</h2>
+                                <h2>Sertifikat</h2>
                             </div>
                             <div class="card-toolbar">
                                 <div class="rounded-circle bg-success w-15px h-15px" id="kt_ecommerce_add_category_status">
@@ -61,80 +66,102 @@
                             </div>
                         </div>
                         <div class="card-body pt-0">
-                            <select name="is_active" class="form-select mb-2" data-control="select2" data-hide-search="true"
-                                data-placeholder="Select an option" id="kt_ecommerce_add_category_status_select" required>
-                                <option></option>
-                                <option value="1" {{ $event->is_active == 1 ? 'selected' : '' }}>Aktif</option>
-                                <option value="0" {{ $event->is_active == 0 ? 'selected' : '' }}>Tidak Aktif</option>
-                            </select>
-                            @error('is_active')
-                                <div class="text-danger fs-7">{{ $message }}</div>
-                            @enderror
+                            <input type="file" name="file" accept=".pdf" class="form-control mb-3" />
                             <div class="text-muted fs-7">
-                                Set Status agenda, jika status agenda aktif maka agenda akan tampil
+                                File Sebelumnya: <a href="{{ $student_achievement->getFile() }}" target="_blank"
+                                    class="text-primary">{{ $student_achievement->file }}</a><br>
+                                Upload Sertifikat Prestasi, Hanya menerima file dengan ekstensi pdf
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
                     <div class="card card-flush py-4">
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>agenda</h2>
+                                <h2>prestasi</h2>
                             </div>
                         </div>
                         <div class="card-body pt-0">
-                            <div class="mb-10 fv-row">
-                                <label class="required form-label">Judul</label>
-                                <input type="text" name="title" class="form-control mb-2"
-                                    placeholder="Judul agenda" value="{{ $event->title }}" required />
-                                @error('title')
+                            <div class="mb-5 fv-row">
+                                <label class="required form-label">Siswa</label>
+                                <select name="student_id" class="form-select mb-2" data-control="select2" data-placeholder="Pilih Siswa" required>
+                                    <option value=""></option>
+                                    @foreach ($students as $student)
+                                        <option value="{{ $student->id }}" {{ $student_achievement->student_id == $student->id ? 'selected' : '' }}>
+                                            {{ $student->name }} - NISN: {{ $student->nisn }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('student_id')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="mb-10">
-                                <label class="form-label">Content</label>
-                                <div id="quill_content" name="kt_ecommerce_add_category_description"
-                                    class="min-h-300px mb-2">
-                                    {!! $event->content !!}
-                                </div>
-                                <input type="hidden" name="content" id="content" required>
-                                @error('content')
+                            <div class="mb-5 fv-row">
+                                <label class="required form-label">Nama Perlombaan</label>
+                                <input type="text" name="name" class="form-control  mb-2" value="{{ $student_achievement->name }}" placeholder="Nama Perlombaan" required />
+                                @error('name')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="mb-10">
-                                <div class="row">
-                                    <div class="col">
-                                        <label class="form-label required">Tanggal Mulai</label>
-                                        <input type="datetime-local" name="start" class="form-control mb-2"
-                                            value=" {{ Carbon\Carbon::parse($event->start)->format('Y-m-d\TH:i') }}" required />
-                                        @error('start')
-                                            <div class="text-danger fs-7">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div class="col">
-                                        <label class="form-label required">Tanggal Selesai</label>
-                                        <input type="datetime-local" name="end" class="form-control mb-2"
-                                            value=" {{ Carbon\Carbon::parse($event->end)->format('Y-m-d\TH:i') }}" required />
-                                        @error('end')
-                                            <div class="text-danger fs-7">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="form-label">Meta Tag Keywords</label>
-                                <input id="keyword_tagify" name="meta_keywords"
-                                    class="form-control mb-2" value="{{ $event->meta_keywords }}" />
-                                @error('meta_keywords')
+                            <div class="mb-5">
+                                <label class="form-label required">penyelenggara</label>
+                                <input type="text" name="event" class="form-control  mb-2" value="{{ $student_achievement->event }}" placeholder="Penyelenggara" required />
+                                @error('event')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
-                                <div class="text-muted fs-7">
-                                    Meta Tag Keywords digunakan untuk SEO, pisahkan dengan koma <code>,</code> jika lebih
-                                    dari satu keywoard yang digunakan
-                                </div>
                             </div>
+                            <div class="mb-5">
+                                <label class="form-label required">Tingkat</label>
+                                <select name="level" class="form-select mb-2" required>
+                                    <option value="">Pilih Tingkat</option>
+                                    <option value="Sekolah" {{ $student_achievement->level == 'Sekolah' ? 'selected' : '' }}>Sekolah</option>
+                                    <option value="Kecamatan" {{ $student_achievement->level == 'Kecamatan' ? 'selected' : '' }}>Kecamatan</option>
+                                    <option value="Kabupaten/Kota" {{ $student_achievement->level == 'Kabupaten/Kota' ? 'selected' : '' }}>Kabupaten/Kota</option>
+                                    <option value="Provinsi" {{ $student_achievement->level == 'Provinsi' ? 'selected' : '' }}>Provinsi</option>
+                                    <option value="Nasional" {{ $student_achievement->level == 'Nasional' ? 'selected' : '' }}>Nasional</option>
+                                    <option value="Internasional" {{ $student_achievement->level == 'Internasional' ? 'selected' : '' }}>Internasional</option>
+
+                                </select>
+                                @error('level')
+                                    <div class="text-danger fs-7">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-5">
+                                <label class="form-label required">Peringkat</label>
+                                <select name="rank" class="form-select mb-2" required>
+                                    <option value="">Pilih Peringkat</option>
+                                    <option value="Juara 1" {{ $student_achievement->rank == 'Juara 1' ? 'selected' : '' }}>Juara 1</option>
+                                    <option value="Juara 2" {{ $student_achievement->rank == 'Juara 2' ? 'selected' : '' }}>Juara 2</option>
+                                    <option value="Juara 3" {{ $student_achievement->rank == 'Juara 3' ? 'selected' : '' }}>Juara 3</option>
+                                    <option value="Juara Harapan 1" {{ $student_achievement->rank == 'Juara Harapan 1' ? 'selected' : '' }}>Juara Harapan 1</option>
+                                    <option value="Juara Harapan 2" {{ $student_achievement->rank == 'Juara Harapan 2' ? 'selected' : '' }}>Juara Harapan 2</option>
+                                    <option value="Juara Harapan 3" {{ $student_achievement->rank == 'Juara Harapan 3' ? 'selected' : '' }}>Juara Harapan 3</option>
+                                    <option value="Juara Lainnya" {{ $student_achievement->rank == 'Juara Lainnya' ? 'selected' : '' }}>Juara Lainnya</option>
+                                </select>
+                                @error('rank')
+                                    <div class="text-danger fs-7">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-5">
+                                <label class="form-label required">Tanggal</label>
+                                <input type="date" name="date" class="form-control  mb-2"
+                                    value="{{Carbon\Carbon::parse($student_achievement->date)->format('Y-m-d')}}" required />
+                                @error('date')
+                                    <div class="text-danger fs-7">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-5">
+                                <label class="form-label required">Deskripsi</label>
+                                <textarea name="description" class="form-control  mb-2" required>
+                                    {{ $student_achievement->description }}
+                                </textarea>
+                                @error('description')
+                                    <div class="text-danger fs-7">{{ $message }}</div>
+                                @enderror
+                            </div>
+
                         </div>
                     </div>
                     <div class="d-flex justify-content-end">
@@ -151,69 +178,4 @@
 @endsection
 
 @section('scripts')
-    <script>
-        var quill = new Quill('#quill_content', {
-            modules: {
-                toolbar: [
-                    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
-                    ['blockquote', 'code-block'],
-                    ['link', 'image', 'video', 'formula'],
-
-                    [{
-                        header: [1, 2, 3, 4, 5, 6, false]
-                    }], // custom button values
-                    [{
-                        'list': 'ordered'
-                    }, {
-                        'list': 'bullet'
-                    }, {
-                        'list': 'check'
-                    }],
-                    [{
-                        'script': 'sub'
-                    }, {
-                        'script': 'super'
-                    }], // superscript/subscript
-                    [{
-                        'indent': '-1'
-                    }, {
-                        'indent': '+1'
-                    }], // outdent/indent
-                    [{
-                        'direction': 'rtl'
-                    }], // text direction
-
-                    [{
-                        'color': []
-                    }, {
-                        'background': []
-                    }], // dropdown with defaults from theme
-                    [{
-                        'font': []
-                    }],
-                    [{
-                        'align': []
-                    }],
-                    ['clean'] // remove formatting button
-                ]
-            },
-            placeholder: 'Tulis agenda disini...',
-            theme: 'snow' // or 'bubble'
-        });
-
-        $("#content").val(quill.root.innerHTML);
-        quill.on('text-change', function() {
-            $("#content").val(quill.root.innerHTML);
-        });
-
-        var tagify = new Tagify(document.querySelector("#keyword_tagify"), {
-            whitelist: [],
-            dropdown: {
-                maxItems: 20, // <- mixumum allowed rendered suggestions
-                classname: "tags-look",
-                enabled: 0,
-                closeOnSelect: true
-            }
-        });
-    </script>
 @endsection

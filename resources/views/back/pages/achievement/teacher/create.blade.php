@@ -3,7 +3,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
             <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row"
-                action="{{ route('back.achievement.student.store') }}" method="POST" enctype="multipart/form-data">
+                action="{{ route('back.achievement.teacher.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
                     <div class="card card-flush py-4">
@@ -82,16 +82,16 @@
                         </div>
                         <div class="card-body pt-0">
                             <div class="mb-5 fv-row">
-                                <label class="required form-label">Siswa</label>
-                                <select name="student_id" class="form-select mb-2" data-control="select2" data-placeholder="Pilih Siswa" required>
+                                <label class="required form-label">Guru</label>
+                                <select name="teacher_id" class="form-select mb-2" data-control="select2" data-placeholder="Pilih Guru" required>
                                     <option value=""></option>
-                                    @foreach ($students as $student)
-                                        <option value="{{ $student->id }}" {{ old('student_id') == $student->id ? 'selected' : '' }}>
-                                            {{ $student->name }} - NISN: {{ $student->nisn }}
+                                    @foreach ($teachers as $teacher)
+                                        <option value="{{ $teacher->id }}" {{ old('teacher_id') == $teacher->id ? 'selected' : '' }}>
+                                            {{ $teacher->name }} - NIP: {{ $teacher->nip }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('student_id')
+                                @error('teacher_id')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>

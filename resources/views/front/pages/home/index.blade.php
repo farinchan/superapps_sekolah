@@ -359,129 +359,34 @@
                                 </div>
 								<div class="latest-news-posts">
                                     <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="latest-news-area">
-                                                <div class="latest-news-thumbnile relative-position">
-                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
-                                                    <div class="hover-search">
-                                                        <i class="fas fa-search"></i>
+                                        @foreach ($list_student_achievement as $student_achievement)
+                                            <div class="col-md-4">
+                                                <div class="latest-news-area" style="max-width: 100%;">
+                                                    <div class="latest-news-thumbnile relative-position">
+                                                        <img src="{{ $student_achievement->getImage() }}" alt="">
+                                                        <div class="hover-search">
+                                                            <i class="fas fa-search"></i>
+                                                        </div>
+                                                        <div class="blakish-overlay"></div>
                                                     </div>
-                                                    <div class="blakish-overlay"></div>
-                                                </div>
-                                                <div class="date-meta">
-                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
-                                                </div>
-                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
-                                                <div class="course-viewer ul-li">
-                                                    <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
-                                                    </ul>
+                                                    <div class="date-meta">
+                                                        <i class="fas fa-trophy"></i> {{ $student_achievement->rank }} - {{ $student_achievement->level }}
+                                                    </div>
+                                                    <h3 class="latest-title bold-font"><a href="#">
+                                                        {{ Str::limit($student_achievement->name . ' - ' . $student_achievement->event, 50) }}
+                                                        </a></h3>
+                                                    <div class="course-viewer ul-li">
+                                                        <ul>
+                                                            <li><a href=""><i class="fas fa-user"></i> {{ $student_achievement->student->name }}</a></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="latest-news-area">
-                                                <div class="latest-news-thumbnile relative-position">
-                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
-                                                    <div class="hover-search">
-                                                        <i class="fas fa-search"></i>
-                                                    </div>
-                                                    <div class="blakish-overlay"></div>
-                                                </div>
-                                                <div class="date-meta">
-                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
-                                                </div>
-                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
-                                                <div class="course-viewer ul-li">
-                                                    <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="latest-news-area">
-                                                <div class="latest-news-thumbnile relative-position">
-                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
-                                                    <div class="hover-search">
-                                                        <i class="fas fa-search"></i>
-                                                    </div>
-                                                    <div class="blakish-overlay"></div>
-                                                </div>
-                                                <div class="date-meta">
-                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
-                                                </div>
-                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
-                                                <div class="course-viewer ul-li">
-                                                    <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="latest-news-area">
-                                                <div class="latest-news-thumbnile relative-position">
-                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
-                                                    <div class="hover-search">
-                                                        <i class="fas fa-search"></i>
-                                                    </div>
-                                                    <div class="blakish-overlay"></div>
-                                                </div>
-                                                <div class="date-meta">
-                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
-                                                </div>
-                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
-                                                <div class="course-viewer ul-li">
-                                                    <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="latest-news-area">
-                                                <div class="latest-news-thumbnile relative-position">
-                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
-                                                    <div class="hover-search">
-                                                        <i class="fas fa-search"></i>
-                                                    </div>
-                                                    <div class="blakish-overlay"></div>
-                                                </div>
-                                                <div class="date-meta">
-                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
-                                                </div>
-                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
-                                                <div class="course-viewer ul-li">
-                                                    <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="latest-news-area">
-                                                <div class="latest-news-thumbnile relative-position">
-                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
-                                                    <div class="hover-search">
-                                                        <i class="fas fa-search"></i>
-                                                    </div>
-                                                    <div class="blakish-overlay"></div>
-                                                </div>
-                                                <div class="date-meta">
-                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
-                                                </div>
-                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
-                                                <div class="course-viewer ul-li">
-                                                    <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
+
+                                        @endforeach
                                     </div>
 									<div class="view-all-btn bold-font">
-										<a href="#">Lihat semua prestasi siswa <i class="fas fa-chevron-circle-right"></i></a>
+										<a href="{{ route('achievement.student') }}">Lihat semua prestasi siswa <i class="fas fa-chevron-circle-right"></i></a>
 									</div>
 								</div>
 							</div>

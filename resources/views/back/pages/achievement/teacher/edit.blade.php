@@ -3,7 +3,8 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
             <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row"
-                action="{{ route('back.achievement.student.store') }}" method="POST" enctype="multipart/form-data">
+                action="{{ route('back.achievement.teacher.update', $teacher_achievement->id) }}" method="POST" enctype="multipart/form-data">
+                @method('PUT')
                 @csrf
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
                     <div class="card card-flush py-4">
@@ -15,11 +16,11 @@
                         <div class="card-body text-center pt-0">
                             <style>
                                 .image-input-placeholder {
-                                    background-image: url('{{ asset('back/media/svg/files/blank-image.svg') }}');
+                                    background-image: url('{{ $teacher_achievement->getImage() }}');
                                 }
 
                                 [data-bs-theme="dark"] .image-input-placeholder {
-                                    background-image: url('{{ asset('back/media/svg/files/blank-image-dark.svg') }}');
+                                    background-image: url('{{ $teacher_achievement->getImage() }}');
                                 }
                             </style>
                             <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
@@ -31,7 +32,7 @@
                                         <span class="path1"></span>
                                         <span class="path2"></span>
                                     </i>
-                                    <input type="file" name="image" accept=".png, .jpg, .jpeg" required />
+                                    <input type="file" name="image" accept=".png, .jpg, .jpeg" />
                                     <input type="hidden" name="avatar_remove" />
                                 </label>
                                 <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
@@ -65,8 +66,10 @@
                             </div>
                         </div>
                         <div class="card-body pt-0">
-                            <input type="file" name="file" accept=".pdf" class="form-control mb-3" required />
+                            <input type="file" name="file" accept=".pdf" class="form-control mb-3" />
                             <div class="text-muted fs-7">
+                                File Sebelumnya: <a href="{{ $teacher_achievement->getFile() }}" target="_blank"
+                                    class="text-primary">{{ $teacher_achievement->file }}</a><br>
                                 Upload Sertifikat Prestasi, Hanya menerima file dengan ekstensi pdf
                             </div>
                         </div>
@@ -82,29 +85,29 @@
                         </div>
                         <div class="card-body pt-0">
                             <div class="mb-5 fv-row">
-                                <label class="required form-label">Siswa</label>
-                                <select name="student_id" class="form-select mb-2" data-control="select2" data-placeholder="Pilih Siswa" required>
+                                <label class="required form-label">Guru</label>
+                                <select name="teacher_id" class="form-select mb-2" data-control="select2" data-placeholder="Pilih Guru" required>
                                     <option value=""></option>
-                                    @foreach ($students as $student)
-                                        <option value="{{ $student->id }}" {{ old('student_id') == $student->id ? 'selected' : '' }}>
-                                            {{ $student->name }} - NISN: {{ $student->nisn }}
+                                    @foreach ($teachers as $teacher)
+                                        <option value="{{ $teacher->id }}" {{ $teacher_achievement->teacher_id == $teacher->id ? 'selected' : '' }}>
+                                            {{ $teacher->name }} - NIP: {{ $teacher->nip }}
                                         </option>
                                     @endforeach
                                 </select>
-                                @error('student_id')
+                                @error('teacher_id')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-5 fv-row">
                                 <label class="required form-label">Nama Perlombaan</label>
-                                <input type="text" name="name" class="form-control  mb-2" value="{{ old('name') }}" placeholder="Nama Perlombaan" required />
+                                <input type="text" name="name" class="form-control  mb-2" value="{{ $teacher_achievement->name }}" placeholder="Nama Perlombaan" required />
                                 @error('name')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-5">
                                 <label class="form-label required">penyelenggara</label>
-                                <input type="text" name="event" class="form-control  mb-2" value="{{ old('event') }}" placeholder="Penyelenggara" required />
+                                <input type="text" name="event" class="form-control  mb-2" value="{{ $teacher_achievement->event }}" placeholder="Penyelenggara" required />
                                 @error('event')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
@@ -113,12 +116,13 @@
                                 <label class="form-label required">Tingkat</label>
                                 <select name="level" class="form-select mb-2" required>
                                     <option value="">Pilih Tingkat</option>
-                                    <option value="Sekolah" {{ old('level') == 'Sekolah' ? 'selected' : '' }}>Sekolah</option>
-                                    <option value="Kecamatan" {{ old('level') == 'Kecamatan' ? 'selected' : '' }}>Kecamatan</option>
-                                    <option value="Kabupaten/Kota" {{ old('level') == 'Kabupaten/Kota' ? 'selected' : '' }}>Kabupaten/Kota</option>
-                                    <option value="Provinsi" {{ old('level') == 'Provinsi' ? 'selected' : '' }}>Provinsi</option>
-                                    <option value="Nasional" {{ old('level') == 'Nasional' ? 'selected' : '' }}>Nasional</option>
-                                    <option value="Internasional" {{ old('level') == 'Internasional' ? 'selected' : '' }}>Internasional</option>
+                                    <option value="Sekolah" {{ $teacher_achievement->level == 'Sekolah' ? 'selected' : '' }}>Sekolah</option>
+                                    <option value="Kecamatan" {{ $teacher_achievement->level == 'Kecamatan' ? 'selected' : '' }}>Kecamatan</option>
+                                    <option value="Kabupaten/Kota" {{ $teacher_achievement->level == 'Kabupaten/Kota' ? 'selected' : '' }}>Kabupaten/Kota</option>
+                                    <option value="Provinsi" {{ $teacher_achievement->level == 'Provinsi' ? 'selected' : '' }}>Provinsi</option>
+                                    <option value="Nasional" {{ $teacher_achievement->level == 'Nasional' ? 'selected' : '' }}>Nasional</option>
+                                    <option value="Internasional" {{ $teacher_achievement->level == 'Internasional' ? 'selected' : '' }}>Internasional</option>
+
                                 </select>
                                 @error('level')
                                     <div class="text-danger fs-7">{{ $message }}</div>
@@ -128,18 +132,13 @@
                                 <label class="form-label required">Peringkat</label>
                                 <select name="rank" class="form-select mb-2" required>
                                     <option value="">Pilih Peringkat</option>
-                                    <option value="Juara 1" {{ old('rank') == 'Juara 1' ? 'selected' : '' }}>Juara 1</option>
-                                    <option value="Juara 2" {{ old('rank') == 'Juara 2' ? 'selected' : '' }}>Juara 2</option>
-                                    <option value="Juara 3" {{ old('rank') == 'Juara 3' ? 'selected' : '' }}>Juara 3</option>
-                                    <option value="Juara Harapan 1" {{ old('rank') == 'Juara Harapan 1' ? 'selected' : '' }}>
-                                        Juara Harapan 1</option>
-                                    <option value="Juara Harapan 2" {{ old('rank') == 'Juara Harapan 2' ? 'selected' : '' }}>
-                                        Juara Harapan 2</option>
-                                    <option value="Juara Harapan 3" {{ old('rank') == 'Juara Harapan 3' ? 'selected' : '' }}>
-                                        Juara Harapan 3</option>
-                                        <option value="Juara Lainnya" {{ old('rank') == 'Juara Lainnya' ? 'selected' : '' }}>
-                                            Juara Lainnya</option>
-
+                                    <option value="Juara 1" {{ $teacher_achievement->rank == 'Juara 1' ? 'selected' : '' }}>Juara 1</option>
+                                    <option value="Juara 2" {{ $teacher_achievement->rank == 'Juara 2' ? 'selected' : '' }}>Juara 2</option>
+                                    <option value="Juara 3" {{ $teacher_achievement->rank == 'Juara 3' ? 'selected' : '' }}>Juara 3</option>
+                                    <option value="Juara Harapan 1" {{ $teacher_achievement->rank == 'Juara Harapan 1' ? 'selected' : '' }}>Juara Harapan 1</option>
+                                    <option value="Juara Harapan 2" {{ $teacher_achievement->rank == 'Juara Harapan 2' ? 'selected' : '' }}>Juara Harapan 2</option>
+                                    <option value="Juara Harapan 3" {{ $teacher_achievement->rank == 'Juara Harapan 3' ? 'selected' : '' }}>Juara Harapan 3</option>
+                                    <option value="Juara Lainnya" {{ $teacher_achievement->rank == 'Juara Lainnya' ? 'selected' : '' }}>Juara Lainnya</option>
                                 </select>
                                 @error('rank')
                                     <div class="text-danger fs-7">{{ $message }}</div>
@@ -148,14 +147,16 @@
                             <div class="mb-5">
                                 <label class="form-label required">Tanggal</label>
                                 <input type="date" name="date" class="form-control  mb-2"
-                                    value="{{ old('date') }}" required />
+                                    value="{{Carbon\Carbon::parse($teacher_achievement->date)->format('Y-m-d')}}" required />
                                 @error('date')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>
                             <div class="mb-5">
                                 <label class="form-label required">Deskripsi</label>
-                                <textarea name="description" class="form-control  mb-2" required>{{ old('description') }}</textarea>
+                                <textarea name="description" class="form-control  mb-2" required>
+                                    {{ $teacher_achievement->description }}
+                                </textarea>
                                 @error('description')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
