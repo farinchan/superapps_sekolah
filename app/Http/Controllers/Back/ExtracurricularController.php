@@ -79,7 +79,7 @@ class ExtracurricularController extends Controller
         $extracurricular->description = $request->description;
 
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($extracurricular->image);
+            Storage::delete($extracurricular->image);
             $extracurricular->image = $request->file('image')->storeAs('extracurricular', Str::slug($request->name) . '.' . $request->file('image')->extension(), 'public');
         }
 
@@ -92,7 +92,7 @@ class ExtracurricularController extends Controller
     public function destroy($id)
     {
         $extracurricular = Extracurricular::find($id);
-        Storage::disk('public')->delete($extracurricular->image);
+        Storage::delete($extracurricular->image);
         $extracurricular->delete();
 
         Alert::success('Berhasil', 'Data berhasil dihapus');

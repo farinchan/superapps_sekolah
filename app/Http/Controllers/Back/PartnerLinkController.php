@@ -71,7 +71,7 @@ class PartnerLinkController extends Controller
         $data->url = $request->link;
 
         if ($request->hasFile('logo')) {
-            Storage::disk('public')->delete($data->logo);
+            Storage::delete($data->logo);
             $data->logo = $request->file('logo')->storeAs('partner', Str::slug($request->name) . '.' . $request->file('logo')->extension(), 'public');
         }
 
@@ -84,7 +84,7 @@ class PartnerLinkController extends Controller
     public function destroy($id)
     {
         $data = Partner::find($id);
-        Storage::disk('public')->delete($data->logo);
+        Storage::delete($data->logo);
         $data->delete();
 
         Alert::success('Berhasil', 'Data berhasil dihapus');

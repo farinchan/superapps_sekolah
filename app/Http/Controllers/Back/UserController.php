@@ -213,7 +213,9 @@ class UserController extends Controller
 
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
-            Storage::disk('public')->delete($teacher->photo);
+            if ($teacher->photo) {
+                Storage::delete($teacher->photo);
+            }
             $teacher->photo = $image->storeAs('teacher', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
         }
 
@@ -234,7 +236,9 @@ class UserController extends Controller
     {
         $teacher = Teacher::findOrFail($id);
         $user = User::findOrFail($teacher->user_id);
-        Storage::disk('public')->delete($teacher->photo);
+        if ($teacher->photo){
+            Storage::delete($teacher->photo);
+        }
         $teacher->delete();
         $user->delete();
 
@@ -395,7 +399,9 @@ class UserController extends Controller
 
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
-            Storage::disk('public')->delete($student->photo);
+            if ($student->photo){
+                Storage::delete($student->photo);
+            }
             $student->photo = $image->storeAs('student', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
         }
 
@@ -418,7 +424,9 @@ class UserController extends Controller
     {
         $student = Student::findOrFail($id);
         $user = User::findOrFail($student->user_id);
-        Storage::disk('public')->delete($student->photo);
+        if ($student->photo){
+            Storage::delete($student->photo);
+        }
         $student->delete();
         $user->delete();
 
