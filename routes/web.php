@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\NewsController;
 use App\Http\Controllers\Front\BlogTeacherController;
+use App\Http\Controllers\Front\ExtracurricularController;
 use App\Http\Controllers\Front\ProfilMenu;
 use App\Http\Controllers\Front\PersonaliaMenu;
 
@@ -42,6 +43,9 @@ Route::get('/staff/{id}', [PersonaliaMenu::class, 'staffDetail'])->name('staff.d
 Route::get('/personalia/{slug}', [PersonaliaMenu::class, 'personalia'])->name('personalia.show');
 
 Route::get('/profil/{slug}', [ProfilMenu::class, 'index'])->name('profil.show');
+
+// Route::get('/ekstrakurikuler', [ExtracurricularController::class, 'index'])->name('extracurricular');
+Route::get('/ekstrakurikuler/{slug}', [ExtracurricularController::class, 'show'])->name('extracurricular.show');
 
 Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', [NewsController::class, 'index'])->name('index');

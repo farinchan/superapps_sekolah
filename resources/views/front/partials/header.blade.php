@@ -155,7 +155,8 @@
                                             $extracurriculars = \App\Models\Extracurricular::all();
                                         @endphp
                                         @foreach ($extracurriculars as $extracurricular)
-                                            <li><a href="">{{ $extracurricular->name }}</a>
+                                            <li><a
+                                                    href="{{ route('extracurricular.show', $extracurricular->slug) }}">{{ $extracurricular->name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
@@ -222,7 +223,9 @@
                                     <a href="#!">Ekstrakurikuler</a>
                                     <ul>
                                         @foreach ($extracurriculars as $extracurricular)
-                                            <li><a href="">{{ $extracurricular->name }}</a>
+                                            <li><a
+                                                    href="{{ route('extracurricular.show', $extracurricular->slug) }}\">{{ $extracurricular->name }}</a>
+                                                ">{{ $extracurricular->name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>

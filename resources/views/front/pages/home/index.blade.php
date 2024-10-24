@@ -321,7 +321,7 @@
             <div class="category-item">
                 <div class="row">
                     @foreach ($list_extracurricular as $extracurricular)
-                        <div class="col-md-3"><a href="">
+                        <div class="col-md-3"><a href="{{ route('extracurricular.show', $extracurricular->slug) }}">
 
                                 <div class="category-icon-title text-center ">
                                     <div class="category-icon">
