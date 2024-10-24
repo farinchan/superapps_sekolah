@@ -84,17 +84,19 @@
 									<li><a href="#">juices</a></li>
 								</ul>
 							</div> --}}
-							{{-- <div class="author-comment">
+							<div class="author-comment">
 								<div class="author-img">
-									<img src="assets/img/blog/ath.jpg" alt="">
+									<img src="{{ $blog_teacher->teacher->getPhoto() }}" alt="">
 								</div>
 								<div class="author-designation-comment">
-									BY: <span>FRANK LAMPARD</span>
+									BY: <span>
+                                        <a href="{{ route("staff.detail", $blog_teacher->teacher->id) }}">{{ $blog_teacher->teacher->name }}</a>
+                                    </span>
 									<p>
-										Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                        {{ Str::limit(strip_tags($blog_teacher->teacher->about), 200) }}
 									</p>
 								</div>
-							</div> --}}
+							</div>
 							<div class="next-prev-post">
                                 @if ($prev_blog_teacher)
                                     <div class="next-post-item float-left">
