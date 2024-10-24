@@ -198,7 +198,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="extra-pic text-center ">
-                            <img src="https://res.cloudinary.com/duuawbwih/image/upload/v1729514280/lainah_ed5fm4.png"
+                            <img src="{{ $sekapur_sirih->getImage() }}"
                                 alt="img">
                         </div>
                     </div>
@@ -206,26 +206,17 @@
                     <div class="pl-5 col-sm-8">
                         <div class="about-us-text">
                             <div class="section-title relative-position mb20 headline text-left">
-                                <h2 style="font-size: 40px;">LAINAH, S. Ag, M. Pd.I</h2>
+                                <h2 style="font-size: 40px;">{{ $sekapur_sirih->name }}</h2>
                             </div>
                             <div class="about-content-text">
+                                <p class="text-white" >Assalaamu'alaikum Warahmatullahi Wabarakatuh.</p>
                                 <p class="text-white">
-                                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam
-                                    nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam volutpat. Ut wisi enim ad
-                                    minim veniam. magna aliquam volutpat. Ut wisi enim ad minim veniam.
-                                    <br>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum eveniet nostrum vero quis
-                                    temporibus itaque iure deserunt quasi ducimus deleniti ut laborumusdam odio ipsam
-                                    officiis officia a blanditiis molestiae sapiente eos quis aperiam omnis doloremque saepe
-                                    ipsa unde, quaerat veritatis. Quo cumque explicabo aperiam temporibus accusamus
-                                    inventore? Ex dolorum perspiciatis dolor atque voluptatem sapiente rerum autem ut,
-                                    impedit nostrum? Debitis corrupti eum velit, officiis minima expedita, dolorem iusto
-                                    doloribus adipisci vel error recusandae, esse ratione optio?
+                                    {{ Str::limit(strip_tags($sekapur_sirih->content), 400) }}
                                 </p>
 
                                 <div class="about-btn ">
                                     <div class="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font">
-                                        <a href="#">Lihat Selengkapnya <i class="fas fa-caret-right"></i></a>
+                                        <a href="{{ route("sekapur_sirih") }}">Lihat Selengkapnya <i class="fas fa-caret-right"></i></a>
                                     </div>
                                 </div>
                             </div>

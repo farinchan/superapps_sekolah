@@ -167,7 +167,7 @@ class DatabaseSeeder extends Seeder
         SekapurSirih::create([
             'name' => 'LAINAH, S. Ag, M. Pd.I',
             'image' => 'sekapur_sirih/sekapur_sirih.png',
-            'content' => '<h6> Assalamu\'alaikum Wr. Wb. </h6> <p> Selamat datang di website MAN 1 Padang Panjang. Semoga dengan adanya website ini, kita dapat lebih mudah dalam mendapatkan informasi seputar kegiatan sekolah. </p> <p> Terima kasih. Wassalamu\'alaikum Wr. Wb. </p>',
+            'content' => '<p> Selamat datang di website MAN 1 Padang Panjang. Semoga dengan adanya website ini, kita dapat lebih mudah dalam mendapatkan informasi seputar kegiatan sekolah. </p> <p> Terima kasih. Wassalamu\'alaikum Wr. Wb. </p>',
         ]);
     }
 }

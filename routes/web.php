@@ -22,6 +22,7 @@ use App\Http\Controllers\Front\ProfilMenu;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/sekapur-sirih', [HomeController::class, 'sekapurSirih'])->name('sekapur_sirih');
 
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'loginProcess'])->name('login.process');

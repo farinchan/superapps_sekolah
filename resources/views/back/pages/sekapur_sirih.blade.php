@@ -10,7 +10,7 @@
                     <div class="card card-flush py-4">
                         <div class="card-header">
                             <div class="card-title">
-                                <h2>Thumbnail</h2>
+                                <h2>Foto</h2>
                             </div>
                         </div>
                         <div class="card-body text-center pt-0">

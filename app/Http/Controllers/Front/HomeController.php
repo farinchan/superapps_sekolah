@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Models\Extracurricular;
 use App\Models\News;
 use App\Models\Partner;
+use App\Models\SekapurSirih;
 use App\Models\SettingBanner;
 use App\Models\SettingWebsite;
 use App\Models\Student;
@@ -29,6 +30,7 @@ class HomeController extends Controller
             'list_banner' => SettingBanner::where('status', 1)->get(),
             'list_news' => News::latest()->where('status', 'published')->limit(6)->get(),
             'list_agenda' => Event::orderBy('start', 'desc')->limit(6)->get(),
+            'sekapur_sirih' => SekapurSirih::first(),
             'list_extracurricular' => Extracurricular::all(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')->inRandomOrder()->limit(7)->get(),
             'list_partner' => Partner::all(),
@@ -41,5 +43,28 @@ class HomeController extends Controller
         ];
 
         return view('front.pages.home.index', $data);
+    }
+
+    public function sekapurSirih()
+    {
+        $setting_web = SettingWebsite::first();
+        $sekapur_sirih = SekapurSirih::first();
+
+        $data = [
+            'title' => "Sekapur Sirih | " . $setting_web->name,
+            'meta_description' => strip_tags($sekapur_sirih->content),
+            'meta_keywords' => 'Sekapur Sirih, Muhammadiyah, Bukittinggi',
+            'favicon' => $setting_web->favicon,
+            'setting_web' => $setting_web,
+            'latest_news' => News::latest()
+                ->with(['category', 'user', 'viewers', 'comments'])
+                ->where('status', 'published')
+                ->limit(3)
+                ->get(),
+
+            'sekapur_sirih' => $sekapur_sirih,
+        ];
+
+        return view('front.pages.home.sekapur_sirih', $data);
     }
 }
