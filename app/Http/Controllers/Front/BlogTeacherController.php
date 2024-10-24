@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogTeacher;
+use App\Models\BlogTeacherViewer;
 use App\Models\SettingWebsite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
-
+use Stevebauman\Location\Facades\Location;
 
 class BlogTeacherController extends Controller
 {
@@ -58,6 +59,25 @@ class BlogTeacherController extends Controller
             'next_blog_teacher' => BlogTeacher::where('id', '>', $blog_teacher->id)->first(),
             'prev_blog_teacher' => BlogTeacher::where('id', '<', $blog_teacher->id)->first(),
         ];
+
+        $currentUserInfo = Location::get(request()->ip());
+        $blog_teacher_viewers = new BlogTeacherViewer();
+        $blog_teacher_viewers->news_id = $blog_teacher->id;
+        $blog_teacher_viewers->ip = request()->ip();
+        if ($currentUserInfo) {
+            $blog_teacher_viewers->country = $currentUserInfo->countryName;
+            $blog_teacher_viewers->city = $currentUserInfo->cityName;
+            $blog_teacher_viewers->region = $currentUserInfo->regionName;
+            $blog_teacher_viewers->postal_code = $currentUserInfo->postalCode;
+            $blog_teacher_viewers->latitude = $currentUserInfo->latitude;
+            $blog_teacher_viewers->longitude = $currentUserInfo->longitude;
+            $blog_teacher_viewers->timezone = $currentUserInfo->timezone;
+        }
+        $blog_teacher_viewers->user_agent = Agent::getUserAgent();
+        $blog_teacher_viewers->platform = Agent::platform();
+        $blog_teacher_viewers->browser = Agent::browser();
+        $blog_teacher_viewers->device = Agent::device();
+        $blog_teacher_viewers->save();
 
         return view('front.pages.blog_teacher.detail', $data);
     }
