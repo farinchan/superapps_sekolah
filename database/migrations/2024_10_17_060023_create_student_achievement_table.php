@@ -13,15 +13,14 @@ return new class extends Migration
     {
         Schema::create('student_achievement', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug')->unique();
-            $table->longText('content');
-            $table->string('thumbnail')->nullable();
             $table->foreignId('student_id')->constrained('student')->onDelete('cascade');
-            $table->enum('status', ['draft', 'published', 'archived'])->default('draft');
-            $table->string('meta_title')->nullable();
-            $table->string('meta_description')->nullable();
-            $table->string('meta_keywords')->nullable();
+            $table->string('name');
+            $table->date('date');
+            $table->string('level');
+            $table->string('rank');
+            $table->string('description');
+            $table->string('file');
+            $table->string('image');
             $table->timestamps();
         });
     }
