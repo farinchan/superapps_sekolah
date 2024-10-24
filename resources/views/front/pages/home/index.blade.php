@@ -443,7 +443,7 @@
                                 <div class="best-course-text">
                                     <div class="course-title mb20 headline relative-position">
                                         <h3><a href="#">
-                                                {{ Str::limit($blog_teacher->title, 50) }}
+                                                {{ Str::limit($blog_teacher->title, 65) }}
                                             </a></h3>
                                     </div>
                                     <div class="course-meta">
