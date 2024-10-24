@@ -4,8 +4,72 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e68fb2565f25cf910383bf85a68cacf8",
+    "content-hash": "7d8e6ed2f4a315f2eef4963411043956",
     "packages": [
+        {
+            "name": "alkoumi/laravel-hijri-date",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/alkoumi/laravel-hijri-date.git",
+                "reference": "ee726cf66349e8ab15f6f0b4041b9c96b7919742"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/alkoumi/laravel-hijri-date/zipball/ee726cf66349e8ab15f6f0b4041b9c96b7919742",
+                "reference": "ee726cf66349e8ab15f6f0b4041b9c96b7919742",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Alkoumi\\LaravelHijriDate\\LaravelHijriDateServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Alkoumi\\LaravelHijriDate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammed Alkoumi",
+                    "email": "komy66@gmail.com"
+                }
+            ],
+            "description": "Laravel package to Convert laravel date to our Amazing 💝 Hjri date {ummul qura and vice versa} . to look like [ الخميس ، ٢٢ ربيع الآخر ، ١٤٤١ - ٠٧:٤٩ مساءً]",
+            "homepage": "https://be.net/komy",
+            "keywords": [
+                "date",
+                "hijri-calendar",
+                "hijri-date",
+                "hjri",
+                "laravel-hijri-date",
+                "ummul-qura",
+                "ummul-qura-calendar"
+            ],
+            "support": {
+                "issues": "https://github.com/alkoumi/laravel-hijri-date/issues",
+                "source": "https://github.com/alkoumi/laravel-hijri-date/tree/v1.0.4"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/",
+                    "type": "github"
+                },
+                {
+                    "url": "https://www.patreon.com/mohammadelkoumi",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2020-11-27T09:41:21+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.12.1",

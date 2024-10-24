@@ -50,7 +50,8 @@
                                 <span class="subtitle text-uppercase">Selamat Datang di</span>
                             </div> --}}
                             <div class="layer-1-3">
-                                <h2>{{ $banner->title }}
+                                <h2 style="font-size: 60px;"
+                                >{{ $banner->title }}
                                     <br><span>{{ $banner->subtitle }}</span>
                                 </h2>
                             </div>
@@ -343,8 +344,137 @@
         </div>
     </section>
     <!-- End Course category
-                                                                        ============================================= -->
+        ============================================= -->
 
+        		<!-- Start latest section
+			============================================= -->
+			<section id="latest-area" class="latest-area-section">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="latest-area-content  " >
+                                <div class="section-title mb45 headline text-center ">
+                                    {{-- <span class="subtitle text-uppercase">COURSES CATEGORIES</span> --}}
+                                    <h2><span>Prestasi</span> Siswa.</h2>
+                                </div>
+								<div class="latest-news-posts">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="latest-news-area">
+                                                <div class="latest-news-thumbnile relative-position">
+                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
+                                                    <div class="hover-search">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                    <div class="blakish-overlay"></div>
+                                                </div>
+                                                <div class="date-meta">
+                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
+                                                </div>
+                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
+                                                <div class="course-viewer ul-li">
+                                                    <ul>
+                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="latest-news-area">
+                                                <div class="latest-news-thumbnile relative-position">
+                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
+                                                    <div class="hover-search">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                    <div class="blakish-overlay"></div>
+                                                </div>
+                                                <div class="date-meta">
+                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                </div>
+                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
+                                                <div class="course-viewer ul-li">
+                                                    <ul>
+                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
+                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="latest-news-area">
+                                                <div class="latest-news-thumbnile relative-position">
+                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
+                                                    <div class="hover-search">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                    <div class="blakish-overlay"></div>
+                                                </div>
+                                                <div class="date-meta">
+                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                </div>
+                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
+                                                <div class="course-viewer ul-li">
+                                                    <ul>
+                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
+                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="latest-news-area">
+                                                <div class="latest-news-thumbnile relative-position">
+                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
+                                                    <div class="hover-search">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                    <div class="blakish-overlay"></div>
+                                                </div>
+                                                <div class="date-meta">
+                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                </div>
+                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
+                                                <div class="course-viewer ul-li">
+                                                    <ul>
+                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
+                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="latest-news-area">
+                                                <div class="latest-news-thumbnile relative-position">
+                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
+                                                    <div class="hover-search">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                    <div class="blakish-overlay"></div>
+                                                </div>
+                                                <div class="date-meta">
+                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                </div>
+                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
+                                                <div class="course-viewer ul-li">
+                                                    <ul>
+                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
+                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+									<div class="view-all-btn bold-font">
+										<a href="#">Lihat semua prestasi siswa <i class="fas fa-chevron-circle-right"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		<!-- End latest section
+			============================================= -->
 
     <!-- Start of course teacher
                                                                         ============================================= -->

@@ -58,6 +58,25 @@ body {
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased; }
 
+  .runing-text-area {
+    background-color: #17d0cf;
+    color: #fff;
+    padding: 10px 0 0 0;
+    background: -o-linear-gradient(69deg, #5aa892, #0b5a49);
+    background: linear-gradient(21deg, #53a18b, #0b5a49);
+    background: -webkit-linear-gradient(69deg, #3d967d, #0b5a49);
+}
+
+.runing-text {
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+    padding: 0;
+    color: #fff; }
+
 .ul-li ul {
   margin: 0;
   padding: 0; }
@@ -472,6 +491,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-menu-container.menu-bg-overlay {
   background: #000000;
+  margin-top: -38px;
   padding: 10px 0px; }
 
 .header-style-2.main-menu-container.menu-bg-overlay {
@@ -501,7 +521,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 25px 0px;
   padding-top: 0; }
   .header-style-2 .main-menu {
-    padding-top: 25px; }
+    padding-top: 25px;
+}
   .header-style-2 .nav-menu li a {
     color: #616161; }
     .header-style-2 .nav-menu li a:hover {
@@ -1109,6 +1130,7 @@ button.alt-menu-btn.float-left {
   transition: all 1s ease-in-out 1s; }
 
 #slider-item .owl-item .layer-1-3 {
+    /* margin-top: 420px; */
   -webkit-transform: translateY(50%);
   -ms-transform: translateY(50%);
   transform: translateY(50%);

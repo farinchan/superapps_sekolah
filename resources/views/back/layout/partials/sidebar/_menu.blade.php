@@ -181,6 +181,40 @@
                     </a>
                 </div>
 
+                <div data-kt-menu-trigger="click"
+                    class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-picture fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Galeri</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link"
+                                href="{{ route('back.gallery.album') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Album</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link"
+                                href="">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Foto & Video</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="menu-item pt-5">
                     <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">

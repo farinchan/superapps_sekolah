@@ -1,7 +1,27 @@
 <header>
+    <div class="runing-text-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3" style="color: #fff; font-size: 14px;">
+                    <i class="fas fa-calendar-alt"></i>&nbsp;
+                    {{ \Carbon\Carbon::setLocale('id') }}
+                    {{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}
+                    {{-- /{{ \Alkoumi\LaravelHijriDate\Hijri::Date('l d F Y') }} --}}
+                </div>
+                <div class="col-md-9">
+                    <marquee behavior="scroll" direction="left" class="runing-text" onmouseover="this.stop();"
+                        onmouseout="this.start();">
+                        Selamat Datang di Website Resmi MAN 1 Padang Panjang
+                    </marquee>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="main-menu" class="main-menu-container">
         <div class="main-menu">
             <div class="container">
+
                 <div class="navbar-default">
                     <div class="navbar-header float-left">
                         <a class="navbar-brand text-uppercase" href="{{ route('home') }}"><img

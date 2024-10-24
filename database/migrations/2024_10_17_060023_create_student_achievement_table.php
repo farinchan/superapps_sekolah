@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name');
             $table->date('date');
             $table->string('level');
+            $table->string('event');
             $table->string('rank');
             $table->string('description');
             $table->string('file');
