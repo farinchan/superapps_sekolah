@@ -5,12 +5,15 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SettingWebsite;
+use App\Models\Student;
+use App\Models\Teacher;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Hash;
 
 
 class AuthController extends Controller
@@ -27,7 +30,7 @@ class AuthController extends Controller
     public function loginProcess(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
+            'identifier' => 'required',
             'password' => 'required'
         ], [
             'required' => 'Kolom :attribute harus diisi',
@@ -39,23 +42,26 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->withErrors($validator);
         }
 
-        $credentials = $request->only('email', 'password');
+        $user = null;
 
-        if (Auth::attempt($credentials)) {
-            if (Auth::user()->status == 0) {
-                Auth::logout();
-                Alert::error('Error', 'Akun anda belum aktif, silahkan cek email anda untuk aktivasi akun');
-                return redirect()->back()->withInput()->withErrors($validator);
-            }else{
-                if (Auth::user()->hasRole('admin')) {
-                    return redirect()->route('back.dashboard');
-                }else{
-                    return redirect()->route('home');
-                }
-            }
+        // Cek apakah ini login Guru
+        $teacher = Teacher::where('nip', $request->identifier)->orWhere('nik', $request->identifier)->first();
+        if ($teacher) {
+            $user = $teacher->user;
         }
 
-        Alert::error('Error', 'Email atau password salah');
+        // Cek apakah ini login Siswa
+        $student = Student::where('nisn', $request->identifier)->first();
+        if ($student) {
+            $user = $student->user;
+        }
+
+        if ($user && hash::check($request->password, $user->password)) {
+            Auth::login($user);
+            return redirect()->route('back.dashboard');
+        }
+
+        Alert::error('Error', 'NIP/NIK/NISN atau password salah');
         return redirect()->back()->withInput()->withErrors($validator);
     }
 
@@ -71,37 +77,40 @@ class AuthController extends Controller
     public function registerProcess(Request $request)
     {
         // dd($request->all());
-        $validator = Validator::make($request->all(), [
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => 'required',
-            'gender' => 'required|in:Laki-laki,Perempuan',
-            'place_of_birth' => 'required',
-            'birth_date' => 'required|date',
-            'province' => 'required',
-            'city' => 'required',
-            'district' => 'required',
-            'village' => 'required',
-            'latitude' => 'nullable',
-            'longitude' => 'nullable',
-            'address' => 'required',
-            'phone' => 'required',
-            'keanggotaan' => 'required',
-            'ktam' => 'required',
-            'nbm' => 'nullable',
-            'job' => 'required',
-            'kepakaran' => 'nullable',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required'
-        ],[
-            'max' => 'Ukuran file maksimal :max KB',
-            'required' => 'Kolom :attribute harus diisi',
-            'email' => 'Format email tidak valid',
-            'unique' => 'Email sudah terdaftar',
-            'in' => 'Pilih salah satu :attribute',
-            'image' => 'File harus berupa gambar',
-            'mimes' => 'Format file harus :values',
-            'date' => 'Format tanggal tidak valid',
-        ]
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'name' => 'required',
+                'gender' => 'required|in:Laki-laki,Perempuan',
+                'place_of_birth' => 'required',
+                'birth_date' => 'required|date',
+                'province' => 'required',
+                'city' => 'required',
+                'district' => 'required',
+                'village' => 'required',
+                'latitude' => 'nullable',
+                'longitude' => 'nullable',
+                'address' => 'required',
+                'phone' => 'required',
+                'keanggotaan' => 'required',
+                'ktam' => 'required',
+                'nbm' => 'nullable',
+                'job' => 'required',
+                'kepakaran' => 'nullable',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required'
+            ],
+            [
+                'max' => 'Ukuran file maksimal :max KB',
+                'required' => 'Kolom :attribute harus diisi',
+                'email' => 'Format email tidak valid',
+                'unique' => 'Email sudah terdaftar',
+                'in' => 'Pilih salah satu :attribute',
+                'image' => 'File harus berupa gambar',
+                'mimes' => 'Format file harus :values',
+                'date' => 'Format tanggal tidak valid',
+            ]
         );
 
         if ($validator->fails()) {

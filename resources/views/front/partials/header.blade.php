@@ -84,9 +84,9 @@
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="contact-info">
-                                                    <input class="name" name="email" type="email"
-                                                        value="{{ old('email') }}" placeholder="Your@email.com*">
-                                                    @error('email')
+                                                    <input class="name" name="identifier" type="text"
+                                                        value="{{ old('identifier') }}" placeholder="Identitas (NISN/NIP/NIK)*">
+                                                    @error('identifier')
                                                         <small class="text-danger">
                                                             {{ $message }}
                                                         </small>
@@ -116,7 +116,7 @@
                         </div>
                     @else
                         <div class="log-in float-right">
-                            <a href="{{ route('logout') }}">Logout</a>
+                            <a href="{{ route('back.dashboard') }}">Dashboard</a>
                         </div>
                     @endguest
 
