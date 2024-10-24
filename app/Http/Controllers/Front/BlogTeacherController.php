@@ -8,6 +8,7 @@ use App\Models\BlogTeacherViewer;
 use App\Models\SettingWebsite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Agent\Facades\Agent;
 use RealRashid\SweetAlert\Facades\Alert;
 use Stevebauman\Location\Facades\Location;
 
