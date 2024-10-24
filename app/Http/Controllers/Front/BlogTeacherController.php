@@ -63,7 +63,7 @@ class BlogTeacherController extends Controller
 
         $currentUserInfo = Location::get(request()->ip());
         $blog_teacher_viewers = new BlogTeacherViewer();
-        $blog_teacher_viewers->news_id = $blog_teacher->id;
+        $blog_teacher_viewers->blog_teacher_id = $blog_teacher->id;
         $blog_teacher_viewers->ip = request()->ip();
         if ($currentUserInfo) {
             $blog_teacher_viewers->country = $currentUserInfo->countryName;
@@ -134,7 +134,7 @@ class BlogTeacherController extends Controller
         $blog_teacher = BlogTeacher::where('slug', $slug)->firstOrFail();
 
         $comment = new BlogTeacher();
-        $comment->news_id = $blog_teacher->id;
+        $comment->blog_teacher_id	 = $blog_teacher->id;
         // if (Auth::check()) {
         //     $comment->user_id = Auth::user()->id;
         //     $comment->name = Auth::user()->name;
