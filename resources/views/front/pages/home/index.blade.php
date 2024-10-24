@@ -389,13 +389,12 @@
                                                     <div class="blakish-overlay"></div>
                                                 </div>
                                                 <div class="date-meta">
-                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
                                                 </div>
                                                 <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
                                                 <div class="course-viewer ul-li">
                                                     <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
-                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -410,13 +409,12 @@
                                                     <div class="blakish-overlay"></div>
                                                 </div>
                                                 <div class="date-meta">
-                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
                                                 </div>
                                                 <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
                                                 <div class="course-viewer ul-li">
                                                     <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
-                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -431,13 +429,12 @@
                                                     <div class="blakish-overlay"></div>
                                                 </div>
                                                 <div class="date-meta">
-                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
                                                 </div>
                                                 <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
                                                 <div class="course-viewer ul-li">
                                                     <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
-                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -452,13 +449,32 @@
                                                     <div class="blakish-overlay"></div>
                                                 </div>
                                                 <div class="date-meta">
-                                                    <i class="fas fa-calendar-alt"></i> 26 April 2018
+                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
                                                 </div>
                                                 <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
                                                 <div class="course-viewer ul-li">
                                                     <ul>
-                                                        <li><a href=""><i class="fas fa-user"></i> 1.220</a></li>
-                                                        <li><a href=""><i class="fas fa-comment-dots"></i> 1.015</a></li>
+                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="latest-news-area">
+                                                <div class="latest-news-thumbnile relative-position">
+                                                    <img src="{{ asset("front/img/blog/lb-1.jpg") }}" alt="">
+                                                    <div class="hover-search">
+                                                        <i class="fas fa-search"></i>
+                                                    </div>
+                                                    <div class="blakish-overlay"></div>
+                                                </div>
+                                                <div class="date-meta">
+                                                    <i class="fas fa-trophy"></i> Juara 1 - Nasional
+                                                </div>
+                                                <h3 class="latest-title bold-font"><a href="#">Affiliate Marketing A Beginner’s Guide.</a></h3>
+                                                <div class="course-viewer ul-li">
+                                                    <ul>
+                                                        <li><a href=""><i class="fas fa-user"></i> Fajri Rinaldi Chan</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

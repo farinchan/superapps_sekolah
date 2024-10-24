@@ -181,35 +181,36 @@
                     </a>
                 </div>
 
-                <div data-kt-menu-trigger="click"
-                    class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.achievement.*') ) here show @endif">
                     <span class="menu-link">
                         <span class="menu-icon">
-                            <i class="ki-duotone ki-picture fs-2">
+                            <i class="ki-duotone ki-medal-star fs-2">
                                 <span class="path1"></span>
                                 <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
                             </i>
                         </span>
-                        <span class="menu-title">Galeri</span>
+                        <span class="menu-title">Prestasi</span>
                         <span class="menu-arrow"></span>
                     </span>
                     <div class="menu-sub menu-sub-accordion">
                         <div class="menu-item">
-                            <a class="menu-link"
-                                href="{{ route('back.gallery.album') }}">
+                            <a class="menu-link @if (request()->routeIs('back.achievement.student.*')) active @endif"
+                                href="{{ route('back.achievement.student.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Album</span>
+                                <span class="menu-title">Prestasi Siswa</span>
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link"
-                                href="">
+                            <a class="menu-link @if (request()->routeIs('back.achievement.teacher.*')) active @endif"
+                                href="{{ route('back.achievement.teacher.index') }}">
                                 <span class="menu-bullet">
                                     <span class="bullet bullet-dot"></span>
                                 </span>
-                                <span class="menu-title">Foto & Video</span>
+                                <span class="menu-title">Prestasi Guru</span>
                             </a>
                         </div>
                     </div>

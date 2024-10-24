@@ -13,6 +13,7 @@ use App\Http\Controllers\Back\EventController as BackEventController;
 use App\Http\Controllers\Back\NewsController as BackNewsController;
 use App\Http\Controllers\Back\BlogTeacherController as BackBlogTeacherController;
 use App\Http\Controllers\Back\SekapurSirihController as BackSekapurSirihController;
+use App\Http\Controllers\Back\AchievementController as BackAchievementController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
 use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
@@ -118,6 +119,26 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
 
     Route::get('/sekapur-sirih', [BackSekapurSirihController::class, 'index'])->name('sekapur_sirih');
     Route::put('/sekapur-sirih', [BackSekapurSirihController::class, 'update'])->name('sekapur_sirih.update');
+
+    Route::prefix('achievement')->name('achievement.')->group(function () {
+        Route::prefix('student')->name('student.')->group(function () {
+            Route::get('/', [BackAchievementController::class, 'studentAchievement'])->name('index');
+            Route::get('/create', [BackAchievementController::class, 'studentAchievementCreate'])->name('create');
+            Route::post('/create', [BackAchievementController::class, 'studentAchievementStore'])->name('store');
+            Route::get('/edit/{id}', [BackAchievementController::class, 'studentAchievementEdit'])->name('edit');
+            Route::put('/edit/{id}', [BackAchievementController::class, 'studentAchievementUpdate'])->name('update');
+            Route::delete('/delete/{id}', [BackAchievementController::class, 'studentAchievementDestroy'])->name('destroy');
+        });
+
+        Route::prefix('teacher')->name('teacher.')->group(function () {
+            Route::get('/', [BackAchievementController::class, 'teacherAchievement'])->name('index');
+            Route::get('/create', [BackAchievementController::class, 'teacherAchievementCreate'])->name('create');
+            Route::post('/create', [BackAchievementController::class, 'teacherAchievementStore'])->name('store');
+            Route::get('/edit/{id}', [BackAchievementController::class, 'teacherAchievementEdit'])->name('edit');
+            Route::put('/edit/{id}', [BackAchievementController::class, 'teacherAchievementUpdate'])->name('update');
+            Route::delete('/delete/{id}', [BackAchievementController::class, 'teacherAchievementDestroy'])->name('destroy');
+        });
+    });
 
     Route::prefix('school-year')->name('school-year.')->group(function () {
         Route::get('/', [BackSchoolYearController::class, 'index'])->name('index');
