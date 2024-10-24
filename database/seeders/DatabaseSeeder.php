@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
 
         Teacher::create([
             'user_id' => 1,
-            'nip' => '1234567890',
+            'nik' => '1271130604020004',
             'name' => 'Fajri Rinaldi Chan',
             'gender' => 'laki-laki',
             'birth_date' => '2002-04-06',
