@@ -23,7 +23,7 @@
                     {{ $latest->created_at->diffForHumans() }}
                 </div>
                 <h3 class="latest-title bold-font"><a
-                        href="{{ route('news.show', $latest->slug) }}">
+                        href="{{ route('blog_teacher.show', $latest->slug) }}">
                         {{ Str::limit($latest->title, 50) }}
                     </a>
                 </h3>
@@ -32,7 +32,7 @@
 
 
         <div class="view-all-btn bold-font">
-            <a href="{{ route('news.index') }}">View All News <i
+            <a href="{{ route('blog_teacher.index') }}">Lihat semua blog guru <i
                     class="fas fa-chevron-circle-right"></i></a>
         </div>
     </div>

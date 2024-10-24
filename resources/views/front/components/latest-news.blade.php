@@ -32,7 +32,7 @@
 
 
         <div class="view-all-btn bold-font">
-            <a href="{{ route('news.index') }}">View All News <i
+            <a href="{{ route('news.index') }}">Lihat Semua berita <i
                     class="fas fa-chevron-circle-right"></i></a>
         </div>
     </div>
