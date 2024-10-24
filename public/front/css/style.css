@@ -491,8 +491,9 @@ h1, h2, h3, h4, h5, h6 {
 
 .main-menu-container.menu-bg-overlay {
   background: #000000;
-  margin-top: -38px;
-  padding: 10px 0px; }
+  margin-top: -57px;
+  padding: 30px 20px 10px;
+}
 
 .header-style-2.main-menu-container.menu-bg-overlay {
   background: #fff;
