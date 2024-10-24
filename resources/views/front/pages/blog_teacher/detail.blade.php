@@ -8,9 +8,9 @@
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $meta_description }}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{ route('news.show', $news->slug) }}">
-<link rel="canonical" href="{{ route('news.show', $news->slug) }}">
-<meta property="og:image" content="{{ $news->getThumbnail() }}">
+<meta property="og:url" content="{{ route('blog_teacher.show', $blog_teacher->slug) }}">
+<link rel="canonical" href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">
+<meta property="og:image" content="{{ $blog_teacher->getThumbnail() }}">
 
 @endsection
 
@@ -26,12 +26,12 @@
 			<div class="container">
 				<div class="page-breadcrumb-content text-center">
 					<div class="page-breadcrumb-title">
-						<h2 class="breadcrumb-head black bold">Detail <span>Berita  </span></h2>
+						<h2 class="breadcrumb-head black bold">Detail <span>Blog  </span></h2>
 					</div>
 					<div class="page-breadcrumb-item ul-li">
 						<ul class="breadcrumb text-uppercase black">
 							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active">News</li>
+							<li class="breadcrumb-item active">blog_teacher</li>
 						</ul>
 					</div>
 				</div>
@@ -50,30 +50,30 @@
 						<div class="blog-details-content">
 							<div class="post-content-details">
 								<div class="blog-detail-thumbnile mb35">
-									<img src="{{ $news->getThumbnail() }}" alt="" style="width: 100%">
+									<img src="{{ $blog_teacher->getThumbnail() }}" alt="" style="width: 100%">
 								</div>
-								<h2>{{ $news->title }}</h2>
+								<h2>{{ $blog_teacher->title }}</h2>
 
 								<div class="date-meta text-uppercase">
-									<span><i class="fas fa-calendar-alt"></i> {{ $news->created_at->format('d M Y') }} </span>
-									<span><i class="fas fa-user"></i> Humas </span>
-									<span><i class="fas fa-comment-dots"></i> {{ $news->comments->count() }} Komentar</span>
-                                    <span><i class="fas fa-eye"></i> {{ $news->viewers->count() }} Dilihat</span>
+									<span><i class="fas fa-calendar-alt"></i> {{ $blog_teacher->created_at->format('d M Y') }} </span>
+									<span><i class="fas fa-user"></i> <a href="{{ route("staff.detail", $blog_teacher->teacher->id) }}">{{ $blog_teacher->teacher->name }}</a>  </span>
+									<span><i class="fas fa-comment-dots"></i> {{ $blog_teacher->comments->count() }} Komentar</span>
+                                    <span><i class="fas fa-eye"></i> {{ $blog_teacher->viewers->count() }} Dilihat</span>
 								</div>
                                 <p>
-                                    {!! $news->content !!}
+                                    {!! $blog_teacher->content !!}
                                 </p>
 							</div>
 							<div class="blog-share-tag">
 								<div class="share-text float-left">
-									Share this news
+									Share this blog_teacher
 								</div>
 								<div class="share-social ul-li float-right">
 									<ul>
-										<li><a href="https://www.facebook.com/sharer/sharer.php?u={{ route("news.show", $news->slug) }}&t={{ $news->title }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-										<li><a href="https://twitter.com/intent/tweet?url={{ route("news.show", $news->slug) }}&text={{ $news->title }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
-										<li><a href="https://www.linkedin.com/shareArticle?mini=true&url={{ route("news.show", $news->slug) }}&title={{ $news->title }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                                        <li><a href="https://wa.me/?text={{ route("news.show", $news->slug) }}&title={{ $news->title }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+										<li><a href="https://www.facebook.com/sharer/sharer.php?u={{ route("blog_teacher.show", $blog_teacher->slug) }}&t={{ $blog_teacher->title }}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+										<li><a href="https://twitter.com/intent/tweet?url={{ route("blog_teacher.show", $blog_teacher->slug) }}&text={{ $blog_teacher->title }}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+										<li><a href="https://www.linkedin.com/shareArticle?mini=true&url={{ route("blog_teacher.show", $blog_teacher->slug) }}&title={{ $blog_teacher->title }}" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                        <li><a href="https://wa.me/?text={{ route("blog_teacher.show", $blog_teacher->slug) }}&title={{ $blog_teacher->title }}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
 									</ul>
 								</div>
 							</div>
@@ -96,15 +96,15 @@
 								</div>
 							</div> --}}
 							<div class="next-prev-post">
-                                @if ($prev_news)
+                                @if ($prev_blog_teacher)
                                     <div class="next-post-item float-left">
-                                        <a href="{{ route("news.show", $prev_news->slug) }}"><i class="fas fa-arrow-circle-left"></i>Berita Sebelumnya</a>
+                                        <a href="{{ route("blog_teacher.show", $prev_blog_teacher->slug) }}"><i class="fas fa-arrow-circle-left"></i>Blog Sebelumnya</a>
                                     </div>
                                 @endif
 
-                                @if ($next_news)
+                                @if ($next_blog_teacher)
                                     <div class="next-post-item float-right">
-                                        <a href="{{ route("news.show", $next_news->slug) }}">Berita Selanjutnya<i class="fas fa-arrow-circle-right"></i></a>
+                                        <a href="{{ route("blog_teacher.show", $next_blog_teacher->slug) }}">Blog Selanjutnya<i class="fas fa-arrow-circle-right"></i></a>
                                     </div>
                                 @endif
 							</div>
@@ -112,11 +112,11 @@
 
 						<div class="blog-recent-post about-teacher-2">
 							<div class="section-title-2  headline text-left">
-								<h2>Berita <span>Terkait.</span></h2>
+								<h2>Blog <span>Terkait.</span></h2>
 							</div>
 							<div class="recent-post-item">
 								<div class="row">
-                                    @foreach ( $related_news as $related )
+                                    @foreach ( $related_blog_teacher as $related )
                                     <div class="col-md-6">
 										<div class="blog-post-img-content">
 											<div class="blog-img-date relative-position">
@@ -128,7 +128,7 @@
 												</div>
 											</div>
 											<div class="blog-title-content headline">
-												<h3><a href="{{ route("news.show", $related->slug) }}">{{ $related->title }}</a></h3>
+												<h3><a href="{{ route("blog_teacher.show", $related->slug) }}">{{ $related->title }}</a></h3>
 											</div>
 										</div>
 									</div>
@@ -174,7 +174,7 @@
 								</div>
 
 								<div class="teacher-faq-form">
-									<form method="POST" action="{{ route("news.comment", $news->slug ) }}" data-lead="Residential">
+									<form method="POST" action="{{ route("blog_teacher.comment", $blog_teacher->slug ) }}" data-lead="Residential">
                                         @csrf
 										<div class="row">
 											<div class="col-md-6">
@@ -208,9 +208,9 @@
                                 </form>
                             </div>
 
-                           @include("front.components.news-categories")
+                           {{-- @include("front.components.blog_teacher-categories") --}}
 
-                           @include("front.components.latest-news")
+                           @include("front.components.latest-blog-teacher")
 
 
                         </div>

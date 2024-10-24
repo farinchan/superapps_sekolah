@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\NewsController;
+use App\Http\Controllers\Front\BlogTeacherController;
+use App\Http\Controllers\Front\ProfilMenu;
 use App\Http\Controllers\Front\PersonaliaMenu;
 
 use App\Http\Controllers\Back\DashboardController as BackDashboardController;
@@ -19,7 +21,6 @@ use App\Http\Controllers\Back\UserController as BackUserController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
 use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
-use App\Http\Controllers\Front\ProfilMenu;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -47,6 +48,12 @@ Route::prefix('news')->name('news.')->group(function () {
     route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
     Route::get('/{slug}', [NewsController::class, 'show'])->name('show');
     Route::post('/{slug}', [NewsController::class, 'comment'])->name('comment');
+});
+
+Route::prefix('blog-teacher')->name('blog_teacher.')->group(function () {
+    Route::get('/', [BlogTeacherController::class, 'index'])->name('index');
+    Route::get('/{slug}', [BlogTeacherController::class, 'show'])->name('show');
+    Route::post('/{slug}', [BlogTeacherController::class, 'comment'])->name('comment');
 });
 
 

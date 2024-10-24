@@ -8,8 +8,8 @@
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ $meta_description }}">
 <meta property="og:type" content="website">
-<meta property="og:url" content="{{ route('news.index' ) }}">
-<link rel="canonical" href="{{ route('news.index') }}">
+<meta property="og:url" content="{{ route('blog_teacher.index' ) }}">
+<link rel="canonical" href="{{ route('blog_teacher.index') }}">
 <meta property="og:image" content="{{ Storage::url($favicon) }}">
 @endsection
 
@@ -24,18 +24,12 @@
         <div class="container">
             <div class="page-breadcrumb-content text-center">
                 <div class="page-breadcrumb-title">
-                    @if (request()->routeIs('news.category'))
-                        <h2 class="breadcrumb-head black bold">Kategori <span>{{ $category->name }}</span></h2>
-
-                    @endif
-                    @if (request()->routeIs('news.index'))
-                        <h2 class="breadcrumb-head black bold">Semua <span>Berita</span></h2>
-                    @endif
+                        <h2 class="breadcrumb-head black bold">Semua <span> Blog Guru</span></h2>
                 </div>
                 <div class="page-breadcrumb-item ul-li">
                     <ul class="breadcrumb text-uppercase black">
                         <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
-                        <li class="breadcrumb-item active">News</li>
+                        <li class="breadcrumb-item active">BlogGuru</li>
                     </ul>
                 </div>
             </div>
@@ -53,12 +47,6 @@
                     <div class="col-md-9">
                         <div class="blog-post-content">
                             <div class="short-filter-tab">
-                                @if (request()->routeIs('news.category'))
-                                    <div class="shorting-filter  float-left">
-                                        <span><b>Kategori</b>:</span>
-                                        {{ $category->name }}
-                                    </div>
-                                @endif
 
                                 <div class="tab-button blog-button ul-li text-center float-right">
                                     <ul class="product-tab">
@@ -72,32 +60,30 @@
                                 <div class="tab-container">
                                     <div id="tab1" class="tab-content-1 pt35">
                                         <div class="row">
-                                            @foreach ($list_news as $news)
+                                            @foreach ($list_blog_teacher as $blog_teacher)
                                                 <div class="col-md-6">
                                                     <div class="blog-post-img-content">
                                                         <div class="blog-img-date relative-position">
                                                             <div class="blog-thumnile">
-                                                                <img src="{{ $news->getThumbnail() }}"
+                                                                <img src="{{ $blog_teacher->getThumbnail() }}"
                                                                     style="height: 300px width: 100%; object-fit: cover;"
                                                                     alt="">
                                                             </div>
                                                             <div class="course-price text-center gradient-bg">
-                                                                <span>{{ $news->created_at->diffForHumans() }}</span>
+                                                                <span>{{ $blog_teacher->created_at->diffForHumans() }}</span>
                                                             </div>
                                                         </div>
                                                         <div class="course-meta">
-                                                            <span class="course-category bold-font"><a
-                                                                    href="{{ route('news.category', $news->category->slug) }}">{{ $news->category->name }}</a></span>
                                                             <span class="course-author bold-font"><a
-                                                                    href="#">Humas</a></span>
+                                                                    href="{{ route('staff.detail', $blog_teacher->teacher->id) }}">{{ $blog_teacher->teacher->name }}</a></span>
 
                                                         </div>
                                                         <div class="blog-title-content headline">
-                                                            <a href="{{ route('news.show', $news->slug) }}">
-                                                                <h3>{{ $news->title }}</h3>
+                                                            <a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">
+                                                                <h3>{{ $blog_teacher->title }}</h3>
                                                             </a>
                                                             <div class="blog-content">
-                                                                {{ Str::limit(strip_tags($news->content), 100) }}
+                                                                {{ Str::limit(strip_tags($blog_teacher->content), 100) }}
                                                             </div>
 
                                                             <div class="course-viewer ul-li">
@@ -105,19 +91,19 @@
                                                                     <li>
                                                                         <a href="">
                                                                             <i class="fas fa-user"></i>
-                                                                            {{ $news->viewers->count() }}
+                                                                            {{ $blog_teacher->viewers->count() }}
                                                                         </a>
                                                                     </li>
                                                                     <li>
                                                                         <a href="">
                                                                             <i class="fas fa-comment-dots"></i>
-                                                                            {{ $news->comments->count() }}
+                                                                            {{ $blog_teacher->comments->count() }}
                                                                         </a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
                                                             <div class="view-all-btn bold-font mt-3">
-                                                                <a href="{{ route('news.show', $news->slug) }}">Read More
+                                                                <a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">Read More
                                                                     <i class="fas fa-chevron-circle-right"></i></a>
                                                             </div>
                                                         </div>
@@ -131,19 +117,19 @@
 
                                     <div id="tab2" class="tab-content-1 pt35">
                                         <div class="blog-list-view">
-                                            @foreach ($list_news as $news)
+                                            @foreach ($list_blog_teacher as $blog_teacher)
                                                 <div class="list-blog-item">
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="blog-post-img-content">
                                                                 <div class="blog-img-date relative-position">
                                                                     <div class="blog-thumnile">
-                                                                        <img src="{{ $news->getThumbnail() }}"
+                                                                        <img src="{{ $blog_teacher->getThumbnail() }}"
                                                                             alt="">
                                                                     </div>
                                                                     <div class="course-price text-center gradient-bg">
                                                                         <span>
-                                                                            {{ $news->created_at->diffForHumans() }}
+                                                                            {{ $blog_teacher->created_at->diffForHumans() }}
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -151,38 +137,36 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="blog-title-content headline">
-                                                                <a href="{{ route('news.show', $news->slug) }}">
-                                                                    <h3>{{ $news->title }}</h3>
+                                                                <a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">
+                                                                    <h3>{{ $blog_teacher->title }}</h3>
                                                                 </a>
                                                                 <div class="course-meta">
-                                                                    <span class="course-category bold-font"><a
-                                                                            href="{{ route('news.category', $news->category->slug) }}">{{ $news->category->name }}</a></span>
                                                                     <span class="course-author bold-font"><a
-                                                                            href="#">Humas</a></span>
+                                                                            href="{{ route('staff.detail', $blog_teacher->teacher->id) }}">{{ $blog_teacher->teacher->name }}</a></span>
 
                                                                 </div>
 
                                                                 <div class="blog-content">
-                                                                    {{ Str::limit(strip_tags($news->content), 100) }}
+                                                                    {{ Str::limit(strip_tags($blog_teacher->content), 100) }}
                                                                 </div>
                                                                 <div class="course-viewer ul-li">
                                                                     <ul>
                                                                         <li>
                                                                             <a href=""><i
-                                                                                    class="fas fa-user"></i>{{ $news->viewers->count() }}
+                                                                                    class="fas fa-user"></i>{{ $blog_teacher->viewers->count() }}
                                                                             </a>
                                                                         </li>
                                                                         <li>
                                                                             <a href=""><i
                                                                                     class="fas fa-comment-dots"></i>
-                                                                                {{ $news->comments->count() }}
+                                                                                {{ $blog_teacher->comments->count() }}
                                                                             </a>
                                                                         </li>
                                                                     </ul>
                                                                 </div>
 
                                                                 <div class="view-all-btn bold-font mt-3">
-                                                                    <a href="{{ route('news.show', $news->slug) }}">Read
+                                                                    <a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">Read
                                                                         More <i class="fas fa-chevron-circle-right"></i></a>
                                                                 </div>
                                                             </div>
@@ -200,19 +184,19 @@
 
                             <div class="couse-pagination text-center ul-li">
                                 <ul>
-                                    @if ($list_news->onFirstPage())
+                                    @if ($list_blog_teacher->onFirstPage())
                                         <li class="pg-text"><a href="#">PREV</a></li>
                                     @else
                                         <li class="pg-text">
                                             <a
-                                                href="{{ route('news', ['page' => $list_news->currentPage() - 1, 'q' => request()->q]) }}">PREV</a>
+                                                href="{{ route('blog_teacher.index', ['page' => $list_blog_teacher->currentPage() - 1, 'q' => request()->q]) }}">PREV</a>
                                         </li>
                                     @endif
 
                                     @php
                                         // Menghitung halaman pertama dan terakhir yang akan ditampilkan
-                                        $start = max($list_news->currentPage() - 2, 1);
-                                        $end = min($start + 4, $list_news->lastPage());
+                                        $start = max($list_blog_teacher->currentPage() - 2, 1);
+                                        $end = min($start + 4, $list_blog_teacher->lastPage());
                                     @endphp
 
                                     @if ($start > 1)
@@ -220,23 +204,23 @@
                                         <li><a href="#">...</a></li>
                                     @endif
 
-                                    @foreach ($list_news->getUrlRange($start, $end) as $page => $url)
-                                        @if ($page == $list_news->currentPage())
+                                    @foreach ($list_blog_teacher->getUrlRange($start, $end) as $page => $url)
+                                        @if ($page == $list_blog_teacher->currentPage())
                                             <li class="active"><a href="#">{{ $page }}</a></li>
                                         @else
                                             <li><a
-                                                    href="{{ route('news', ['page' => $page, 'q' => request()->q]) }}">{{ $page }}</a>
+                                                    href="{{ route('blog_teacher.index', ['page' => $page, 'q' => request()->q]) }}">{{ $page }}</a>
                                             </li>
                                         @endif
                                     @endforeach
 
-                                    @if ($end < $list_news->lastPage())
+                                    @if ($end < $list_blog_teacher->lastPage())
                                         <li><a href="#">...</a></li>
                                     @endif
 
-                                    @if ($list_news->hasMorePages())
+                                    @if ($list_blog_teacher->hasMorePages())
                                         <li class="pg-text"><a
-                                                href="{{ route('news', ['page' => $list_news->currentPage() + 1, 'q' => request()->q]) }}">NEXT</a>
+                                                href="{{ route('blog_teacher.index', ['page' => $list_blog_teacher->currentPage() + 1, 'q' => request()->q]) }}">NEXT</a>
                                         </li>
                                     @else
                                         <li class="pg-text"><a href="#">NEXT</a></li>
@@ -257,9 +241,7 @@
                                 </form>
                             </div>
 
-                            @include("front.components.news-categories")
-
-                            @include("front.components.latest-news")
+                            @include("front.components.latest-blog-teacher")
 
 
                         </div>
