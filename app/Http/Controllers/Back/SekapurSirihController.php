@@ -25,9 +25,12 @@ class SekapurSirihController extends Controller
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'content' => 'required',
         ], [
+            'name.required' => 'Nama wajib diisi',
+            'name.max' => 'Nama maksimal 255 karakter',
             'image.required' => 'Gambar wajib diisi',
             'image.image' => 'Gambar harus berupa gambar',
             'image.mimes' => 'Gambar harus berformat jpeg, png, jpg, gif, svg',
@@ -44,17 +47,19 @@ class SekapurSirihController extends Controller
 
         if ($request->hasFile('image')) {
             $sekapur_sirih->update([
+                'name' => $request->name,
                 'image' => $request->file('image')->storeAs('sekapur_sirih', 'sekapur_sirih.' . $request->file('image')->extension(), 'public'),
                 'content' => $request->content,
             ]);
         } else {
             $sekapur_sirih->update([
+                'name' => $request->name,
                 'content' => $request->content,
             ]);
         }
 
-        Alert::success('Berhasil', 'Data berhasil disimpan');
-        return redirect()->route('back.sekapur_sirih.index');
+        Alert::success('Berhasil', 'Data berhasil diupdate');
+        return redirect()->route('back.sekapur_sirih');
 
     }
 }

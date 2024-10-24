@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sekapur_sirih', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('image');
             $table->LongText('content');
             $table->timestamps();

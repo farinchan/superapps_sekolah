@@ -2,7 +2,8 @@
 @section('content')
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
-            <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" action="{{ route("back.sekapur_sirih.update") }}" method="POST" enctype="multipart/form-data">
+            <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row"
+                action="{{ route('back.sekapur_sirih.update') }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
@@ -15,11 +16,11 @@
                         <div class="card-body text-center pt-0">
                             <style>
                                 .image-input-placeholder {
-                                    background-image: url('{{ asset('back/media/svg/files/blank-image.svg') }}');
+                                    background-image: url('{{ $data->getImage() }}');
                                 }
 
                                 [data-bs-theme="dark"] .image-input-placeholder {
-                                    background-image: url('{{ asset('back/media/svg/files/blank-image-dark.svg') }}');
+                                    background-image: url('{{ $data->getImage() }}');
                                 }
                             </style>
                             <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
@@ -63,27 +64,35 @@
                             </div>
                         </div> --}}
                         <div class="card-body pt-0">
-                            <div class="mb-10">
-                                <label class="form-label required">Content</label>
-                                <div id="quill_content" name="kt_ecommerce_add_category_description"
-                                    class="min-h-500px mb-2">
-                                    {!! old('content') !!}
-                                </div>
-                                <input type="hidden" name="content" id="content" required>
-                                @error('content')
+                            <div class="mb-5">
+                                <label class="form-label required">Nama Kepala Madrasah</label>
+                                <input type="text" name="name" class="form-control form-control-solid mb-3"
+                                    placeholder="Nama Kepala Madrasah" value="{{ $data->name }}" required />
+                                @error('name')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
                             </div>
+                                <div class="mb-10">
+                                    <label class="form-label required">Content</label>
+                                    <div id="quill_content" name="kt_ecommerce_add_category_description"
+                                        class="min-h-500px mb-2">
+                                        {!! $data->content !!}
+                                    </div>
+                                    <input type="hidden" name="content" id="content" required>
+                                    @error('content')
+                                        <div class="text-danger fs-7">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <a href="{{ route('back.event.index') }}" id="kt_ecommerce_add_product_cancel"
+                                class="btn btn-light me-5">Batal</a>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="indicator-label">Simpan Perubahan</span>
+                            </button>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <a href="{{ route('back.event.index') }}" id="kt_ecommerce_add_product_cancel"
-                            class="btn btn-light me-5">Batal</a>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="indicator-label">Simpan Perubahan</span>
-                        </button>
-                    </div>
-                </div>
             </form>
         </div>
     </div>
