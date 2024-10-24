@@ -38,7 +38,7 @@
 
 @section('content')
     <!-- Start of slider section
-                                                                                          ============================================= -->
+                                                                                              ============================================= -->
     <section id="slide" class="slider-section">
         <div id="slider-item" class="slider-item-details">
             @foreach ($list_banner as $banner)
@@ -50,8 +50,7 @@
                                 <span class="subtitle text-uppercase">Selamat Datang di</span>
                             </div> --}}
                             <div class="layer-1-3">
-                                <h2 style="font-size: 60px;"
-                                >{{ $banner->title }}
+                                <h2 style="font-size: 60px;">{{ $banner->title }}
                                     <br><span>{{ $banner->subtitle }}</span>
                                 </h2>
                             </div>
@@ -70,10 +69,10 @@
         </div>
     </section>
     <!-- End of slider section
-                                                                                        ============================================= -->
+                                                                                            ============================================= -->
 
     <!-- Start Latest News
-                                                                                        ============================================= -->
+                                                                                            ============================================= -->
     <section id="popular-course" class="popular-course-section mt-5">
         <div class="container">
             <div class="section-title mb20 headline text-left ">
@@ -127,10 +126,10 @@
         </div>
     </section>
     <!-- End Latest News
-                                                                                        ============================================= -->
+                                                                                            ============================================= -->
 
     <!-- Start latest section
-                                                                                        ============================================= -->
+                                                                                            ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -185,10 +184,10 @@
         </div>
     </section>
     <!-- End latest section
-                                                                                        ============================================= -->
+                                                                                            ============================================= -->
 
     <!-- Start why choose section
-                                                                                      ========================================= ==== -->
+                                                                                          ========================================= ==== -->
     <section id="why-choose" class="why-choose-section backgroud-style">
         <div class="container">
             <div class="section-title mb20 headline text-center ">
@@ -229,11 +228,11 @@
         </div>
     </section>
     <!-- End why choose section
-                                                                                      ============================================= -->
+                                                                                          ============================================= -->
 
 
     <!-- Start of Search Courses
-                                                                        ============================================= -->
+                                                                            ============================================= -->
     <section id="search-course" class="search-course-section">
         <div class="container">
             <div class="section-title mb20 headline text-center mb-5">
@@ -309,10 +308,63 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                        ============================================= -->
+    ============================================= -->
+
+    <!-- Start prestasi section
+       ============================================= -->
+    <section id="latest-area" class="latest-area-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="latest-area-content  ">
+                        <div class="section-title mb45 headline text-center ">
+                            {{-- <span class="subtitle text-uppercase">COURSES CATEGORIES</span> --}}
+                            <h2><span>Prestasi</span> Siswa.</h2>
+                        </div>
+                        <div class="latest-news-posts">
+                            <div class="row">
+                                @foreach ($list_student_achievement as $student_achievement)
+                                    <div class="col-md-4">
+                                        <div class="latest-news-area" style="max-width: 100%;">
+                                            <div class="latest-news-thumbnile relative-position">
+                                                <img src="{{ $student_achievement->getImage() }}" alt="">
+                                                <div class="hover-search">
+                                                    <i class="fas fa-search"></i>
+                                                </div>
+                                                <div class="blakish-overlay"></div>
+                                            </div>
+                                            <div class="date-meta">
+                                                <i class="fas fa-trophy"></i> {{ $student_achievement->rank }} -
+                                                {{ $student_achievement->level }}
+                                            </div>
+                                            <h3 class="latest-title bold-font"><a href="#">
+                                                    {{ Str::limit($student_achievement->name . ' - ' . $student_achievement->event, 50) }}
+                                                </a></h3>
+                                            <div class="course-viewer ul-li">
+                                                <ul>
+                                                    <li><a href=""><i class="fas fa-user"></i>
+                                                            {{ $student_achievement->student->name }}</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <div class="view-all-btn bold-font">
+                                <a href="{{ route('achievement.student') }}">Lihat semua prestasi siswa <i
+                                        class="fas fa-chevron-circle-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End prestasi section
+       ============================================= -->
 
     <!-- Start Course category
-                                                                            ============================================= -->
+                                                                                ============================================= -->
     <section id="course-category" class="course-category-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -344,61 +396,12 @@
         </div>
     </section>
     <!-- End Course category
-        ============================================= -->
+            ============================================= -->
 
-        		<!-- Start latest section
-			============================================= -->
-			<section id="latest-area" class="latest-area-section">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="latest-area-content  " >
-                                <div class="section-title mb45 headline text-center ">
-                                    {{-- <span class="subtitle text-uppercase">COURSES CATEGORIES</span> --}}
-                                    <h2><span>Prestasi</span> Siswa.</h2>
-                                </div>
-								<div class="latest-news-posts">
-                                    <div class="row">
-                                        @foreach ($list_student_achievement as $student_achievement)
-                                            <div class="col-md-4">
-                                                <div class="latest-news-area" style="max-width: 100%;">
-                                                    <div class="latest-news-thumbnile relative-position">
-                                                        <img src="{{ $student_achievement->getImage() }}" alt="">
-                                                        <div class="hover-search">
-                                                            <i class="fas fa-search"></i>
-                                                        </div>
-                                                        <div class="blakish-overlay"></div>
-                                                    </div>
-                                                    <div class="date-meta">
-                                                        <i class="fas fa-trophy"></i> {{ $student_achievement->rank }} - {{ $student_achievement->level }}
-                                                    </div>
-                                                    <h3 class="latest-title bold-font"><a href="#">
-                                                        {{ Str::limit($student_achievement->name . ' - ' . $student_achievement->event, 50) }}
-                                                        </a></h3>
-                                                    <div class="course-viewer ul-li">
-                                                        <ul>
-                                                            <li><a href=""><i class="fas fa-user"></i> {{ $student_achievement->student->name }}</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                        @endforeach
-                                    </div>
-									<div class="view-all-btn bold-font">
-										<a href="{{ route('achievement.student') }}">Lihat semua prestasi siswa <i class="fas fa-chevron-circle-right"></i></a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</section>
-		<!-- End latest section
-			============================================= -->
 
     <!-- Start of course teacher
-                                                                        ============================================= -->
+                                                                            ============================================= -->
     <section id="course-teacher" class="course-teacher-section">
         <div class="jarallax">
             <div class="container">
@@ -463,10 +466,10 @@
         </div>
     </section>
     <!-- End of course teacher
-                                                                        ============================================= -->
+                                                                            ============================================= -->
 
     <!-- Start of best course
-                                                                        ============================================= -->
+                                                                            ============================================= -->
     <section id="best-course" class="best-course-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -479,7 +482,8 @@
                         <div class="col-md-3">
                             <div class="best-course-pic-text relative-position ">
                                 <div class="best-course-pic relative-position">
-                                    <img src="{{ $blog_teacher->getThumbnail() }}" alt="" style="height: 200px; width: 100%; object-fit: cover;">
+                                    <img src="{{ $blog_teacher->getThumbnail() }}" alt=""
+                                        style="height: 200px; width: 100%; object-fit: cover;">
                                     @if ($blog_teacher->viewers->count() > 100)
                                         <div class="trend-badge-2 text-center text-uppercase">
                                             <i class="fas fa-bolt"></i>
@@ -487,7 +491,8 @@
                                         </div>
                                     @endif
                                     <div class="course-details-btn">
-                                        <a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                                        <a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">Selengkapnya <i
+                                                class="fas fa-arrow-right"></i></a>
                                     </div>
                                     <div class="blakish-overlay"></div>
                                 </div>
@@ -498,8 +503,10 @@
                                             </a></h3>
                                     </div>
                                     <div class="course-meta">
-                                        <span class="course-category"><a href=" {{ route('staff.detail', $blog_teacher->teacher->id) }}">{{ $blog_teacher->teacher->name }}</a></span>
-                                        <span class="course-author"><a href="#"> {{ $blog_teacher->viewers->count() }} dilihat</a></span>
+                                        <span class="course-category"><a
+                                                href=" {{ route('staff.detail', $blog_teacher->teacher->id) }}">{{ $blog_teacher->teacher->name }}</a></span>
+                                        <span class="course-author"><a href="#">
+                                                {{ $blog_teacher->viewers->count() }} dilihat</a></span>
                                     </div>
                                 </div>
                             </div>
@@ -513,10 +520,10 @@
         </div>
     </section>
     <!-- End of best course
-                                                                        ============================================= -->
+                                                                            ============================================= -->
 
     <!-- Start of genius teacher v2
-                                                              ============================================= -->
+                                                                  ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title mb20  headline text-left">
@@ -732,11 +739,11 @@
         </div>
     </section>
     <!-- End of genius teacher v2
-                                            ============================================= -->
+                                                ============================================= -->
 
 
     <!-- Start of sponsor section
-                                            ============================================= -->
+                                                ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -746,10 +753,10 @@
             </div>
     </section>
     <!-- End of sponsor section
-                                         ============================================= -->
+                                             ============================================= -->
 
     <!-- Start of sponsor section
-                                            ============================================= -->
+                                                ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -766,12 +773,12 @@
         </div>
     </section>
     <!-- End of sponsor section
-                                         ============================================= -->
+                                             ============================================= -->
 
 
 
     <!-- Start of Search Courses
-                                                                        ============================================= -->
+                                                                            ============================================= -->
     <section id="search-course" class="search-course-section home-secound-course-search backgroud-style">
         <div class="container">
 
@@ -827,7 +834,7 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                                          ============================================= -->
+                                                                                              ============================================= -->
 @endsection
 
 @section('scripts')
