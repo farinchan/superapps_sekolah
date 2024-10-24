@@ -49,7 +49,7 @@ class BlogTeacherController extends Controller
 
             'blog_teacher' => $blog_teacher,
             'related_blog_teacher' => BlogTeacher::latest()
-                ->with(['user', 'comments'])
+                ->with(['teacher', 'comments'])
                 ->where('teacher_id', $blog_teacher->teacher_id)
                 ->where('id', '!=', $blog_teacher->id)
                 ->limit(2)
