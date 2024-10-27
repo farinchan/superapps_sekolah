@@ -14,6 +14,7 @@ use App\Models\SettingWebsite;
 use App\Models\Student;
 use App\Models\StudentAchievement;
 use App\Models\Teacher;
+use Dymantic\InstagramFeed\Profile;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -38,6 +39,7 @@ class HomeController extends Controller
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')->inRandomOrder()->limit(7)->get(),
             'list_blog_teacher' => BlogTeacher::latest()->limit(8)->get(),
             'list_partner' => Partner::all(),
+            'instagram_feed' => Profile::where('username', 'mansapapaofficial')->first()->freshFeed(12),
 
             'tenaga_pendidik_count' => Teacher::where('type', 'tenaga pendidik')->count(),
             'tenaga_kependidikan_count' => Teacher::where('type', 'tenaga kependidikan')->count(),
@@ -45,7 +47,8 @@ class HomeController extends Controller
             'alumni_count' => "10",
 
         ];
-
+        // return response()->json($data);
+        // dd($data);
         return view('front.pages.home.index', $data);
     }
 

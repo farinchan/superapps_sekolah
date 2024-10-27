@@ -15,6 +15,16 @@
 @endsection
 
 @section('styles')
+    <style>
+        .mfp-img {
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
@@ -38,7 +48,7 @@
 
 @section('content')
     <!-- Start of slider section
-                                                                                              ============================================= -->
+                                                                                                                                                  ============================================= -->
     <section id="slide" class="slider-section">
         <div id="slider-item" class="slider-item-details">
             @foreach ($list_banner as $banner)
@@ -69,10 +79,10 @@
         </div>
     </section>
     <!-- End of slider section
-                                                                                            ============================================= -->
+                                                                                                                                                ============================================= -->
 
     <!-- Start Latest News
-                                                                                            ============================================= -->
+                                                                                                                                                ============================================= -->
     <section id="popular-course" class="popular-course-section mt-5">
         <div class="container">
             <div class="section-title mb20 headline text-left ">
@@ -126,10 +136,10 @@
         </div>
     </section>
     <!-- End Latest News
-                                                                                            ============================================= -->
+                                                                                                                                                ============================================= -->
 
     <!-- Start latest section
-                                                                                            ============================================= -->
+                                                                                                                                                ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -184,10 +194,10 @@
         </div>
     </section>
     <!-- End latest section
-                                                                                            ============================================= -->
+                                                                                                                                                ============================================= -->
 
     <!-- Start why choose section
-                                                                                          ========================================= ==== -->
+                                                                                                                                              ========================================= ==== -->
     <section id="why-choose" class="why-choose-section backgroud-style">
         <div class="container">
             <div class="section-title mb20 headline text-center ">
@@ -228,11 +238,11 @@
         </div>
     </section>
     <!-- End why choose section
-                                                                                          ============================================= -->
+                                                                                                                                              ============================================= -->
 
 
     <!-- Start of Search Courses
-                                                                            ============================================= -->
+                                                                                                                                ============================================= -->
     <section id="search-course" class="search-course-section">
         <div class="container">
             <div class="section-title mb20 headline text-center mb-5">
@@ -308,10 +318,10 @@
         </div>
     </section>
     <!-- End of Search Courses
-    ============================================= -->
+                                                        ============================================= -->
 
     <!-- Start prestasi section
-       ============================================= -->
+                                                           ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -361,10 +371,10 @@
         </div>
     </section>
     <!-- End prestasi section
-       ============================================= -->
+                                                           ============================================= -->
 
     <!-- Start Course category
-                                                                                ============================================= -->
+                                                                                                                                    ============================================= -->
     <section id="course-category" class="course-category-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -396,12 +406,12 @@
         </div>
     </section>
     <!-- End Course category
-            ============================================= -->
+                                                                ============================================= -->
 
 
 
     <!-- Start of course teacher
-                                                                            ============================================= -->
+                                                                                                                                ============================================= -->
     <section id="course-teacher" class="course-teacher-section">
         <div class="jarallax">
             <div class="container">
@@ -466,10 +476,10 @@
         </div>
     </section>
     <!-- End of course teacher
-                                                                            ============================================= -->
+                                                                                                                                ============================================= -->
 
     <!-- Start of best course
-                                                                            ============================================= -->
+                                                                                                                                ============================================= -->
     <section id="best-course" class="best-course-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -520,230 +530,74 @@
         </div>
     </section>
     <!-- End of best course
-                                                                            ============================================= -->
+                                                                                                                                ============================================= -->
 
     <!-- Start of genius teacher v2
-                                                                  ============================================= -->
+                                                                                                                      ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title mb20  headline text-left">
                 {{-- <span class="subtitle ml42 text-uppercase">LEARN NEW SKILLS</span> --}}
-                <h2><span>Instagram</span> Post.</h2>
+                <h2><span>Instagram</1span> Post.</h2>
             </div>
             <div class="teacher-third-slide">
-                <div class="teacher-double">
+                @foreach ($instagram_feed['feed'] as $instagram)
+                    @php
+                        $image = '';
+                        $popup = '';
+                        if ($instagram->type == 'image') {
+                            $image = $instagram->url;
+                            $popup = $instagram->url;
+                        } elseif ($instagram->type == 'video') {
+                            $image = $instagram->thumbnail_url;
+                            $popup = $instagram->url;
+                        } elseif ($instagram->type == 'carousel') {
+                            foreach ($instagram->children as $child) {
+                                if ($child['type'] == 'image') {
+                                    $image = $child['url'];
+                                    $popup = $child['url'];
+                                    break;
+                                } else {
+                                    $image = $child['thumbnail_url'];
+                                    $popup = $child['url'];
+                                    break;
+                                }
+                            }
+                        }
+                    @endphp
                     <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
+                        <img src="{{ $image }}" alt=""
+                            style="height: 100%; width: 100%; object-fit: cover;">
                         <div class="teacher-cntent">
                             <div class="teacher-social-name ul-li-block">
                                 <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
+                                    <li><a class="image-popup" href="{{ $popup }}"><i class="fas fa-eye"></i></a>
+                                    </li>
+                                    <li><a href="{{ $instagram->permalink }}"><i class="fas fa-heart"></i></a></li>
+                                    <li><a href="{{ $instagram->permalink }}"><i class="fas fa-comment"></i></i></a></li>
+                                    <li><a href="{{ $instagram->permalink }}"><i class="fab fa-telegram-plane"></i></a>
+                                    </li>
                                 </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
+                                {{-- <div class="teacher-name">
+                                        {{ $loop->iteration }}. {{ $instagram->type }}
+                                    </div> --}}
                             </div>
                         </div>
                         {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
+                                <span class="st-name">Mobile Apps </span>
+                            </div> --}}
                     </div>
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-
-
-                </div>
-
-                <div class="teacher-double">
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="teacher-double">
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="teacher-double">
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                </div>
-                <div class="teacher-double">
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                    <div class="teacher-img-content relative-position">
-                        <img src="{{ asset('front/img/teacher/ts-1.jpg') }}" alt="">
-                        <div class="teacher-cntent">
-                            <div class="teacher-social-name ul-li-block">
-                                <ul>
-                                    <li><a href="#"><i class="fas fa-heart"></i></a></li>
-                                    <li><a href="#"><i class="fas fa-comment"></i></i></a></li>
-                                    <li><a href="#"><i class="fab fa-telegram-plane"></i></a></li>
-                                </ul>
-                                <div class="teacher-name">
-                                    {{-- <span>Daniel
-                                        Alvares</span> --}}
-                                </div>
-                            </div>
-                        </div>
-                        {{-- <div class="teacher-category float-right">
-                            <span class="st-name">Mobile Apps </span>
-                        </div> --}}
-                    </div>
-                </div>
+                @endforeach
 
             </div>
         </div>
     </section>
     <!-- End of genius teacher v2
-                                                ============================================= -->
+                                                                                                    ============================================= -->
 
 
     <!-- Start of sponsor section
-                                                ============================================= -->
+                                                                                                    ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -753,10 +607,10 @@
             </div>
     </section>
     <!-- End of sponsor section
-                                             ============================================= -->
+                                                                                                 ============================================= -->
 
     <!-- Start of sponsor section
-                                                ============================================= -->
+                                                                                                    ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -773,12 +627,12 @@
         </div>
     </section>
     <!-- End of sponsor section
-                                             ============================================= -->
+                                                                                                 ============================================= -->
 
 
 
     <!-- Start of Search Courses
-                                                                            ============================================= -->
+                                                                                                                                ============================================= -->
     <section id="search-course" class="search-course-section home-secound-course-search backgroud-style">
         <div class="container">
 
@@ -834,10 +688,35 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                                              ============================================= -->
+                                                                                                                                                  ============================================= -->
 @endsection
 
 @section('scripts')
+    <script>
+        $('.image-popup').magnificPopup({
+            gallery: {
+                enabled: true // Aktifkan galeri untuk navigasi antar gambar
+            },
+            callbacks: {
+                elementParse: function(item) {
+                    // Hanya jika URL benar-benar berisi ekstensi gambar (.jpg, .png, .gif, .jpeg, .heic)
+                    if (item.src.match(/\.(jpg|jpeg|png|gif|heic)$/i)) {
+                        item.type = 'image'; // Tetapkan sebagai gambar
+                    }
+                    // Deteksi video dari ekstensi MP4 atau URL platform (seperti Instagram)
+                    else if (item.src.match(/\.(mp4)$/i)) {
+                        item.type = 'iframe'; // Tetapkan sebagai iframe untuk video MP4
+                    }
+                    // Jika ada deteksi spesifik dari platform seperti Instagram
+                    else if (item.src.indexOf('instagram') !== -1 && item.src.indexOf('.mp4') !== -1) {
+                        item.type = 'iframe'; // Tetapkan iframe untuk video Instagram MP4
+                    } else {
+                        item.type = 'image'; // Default ke gambar jika tidak jelas
+                    }
+                }
+            }
+        });
+    </script>
     <script>
         var youtube = document.getElementById('youtube');
         fetch(
