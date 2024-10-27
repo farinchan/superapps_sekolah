@@ -7,7 +7,7 @@
         ->get();
 @endphp
 <div class="side-bar-widget">
-    <h2 class="widget-title text-capitalize"><span>Berita </span>Terbaru.</h2>
+    <h2 class="widget-title text-capitalize"><span>Blog </span>Terbaru.</h2>
     <div class="latest-news-posts">
         @foreach ($latest_blog_teacher as $latest)
             <div class="latest-news-area">
