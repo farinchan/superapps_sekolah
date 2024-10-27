@@ -6,6 +6,7 @@ use App\Http\Controllers\Front\NewsController;
 use App\Http\Controllers\Front\BlogTeacherController;
 use App\Http\Controllers\Front\ExtracurricularController;
 use App\Http\Controllers\Front\AchievementController;
+use App\Http\Controllers\Front\GalleryController;
 use App\Http\Controllers\Front\ProfilMenu;
 use App\Http\Controllers\Front\PersonaliaMenu;
 
@@ -49,6 +50,9 @@ Route::get('/profil/{slug}', [ProfilMenu::class, 'index'])->name('profil.show');
 // Route::get('/ekstrakurikuler', [ExtracurricularController::class, 'index'])->name('extracurricular');
 Route::get('/ekstrakurikuler/{slug}', [ExtracurricularController::class, 'show'])->name('extracurricular.show');
 
+Route::get('/gallery', [GalleryController::class, 'album'])->name('gallery');
+Route::get('/gallery/{slug}', [GalleryController::class, 'show'])->name('gallery.show');
+
 Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', [NewsController::class, 'index'])->name('index');
     route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
@@ -66,6 +70,7 @@ Route::prefix('achievement')->name('achievement.')->group(function () {
     Route::get('/student', [AchievementController::class, 'student'])->name('student');
     Route::get('/teacher', [AchievementController::class, 'teacher'])->name('teacher');
 });
+
 
 
 

@@ -48,7 +48,7 @@ class GalleryController extends Controller
 
         $thumbnail = $request->file('thumbnail');
         $thumbnail_name = time() . '.' . $thumbnail->getClientOriginalExtension();
-        $thumbnail->storeAs('public/gallery', $thumbnail_name);
+        $thumbnail->storeAs('gallery', $thumbnail_name, 'public');
 
         $gallery = GalleryAlbum::create([
             'title' => $request->title,
@@ -89,7 +89,7 @@ class GalleryController extends Controller
         $thumbnail = $request->file('thumbnail');
         if ($thumbnail) {
             $thumbnail_name = time() . '.' . $thumbnail->getClientOriginalExtension();
-            $thumbnail->storeAs('public/gallery', $thumbnail_name);
+            $thumbnail->storeAs('gallery', $thumbnail_name, 'public');
             $gallery->thumbnail = 'gallery/' . $thumbnail_name;
         }
 
@@ -109,7 +109,7 @@ class GalleryController extends Controller
     public function albumDestroy($id)
     {
         $gallery = GalleryAlbum::findOrFail($id);
-        Storage::delete('public/' . $gallery->thumbnail);
+        Storage::delete( $gallery->thumbnail);
         $gallery->delete();
 
         Alert::success('Success', 'Album berhasil dihapus');
@@ -155,7 +155,7 @@ class GalleryController extends Controller
         if ($request->type == 'foto') {
             $foto = $request->file('foto');
             $foto_name = time() . '.' . $foto->getClientOriginalExtension();
-            $foto->storeAs('public/gallery/photo', $foto_name);
+            $foto->storeAs('gallery/photo', $foto_name, 'public');
             $gallery_foto_video->foto = 'gallery/photo/' . $foto_name;
         } else {
             $gallery_foto_video->video = $request->video;
@@ -195,9 +195,9 @@ class GalleryController extends Controller
         if ($request->type == 'foto') {
             $foto = $request->file('foto');
             if ($foto) {
-                Storage::delete('public/' . $gallery_foto_video->foto);
+                Storage::delete( $gallery_foto_video->foto);
                 $foto_name = time() . '.' . $foto->getClientOriginalExtension();
-                $foto->storeAs('public/gallery/photo', $foto_name);
+                $foto->storeAs('gallery/photo', $foto_name, 'public');
                 $gallery_foto_video->foto = 'gallery/photo/' . $foto_name;
             }
         } else {
@@ -213,7 +213,7 @@ class GalleryController extends Controller
     public function destroy($id)
     {
         $gallery_foto_video = Gallery::findOrFail($id);
-        Storage::delete('public/' . $gallery_foto_video->foto);
+        Storage::delete($gallery_foto_video->foto);
         $gallery_foto_video->delete();
 
 

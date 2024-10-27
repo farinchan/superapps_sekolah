@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Storage;
 
 class GalleryAlbum extends Model
 {
@@ -25,7 +26,7 @@ class GalleryAlbum extends Model
 
     public function gallery()
     {
-        return $this->hasMany(Gallery::class, 'gallery_id');
+        return $this->hasMany(Gallery::class, 'gallery_album_id');
     }
 
     public function user()
@@ -35,6 +36,6 @@ class GalleryAlbum extends Model
 
     public function getThumbnail()
     {
-        return $this->thumbnail ? asset('storage/' . $this->thumbnail): asset('images/default.png');
+        return $this->thumbnail ? Storage::url($this->thumbnail) : asset('img_ext/no-image.png');
     }
 }

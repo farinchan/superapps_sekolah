@@ -61,7 +61,7 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="">{{ $album->user->name }}</div>
+                                        <div class="">{{ $album->user?->teacher?->name }}</div>
                                     </td>
                                     <td>
                                         <div class="">{{ $album->created_at->format('d M Y') }}</div>

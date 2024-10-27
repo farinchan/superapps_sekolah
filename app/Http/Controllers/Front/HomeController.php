@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\BlogTeacher;
 use App\Models\Event;
 use App\Models\Extracurricular;
+use App\Models\GalleryAlbum;
 use App\Models\News;
 use App\Models\Partner;
 use App\Models\SekapurSirih;
@@ -26,7 +27,7 @@ class HomeController extends Controller
         $data = [
             'title' => "Home | " . $setting_web->name,
             'meta_description' => strip_tags($setting_web->about),
-            'meta_keywords' => 'Home, Muhammadiyah, Bukittinggi',
+            'meta_keywords' => 'MAN 1 Padang Panjang, Padang Panjang, Sekolah, Madrasah Aliyah, Padang Panjang',
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
 
@@ -40,6 +41,7 @@ class HomeController extends Controller
             'list_blog_teacher' => BlogTeacher::latest()->limit(8)->get(),
             'list_partner' => Partner::all(),
             'instagram_feed' => Profile::where('username', 'mansapapaofficial')->first()->freshFeed(12),
+            'list_album' => GalleryAlbum::latest()->limit(12)->get(),
 
             'tenaga_pendidik_count' => Teacher::where('type', 'tenaga pendidik')->count(),
             'tenaga_kependidikan_count' => Teacher::where('type', 'tenaga kependidikan')->count(),
@@ -60,7 +62,7 @@ class HomeController extends Controller
         $data = [
             'title' => "Sekapur Sirih | " . $setting_web->name,
             'meta_description' => strip_tags($sekapur_sirih->content),
-            'meta_keywords' => 'Sekapur Sirih, Muhammadiyah, Bukittinggi',
+            'meta_keywords' => 'MAN 1 Padang Panjang, Padang Panjang, Sekolah, Madrasah Aliyah, Padang Panjang',
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
 
