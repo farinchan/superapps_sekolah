@@ -536,9 +536,8 @@
                                                                                                                       ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
-            <div class="section-title mb20  headline text-left">
-                {{-- <span class="subtitle ml42 text-uppercase">LEARN NEW SKILLS</span> --}}
-                <h2><span>Instagram</1span> Post.</h2>
+            <div class="section-title-2 mb65 headline text-left ">
+                <h2><span>instagram</span> Post.</h2>
             </div>
             <div class="teacher-third-slide">
                 @foreach ($instagram_feed['feed'] as $instagram)
