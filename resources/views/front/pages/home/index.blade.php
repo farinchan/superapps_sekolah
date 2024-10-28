@@ -162,7 +162,7 @@
                                             </div>
                                             <div class="event-text">
                                                 <h3 class="latest-title bold-font"><a href="{{ route('event.show', $agenda->slug) }}">
-                                                        {{ Str::limit($agenda->title, 60) }}
+                                                        {{ Str::limit($agenda->title, 65) }}
                                                     </a></h3>
                                                 {{-- <div class="course-meta">
                                                     <span class="course-category"><a href="#">HUMAS</a></span>
