@@ -1560,6 +1560,7 @@ button.alt-menu-btn.float-left {
   top: 25px;
   right: 5px;
   opacity: 0;
+  text-align: right;
   visibility: hidden;
   position: absolute;
   -webkit-transition: .3s all ease-in-out;

@@ -545,7 +545,7 @@
                 @foreach ($list_album as $album)
                     <div class="best-course-pic-text relative-position ">
                         <div class="best-course-pic relative-position">
-                            <img src="{{ $album->getThumbnail() }} " alt="" style="height: 180px; width: 100%; object-fit: cover;">
+                            <img src="{{ $album->getThumbnail() }} " alt="" style="height: 200px; width: 100%; object-fit: cover;">
                             <div class="course-details-btn">
                                 <a href=" {{ route('gallery.show', $album->slug) }}">{{ $album->title }} &nbsp; <i class="fas fa-arrow-right"></i></a>
                             </div>
