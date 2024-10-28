@@ -32,7 +32,7 @@ class EventController extends Controller
         $event = Event::where('slug', $slug)->first();
         $data = [
             'title' => $event->title . ' | ' . $setting_web->name,
-            'meta_description' => strip_tags($event->description),
+            'meta_description' => strip_tags($event->content),
             'meta_keywords' => $event->title,
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
