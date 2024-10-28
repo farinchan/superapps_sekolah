@@ -33,7 +33,7 @@ class HomeController extends Controller
 
             'list_banner' => SettingBanner::where('status', 1)->get(),
             'list_news' => News::latest()->where('status', 'published')->limit(6)->get(),
-            'list_agenda' => Event::orderBy('start', 'desc')->limit(6)->get(),
+            'list_agenda' => Event::orderBy('start', 'desc')->where('is_active', 1)->limit(6)->get(),
             'sekapur_sirih' => SekapurSirih::first(),
             'list_extracurricular' => Extracurricular::all(),
             'list_student_achievement' => StudentAchievement::latest()->limit(6)->get(),

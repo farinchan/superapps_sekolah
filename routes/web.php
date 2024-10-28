@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\EventController;
 use App\Http\Controllers\Front\NewsController;
 use App\Http\Controllers\Front\BlogTeacherController;
 use App\Http\Controllers\Front\ExtracurricularController;
@@ -50,8 +51,13 @@ Route::get('/profil/{slug}', [ProfilMenu::class, 'index'])->name('profil.show');
 // Route::get('/ekstrakurikuler', [ExtracurricularController::class, 'index'])->name('extracurricular');
 Route::get('/ekstrakurikuler/{slug}', [ExtracurricularController::class, 'show'])->name('extracurricular.show');
 
-Route::get('/gallery', [GalleryController::class, 'album'])->name('gallery');
+// Route::get('/gallery', [GalleryController::class, 'album'])->name('gallery');
 Route::get('/gallery/{slug}', [GalleryController::class, 'show'])->name('gallery.show');
+
+Route::prefix('event')->name('event.')->group(function () {
+    // Route::get('/', [EventController::class, 'index'])->name('index');
+    Route::get('/{slug}', [EventController::class, 'show'])->name('show');
+});
 
 Route::prefix('news')->name('news.')->group(function () {
     Route::get('/', [NewsController::class, 'index'])->name('index');

@@ -161,13 +161,13 @@
                                                 {{ Carbon\Carbon::parse($agenda->start)->format('M Y') }}
                                             </div>
                                             <div class="event-text">
-                                                <h3 class="latest-title bold-font"><a href="#">
+                                                <h3 class="latest-title bold-font"><a href="{{ route('event.show', $agenda->slug) }}">
                                                         {{ $agenda->title }}
                                                     </a></h3>
-                                                <div class="course-meta">
+                                                {{-- <div class="course-meta">
                                                     <span class="course-category"><a href="#">HUMAS</a></span>
-                                                    {{-- <span class="course-author"><a href="#">HUMAS</a></span> --}}
-                                                </div>
+                                                    <span class="course-author"><a href="#">HUMAS</a></span>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
