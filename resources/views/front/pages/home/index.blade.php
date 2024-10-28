@@ -347,7 +347,7 @@
                                                 <i class="fas fa-trophy"></i> {{ $student_achievement->rank }} -
                                                 {{ $student_achievement->level }}
                                             </div>
-                                            <h3 class="latest-title bold-font"><a href="#">
+                                            <h3 class="latest-title bold-font"><a href="{{ route('achievement.student.detail', $student_achievement->id ) }}">
                                                     {{ Str::limit($student_achievement->name . ' - ' . $student_achievement->event, 50) }}
                                                 </a></h3>
                                             <div class="course-viewer ul-li">

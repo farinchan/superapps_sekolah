@@ -52,5 +52,41 @@ class AchievementController extends Controller
 
     }
 
+    public function studentDetail($id)
+    {
+        $setting_web = SettingWebsite::first();
+        $student_achievement = StudentAchievement::findOrFail($id);
+        $data = [
+            'title' => $student_achievement->name . ' - ' . $student_achievement->event .' | ' . $setting_web->name,
+            'meta_description' => $student_achievement->description,
+            'meta_keywords' => 'Prestasi Siswa, Siswa, MAN 1 Padang Panjang, Padang Panjang' . $student_achievement->name . ', ' . $student_achievement->event,
+            'favicon' => $setting_web->favicon,
+            'setting_web' => $setting_web,
+
+            'achievement' => StudentAchievement::findOrFail($id),
+        ];
+
+        return view('front.pages.achievement.show', $data);
+    }
+
+    public function teacherDetail($id)
+    {
+        $setting_web = SettingWebsite::first();
+        $teacher_achievement = TeacherAchievement::findOrFail($id);
+        $data = [
+            'title' => $teacher_achievement->name . ' - ' . $teacher_achievement->event . ' | ' . $setting_web->name,
+            'meta_description' => $teacher_achievement->description,
+            'meta_keywords' => 'Prestasi Guru, Guru, MAN 1 Padang Panjang, Padang Panjang' . $teacher_achievement->name . ', ' . $teacher_achievement->event,
+            'favicon' => $setting_web->favicon,
+            'setting_web' => $setting_web,
+
+            'achievement' => TeacherAchievement::findOrFail($id),
+
+        ];
+
+        return view('front.pages.achievement.show', $data);
+
+    }
+
 
 }

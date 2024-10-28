@@ -69,6 +69,8 @@ Route::prefix('blog-teacher')->name('blog_teacher.')->group(function () {
 Route::prefix('achievement')->name('achievement.')->group(function () {
     Route::get('/student', [AchievementController::class, 'student'])->name('student');
     Route::get('/teacher', [AchievementController::class, 'teacher'])->name('teacher');
+    Route::get('/student/{id}', [AchievementController::class, 'studentDetail'])->name('student.detail');
+    Route::get('/teacher/{id}', [AchievementController::class, 'teacherDetail'])->name('teacher.detail');
 });
 
 

@@ -59,7 +59,7 @@
                         <div class="latest-area-content  ">
                             <div class="section-title mb45 headline text-center ">
                                 {{-- <span class="subtitle text-uppercase">COURSES CATEGORIES</span> --}}
-                                <h2><span>Prestasi</span> Siswa.</h2>
+                                {{-- <h2><span>Prestasi</span> Siswa.</h2> --}}
                             </div>
                             <div class="latest-news-posts">
                                 <div class="row">
@@ -77,7 +77,13 @@
                                                     <i class="fas fa-trophy"></i> {{ $achievement->rank }} -
                                                     {{ $achievement->level }}
                                                 </div>
-                                                <h3 class="latest-title bold-font"><a href="#">
+                                                <h3 class="latest-title bold-font"><a href="
+                                                    @if (request()->routeIs('achievement.student'))
+                                                        {{ route('achievement.student.detail', $achievement->id) }}
+                                                    @elseif (request()->routeIs('achievement.teacher'))
+                                                        {{ route('achievement.teacher.detail', $achievement->id) }}
+                                                    @endif
+                                                    ">
                                                         {{ $achievement->name }} - {{ $achievement->event }}
                                                     </a></h3>
                                                 <div class="course-viewer ul-li">
