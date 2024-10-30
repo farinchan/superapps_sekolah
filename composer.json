@@ -11,7 +11,7 @@
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
-        "maatwebsite/excel": "*",
+        "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^7.2",
         "spatie/laravel-permission": "^6.9",
         "stevebauman/location": "^7.3",

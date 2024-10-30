@@ -197,6 +197,10 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::get('/edit/{id}', [BackUserController::class, 'studentEdit'])->name('edit');
             Route::put('/edit/{id}', [BackUserController::class, 'studentUpdate'])->name('update');
             Route::delete('/delete/{id}', [BackUserController::class, 'studentDestroy'])->name('destroy');
+
+            Route::post('/import', [BackUserController::class, 'studentImport'])->name('import');
+            Route::get('/export', [BackUserController::class, 'studentExport'])->name('export');
+
         });
 
         Route::prefix('parent')->name('parent.')->group(function () {
@@ -270,6 +274,7 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::get('/edit/{id}', [BackDisciplineStudentController::class, 'edit'])->name('edit');
             Route::put('/edit/{id}', [BackDisciplineStudentController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [BackDisciplineStudentController::class, 'destroy'])->name('destroy');
+
         });
     });
 });

@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Imports\StudentImport;
+use App\Exports\StudentExport;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -432,6 +434,36 @@ class UserController extends Controller
 
         Alert::success('Sukses', 'Siswa berhasil dihapus');
         return redirect()->route('back.user.student.index');
+    }
+
+    public function studentImport(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xls,xlsx',
+        ], [
+            'required' => ':attribute harus diisi',
+            'mimes' => 'File harus berupa excel',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            Excel::import(new StudentImport, $request->file('file'));
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->back();
+        }
+
+        Alert::success('Sukses', 'Data siswa berhasil diimport');
+        return redirect()->route('back.user.student.index');
+    }
+
+    public function studentExport()
+    {
+        return Excel::download(new studentExport, 'siswa_' . date('YmdHis') . '.xlsx');
     }
 
 
