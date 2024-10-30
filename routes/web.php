@@ -272,12 +272,12 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::prefix('student')->name('student.')->group(function () {
             Route::get('/', [BackDisciplineStudentController::class, 'index'])->name('index');
             Route::get('/create', [BackDisciplineStudentController::class, 'create'])->name('create');
-            Route::get('/apiStudent/{id}', [BackDisciplineStudentController::class, 'apiStudent'])->name('apiStudent');
             Route::post('/create', [BackDisciplineStudentController::class, 'store'])->name('store');
             Route::get('/edit/{id}', [BackDisciplineStudentController::class, 'edit'])->name('edit');
             Route::put('/edit/{id}', [BackDisciplineStudentController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [BackDisciplineStudentController::class, 'destroy'])->name('destroy');
 
+            Route::get('/apiStudent', [BackDisciplineStudentController::class, 'apiStudent'])->name('apiStudent');
         });
     });
 });

@@ -12,7 +12,7 @@ class DisciplineStudent extends Model
 
     public function rules()
     {
-        return $this->belongsTo(DisciplineRules::class, 'discipline_rule_id');
+        return $this->belongsTo(DisciplineRule::class, 'discipline_rule_id');
     }
 
     public function students()
