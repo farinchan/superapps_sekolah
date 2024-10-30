@@ -79,6 +79,13 @@
                                     Kepala Sekolah
                                 </label>
                             </div>
+                             <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" name="role_humas" value="1"
+                                    @if (old('role_humas') == 1) checked @endif id="flexCheckDefault" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Humas
+                                </label>
+                            </div>
                             <div class="form-check mt-3">
                                 <input class="form-check-input" type="checkbox" name="role_guru" value="1"
                                     @if (old('role_guru') == 1) checked @endif id="flexCheckDefault" />

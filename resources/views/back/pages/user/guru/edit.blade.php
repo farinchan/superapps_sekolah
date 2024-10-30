@@ -81,6 +81,13 @@
                                 </label>
                             </div>
                             <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" name="role_humas" value="1"
+                                    @if ($user->user->hasRole('humas')) checked @endif id="flexCheckDefault" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Humas
+                                </label>
+                            </div>
+                            <div class="form-check mt-3">
                                 <input class="form-check-input" type="checkbox" name="role_guru" value="1"
                                     @if ($user->user->hasRole('guru')) checked @endif id="flexCheckDefault" />
                                 <label class="form-check-label" for="flexCheckDefault">
@@ -197,9 +204,9 @@
                                 <label class="required form-label">Jenis Staff</label>
                                 <select name="type" class="form-select mb-2" required>
                                     <option value="" disabled selected>Pilih Jenis Staff</option>
-                                    <option value="Tenaga Pendidik" @if ($user->type == 'Tenaga Pendidik') selected @endif>
+                                    <option value="Tenaga Pendidik" @if ($user->type == 'tenaga tendidik') selected @endif>
                                         Tenaga Pendidik</option>
-                                    <option value="Tenaga Kependidikan" @if ($user->type == 'Tenaga Kependidikan') selected @endif>
+                                    <option value="Tenaga Kependidikan" @if ($user->type == 'tenaga kependidikan') selected @endif>
                                         Tenaga Kependidikan</option>
                                 </select>
                                 @error('type')

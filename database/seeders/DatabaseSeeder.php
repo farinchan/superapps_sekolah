@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $admin =  Role::create(['name' => 'admin']);
         $kepsek =  Role::create(['name' => 'kepsek']);
+        $humas =  Role::create(['name' => 'humas']);
         $guru =  Role::create(['name' => 'guru']);
         $guru_bk =  Role::create(['name' => 'guru_bk']);
         $bendahara =  Role::create(['name' => 'bendahara']);

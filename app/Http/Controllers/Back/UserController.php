@@ -93,6 +93,10 @@ class UserController extends Controller
             $user->assignRole('kepsek');
         }
 
+        if ($request->role_humas) {
+            $user->assignRole('humas');
+        }
+
         if ($request->role_guru) {
             $user->assignRole('guru');
         }
@@ -139,7 +143,6 @@ class UserController extends Controller
 
         Alert::success('Sukses', 'User berhasil ditambahkan');
         return redirect()->route('back.user.staff.index');
-
     }
 
     public function staffEdit($id)
@@ -228,6 +231,49 @@ class UserController extends Controller
         if ($request->password) {
             $user->password = bcrypt($request->password);
         }
+
+        if ($request->role_admin) {
+            $user->assignRole('admin');
+        } else {
+            $user->removeRole('admin');
+        }
+
+        if ($request->role_kepsek) {
+            $user->assignRole('kepsek');
+        } else {
+            $user->removeRole('kepsek');
+        }
+
+        if ($request->role_humas) {
+            $user->assignRole('humas');
+        } else {
+            $user->removeRole('humas');
+        }
+
+        if ($request->role_guru) {
+            $user->assignRole('guru');
+        } else {
+            $user->removeRole('guru');
+        }
+
+        if ($request->role_guru_bk) {
+            $user->assignRole('guru_bk');
+        } else {
+            $user->removeRole('guru_bk');
+        }
+
+        if ($request->role_bendahara) {
+            $user->assignRole('bendahara');
+        } else {
+            $user->removeRole('bendahara');
+        }
+
+        if ($request->role_staff) {
+            $user->assignRole('staff');
+        } else {
+            $user->removeRole('staff');
+        }
+
         $user->save();
 
         Alert::success('Sukses', 'User berhasil diubah');
@@ -238,7 +284,7 @@ class UserController extends Controller
     {
         $teacher = Teacher::findOrFail($id);
         $user = User::findOrFail($teacher->user_id);
-        if ($teacher->photo){
+        if ($teacher->photo) {
             Storage::delete($teacher->photo);
         }
         $teacher->delete();
@@ -337,7 +383,6 @@ class UserController extends Controller
 
         Alert::success('Sukses', 'Siswa berhasil ditambahkan');
         return redirect()->route('back.user.student.index');
-
     }
 
     public function studentEdit($id)
@@ -401,7 +446,7 @@ class UserController extends Controller
 
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');
-            if ($student->photo){
+            if ($student->photo) {
                 Storage::delete($student->photo);
             }
             $student->photo = $image->storeAs('student', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
@@ -419,14 +464,13 @@ class UserController extends Controller
 
         Alert::success('Sukses', 'Siswa berhasil diubah');
         return redirect()->route('back.user.student.index');
-
     }
 
     public function studentDestroy($id)
     {
         $student = Student::findOrFail($id);
         $user = User::findOrFail($student->user_id);
-        if ($student->photo){
+        if ($student->photo) {
             Storage::delete($student->photo);
         }
         $student->delete();
@@ -465,6 +509,4 @@ class UserController extends Controller
     {
         return Excel::download(new studentExport, 'siswa_' . date('YmdHis') . '.xlsx');
     }
-
-
 }
