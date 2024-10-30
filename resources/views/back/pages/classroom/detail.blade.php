@@ -2,6 +2,70 @@
 @section('content')
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
+            <div class="card card-flush">
+                <div class="card-header border-0 pt-6">
+                    <div class="card-title">
+                        <h2 class="mb-0">Informasi kelas</h2>
+                    </div>
+                    <div class="card-toolbar">
+                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                            <a href="#" class="btn btn-light-info">
+                                <i class="ki-duotone ki-printer fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                </i>
+                                </i>Cetak</a>
+                        </div>
+                        <div class="d-flex justify-content-end align-items-center d-none" {{-- data-kt-user-table-toolbar="selected" --}}>
+                            <div class="fw-bold me-5">
+                                <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected
+                            </div>
+                            <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete
+                                Selected</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="card-body p-9">
+                    <div class="row mb-7">
+                        <label class="col-lg-2 fw-semibold text-muted">Kelas</label>
+                        <div class="col-lg-10">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                {{ $classroom->name }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mb-7">
+                        <label class="col-lg-2 fw-semibold text-muted">Tahun Ajaran</label>
+                        <div class="col-lg-10">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                {{ $classroom->schoolYear->start_year }}/{{ $classroom->schoolYear->end_year }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mb-7">
+                        <label class="col-lg-2 fw-semibold text-muted">Jumlah Siswa</label>
+                        <div class="col-lg-10">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                {{ $classroom->classroomStudent->count() }} Siswa
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row mb-7">
+                        <label class="col-lg-2 fw-semibold text-muted">Wali Kelas</label>
+                        <div class="col-lg-10">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                {{ $classroom->teacher->name }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="card">
                 <div class="card-header border-0 pt-6">
                     <div class="card-title">
@@ -48,7 +112,7 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('back.user.student.create') }}" class="btn btn-primary">
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
                                 <i class="ki-duotone ki-plus fs-2"></i>Tambah Siswa</a>
                         </div>
                         <div class="d-flex justify-content-end align-items-center d-none" {{-- data-kt-user-table-toolbar="selected" --}}>
@@ -82,7 +146,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">
-                            @foreach ($users as $user)
+                            @foreach ($students as $student)
                                 <tr>
                                     <td>
                                         <div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -93,66 +157,59 @@
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                             <a href="#">
                                                 <div class="symbol-label">
-                                                    <img src="@if ($user->photo) {{ Storage::url($user->photo) }} @else https://ui-avatars.com/api/?background=000C32&color=fff&name={{ $user->name }} @endif"
-                                                        alt="{{ $user->name }}" width="50px" />
+                                                    <img src="@if ($student->student?->photo) {{ Storage::url($student->student?->photo) }} @else https://ui-avatars.com/api/?background=000C32&color=fff&name={{ $student->student?->name }} @endif"
+                                                        alt="{{ $student->student?->name }}" width="50px" />
                                                 </div>
                                             </a>
                                         </div>
                                         <div class="d-flex flex-column">
                                             <a href="#"
-                                                class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
-                                            <span> NISN.{{ $user->nisn }}</span>
-                                            <span> NIK.{{ $user->nik }}</span>
+                                                class="text-gray-800 text-hover-primary mb-1">{{ $student->student?->name }}</a>
+                                            <span> NISN.{{ $student->student?->nisn }}</span>
+                                            <span> NIK.{{ $student->student?->nik }}</span>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="d-flex flex-column">
                                             <ul>
-                                                <li><span class="fw-bold">Email:</span>{{ $user->email }}</li>
+                                                <li><span class="fw-bold">Email:</span>{{ $student->student?->email }}
                                                 </li>
-                                                <li><span class="fw-bold">No. Telp: </span>{{ $user->no_telp }}</li>
+                                                </li>
+                                                <li><span class="fw-bold">No. Telp:
+                                                    </span>{{ $student->student?->no_telp }}</li>
                                             </ul>
                                         </div>
                                     </td>
                                     <td>
-                                        @if ($user->gender == 'laki-laki')
+                                        @if ($student->student?->gender == 'laki-laki')
                                             Laki-laki
                                         @else
                                             Perempuan
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($user->kebutuhan_khusus == 0)
+                                        @if ($student->student?->kebutuhan_khusus == 0)
                                             Tidak
                                         @else
                                             Ya
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($user->disabilitas == 0)
+                                        @if ($student->student?->disabilitas == 0)
                                             Tidak
                                         @else
                                             Ya
                                         @endif
                                     </td>
-                                    <td>{{ $user->created_at->diffForHumans() }}</td>
+                                    <td>{{ $student->student?->created_at->diffForHumans() }}</td>
 
                                     <td class="text-end">
-                                        <a href="#"
-                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                            <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                            data-kt-menu="true">
-                                            <div class="menu-item px-3">
-                                                <a href="{{ route('back.user.student.edit', $user->id) }}"
-                                                    class="menu-link px-3">Edit</a>
-                                            </div>
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3" data-bs-toggle="modal"
-                                                    data-bs-target="#kt_modal_delete_user{{ $user->id }}">Delete</a>
-                                            </div>
-                                        </div>
+                                        <a href="#" class="btn btn-icon btn-light-youtube me-2"
+                                            data-bs-toggle="modal" data-bs-target="#delete{{ $student->student?->id }}"
+                                            data-bs-toggle="tooltip" data-bs-placement="right"
+                                            title="Keluarkan dari kelas?">
+                                            <i class="fa-solid fa-xmark fs-4"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -162,41 +219,90 @@
             </div>
         </div>
     </div>
-    @foreach ($users as $user)
-        <div class="modal fade" id="kt_modal_delete_user{{ $user->id }}" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered mw-650px">
+
+    <!-- Modal-->
+    <div class="modal fade" tabindex="-1" id="add">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Tambah Siswa</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form action="{{ route('back.classroom.add.student.store', $classroom_id) }}" method="POST"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Siswa</label>
+                            <select class="form-select form-select-solid" name="student_id" data-control="select2"
+                                data-placeholder="Select an option" data-dropdown-parent="#add" required>
+                                <option></option>
+                                @foreach ($list_student as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }} - NISN.{{ $item->nisn }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Tambah</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    @foreach ($students as $student)
+        <div class="modal fade" tabindex="-1" id="delete{{ $student->student?->id }}">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="fw-bold">Hapus Siswa</h2>
+                        <h3 class="modal-title">Keluarkan dari kelas</h3>
+
+                        <!--begin::Close-->
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
                             aria-label="Close">
                             <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
                                     class="path2"></span></i>
                         </div>
+                        <!--end::Close-->
                     </div>
-                    <div class="modal-body px-5">
-                        <form class="form" method="POST" action="{{ route('back.user.student.destroy', $user->id) }}">
-                            @method('DELETE')
-                            @csrf
-                            <h3 class="text-center">
-                                Apakah Anda Yakin Ingin Menghapus Siswa {{ $user->name }} ?
-                            </h3>
-                            <div class="text-center pt-10">
-                                <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal"
-                                    aria-label="Close">batal</button>
-                                <button type="submit" class="btn btn-danger" data-kt-users-modal-action="submit">
-                                    <span class="indicator-label">Hapus</span>
-                                </button>
+
+                    <form
+                        action="{{ route('back.classroom.delete.student.destroy', [$classroom_id, $student->student?->id]) }}"
+                        method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <p>Apakah Anda yakin ingin mengeluarkan Siswa <strong>
+                                        {{ $student->student?->name }}</strong>
+                                    dari kelas ini?
+                                </p>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger">Keluarkan</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     @endforeach
 @endsection
 
+
 @section('scripts')
     <script src="{{ asset('back/js/custom/apps/user-management/users/list/table.js') }}"></script>
-    <script src="{{ asset('back/js/custom/apps/user-management/users/list/add.js') }}"></script>
 @endsection

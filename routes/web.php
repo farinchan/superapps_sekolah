@@ -173,6 +173,10 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::post('/create', [BackClassroomController::class, 'store'])->name('store');
         Route::put('/edit/{id}', [BackClassroomController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [BackClassroomController::class, 'destroy'])->name('destroy');
+
+        Route::get('/detail/{id}', [BackClassroomController::class, 'detail'])->name('detail');
+        Route::post('/detail/{id}/add-student', [BackClassroomController::class, 'addStudent'])->name('add.student.store');
+        Route::delete('/detail/{id}/delete-student/{student_id}', [BackClassroomController::class, 'removeStudent'])->name('delete.student.destroy');
     });
 
 

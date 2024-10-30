@@ -45,6 +45,7 @@
                                 <th class="min-w-250px">Kelas</th>
                                 <th class=" min-w-150px">Tahun Ajaran</th>
                                 <th class=" min-w-150px">Wali Kelas</th>
+                                <th class=" min-w-70px">Jumlah Siswa</th>
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
                         </thead>
@@ -58,7 +59,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="#" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
+                                            <a href="{{ route('back.classroom.detail', $item->id) }}" class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
                                                 {{ $item->name }}</a>
                                         </div>
                                     </td>
@@ -68,6 +69,9 @@
                                     <td>
                                         {{ $item->teacher->name }}
                                     </td>
+                                    <td>
+                                        {{ $item->classroomStudents?->count() ?? "0" }} Siswa
+                                    </td>
                                     <td class="text-end">
                                         <a href="#"
                                             class="btn btn-sm btn-light btn-active-light-primary btn-flex btn-center"
@@ -75,6 +79,11 @@
                                             <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
                                         <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
                                             data-kt-menu="true">
+                                            <div class="menu-item px-3">
+                                                <a href="{{ route('back.classroom.detail', $item->id) }}" class="menu-link px-3">
+                                                    Detail
+                                                </a>
+                                            </div>
                                             <div class="menu-item px-3">
                                                 <a href="#" class="menu-link px-3" data-bs-toggle="modal"
                                                     data-bs-target="#edit{{ $item->id }}">
