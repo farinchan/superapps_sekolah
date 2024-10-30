@@ -103,7 +103,7 @@
                                 <th class="min-w-125px">Jenis Kelamin</th>
                                 <th class="min-w-125px">Tipe Staff</th>
                                 <th class="min-w-125px">Role</th>
-                                <th class="min-w-125px">Waktu Bergabung</th>
+                                <th class="min-w-125px">Posisi</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
                         </thead>
@@ -154,7 +154,7 @@
                                             <span class="badge badge-light-primary">{{ $role }}</span>
                                         @endforeach
                                     </td>
-                                    <td>{{ $user->created_at->diffForHumans() }}</td>
+                                    <td>{{ $user->position }}</td>
 
                                     <td class="text-end">
                                         <a href="#"
