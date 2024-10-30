@@ -21,8 +21,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="d-flex align-items-center position-relative my-1">
-                                <select data-control="select2" data-hide-search="true" data-placeholder="Pilih Tahun Ajaran" id="school_year_id"
-                                    class="form-select form-select-solid form-select-lg fw-bold">
+                                <select data-control="select2" data-hide-search="true" data-placeholder="Pilih Tahun Ajaran"
+                                    id="school_year_id" class="form-select form-select-solid form-select-lg fw-bold">
                                     <option selected disabled></option>
                                     @foreach ($list_school_year as $school_year)
                                         <option value="{{ $school_year->id }}">
@@ -34,8 +34,8 @@
                         </div>
                         <div class="col-md-4">
                             <div class="d-flex align-items-center position-relative my-1">
-                                <select data-control="select2" data-hide-search="true" data-placeholder="Pilih Kelas" id="class_id"
-                                    class="form-select form-select-solid form-select-lg fw-bold">
+                                <select data-control="select2" data-hide-search="true" data-placeholder="Pilih Kelas"
+                                    id="class_id" class="form-select form-select-solid form-select-lg fw-bold">
                                     <option selected disabled></option>
 
                                 </select>
@@ -87,7 +87,16 @@
                                     </td>
                                     <td class="text-start pe-0">
                                         <div class="d-flex flex-column">
-                                            <span class="text-dark fw-bolder mb-1">{{ $discipline->rules?->rule }}</span>
+                                            <span class="text-dark fw-bolder">{{ $discipline->rules?->rule }}</span>
+                                            @if ($discipline->rules?->category == 'ringan')
+                                                <span class="fw-bold mb-1" style="color: #1BC5BD">Pelanggaran Ringan</span>
+                                            @elseif ($discipline->rules?->category == 'sedang')
+                                                <span class="fw-bold mb-1" style="color: #ffe600">Pelanggaran Sedang</span>
+                                            @elseif ($discipline->rules?->category == 'berat')
+                                                <span class="fw-bold mb-1" style="color: #ff8d4b">Pelanggaran Berat</span>
+                                            @elseif ($discipline->rules?->category == 'sangat berat')
+                                                <span class="fw-bold mb-1" style="color: #f30000">Pelanggaran Sangat Berat</span>
+                                            @endif
                                             <span>{{ $discipline->description }}</span>
                                         </div>
                                     </td>
@@ -138,8 +147,8 @@
                     <div class="modal-body">
                         <div class="mb-5">
                             <label for="title" class="required form-label">Rule</label>
-                            <input type="text" class="form-control " name="discipline" id="title" placeholder="Rule"
-                                required />
+                            <input type="text" class="form-control " name="discipline" id="title"
+                                placeholder="Rule" required />
                         </div>
                         <div class="mb-5">
                             <label for="category" class="required form-label">Kategori</label>

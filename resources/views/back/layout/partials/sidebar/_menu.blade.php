@@ -279,7 +279,7 @@
                 </div>
 
                 <div class="menu-item">
-                    <a class="menu-link @if (request()->routeIs('back.discipline.student.index')) active @endif"
+                    <a class="menu-link @if (request()->routeIs('back.discipline.student.create')) active @endif"
                         href="{{ route('back.discipline.student.create') }}">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-notepad-edit fs-2">
@@ -291,7 +291,7 @@
                     </a>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.discipline.rule.*') || request()->routeIs('back.discipline.student.index')) here show @endif">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-shield-cross fs-2">
