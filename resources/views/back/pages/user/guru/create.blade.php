@@ -140,6 +140,14 @@
                                 @enderror
                             </div>
                             <div class="mb-5 fv-row">
+                                <label class=" form-label">NIK</label>
+                                <input type="text" name="nik" class="form-control mb-2"
+                                    placeholder="Nomor Induk Kependudukan (NIK)" value="{{ old('nik') }}"  />
+                                @error('nik')
+                                    <div class="text-danger fs-7">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-5 fv-row">
                                 <label class="required form-label">Nama</label>
                                 <input type="text" name="name" class="form-control mb-2"
                                     placeholder="Nama Anggota" value="{{ old('name') }}" required />

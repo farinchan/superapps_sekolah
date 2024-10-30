@@ -46,6 +46,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'nip' => 'nullable',
+            'nik' => 'nullable',
             'gender' => 'nullable',
             'birth_date' => 'nullable',
             'birth_place' => 'nullable',
@@ -116,6 +117,7 @@ class UserController extends Controller
         $teacher = new Teacher();
         $teacher->name = $request->name;
         $teacher->nip = $request->nip;
+        $teacher->nik = $request->nik;
         $teacher->gender = $request->gender;
         $teacher->birth_date = $request->birth_date;
         $teacher->birth_place = $request->birth_place;
@@ -162,6 +164,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'nip' => 'nullable',
+            'nik' => 'nullable',
             'gender' => 'nullable',
             'birth_date' => 'nullable',
             'birth_place' => 'nullable',
@@ -199,6 +202,7 @@ class UserController extends Controller
         $teacher = Teacher::findOrFail($id);
         $teacher->name = $request->name;
         $teacher->nip = $request->nip;
+        $teacher->nik = $request->nik;
         $teacher->gender = $request->gender;
         $teacher->birth_date = $request->birth_date;
         $teacher->birth_place = $request->birth_place;
