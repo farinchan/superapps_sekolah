@@ -181,7 +181,8 @@
                     </a>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.achievement.*') ) here show @endif">
+                <div data-kt-menu-trigger="click"
+                    class="menu-item menu-accordion @if (request()->routeIs('back.achievement.*')) here show @endif">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-medal-star fs-2">
@@ -269,6 +270,64 @@
                         <span class="menu-title">Absensi Guru</span>
                     </a>
                 </div>
+
+                <div class="menu-item pt-5">
+                    <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
+                            Kedisiplinan
+                        </span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link @if (request()->routeIs('back.discipline.student.index')) active @endif"
+                        href="{{ route('back.discipline.student.create') }}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-notepad-edit fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Catat Pelanggaran</span>
+                    </a>
+                </div>
+
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <span class="menu-link">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-shield-cross fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Pelanggaran</span>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link @if (request()->routeIs('back.discipline.rule.index')) active @endif"
+                                href="{{ route('back.discipline.rule.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Rules</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link @if (request()->routeIs('back.discipline.student.index')) active @endif"
+                                href="{{ route('back.discipline.student.index') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">History</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
 
 
 
