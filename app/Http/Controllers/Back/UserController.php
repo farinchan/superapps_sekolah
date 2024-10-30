@@ -513,4 +513,17 @@ class UserController extends Controller
     {
         return Excel::download(new studentExport, 'siswa_' . date('YmdHis') . '.xlsx');
     }
+
+    public function parent()
+    {
+        return abort(404);
+        $data = [
+            'title' => 'Orang Tua',
+            'menu' => 'User',
+            'sub_menu' => 'Orang Tua',
+            'users' => User::role('orang_tua')->latest()->get(),
+        ];
+
+        return view('back.pages.user.orang_tua.index', $data);
+    }
 }
