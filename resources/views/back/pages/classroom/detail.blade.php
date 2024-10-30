@@ -141,7 +141,6 @@
                                 <th class="min-w-125px">Jenis Kelamin</th>
                                 <th class="min-w-125px">Kebutuhan Khusus</th>
                                 <th class="min-w-125px">Disabilitas</th>
-                                <th class="min-w-125px">Waktu Bergabung</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
                         </thead>
@@ -201,7 +200,6 @@
                                             Ya
                                         @endif
                                     </td>
-                                    <td>{{ $student->student?->created_at->diffForHumans() }}</td>
 
                                     <td class="text-end">
                                         <a href="#" class="btn btn-icon btn-light-youtube me-2"
