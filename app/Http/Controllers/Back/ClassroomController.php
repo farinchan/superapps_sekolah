@@ -22,7 +22,7 @@ class ClassroomController extends Controller
             'menu' => 'Kelas',
             'sub_menu' => '',
             'list_classroom' => Classroom::orderBy('name', 'asc')->get(),
-            'list_teacher' => Teacher::orderBy('name', 'asc')->get(),
+            'list_teacher' => Teacher::where('type' , 'tenaga pendidik')->orderBy('name', 'asc')->get(),
             'list_school_year' => SchoolYear::orderBy('start_year', 'asc')->get(),
         ];
 
