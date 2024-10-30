@@ -70,7 +70,7 @@
                                         {{ $item->teacher->name }}
                                     </td>
                                     <td>
-                                        {{ $item->classroomStudents?->count() ?? "0" }} Siswa
+                                        {{ $item->classroomStudent?->count() ?? "0" }} Siswa
                                     </td>
                                     <td class="text-end">
                                         <a href="#"

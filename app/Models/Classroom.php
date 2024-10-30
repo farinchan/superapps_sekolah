@@ -19,7 +19,7 @@ class Classroom extends Model
         return $this->belongsTo(SchoolYear::class, 'school_year_id');
     }
 
-    public function students()
+    public function classroomStudent()
     {
         return $this->hasMany(ClassroomStudent::class, 'classroom_id');
     }
