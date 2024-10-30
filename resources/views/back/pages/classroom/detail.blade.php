@@ -8,8 +8,15 @@
                         <h2 class="mb-0">Informasi kelas</h2>
                     </div>
                     <div class="card-toolbar">
-                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                            <a href="#" class="btn btn-light-info">
+                        <div class="btn-group">
+                            <a href="#" class="btn btn-light-secondary">
+
+                                <i class="ki-duotone ki-file-up fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                                </i>Export Excel</a>
+                            <a href="#" class="btn btn-light-secondary">
                                 <i class="ki-duotone ki-printer fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
@@ -17,7 +24,8 @@
                                     <span class="path4"></span>
                                     <span class="path5"></span>
                                 </i>
-                                </i>Cetak</a>
+                                </i>PDF</a>
+
                         </div>
                         <div class="d-flex justify-content-end align-items-center d-none" {{-- data-kt-user-table-toolbar="selected" --}}>
                             <div class="fw-bold me-5">
@@ -220,7 +228,7 @@
 
     <!-- Modal-->
     <div class="modal fade" tabindex="-1" id="add">
-        <div class="modal-dialog">
+        <div class="modal-dialog mw-650px">
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title">Tambah Siswa</h3>
@@ -239,7 +247,7 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Siswa</label>
-                            <select class="form-select form-select-solid" name="student_id" data-control="select2"
+                            <select class="form-select form-select-solid" name="student_id[]" data-control="select2" multiple="multiple"
                                 data-placeholder="Select an option" data-dropdown-parent="#add" required>
                                 <option></option>
                                 @foreach ($list_student as $item)

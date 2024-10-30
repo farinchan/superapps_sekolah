@@ -117,10 +117,13 @@ class ClassroomController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $data = $request->all();
+        $student_id = $request->student_id;
         $data['classroom_id'] = $id;
 
-        ClassroomStudent::create($data);
+        foreach ($student_id as $key => $value) {
+            $data['student_id'] = $value;
+            ClassroomStudent::create($data);
+        }
 
         Alert::success('Berhasil', 'siswa berhasil ditambahkan');
         return redirect()->route('back.classroom.detail', $id);
