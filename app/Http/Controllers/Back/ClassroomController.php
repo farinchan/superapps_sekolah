@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Exports\ClassroomStudentExport;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,7 @@ use App\Models\ClassroomStudent;
 use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\Teacher;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClassroomController extends Controller
 {
@@ -135,6 +137,12 @@ class ClassroomController extends Controller
 
         Alert::success('Berhasil', 'Siswa berhasil dikeluarkan');
         return redirect()->route('back.classroom.detail', $classroom_id);
+    }
+
+    public function export($id)
+    {
+        $classroom = Classroom::find($id);
+        return Excel::download(new ClassroomStudentExport($id), 'Data kelas ' . $classroom->name . ' ' . $classroom->schoolYear->start_year . ' - ' . $classroom->schoolYear->end_year . ' (' . date('YmdHis') . ').xlsx');
     }
 
 }

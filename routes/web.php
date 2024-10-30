@@ -177,6 +177,9 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::get('/detail/{id}', [BackClassroomController::class, 'detail'])->name('detail');
         Route::post('/detail/{id}/add-student', [BackClassroomController::class, 'addStudent'])->name('add.student.store');
         Route::delete('/detail/{id}/delete-student/{student_id}', [BackClassroomController::class, 'removeStudent'])->name('delete.student.destroy');
+
+        Route::get('/detail/{id}/export', [BackClassroomController::class, 'export'])->name('export');
+
     });
 
 

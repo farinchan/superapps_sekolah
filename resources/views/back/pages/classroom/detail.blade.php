@@ -9,7 +9,8 @@
                     </div>
                     <div class="card-toolbar">
                         <div class="btn-group">
-                            <a href="#" class="btn btn-light-secondary">
+                            <a href="{{ route('back.classroom.export', $classroom_id) }}"
+                            class="btn btn-light-secondary">
 
                                 <i class="ki-duotone ki-file-up fs-2">
                                     <span class="path1"></span>
