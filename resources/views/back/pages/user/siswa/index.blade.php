@@ -234,7 +234,7 @@
                             <label class="form-label fw-bold">File Excel</label>
                             <input type="file" name="file" class="form-control" accept=".xls,.xlsx" required />
                             <small>File Excel Harus Sesuai Dengan Format Yang Telah Disediakan <br>
-                                <a href="{{ asset('back/excel/siswa.xlsx') }}" class="text-primary">Download Format
+                                <a href="{{ asset('file_ext/siswa_import_template.xlsx') }}" class="text-primary">Download Format
                                     Excel</a>
                             </small>
 
