@@ -142,7 +142,7 @@ class ClassroomController extends Controller
     public function export($id)
     {
         $classroom = Classroom::find($id);
-        return Excel::download(new ClassroomStudentExport($id), 'Data kelas ' . $classroom->name . ' ' . $classroom->schoolYear->start_year . ' - ' . $classroom->schoolYear->end_year . ' (' . date('YmdHis') . ').xlsx');
+        return Excel::download(new ClassroomStudentExport($id), 'Data kelas ' . $classroom->name . ' ' . $classroom->schoolYear->start_year . '-' . $classroom->schoolYear->end_year . ' (' . date('YmdHis') . ').xlsx');
     }
 
 }
