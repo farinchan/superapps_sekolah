@@ -77,7 +77,7 @@ class HomeController extends Controller
         $setting_web = SettingWebsite::first();
 
         $data = [
-            'title' => 'Kalender Akademin | ' . $setting_web->name,
+            'title' => 'Kalender Akademik | ' . $setting_web->name,
             'meta_description' => strip_tags($setting_web->about),
             'meta_keywords' => 'Kalender Akademik, MAN 1 Padang Panjang, Padang Panjang',
             'favicon' => $setting_web->favicon,
