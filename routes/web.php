@@ -165,8 +165,8 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
     Route::prefix('calendar')->name('calendar.')->group(function () {
         Route::get('/', [BackCalendarController::class, 'index'])->name('index');
         Route::post('/create', [BackCalendarController::class, 'store'])->name('store');
-        Route::put('/edit/{id}', [BackCalendarController::class, 'update'])->name('update');
-        Route::delete('/delete/{id}', [BackCalendarController::class, 'destroy'])->name('destroy');
+        Route::put('/edit', [BackCalendarController::class, 'update'])->name('update');
+        Route::delete('/delete', [BackCalendarController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('school-year')->name('school-year.')->group(function () {

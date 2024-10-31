@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('location')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
