@@ -18,6 +18,7 @@ use App\Http\Controllers\Back\BlogTeacherController as BackBlogTeacherController
 use App\Http\Controllers\Back\SekapurSirihController as BackSekapurSirihController;
 use App\Http\Controllers\Back\AchievementController as BackAchievementController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
+use App\Http\Controllers\Back\CalendarController as BackCalendarController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
 use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
 use App\Http\Controllers\Back\ExtracurricularController as BackExtracurricularController;
@@ -159,6 +160,13 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::put('/edit/{id}', [BackAchievementController::class, 'teacherAchievementUpdate'])->name('update');
             Route::delete('/delete/{id}', [BackAchievementController::class, 'teacherAchievementDestroy'])->name('destroy');
         });
+    });
+
+    Route::prefix('calendar')->name('calendar.')->group(function () {
+        Route::get('/', [BackCalendarController::class, 'index'])->name('index');
+        Route::post('/create', [BackCalendarController::class, 'store'])->name('store');
+        Route::put('/edit/{id}', [BackCalendarController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackCalendarController::class, 'destroy'])->name('destroy');
     });
 
     Route::prefix('school-year')->name('school-year.')->group(function () {

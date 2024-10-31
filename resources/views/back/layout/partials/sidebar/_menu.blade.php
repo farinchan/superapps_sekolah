@@ -217,6 +217,22 @@
                     </div>
                 </div>
 
+                <div class= "menu-item">
+                    <a class="menu-link @if (request()->routeIs('back.calendar.*')) active @endif"
+                        href="{{ route('back.calendar.index') }}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-calendar-2 fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Kalender Akademik</span>
+                    </a>
+                </div>
+
 
                 <div class="menu-item pt-5">
                     <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
@@ -291,7 +307,8 @@
                     </a>
                 </div>
 
-                <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.discipline.rule.*') || request()->routeIs('back.discipline.student.index')) here show @endif">
+                <div data-kt-menu-trigger="click"
+                    class="menu-item menu-accordion @if (request()->routeIs('back.discipline.rule.*') || request()->routeIs('back.discipline.student.index')) here show @endif">
                     <span class="menu-link">
                         <span class="menu-icon">
                             <i class="ki-duotone ki-shield-cross fs-2">
