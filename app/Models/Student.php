@@ -10,9 +10,9 @@ class Student extends Model
     protected $table = 'student';
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function classroom()
+    public function classroomStudent()
     {
-        return $this->belongsTo(Classroom::class);
+        return $this->hasMany(ClassroomStudent::class);
     }
 
     public function user()

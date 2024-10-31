@@ -286,6 +286,8 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::put('/edit/{id}', [BackDisciplineStudentController::class, 'update'])->name('update');
             Route::delete('/delete/{id}', [BackDisciplineStudentController::class, 'destroy'])->name('destroy');
 
+            Route::get('/datatable', [BackDisciplineStudentController::class, 'datatableAjax'])->name('datatableAjax');
+
             Route::get('/apiStudent', [BackDisciplineStudentController::class, 'apiStudent'])->name('apiStudent');
         });
     });
