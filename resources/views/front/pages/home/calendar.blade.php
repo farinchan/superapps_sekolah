@@ -25,6 +25,8 @@
             /* Menjaga kursor tetap pointer saat hover */
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
@@ -37,6 +39,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
+
 
                 headerToolbar: {
                     left: 'prev,next today',
@@ -91,7 +94,22 @@
                     $('#event-description').val(info.event.extendedProps.description);
                     $('#event-location').val(info.event.extendedProps.location);
                     MicroModal.show('modal-1');
-                }
+                },
+                eventDidMount: function(info) {
+                    // Cek apakah event dimulai hari ini
+                    var eventStart = moment(info.event.start).isSame(moment(), 'day');
+                    var eventEnd = moment(info.event.end).isSame(moment(), 'day');
+                    if (eventStart) {
+                        // Ubah background menjadi orange
+                        info.el.style.backgroundColor = 'orange';
+                        info.el.style.color = 'white';
+                    }
+                    if (eventEnd) {
+                        // Ubah background menjadi orange
+                        info.el.style.backgroundColor = 'orange';
+                        info.el.style.color = 'white';
+                    }
+                },
             });
             calendar.render();
         });
@@ -100,7 +118,7 @@
 
 @section('content')
     <!-- Start of breadcrumb section
-                                                                                          ============================================= -->
+                                                                                                  ============================================= -->
     <section id="breadcrumb" class="breadcrumb-section relative-position backgroud-style">
         <div class="blakish-overlay"></div>
         <div class="container">
@@ -121,10 +139,10 @@
         </div>
     </section>
     <!-- End of breadcrumb section
-                                                                                          ============================================= -->
+                                                                                                  ============================================= -->
 
     <!-- Start of blog content
-                                                                                          ============================================= -->
+                                                                                                  ============================================= -->
     <section id="blog-item" class="blog-item-post">
         <div class="container">
             <div class="blog-content-details">
@@ -216,7 +234,7 @@
         </div>
     </section>
     <!-- End of blog content
-                                                                                          ============================================= -->
+                                                                                                  ============================================= -->
 @endsection
 
 @section('scripts')
