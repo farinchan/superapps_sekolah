@@ -24,31 +24,91 @@
             display: block;
             margin: 0 auto;
         }
+
+        .fc-event {
+            cursor: pointer;
+            /* Mengubah kursor menjadi pointer */
+        }
+
+        .fc-event:hover {
+            cursor: pointer;
+            /* Menjaga kursor tetap pointer saat hover */
+        }
     </style>
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
+    <link rel="stylesheet" href="{{ asset('front/css/micromodal.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/micromodal/0.4.6/micromodal.min.js"></script>
+
     <script>
+        MicroModal.init();
+
         document.addEventListener('DOMContentLoaded', function() {
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth'
+
+                headerToolbar: {
+                    left: 'title',
+                    center: '',
+                    right: 'dayGridMonth,timeGridDay,listMonth'
+                },
+
+                initialView: 'dayGridMonth',
+                height: 450,
+                contentHeight: 420,
+
+                editable: true,
+                eventStartEditable: false,
+                eventDurationEditable: false,
+                dayMaxEvents: true, // allow "more" link when too many events
+                navLinks: true,
+                events: function(info, successCallback, failureCallback) {
+                    $.ajax({
+                        url: '/api/get-calendar',
+                        type: 'GET',
+                        success: function(response) {
+                            console.log(response);
+
+                            var events = [];
+                            $.each(response.calendar, function(index, value) {
+                                events.push({
+                                    id: value.id,
+                                    title: value.title,
+                                    start: value.start,
+                                    end: value.end,
+                                    description: value.description,
+                                    location: value.location,
+                                });
+                            });
+
+
+                            successCallback(events);
+                        },
+                        error: function(error) {
+                            console.log(error);
+                        },
+
+                    });
+                },
+                eventClick: function(info) {
+                    console.log("Event clicked:", info.event); // Pastikan ini tercetak di console
+                    $('#event-title').val(info.event.title);
+                    $('#event-start').val(info.event.start.toLocaleString());
+                    $('#event-end').val(info.event.end.toLocaleString());
+                    $('#event-description').val(info.event.extendedProps.description);
+                    $('#event-location').val(info.event.extendedProps.location);
+                    MicroModal.show('modal-1');
+                }
             });
             calendar.render();
         });
     </script>
-    {{-- <style>
-        #calendar {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 0;
-        }
-    </style> --}}
 @endsection
 
 @section('content')
     <!-- Start of slider section
-                                                                                                                                                      ============================================= -->
+                                                                                                                                                                                          ============================================= -->
     <section id="slide" class="slider-section">
         <div id="slider-item" class="slider-item-details">
             @foreach ($list_banner as $banner)
@@ -79,10 +139,10 @@
         </div>
     </section>
     <!-- End of slider section
-                                                                                                                                                    ============================================= -->
+                                                                                                                                                                                        ============================================= -->
 
     <!-- Start Latest News
-                                                                                                                                                    ============================================= -->
+                                                                                                                                                                                        ============================================= -->
     <section id="popular-course" class="popular-course-section mt-5">
         <div class="container">
             <div class="section-title mb20 headline text-left ">
@@ -136,10 +196,10 @@
         </div>
     </section>
     <!-- End Latest News
-                                                                                                                                                    ============================================= -->
+                                                                                                                                                                                        ============================================= -->
 
     <!-- Start latest section
-                                                                                                                                                    ============================================= -->
+                                                                                                                                                                                        ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -161,7 +221,8 @@
                                                 {{ Carbon\Carbon::parse($agenda->start)->format('M Y') }}
                                             </div>
                                             <div class="event-text">
-                                                <h3 class="latest-title bold-font"><a href="{{ route('event.show', $agenda->slug) }}">
+                                                <h3 class="latest-title bold-font"><a
+                                                        href="{{ route('event.show', $agenda->slug) }}">
                                                         {{ Str::limit($agenda->title, 65) }}
                                                     </a></h3>
                                                 {{-- <div class="course-meta">
@@ -174,9 +235,7 @@
                                 </div>
                             @endforeach
                         </div>
-                        <div class="view-all-btn bold-font">
-                            <a href="#">Check Calendar <i class="fas fa-calendar-alt"></i></a>
-                        </div>
+
                     </div>
                 </div>
 
@@ -186,6 +245,56 @@
                             <h2><span>Kalender</span> Akademik.</h2>
                         </div>
                         <div id='calendar'></div>
+                        <div class="modal micromodal-slide" id="modal-1" aria-hidden="true" style="width: 100%;">
+                            <div class="modal__overlay" tabindex="-1" data-micromodal-close>
+                                <div class="modal__container" role="dialog" aria-modal="true"
+                                    aria-labelledby="modal-1-title">
+                                    <header class="modal__header">
+                                        <h2 class="modal__title" id="modal-1-title">
+                                            Kalender Akademik 
+                                        </h2>
+                                        <button class="modal__close" aria-label="Close modal"
+                                            data-micromodal-close></button>
+                                    </header>
+                                    <main class="modal__content" id="modal-1-content">
+                                        <div class="form-group">
+                                            <label for="event-title">Judul</label>
+                                            <textarea class="form-control" id="event-title" readonly disabled style="background-color: #f8f8f8a2; resize: none;"
+                                                rows="1"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="event-location">Lokasi</label>
+                                            <textarea class="form-control" id="event-location" readonly disabled
+                                                style="background-color: #f8f8f8a2; resize: none;" rows="1"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="event-description">Deskripsi</label>
+                                            <textarea class="form-control" id="event-description" readonly disabled style="background-color: #f8f8f8a2;"
+                                                rows="3"></textarea>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="event-start">Mulai</label>
+                                                    <input type="text" class="form-control" id="event-start" readonly
+                                                        disabled style="background-color: #f8f8f8a2;">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="event-end">Selesai</label>
+                                                    <input type="text" class="form-control" id="event-end" readonly
+                                                        disabled style="background-color: #f8f8f8a2;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </main>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="view-all-btn bold-font mt-3">
+                            <a href="{{ route('calendar') }}">Cek Selengkapnya <i class="fas fa-calendar-alt"></i></a>
+                        </div>
                     </div>
                 </div>
 
@@ -194,10 +303,10 @@
         </div>
     </section>
     <!-- End latest section
-                                                                                                                                                    ============================================= -->
+                                                                                                                                                                                        ============================================= -->
 
     <!-- Start why choose section
-                                                                                                                                                  ========================================= ==== -->
+                                                                                                                                                                                      ========================================= ==== -->
     <section id="why-choose" class="why-choose-section backgroud-style">
         <div class="container">
             <div class="section-title mb20 headline text-center ">
@@ -238,11 +347,11 @@
         </div>
     </section>
     <!-- End why choose section
-                                                                                                                                                  ============================================= -->
+                                                                                                                                                                                      ============================================= -->
 
 
     <!-- Start of Search Courses
-                                                                                                                                    ============================================= -->
+                                                                                                                                                                        ============================================= -->
     <section id="search-course" class="search-course-section">
         <div class="container">
             <div class="section-title mb20 headline text-center mb-5">
@@ -318,10 +427,10 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                            ============================================= -->
+                                                                                                ============================================= -->
 
     <!-- Start prestasi section
-                                                               ============================================= -->
+                                                                                                   ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -347,7 +456,8 @@
                                                 <i class="fas fa-trophy"></i> {{ $student_achievement->rank }} -
                                                 {{ $student_achievement->level }}
                                             </div>
-                                            <h3 class="latest-title bold-font"><a href="{{ route('achievement.student.detail', $student_achievement->id ) }}">
+                                            <h3 class="latest-title bold-font"><a
+                                                    href="{{ route('achievement.student.detail', $student_achievement->id) }}">
                                                     {{ Str::limit($student_achievement->name . ' - ' . $student_achievement->event, 50) }}
                                                 </a></h3>
                                             <div class="course-viewer ul-li">
@@ -371,10 +481,10 @@
         </div>
     </section>
     <!-- End prestasi section
-                                                               ============================================= -->
+                                                                                                   ============================================= -->
 
     <!-- Start Course category
-                                                                                                                                        ============================================= -->
+                                                                                                                                                                            ============================================= -->
     <section id="course-category" class="course-category-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -406,12 +516,12 @@
         </div>
     </section>
     <!-- End Course category
-                                                                    ============================================= -->
+                                                                                                        ============================================= -->
 
 
 
     <!-- Start of course teacher
-                                                                                                                                    ============================================= -->
+                                                                                                                                                                        ============================================= -->
     <section id="course-teacher" class="course-teacher-section">
         <div class="jarallax">
             <div class="container">
@@ -476,10 +586,10 @@
         </div>
     </section>
     <!-- End of course teacher
-                                                                                                                                    ============================================= -->
+                                                                                                                                                                        ============================================= -->
 
     <!-- Start of best course
-                                                                                                                                    ============================================= -->
+                                                                                                                                                                        ============================================= -->
     <section id="best-course" class="best-course-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -530,11 +640,11 @@
         </div>
     </section>
     <!-- End of best course
-          ============================================= -->
+                                              ============================================= -->
 
 
     <!-- Start of genius teacher v2
-           ============================================= -->
+                                               ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -545,9 +655,11 @@
                 @foreach ($list_album as $album)
                     <div class="best-course-pic-text relative-position ">
                         <div class="best-course-pic relative-position">
-                            <img src="{{ $album->getThumbnail() }} " alt="" style="height: 200px; width: 100%; object-fit: cover;">
+                            <img src="{{ $album->getThumbnail() }} " alt=""
+                                style="height: 200px; width: 100%; object-fit: cover;">
                             <div class="course-details-btn">
-                                <a href=" {{ route('gallery.show', $album->slug) }}">{{ $album->title }} &nbsp; <i class="fas fa-arrow-right"></i></a>
+                                <a href=" {{ route('gallery.show', $album->slug) }}">{{ $album->title }} &nbsp; <i
+                                        class="fas fa-arrow-right"></i></a>
                             </div>
                             <div class="blakish-overlay"></div>
                         </div>
@@ -558,11 +670,11 @@
         </div>
     </section>
     <!-- End of genius teacher v2
-         ============================================= -->
+                                             ============================================= -->
 
 
     <!-- Start of genius teacher v2
-           ============================================= -->
+                                               ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -621,11 +733,11 @@
         </div>
     </section>
     <!-- End of genius teacher v2
-         ============================================= -->
+                                             ============================================= -->
 
 
     <!-- Start of sponsor section
-                                                                                                        ============================================= -->
+                                                                                                                                            ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -635,10 +747,10 @@
             </div>
     </section>
     <!-- End of sponsor section
-                                                                                                     ============================================= -->
+                                                                                                                                         ============================================= -->
 
     <!-- Start of sponsor section
-                                                                                                        ============================================= -->
+                                                                                                                                            ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -655,12 +767,12 @@
         </div>
     </section>
     <!-- End of sponsor section
-                                                                                                     ============================================= -->
+                                                                                                                                         ============================================= -->
 
 
 
     <!-- Start of Search Courses
-                                                                                                                                    ============================================= -->
+                                                                                                                                                                        ============================================= -->
     <section id="search-course" class="search-course-section home-secound-course-search backgroud-style">
         <div class="container">
 
@@ -716,7 +828,7 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                                                                                                      ============================================= -->
+                                                                                                                                                                                          ============================================= -->
 @endsection
 
 @section('scripts')

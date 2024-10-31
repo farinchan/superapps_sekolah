@@ -33,7 +33,7 @@ class HomeController extends Controller
 
             'list_banner' => SettingBanner::where('status', 1)->get(),
             'list_news' => News::latest()->where('status', 'published')->limit(6)->get(),
-            'list_agenda' => Event::orderBy('start', 'desc')->where('is_active', 1)->limit(6)->get(),
+            'list_agenda' => Event::orderBy('start', 'desc')->where('is_active', 1)->limit(8)->get(),
             'sekapur_sirih' => SekapurSirih::first(),
             'list_extracurricular' => Extracurricular::all(),
             'list_student_achievement' => StudentAchievement::latest()->limit(6)->get(),
@@ -70,5 +70,21 @@ class HomeController extends Controller
         ];
 
         return view('front.pages.home.sekapur_sirih', $data);
+    }
+
+    public function calendar()
+    {
+        $setting_web = SettingWebsite::first();
+
+        $data = [
+            'title' => 'Kalender Akademin | ' . $setting_web->name,
+            'meta_description' => strip_tags($setting_web->about),
+            'meta_keywords' => 'Kalender Akademik, MAN 1 Padang Panjang, Padang Panjang',
+            'favicon' => $setting_web->favicon,
+            'setting_web' => $setting_web,
+        ];
+
+        return view('front.pages.home.calendar', $data);
+
     }
 }
