@@ -58,7 +58,7 @@
                                         <span class="path2"></span>
                                     </i>
                                     Import</a>
-                                <a class="btn btn-secondary" href="{{ route('back.user.staff.') }}">
+                                <a class="btn btn-secondary" href="{{ route('back.user.student.export') }}">
                                     <i class="ki-duotone ki-file-up fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -108,7 +108,7 @@
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                             <a href="#">
                                                 <div class="symbol-label">
-                                                    <img src="@if ($user->photo) {{ Storage::url($user->photo) }} @else https://ui-avatars.com/api/?background=000C32&color=fff&name={{ $user->name }} @endif"
+                                                    <img src="{{ $user->getPhoto() }}"
                                                         alt="{{ $user->name }}" width="50px" />
                                                 </div>
                                             </a>
