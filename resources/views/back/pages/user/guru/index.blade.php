@@ -74,8 +74,24 @@
                                 </div>
                             </div>
 
-                            <a href="{{ route('back.user.staff.create') }}" class="btn btn-primary">
+                            <a href="{{ route('back.user.staff.create') }}" class="btn btn-primary me-3">
                                 <i class="ki-duotone ki-plus fs-2"></i>Tambah Staff</a>
+                                <div class="btn-group">
+
+                                    <a href="#" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#import">
+                                        <i class="ki-duotone ki-file-down fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        Import</a>
+                                    <a class="btn btn-secondary" href="{{ route('back.user.staff.export') }}">
+                                        <i class="ki-duotone ki-file-up fs-2">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        Export
+                                    </a>
+                                </div>
                         </div>
                         <div class="d-flex justify-content-end align-items-center d-none" {{-- data-kt-user-table-toolbar="selected" --}}>
                             <div class="fw-bold me-5">
@@ -213,6 +229,44 @@
             </div>
         </div>
     @endforeach
+
+    <div class="modal fade" tabindex="-1" id="import">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Import Guru</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <form class="form" method="POST" action="{{ route('back.user.staff.import') }}"
+                    enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group mb-3">
+                            <label class="form-label fw-bold">File Excel</label>
+                            <input type="file" name="file" class="form-control" accept=".xls,.xlsx" required />
+                            <small>File Excel Harus Sesuai Dengan Format Yang Telah Disediakan <br>
+                                <a href="{{ asset('file_ext/guru_import_template.xlsx') }}" class="text-primary">Download Format
+                                    Excel</a>
+                            </small>
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" >Import</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')

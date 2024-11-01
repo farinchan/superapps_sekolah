@@ -58,7 +58,7 @@
                                         <span class="path2"></span>
                                     </i>
                                     Import</a>
-                                <a class="btn btn-secondary" href="{{ route('back.user.student.export') }}">
+                                <a class="btn btn-secondary" href="{{ route('back.user.staff.') }}">
                                     <i class="ki-duotone ki-file-up fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>

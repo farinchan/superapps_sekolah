@@ -200,6 +200,9 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
             Route::get('/edit/{id}', [BackUserController::class, 'staffEdit'])->name('edit');
             Route::put('/edit/{id}', [BackUserController::class, 'staffUpdate'])->name('update');
             Route::delete('/delete/{id}', [BackUserController::class, 'staffDestroy'])->name('destroy');
+
+            Route::post('/import', [BackUserController::class, 'staffImport'])->name('import');
+            Route::get('/export', [BackUserController::class, 'staffExport'])->name('export');
         });
 
         Route::prefix('student')->name('student.')->group(function () {

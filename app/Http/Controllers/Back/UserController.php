@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use App\Imports\StudentImport;
 use App\Exports\StudentExport;
+use App\Exports\TeacherExport;
+use App\Imports\TeacherImport;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -296,6 +298,36 @@ class UserController extends Controller
 
         Alert::success('Sukses', 'User berhasil dihapus');
         return redirect()->route('back.user.staff.index');
+    }
+
+    public function staffImport(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xls,xlsx',
+        ], [
+            'required' => ':attribute harus diisi',
+            'mimes' => 'File harus berupa excel',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            Excel::import(new TeacherImport, $request->file('file'));
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->back();
+        }
+
+        Alert::success('Sukses', 'Data guru berhasil diimport');
+        return redirect()->route('back.user.staff.index');
+    }
+
+    public function staffExport()
+    {
+        return Excel::download(new TeacherExport, 'guru_' . date('YmdHis') . '.xlsx');
     }
 
     public function student()
