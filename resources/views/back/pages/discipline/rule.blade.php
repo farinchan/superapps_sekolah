@@ -19,15 +19,17 @@
                             <select class="form-select form-select-solid" data-control="select2" data-hide-search="true"
                                 data-placeholder="Kategori" data-kt-ecommerce-product-filter="status">
                                 <option></option>
-                                <option value="all">Semua Kategori</option>
+                                <option value="all">Semua</option>
                                 <option value="ringan">Ringan</option>
                                 <option value="sedang">Sedang</option>
                                 <option value="berat">Berat</option>
                                 <option value="sangat berat">Sangat Berat</option>
                             </select>
                         </div>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_rule">
-                            <i class="ki-duotone ki-plus fs-2"></i>Tambah Rule</a>
+                        @role('admin|guru_bk')
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add_rule">
+                                <i class="ki-duotone ki-plus fs-2"></i>Tambah Rule</a>
+                        @endrole
                     </div>
                 </div>
                 <div class="card-body pt-0">
@@ -81,22 +83,24 @@
                                         <span class="fw-bold">+{{ $discipline_rule->point }}</span>
                                     </td>
                                     <td class="text-end">
-                                        <a href="#"
-                                            class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
-                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                            <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                            data-kt-menu="true">
-                                            <div class="menu-item px-3">
-                                                <a href="#" data-bs-toggle="modal"
-                                                    data-bs-target="#edit_rule{{ $discipline_rule->id }}"
-                                                    class="menu-link px-3">Edit</a>
+                                        @role('admin|guru_bk')
+                                            <a href="#"
+                                                class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                                data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                                <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                            <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                                data-kt-menu="true">
+                                                <div class="menu-item px-3">
+                                                    <a href="#" data-bs-toggle="modal"
+                                                        data-bs-target="#edit_rule{{ $discipline_rule->id }}"
+                                                        class="menu-link px-3">Edit</a>
+                                                </div>
+                                                <div class="menu-item px-3">
+                                                    <a href="#" class="menu-link px-3" data-bs-toggle="modal"
+                                                        data-bs-target="#delete_rule{{ $discipline_rule->id }}">Delete</a>
+                                                </div>
                                             </div>
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3" data-bs-toggle="modal"
-                                                    data-bs-target="#delete_rule{{ $discipline_rule->id }}">Delete</a>
-                                            </div>
-                                        </div>
+                                        @endrole
                                     </td>
                                 </tr>
                             @endforeach

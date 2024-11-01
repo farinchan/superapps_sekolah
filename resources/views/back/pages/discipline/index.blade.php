@@ -98,6 +98,7 @@
                                 <th class="min-w-200px">Siswa</th>
                                 <th class="text-start min-w-100px">Pelanggaran</th>
                                 <th class="text-end min-w-70px">Point</th>
+                                <th class="text-end min-w-70px">Tanggal</th>
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
                         </thead>
@@ -129,7 +130,9 @@
                         @csrf
                         <div class="modal-body">
                             <div class="mb-3">
-                                <p>Apakah Anda yakin ingin menghapus Rule <strong>{{ $discipline->discipline }}</strong>?
+                                <p>Apakah Anda yakin ingin menghapus Pelanngaran siswa <strong>{{ $discipline->students?->name }}</strong>?<br>
+                                    pada pelanggaran <strong>{{ $discipline->rules?->rule }}</strong>
+                                    <strong>{{ $discipline->discipline }}</strong> dengan point <strong>{{ $discipline->rules?->point }}</strong> pada tanggal <strong>{{ $discipline->date }}</strong>
                                 </p>
                             </div>
                         </div>
@@ -212,6 +215,10 @@
                     name: 'point'
                 },
                 {
+                    data: 'date',
+                    name: 'date'
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -223,7 +230,8 @@
                 $(row).find('td').eq(1).addClass('d-flex align-items-center');
                 $(row).find('td').eq(2).addClass('text-start pe-0');
                 $(row).find('td').eq(3).addClass('text-end pe-0');
-                $(row).find('td').eq(4).addClass('text-end');
+                $(row).find('td').eq(4).addClass('text-end pe-0');
+                $(row).find('td').eq(5).addClass('text-end');
             }
         });
 

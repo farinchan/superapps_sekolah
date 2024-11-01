@@ -10,6 +10,7 @@ use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -36,45 +37,44 @@ class DisciplineStudentController extends Controller
         $search = request()->search;
         $school_year_id = request()->school_year_id;
         $class_id = request()->class_id;
-        $start_date = request()->start_date;
-        if ($start_date != null) {
-            $start_date = date('Y-m-d', strtotime($start_date));
-        }
-        $end_date = request()->end_date;
-        if ($end_date != null) {
-            $end_date = date('Y-m-d', strtotime($end_date));
-        }
+        $start_date = request()->start_date ? date('Y-m-d', strtotime(request()->start_date)) : null;
+        $end_date = request()->end_date ? date('Y-m-d', strtotime(request()->end_date)) : null;
 
         $disciplines = DisciplineStudent::with('students', 'rules', 'teachers')
+
+            // Filter berdasarkan nama siswa, NISN, dan NIK
             ->whereHas('students', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('nisn', 'like', '%' . $search . '%')
+                    ->orWhere('nik', 'like', '%' . $search . '%');
             })
-            ->orWhereHas('rules', function ($query) use ($search) {
-                $query->where('rule', 'like', '%' . $search . '%');
+
+            // Filter berdasarkan tahun ajaran
+            ->when($school_year_id, function ($query) use ($school_year_id) {
+                $query->whereHas('students.classroomStudent.classroom.schoolYear', function ($query) use ($school_year_id) {
+                    $query->where('school_year_id', $school_year_id);
+                });
             })
-            ->orWhereHas('teachers', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
-            })
-            ->whereHas('students.classroomStudent', function ($query) use ($class_id) {
-                $query->when($class_id, function ($query) use ($class_id) {
+
+            // Filter berdasarkan kelas
+            ->when($class_id, function ($query) use ($class_id) {
+                $query->whereHas('students.classroomStudent', function ($query) use ($class_id) {
                     $query->where('classroom_id', $class_id);
                 });
             })
-            ->whereHas('students.classroomStudent.classroom.schoolYear', function ($query) use ($school_year_id) {
-                $query->when($school_year_id, function ($query) use ($school_year_id) {
-                    $query->where('id', $school_year_id);
-                });
+
+            // Filter berdasarkan tanggal
+            ->when($start_date, function ($query) use ($start_date) {
+                $query->where('date', '>=', $start_date);
             })
-            ->where(function ($query) use ($start_date, $end_date) {
-                if ($start_date != null && $end_date != null) {
-                    $query->whereBetween('date', [$start_date, $end_date]);
-                }
+            ->when($end_date, function ($query) use ($end_date) {
+                $query->where('date', '<=', $end_date);
             })
+
             ->orderBy('date', 'desc')
             ->get();
 
-        //  return   response()->json($disciplines);
-
+        // Return datatables response
         return datatables()->of($disciplines)
             ->addColumn('index', function ($row) {
                 return '<div class="form-check form-check-sm form-check-custom form-check-solid">
@@ -116,21 +116,27 @@ class DisciplineStudentController extends Controller
                             <span>' . $row->rules->description . '</span>
                         </div>';
             })
+            ->addColumn('date', function ($row) {
+                return Carbon::parse($row->date)->translatedFormat('d F Y');
+            })
             ->addColumn('point', function ($row) {
                 return '<span class="fw-bold">+' . $row->rules->point . ' Point</span>';
             })
             ->addColumn('action', function ($row) {
-                return '<a href="#" class="btn btn-icon btn-light-youtube me-2"
-                            data-bs-toggle="modal" data-bs-target="#delete' . $row->id . '"
-                            data-bs-toggle="tooltip" data-bs-placement="right"
-                            title="Hapus Pelanggaran?">
-                            <i class="fa-solid fa-xmark fs-4"></i>
-                        </a>';
+                if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('guru_bk')) {
+                    return '<a href="#" class="btn btn-icon btn-light-youtube me-2"
+                                data-bs-toggle="modal" data-bs-target="#delete' . $row->id . '"
+                                data-bs-toggle="tooltip" data-bs-placement="right"
+                                title="Hapus Pelanggaran?">
+                                <i class="fa-solid fa-xmark fs-4"></i>
+                            </a>';
+                }else{
+                    return '-';
+                }
             })
             ->rawColumns(['index', 'siswa', 'pelanggaran', 'point', 'action'])
             ->make(true);
     }
-
 
     public function create()
     {
@@ -176,7 +182,7 @@ class DisciplineStudentController extends Controller
         ]);
 
         Alert::success('Success', 'Discipline student sukses ditambahkan');
-        return redirect()->route('discipline.index');
+        return redirect()->route('back.discipline.student.index');
     }
 
     public function update(Request $request)
@@ -203,7 +209,7 @@ class DisciplineStudentController extends Controller
         ]);
 
         Alert::success('Success', 'Discipline student sukses diubah');
-        return redirect()->route('discipline.index');
+        return redirect()->route('back.discipline.student.index');
     }
 
     public function destroy($id)
@@ -211,7 +217,7 @@ class DisciplineStudentController extends Controller
         DisciplineStudent::where('id', $id)->delete();
 
         Alert::success('Success', 'Discipline student sukses dihapus');
-        return redirect()->route('discipline.index');
+        return redirect()->route('back.discipline.student.index');
     }
 
     public function apiStudent()

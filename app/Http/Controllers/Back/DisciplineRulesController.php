@@ -14,9 +14,9 @@ class DisciplineRulesController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Discipline Rules',
-            'menu' => 'Discipline Rules',
-            'sub_menu' => '',
+            'title' => 'List Peraturan Disiplin',
+            'menu' => 'Disiplin',
+            'sub_menu' => 'Peraturan',
 
             'list_discipline_rules' => DisciplineRule::orderBy('point', 'asc')->get(),
         ];

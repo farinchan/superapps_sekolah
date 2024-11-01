@@ -53,7 +53,7 @@
 
                                 <div class="fv-row mb-4">
                                     <label class="required fw-bold fs-6 mb-2">Tanggal</label>
-                                    <input class="form-control form-control-solid form-control-lg fw-bold" type="date"
+                                    <input class="form-control form-control-solid form-control-lg fw-bold" type="datetime-local"
                                         name="date" />
                                 </div>
 
