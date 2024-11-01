@@ -92,7 +92,7 @@ class BlogTeacherController extends Controller
     public function edit($id)
     {
         $blog_teacher = BlogTeacher::find($id);
-        if ( $blog_teacher->teacher_id != Auth::user()->teacher->id) {
+        if ( $blog_teacher->teacher_id != Auth::user()->teacher->id && !Auth::user()->hasRole('admin')) {
             Alert::error('Gagal', 'Anda tidak memiliki akses untuk mengedit blog ini');
             return redirect()->route('back.blog_teacher.index');
         }
