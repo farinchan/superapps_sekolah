@@ -473,7 +473,7 @@
                             </a>
                         </div>
                         <div class="menu-item">
-                            <a class="menu-link @if (request()->routeIs('back.user.alumni.*')) active @endif"
+                            <a class="menu-link @if (request()->routeIs('back.classroom.*')) active @endif"
                                 href="{{ route('back.classroom.index') }}">
                                 <span class="menu-icon">
                                     <i class="ki-duotone ki-bank">

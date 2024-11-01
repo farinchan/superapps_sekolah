@@ -165,7 +165,7 @@
                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                             <a href="#">
                                                 <div class="symbol-label">
-                                                    <img src="@if ($student->student?->photo) {{ Storage::url($student->student?->photo) }} @else https://ui-avatars.com/api/?background=000C32&color=fff&name={{ $student->student?->name }} @endif"
+                                                    <img src="{{ $student->student?->getPhoto() }}"
                                                         alt="{{ $student->student?->name }}" width="50px" />
                                                 </div>
                                             </a>
