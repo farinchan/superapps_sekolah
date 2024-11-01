@@ -6,35 +6,35 @@
         <div class="menu-content d-flex align-items-center px-3">
             <!--begin::Avatar-->
             <div class="symbol symbol-50px me-5">
-                <img alt="Logo" src="
-                @if (Auth::user()->teacher != null)
-                    {{ Auth::user()->teacher->getPhoto() }}
+                <img alt="Logo"
+                    src="
+                @if (Auth::user()->teacher != null) {{ Auth::user()->teacher->getPhoto() }}
                 @elseif (Auth::user()->student != null)
-                    {{ Auth::user()->student->getPhoto() }}
-                @endif
+                    {{ Auth::user()->student->getPhoto() }} @endif
                 " />
             </div>
             <!--end::Avatar-->
             <!--begin::Username-->
             <div class="d-flex flex-column">
                 @if (Auth::user()->teacher != null)
-                <div class="fw-bold d-flex align-items-center fs-5">
-                    {{ Auth::user()->teacher->name }}
-                    @foreach (Auth::user()->getRoleNames() as $role)
-                        <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ $role }}</span>
-                    @endforeach
-                </div>
-                @elseif (Auth::user()->student != null)
-                <div class="fw-bold d-flex align-items-center fs-5">
-                    {{ Auth::user()->student->name }}
-                    @foreach (Auth::user()->getRoles() as $role)
-                        <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">{{ $role }}</span>
-                    @endforeach
-                </div>
+                    <div class="fw-bold d-flex align-items-center fs-5">
+                        {{ Auth::user()->teacher->name }}
 
+                    </div>
+                @elseif (Auth::user()->student != null)
+                    <div class="fw-bold d-flex align-items-center fs-5">
+                        {{ Auth::user()->student->name }}
+                    </div>
                 @endif
                 <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
-                    {{ Auth::user()->email }}</a>
+                    {{ Auth::user()->email }}
+                </a>
+                <div>
+
+                    @foreach (Auth::user()->getRoleNames() as $role)
+                        <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-1">{{ $role }}</span>
+                    @endforeach
+                </div>
             </div>
             <!--end::Username-->
         </div>
@@ -45,9 +45,12 @@
     <!--end::Menu separator-->
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-        <a href="#" class="menu-link px-5">
-            My Profile
-        </a>
+        @if (Auth::user()->teacher != null)
+            <a href="{{ route('back.user.staff.profile')}}" class="menu-link px-5">
+                My Profile
+            </a>
+
+        @endif
     </div>
     <!--end::Menu item-->
     <!--begin::Menu item-->
@@ -225,7 +228,7 @@
     <!--end::Menu item-->
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-        <a href="{{ route("logout") }}" class="menu-link px-5">
+        <a href="{{ route('logout') }}" class="menu-link px-5">
             Sign Out
         </a>
     </div>

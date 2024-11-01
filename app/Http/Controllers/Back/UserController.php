@@ -11,6 +11,7 @@ use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -558,4 +559,104 @@ class UserController extends Controller
 
         return view('back.pages.user.orang_tua.index', $data);
     }
+
+    public function profile()
+    {
+        $teacher = Teacher::findOrFail(Auth::user()->teacher->id);
+        $data = [
+            'title' =>  $teacher->name,
+            'menu' => 'user',
+            'sub_menu' => 'Profil',
+            'user' => $teacher,
+        ];
+
+        return view('back.pages.user.guru.profile', $data);
+    }
+
+    public function profileUpdate(Request $request,)
+    {
+        $id = Auth::user()->teacher->id;
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'nip' => 'nullable',
+            'nik' => 'nullable',
+            'gender' => 'nullable',
+            'birth_date' => 'nullable',
+            'birth_place' => 'nullable',
+            'no_telp' => 'nullable',
+            'email' => 'nullable|email|unique:users,email,' . $id,
+            'address' => 'nullable|max:255',
+            'position' => 'nullable',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'about' => 'nullable',
+            'type' => 'required',
+            'facebook' => 'nullable|url',
+            'instagram' => 'nullable|url',
+            'twitter' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'meta_title' => 'nullable',
+            'meta_description' => 'nullable',
+            'meta_keywords' => 'nullable',
+            'password' => 'nullable|min:8',
+        ], [
+            'required' => ':attribute harus diisi',
+            'email.unique' => 'Email sudah terdaftar',
+            'email' => 'Email tidak valid',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'in' => 'Pilih :attribute yang benar',
+            'url' => 'URL tidak valid',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $teacher = Teacher::findOrFail($id);
+        $teacher->name = $request->name;
+        $teacher->nip = $request->nip;
+        $teacher->nik = $request->nik;
+        $teacher->gender = $request->gender;
+        $teacher->birth_date = $request->birth_date;
+        $teacher->birth_place = $request->birth_place;
+        $teacher->no_telp = $request->no_telp;
+        $teacher->email = $request->email;
+        $teacher->address = $request->address;
+        $teacher->position = $request->position;
+        $teacher->about = $request->about;
+        $teacher->type = $request->type;
+        $teacher->facebook = $request->facebook;
+        $teacher->instagram = $request->instagram;
+        $teacher->twitter = $request->twitter;
+        $teacher->linkedin = $request->linkedin;
+        $teacher->meta_title = $request->name;
+        $teacher->meta_description = $request->about;
+        $teacher->meta_keywords = "Guru, Staff, Tenaga Pendidik, Tenaga Kependidikan" . $request->name . $request->position . $request->type;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            if ($teacher->photo) {
+                Storage::delete($teacher->photo);
+            }
+            $teacher->photo = $image->storeAs('teacher', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $teacher->save();
+
+        $user = User::findOrFail($teacher->user_id);
+        $user->email = $request->email;
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+
+        $user->save();
+
+        Alert::success('Sukses', 'Profil berhasil diperbarui');
+        return redirect()->route('back.user.staff.profile');
+    }
+
+
 }

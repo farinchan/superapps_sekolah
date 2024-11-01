@@ -203,6 +203,9 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
 
             Route::post('/import', [BackUserController::class, 'staffImport'])->name('import');
             Route::get('/export', [BackUserController::class, 'staffExport'])->name('export');
+
+            Route::get('/profil', [BackUserController::class, 'profile'])->name('profile');
+            Route::put('/profil', [BackUserController::class, 'profileUpdate'])->name('profile.update');
         });
 
         Route::prefix('student')->name('student.')->group(function () {
