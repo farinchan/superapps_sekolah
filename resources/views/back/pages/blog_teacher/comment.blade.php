@@ -101,7 +101,7 @@
                                     </td>
 
                                     <td class="text-end" >
-                                        <a href="#" class="text-gray-600 fw-bold text-hover-primary">{{ $comment->news->title }}</a>
+                                        <a href="#" class="text-gray-600 fw-bold text-hover-primary">{{ $comment->blogTeacher?->title }}</a>
                                         <br>
                                         <span class="text-muted fw-bold">{{ $comment->parent_id ? 'Reply ID: ' . $comment->parent_id : 'Comment' }}</span>
                                     </td>
@@ -112,11 +112,11 @@
                                             <div class="badge badge-light-danger">Spam</div>
                                         @endif
                                         <br>
-                                        <span class="text-muted fw-bold">{{ $comment->news->created_at->format('d/m/Y') }}</span>
+                                        <span class="text-muted fw-bold">{{ $comment->blogTeacher?->created_at?->format('d/m/Y') }}</span>
                                     </td>
                                     <td class="text-end">
                                         <form style="display: inline-block;"
-                                            action="{{ route('back.news.comment.spam', $comment->id) }}"
+                                            action="{{ route('back.blog_teacher.comment.spam', $comment->id) }}"
                                             method="POST">
                                             @csrf
                                             <button type="submit" class="btn btn-icon btn-light-youtube me-2" title="Jadikan Spam">

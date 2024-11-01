@@ -16,11 +16,18 @@ class BlogTeacherController extends Controller
 {
     public function index()
     {
+        $blog = "";
+        if (Auth::user()->hasRole('admin')) {
+            $blog = BlogTeacher::all();
+        } else {
+            $blog = BlogTeacher::where('teacher_id', Auth::user()->teacher->id)->get();
+        }
+
         $data = [
-            'title' => 'Blog Guru',
+            'title' => 'List Blog Guru',
             'menu' => 'Blog',
-            'sub_menu' => 'Blog Guru',
-            'list_blog' => BlogTeacher::all(),
+            'sub_menu' => 'Guru',
+            'list_blog' => $blog,
         ];
 
         return view('back.pages.blog_teacher.index', $data);
@@ -31,7 +38,7 @@ class BlogTeacherController extends Controller
         $data = [
             'title' => 'Tambah Blog Guru',
             'menu' => 'Blog',
-            'sub_menu' => 'Blog Guru',
+            'sub_menu' => 'Guru',
         ];
 
         return view('back.pages.blog_teacher.create', $data);
@@ -84,11 +91,16 @@ class BlogTeacherController extends Controller
 
     public function edit($id)
     {
+        $blog_teacher = BlogTeacher::find($id);
+        if ( $blog_teacher->teacher_id != Auth::user()->teacher->id) {
+            Alert::error('Gagal', 'Anda tidak memiliki akses untuk mengedit blog ini');
+            return redirect()->route('back.blog_teacher.index');
+        }
         $data = [
             'title' => 'Edit Blog Guru',
             'menu' => 'Blog',
-            'sub_menu' => 'Blog Guru',
-            'blog_teacher' => BlogTeacher::find($id),
+            'sub_menu' => 'Guru',
+            'blog_teacher' => $blog_teacher,
         ];
 
         return view('back.pages.blog_teacher.edit', $data);
@@ -119,6 +131,10 @@ class BlogTeacherController extends Controller
         }
 
         $blog_teacher = BlogTeacher::find($id);
+        if ( $blog_teacher->teacher_id != Auth::user()->teacher->id) {
+            Alert::error('Gagal', 'Anda tidak memiliki akses untuk mengedit blog ini');
+            return redirect()->route('back.blog_teacher.index');
+        }
         $blog_teacher->title = $request->title;
         $blog_teacher->content = $request->content;
         $blog_teacher->status = $request->status;
@@ -139,6 +155,10 @@ class BlogTeacherController extends Controller
     public function destroy($id)
     {
         $blog_teacher = BlogTeacher::find($id);
+        if ( $blog_teacher->teacher_id != Auth::user()->teacher->id) {
+            Alert::error('Gagal', 'Anda tidak memiliki akses untuk menghapus blog ini');
+            return redirect()->route('back.blog_teacher.index');
+        }
         if ($blog_teacher->thumbnail) {
             Storage::delete($blog_teacher->thumbnail);
         }
@@ -150,11 +170,19 @@ class BlogTeacherController extends Controller
 
     public function comment()
     {
+        $comment = "";
+        if (Auth::user()->hasRole('admin')) {
+            $comment = BlogTeacherComment::all();
+        } else {
+            $comment = BlogTeacherComment::whereHas('blogTeacher', function ($query) {
+                $query->where('teacher_id', Auth::user()->teacher->id);
+            })->get();
+        }
         $data = [
             'title' => 'Komentar Blog Guru',
             'menu' => 'Blog',
-            'sub_menu' => 'Komentar Blog Guru',
-            'comments' => BlogTeacherComment::all(),
+            'sub_menu' => 'Guru',
+            'comments' => $comment,
 
         ];
 
@@ -164,11 +192,15 @@ class BlogTeacherController extends Controller
     public function commentSpam($id)
     {
         $comment = BlogTeacherComment::find($id);
+        if ( $comment->blogTeacher->teacher_id != Auth::user()->teacher->id) {
+            Alert::error('Gagal', 'Anda tidak memiliki akses untuk mengubah status komentar ini');
+            return redirect()->route('back.blog_teacher.comment');
+        }
         $comment->status = 'spam';
         $comment->save();
 
         Alert::success('Sukses', 'Komentar berhasil diubah menjadi spam');
-        return redirect()->route('back.news.comment');
+        return redirect()->route('back.blog_teacher.comment');
     }
 
 
