@@ -211,9 +211,9 @@
                                 <label class="required form-label">Jenis Staff</label>
                                 <select name="type" class="form-select mb-2" required>
                                     <option value="" disabled selected>Pilih Jenis Staff</option>
-                                    <option value="Tenaga Pendidik" @if (old('type') == 'Tenaga Pendidik') selected @endif>
+                                    <option value="tenaga pendidik" @if (old('type') == 'tenaga pendidik') selected @endif>
                                         Tenaga Pendidik</option>
-                                    <option value="Tenaga Kependidikan" @if (old('type') == 'Tenaga Kependidikan') selected @endif>
+                                    <option value="tenaga kependidikan" @if (old('type') == 'tenaga kependidikan') selected @endif>
                                         Tenaga Kependidikan</option>
                                 </select>
                                 @error('type')
