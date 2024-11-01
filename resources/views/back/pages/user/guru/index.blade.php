@@ -144,6 +144,7 @@
                                             <a href="#"
                                                 class="text-gray-800 text-hover-primary mb-1">{{ $user->name }}</a>
                                             <span> NIP.{{ $user->nip }}</span>
+                                            <span> NIK.{{ $user->nik }}</span>
                                         </div>
                                     </td>
                                     <td>
