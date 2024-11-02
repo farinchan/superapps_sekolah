@@ -40,7 +40,7 @@ class NewsController extends Controller
     {
         $setting_web = SettingWebsite::first();
 
-        $news = News::where('slug', $slug)->first();
+        $news = News::where('slug', $slug)->firstOrFail();
         $data = [
 
             'title' => $news->title . " | Berita | " . $setting_web->name,
@@ -90,7 +90,7 @@ class NewsController extends Controller
 
     public function category($slug)
     {
-        $category = NewsCategory::where('slug', $slug)->first();
+        $category = NewsCategory::where('slug', $slug)->firstOrFail();
         $data = [
             'category' => $category,
             'list_news' => News::latest()
