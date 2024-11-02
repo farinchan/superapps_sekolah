@@ -139,9 +139,16 @@ class NewsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $slug = "";
+        if (News::where('slug', Str::slug($request->title))->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        } else {
+            $slug = Str::slug($request->title);
+        }
+
         $news = new News();
         $news->title = $request->title;
-        $news->slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        $news->slug = $slug;
         $news->content = $request->content;
         $news->category_id = $request->category_id;
         $news->user_id = Auth::user()->id;
@@ -196,9 +203,16 @@ class NewsController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $slug = "";
+        if (News::where('slug', Str::slug($request->title))->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        } else {
+            $slug = Str::slug($request->title);
+        }
+
         $news = News::find($id);
         $news->title = $request->title;
-        $news->slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        $news->slug = $slug;
         $news->content = $request->content;
         $news->category_id = $request->category_id;
         $news->user_id = Auth::user()->id;

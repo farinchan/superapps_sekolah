@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\NewsComment;
+use App\Models\SettingWebsite;
 
 class NewsController extends Controller
 {
@@ -37,8 +38,16 @@ class NewsController extends Controller
 
     public function show($slug)
     {
+        $setting_web = SettingWebsite::first();
+
         $news = News::where('slug', $slug)->first();
         $data = [
+
+            'title' => $news->title . " | Berita | " . $setting_web->name,
+            'meta_description' => $news->meta_description,
+            'meta_keywords' => 'News, MAN 1 Padang Panjang, Padang Panjang',
+            'favicon' => $setting_web->favicon,
+            'setting_web' => $setting_web,
             'category' => '',
 
             'news' => $news,
@@ -54,7 +63,6 @@ class NewsController extends Controller
             'prev_news' => News::where('id', '<', $news->id)->first(),
         ];
 
-        $data = array_merge($data, $this->newsMeta());
 
 
         $currentUserInfo = Location::get(request()->ip());
