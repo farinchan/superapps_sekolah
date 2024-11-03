@@ -1,16 +1,16 @@
 @extends('front.app')
 
 @section('seo')
-<title>{{ $title }}</title>
-<meta name="description" content="{{ $meta_description }}">
-<meta name="keywords" content="{{ $meta_keywords }}">
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $meta_description }}">
+    <meta name="keywords" content="{{ $meta_keywords }}">
 
-<meta property="og:title" content="{{ $title }}">
-<meta property="og:description" content="{{ $meta_description }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ route('news.index' ) }}">
-<link rel="canonical" href="{{ route('news.index') }}">
-<meta property="og:image" content="{{ Storage::url($favicon) }}">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $meta_description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ route('news.index') }}">
+    <link rel="canonical" href="{{ route('news.index') }}">
+    <meta property="og:image" content="{{ Storage::url($favicon) }}">
 @endsection
 
 @section('styles')
@@ -18,7 +18,7 @@
 
 @section('content')
     <!-- Start of breadcrumb section
-                                                              ============================================= -->
+                                                                  ============================================= -->
     <section id="breadcrumb" class="breadcrumb-section relative-position backgroud-style">
         <div class="blakish-overlay"></div>
         <div class="container">
@@ -26,7 +26,6 @@
                 <div class="page-breadcrumb-title">
                     @if (request()->routeIs('news.category'))
                         <h2 class="breadcrumb-head black bold">Kategori <span>{{ $category->name }}</span></h2>
-
                     @endif
                     @if (request()->routeIs('news.index'))
                         <h2 class="breadcrumb-head black bold">Semua <span>Berita</span></h2>
@@ -34,7 +33,7 @@
                 </div>
                 <div class="page-breadcrumb-item ul-li">
                     <ul class="breadcrumb text-uppercase black">
-                        <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                         <li class="breadcrumb-item active">News</li>
                     </ul>
                 </div>
@@ -42,10 +41,10 @@
         </div>
     </section>
     <!-- End of breadcrumb section
-                                                              ============================================= -->
+                                                                  ============================================= -->
 
     <!-- Start of blog content
-                                                              ============================================= -->
+                                                                  ============================================= -->
     <section id="blog-item" class="blog-item-post">
         <div class="container">
             <div class="blog-content-details">
@@ -89,7 +88,7 @@
                                                             <span class="course-category bold-font"><a
                                                                     href="{{ route('news.category', $news->category->slug) }}">{{ $news->category->name }}</a></span>
                                                             <span class="course-author bold-font"><a
-                                                                    href="#">Humas</a></span>
+                                                                    href="{{ route('staff.detail', $news->user?->teacher?->id) }}">{{ $news->user?->teacher?->name }}</a></span>
 
                                                         </div>
                                                         <div class="blog-title-content headline">
@@ -183,7 +182,8 @@
 
                                                                 <div class="view-all-btn bold-font mt-3">
                                                                     <a href="{{ route('news.show', $news->slug) }}">Read
-                                                                        More <i class="fas fa-chevron-circle-right"></i></a>
+                                                                        More <i
+                                                                            class="fas fa-chevron-circle-right"></i></a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -257,9 +257,9 @@
                                 </form>
                             </div>
 
-                            @include("front.components.news-categories")
+                            @include('front.components.news-categories')
 
-                            @include("front.components.latest-news")
+                            @include('front.components.latest-news')
 
 
                         </div>
@@ -269,7 +269,7 @@
         </div>
     </section>
     <!-- End of blog content
-                                                              ============================================= -->
+                                                                  ============================================= -->
 @endsection
 
 @section('scripts')

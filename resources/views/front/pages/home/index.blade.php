@@ -183,7 +183,7 @@
                             <div class="course-meta">
                                 <span class="course-category bold-font"><a
                                         href="{{ route('news.category', $news->category->name) }}">{{ $news->category->name }}</a></span>
-                                <span class="course-author bold-font"><a href="#">Humas</a></span>
+                                <span class="course-author bold-font"><a href="{{ route('staff.detail', $news->user?->teacher?->id) }}">{{ $news->user?->teacher?->name }}</a></span>
 
                             </div>
                             <div class="course-title mt10 headline pb45 relative-position">

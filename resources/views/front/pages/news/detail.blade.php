@@ -56,7 +56,7 @@
 
 								<div class="date-meta text-uppercase">
 									<span><i class="fas fa-calendar-alt"></i> {{ $news->created_at->format('d M Y') }} </span>
-									<span><i class="fas fa-user"></i> Humas </span>
+									<span><i class="fas fa-user"></i> <a href="{{ route('staff.detail', $news->user?->teacher?->id) }}">{{ $news->user?->teacher?->name }}</a> </span>
 									<span><i class="fas fa-comment-dots"></i> {{ $news->comments->count() }} Komentar</span>
                                     <span><i class="fas fa-eye"></i> {{ $news->viewers->count() }} Dilihat</span>
 								</div>
@@ -124,7 +124,7 @@
 													<img src="{{ $related->getThumbnail() }}" alt="">
 												</div>
 												<div class="course-price text-center gradient-bg">
-													<span>26 April 2018</span>
+													<span>{{ $related->created_at->format('d M Y') }}</span>
 												</div>
 											</div>
 											<div class="blog-title-content headline">
