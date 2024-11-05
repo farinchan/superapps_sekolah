@@ -262,12 +262,14 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::put('/detail/{id}/setting/update', [BackExamController::class, 'settingUpdate'])->name('setting.update');
         Route::delete('/detail/{id}/setting/delete', [BackExamController::class, 'settingDestroy'])->name('setting.destroy');
 
-        Route::get('/detail/{id}/question', [BackExamController::class, 'addAnswer'])->name('answer.add');
-        Route::get('/detail/{id}/add-question', [BackExamController::class, 'addQuestion'])->name('question.add');
-        Route::post('/detail/{id}/add-question', [BackExamController::class, 'storeQuestion'])->name('question.store');
-        Route::get('/detail/{id}/edit-question/{question_id}', [BackExamController::class, 'editQuestion'])->name('question.edit');
-        Route::put('/detail/{id}/edit-question/{question_id}', [BackExamController::class, 'editQuestion'])->name('question.update');
-        Route::delete('/detail/{id}/delete-question/{question_id}', [BackExamController::class, 'deleteQuestion'])->name('question.delete');
+        Route::get('/detail/{id}/question', [BackExamController::class, 'question'])->name('question');
+        Route::get('/detail/{id}/question/create-multipleChoice', [BackExamController::class, 'questionMultipleChoice'])->name('question.multiple-choice.create');
+        Route::post('/detail/{id}/question/store-multipleChoice', [BackExamController::class, 'questionStoreMultipleChoice'])->name('question.multiple-choice.store');
+        Route::get('/detail/{id}/question/create-multipleChoicecomplex', [BackExamController::class, 'questionMultipleChoiceComplex'])->name('question.multiple-choice-complex.create');
+        Route::post('/detail/{id}/question/store-multipleChoicecomplex', [BackExamController::class, 'questionStoreMultipleChoiceComplex'])->name('question.multiple-choice-complex.store');
+        Route::get('/detail/{id}/question/{question_id}/edit', [BackExamController::class, 'questionEdit'])->name('question.edit');
+        Route::put('/detail/{id}/question/{question_id}/update', [BackExamController::class, 'questionUpdate'])->name('question.update');
+        Route::delete('/detail/{id}/question/{question_id}/delete', [BackExamController::class, 'questionDelete'])->name('question.delete');
 
         Route::get('/detail/{id}/classroom', [BackExamController::class, 'classroom'])->name('classroom');
         Route::post('/detail/{id}/classroom/create', [BackExamController::class, 'storeClassroom'])->name('classroom.store');

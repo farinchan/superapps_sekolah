@@ -74,17 +74,19 @@
                     href="#">Overview</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6" href="apps/projects/files.html">Pertanyaan</a>
+                <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.question')) active @endif"
+                href="{{ route("back.exam.question", $exam->id) }}">Soal</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6" href="apps/projects/budget.html">Kelas</a>
+                <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.classroom')) active @endif"
+                href="{{ route("back.exam.classroom", $exam->id) }}">Kelas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6" href="apps/projects/users.html">Nilai Siswa</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.setting')) active @endif"
-                    href=""{{ route("back.exam.setting", $exam->id) }}>Settings</a>
+                    href="{{ route("back.exam.setting", $exam->id) }}">Settings</a>
             </li>
         </ul>
     </div>

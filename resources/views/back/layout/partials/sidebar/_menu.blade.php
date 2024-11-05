@@ -379,7 +379,7 @@
 
                 @role('admin|guru')
                     <div class="menu-item">
-                        <a class="menu-link @if (request()->routeIs('back.assignment.*')) active @endif"
+                        <a class="menu-link @if (request()->routeIs('back.exam.*')) active @endif"
                             href="{{ route('back.exam.index') }}">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-tablet-book fs-2">
