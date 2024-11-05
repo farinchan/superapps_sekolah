@@ -20,9 +20,11 @@ use App\Http\Controllers\Back\AchievementController as BackAchievementController
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\CalendarController as BackCalendarController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
+use App\Http\Controllers\Back\SubjectController as BackSubjectController;
 use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
 use App\Http\Controllers\Back\ExtracurricularController as BackExtracurricularController;
 use App\Http\Controllers\Back\PartnerLinkController as BackPartnerLinkController;
+use App\Http\Controllers\Back\ExamController as BackExamController;
 use App\Http\Controllers\Back\UserController as BackUserController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
 use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
@@ -177,6 +179,13 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::delete('/delete/{id}', [BackSchoolYearController::class, 'destroy'])->name('destroy');
     });
 
+    Route::prefix("subject")->name('subject.')->group(function () {
+        Route::get('/', [BackSubjectController::class, 'index'])->name('index');
+        Route::post('/create', [BackSubjectController::class, 'store'])->name('store');
+        Route::put('/edit/{id}', [BackSubjectController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackSubjectController::class, 'destroy'])->name('destroy');
+    });
+
     Route::prefix('classroom')->name('classroom.')->group(function () {
         Route::get('/', [BackClassroomController::class, 'index'])->name('index');
         Route::post('/create', [BackClassroomController::class, 'store'])->name('store');
@@ -243,6 +252,29 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::post('/create', [BackPartnerLinkController::class, 'store'])->name('store');
         Route::put('/edit/{id}', [BackPartnerLinkController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [BackPartnerLinkController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::prefix('exam')->name('exam.')->group(function () {
+        Route::get('/', [BackExamController::class, 'index'])->name('index');
+        Route::post('/create', [BackExamController::class, 'store'])->name('store');
+        Route::put('/edit/{id}', [BackExamController::class, 'update'])->name('update');
+        Route::delete('/delete/{id}', [BackExamController::class, 'destroy'])->name('destroy');
+
+        Route::get('/detail/{id}', [BackExamController::class, 'detail'])->name('detail');
+
+        Route::get('/detail/{id}/add-question', [BackExamController::class, 'addQuestion'])->name('question.add');
+        Route::post('/detail/{id}/add-question', [BackExamController::class, 'storeQuestion'])->name('question.store');
+        Route::get('/detail/{id}/edit-question/{question_id}', [BackExamController::class, 'editQuestion'])->name('question.edit');
+        Route::put('/detail/{id}/edit-question/{question_id}', [BackExamController::class, 'editQuestion'])->name('question.update');
+        Route::delete('/detail/{id}/delete-question/{question_id}', [BackExamController::class, 'deleteQuestion'])->name('question.delete');
+
+        Route::get('/detail/{id}/classroom', [BackExamController::class, 'classroom'])->name('classroom');
+        Route::post('/detail/{id}/classroom', [BackExamController::class, 'storeClassroom'])->name('classroom.store');
+        Route::delete('/detail/{id}/delete-classroom/{classroom_id}', [BackExamController::class, 'deleteClassroom'])->name('classroom.delete');
+
+        Route::get('/detail/{id}/student', [BackExamController::class, 'student'])->name('student');
+
+
     });
 
     Route::prefix('menu')->name('menu.')->group(function () {

@@ -368,6 +368,30 @@
                     </div>
                 @endrole
 
+                @role('admin|guru')
+                    <div class="menu-item pt-5">
+                        <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
+                                E-Learning
+                            </span>
+                        </div>
+                    </div>
+                @endrole
+
+                @role('admin|guru')
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.assignment.*')) active @endif"
+                            href="{{ route('back.exam.index') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-tablet-book fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Ujian</span>
+                        </a>
+                    </div>
+                @endrole
+
 
 
 
@@ -512,6 +536,18 @@
                                 </a>
                             </div>
                             <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.subject.index')) active @endif"0
+                                    href="{{ route('back.subject.index') }}">
+                                    <span class="menu-icon">
+                                        <i class="ki-duotone ki-questionnaire-tablet                        ">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </span>
+                                    <span class="menu-title">Mata Pelajaran</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.school-year.index')) active @endif"0
                                     href="{{ route('back.school-year.index') }}">
                                     <span class="menu-icon">
@@ -527,6 +563,7 @@
                                     <span class="menu-title">Tahun Ajaran</span>
                                 </a>
                             </div>
+
                             <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.extracurricular.index')) active @endif"
                                     href="{{ route('back.extracurricular.index') }}">

@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('exam', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->foreignId('subject_id')->constrained('subject')->onDelete('cascade')->onUpdate('cascade');
+            $table->text('description');
             $table->timestamp('start_time');
             $table->timestamp('end_time');
             $table->integer('duration');
             $table->foreignId('teacher_id')->constrained('teacher')->onDelete('cascade')->onUpdate('cascade');
-            
+            $table->enum('type', ['UH', 'UTS', 'UAS']);
+            $table->foreignId('school_year_id')->constrained('school_year')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
