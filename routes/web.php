@@ -257,11 +257,12 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
     Route::prefix('exam')->name('exam.')->group(function () {
         Route::get('/', [BackExamController::class, 'index'])->name('index');
         Route::post('/create', [BackExamController::class, 'store'])->name('store');
-        Route::put('/edit/{id}', [BackExamController::class, 'update'])->name('update');
-        Route::delete('/delete/{id}', [BackExamController::class, 'destroy'])->name('destroy');
 
-        Route::get('/detail/{id}', [BackExamController::class, 'detail'])->name('detail');
+        Route::get('/detail/{id}/setting', [BackExamController::class, 'setting'])->name('setting');
+        Route::put('/detail/{id}/setting/update', [BackExamController::class, 'settingUpdate'])->name('setting.update');
+        Route::delete('/detail/{id}/setting/delete', [BackExamController::class, 'settingDestroy'])->name('setting.destroy');
 
+        Route::get('/detail/{id}/question', [BackExamController::class, 'addAnswer'])->name('answer.add');
         Route::get('/detail/{id}/add-question', [BackExamController::class, 'addQuestion'])->name('question.add');
         Route::post('/detail/{id}/add-question', [BackExamController::class, 'storeQuestion'])->name('question.store');
         Route::get('/detail/{id}/edit-question/{question_id}', [BackExamController::class, 'editQuestion'])->name('question.edit');
@@ -269,7 +270,7 @@ Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::delete('/detail/{id}/delete-question/{question_id}', [BackExamController::class, 'deleteQuestion'])->name('question.delete');
 
         Route::get('/detail/{id}/classroom', [BackExamController::class, 'classroom'])->name('classroom');
-        Route::post('/detail/{id}/classroom', [BackExamController::class, 'storeClassroom'])->name('classroom.store');
+        Route::post('/detail/{id}/classroom/create', [BackExamController::class, 'storeClassroom'])->name('classroom.store');
         Route::delete('/detail/{id}/delete-classroom/{classroom_id}', [BackExamController::class, 'deleteClassroom'])->name('classroom.delete');
 
         Route::get('/detail/{id}/student', [BackExamController::class, 'student'])->name('student');

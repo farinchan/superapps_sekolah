@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('exam_question', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id')->constrained('exam')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('question_type', ['pilihan ganda', 'menjodohkan',]);
+            $table->enum('question_type', ['pilihan ganda', 'pilihan ganda kompleks', 'menjodohkan']);
             $table->longText('question_text');
             $table->string('question_image')->nullable();
             $table->timestamps();

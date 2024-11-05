@@ -56,7 +56,7 @@
                                         <label class="form-label fs-6 fw-semibold">Guru</label>
                                         <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
                                             data-placeholder="Pilih Guru" data-allow-clear="true"
-                                            data-kt-user-table-filter="teacher" >
+                                            data-kt-user-table-filter="teacher">
                                             <option></option>
                                             @foreach ($list_teacher as $teacher)
                                                 <option value="{{ $teacher->name }}">{{ $teacher->name }} -
@@ -114,7 +114,7 @@
                                 <th class="min-w-125px">Tipe Ujian</th>
                                 <th class="min-w-125px">Tahun Ajaran</th>
                                 <th class="min-w-125px">Guru</th>
-                                <th class="text-end min-w-100px">Actions</th>
+                                <th class="text-end ">Action</th>
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">
@@ -128,7 +128,7 @@
                                     <td class="d-flex align-items-center">
                                         <div class="d-flex flex-column">
                                             <a href="#"
-                                                class="text-gray-800 text-hover-primary mb-1">{{ $exam->name }}</a>
+                                                class="text-gray-800 text-hover-primary mb-1">{{ $exam->subject?->name }}</a>
                                             <span> {{ $exam->description }}</span>
                                         </div>
                                     </td>
@@ -153,18 +153,14 @@
 
 
                                     <td class="text-end">
-                                        <a href="#"
-                                            class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm"
-                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                            <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                            data-kt-menu="true">
+                                        <a href="{{ route("back.exam.setting", $exam->id) }}" class="btn btn-icon btn-secondary" data-bs-toggle="tooltip" data-bs-placement="right" title="Detail Ujian">
+                                            <i class="ki-duotone ki-eye fs-4">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                        </a>
 
-                                            <div class="menu-item px-3">
-                                                <a href="#" class="menu-link px-3" data-bs-toggle="modal"
-                                                    data-bs-target="#kt_modal_delete_user{{ $exam->id }}">Delete</a>
-                                            </div>
-                                        </div>
                                     </td>
                                 </tr>
                             @endforeach
@@ -195,8 +191,13 @@
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="name" class="form-label required">Nama Ujian</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Ujian" required>
+                            <label for="name" class="form-label required">Mata Pelajaran</label>
+                            <select class="form-select" id="subject_id" name="subject_id" data-control="select2"
+                                data-placeholder="Select an option" data-dropdown-parent="#add_exam" required>
+                                @foreach ($list_subject as $subject)
+                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="description" class="form-label">Deskripsi</label>
@@ -217,23 +218,26 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="duration" class="form-label">Durasi</label>
+                            <label for="duration" class="form-label required">Durasi</label>
                             <div class="input-group mb-5">
-                                <input type="number" class="form-control" id="duration" name="duration" placeholder="60" required>
+                                <input type="number" class="form-control" id="duration" name="duration"
+                                    placeholder="60" required>
                                 <span class="input-group-text">Menit</span>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="type" class="form-label">Tipe Ujian</label>
-                            <select class="form-select" id="type" name="type" required>
+                            <label for="type" class="form-label required">Tipe Ujian</label>
+                            <select class="form-select" id="type" name="type" data-control="select2"
+                                data-placeholder="Select an option" data-hide-search="true" required>
                                 <option value="UH">Ulangan Harian</option>
                                 <option value="UTS">Ujian Tengah Semester</option>
                                 <option value="UAS">Ujian Akhir Semester</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="school_year" class="form-label">Tahun Ajaran</label>
-                            <select class="form-select" id="school_year_id" name="school_year_id" required>
+                            <label for="school_year" class="form-label required">Tahun Ajaran</label>
+                            <select class="form-select" id="school_year_id" name="school_year_id" data-control="select2"
+                                data-placeholder="Select an option" data-hide-search="true" required>
                                 @foreach ($list_school_year as $school_year)
                                     <option value="{{ $school_year->id }}">
                                         {{ $school_year->start_year }}/{{ $school_year->end_year }}
@@ -242,8 +246,9 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="teacher" class="form-label">Guru</label>
-                            <select class="form-select" id="teacher_id" name="teacher_id" data-control="select2" data-placeholder="Select an option" data-dropdown-parent="#add_exam" required>
+                            <label for="teacher" class="form-label required">Guru</label>
+                            <select class="form-select" id="teacher_id" name="teacher_id" data-control="select2"
+                                data-placeholder="Select an option" data-dropdown-parent="#add_exam" required>
                                 @foreach ($list_teacher as $teacher)
                                     <option value="{{ $teacher->id }}">{{ $teacher->name }} - NIP.{{ $teacher->nip }}
                                     </option>

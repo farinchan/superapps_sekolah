@@ -33,4 +33,9 @@ class Exam extends Model
     {
         return $this->belongsTo(SchoolYear::class);
     }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
+    }
 }
