@@ -137,6 +137,7 @@
                 </div>
 
                 <form action="{{ route('back.school-year.update', $item->id ) }}" method="POST">
+                    @method('PUT')
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
