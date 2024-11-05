@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classroom;
 use App\Models\Exam;
 use App\Models\ExamAnswer;
+use App\Models\ExamClassroom;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionMultipleChoice;
 use App\Models\ExamQuestionMultipleChoiceComplex;
-use App\Models\ExamSession;
 use App\Models\SchoolYear;
 use App\Models\Subject;
 use App\Models\Teacher;
@@ -129,6 +130,53 @@ class ExamController extends Controller
     public function settingDestroy($id)
     {
         Exam::find($id)->delete();
+
+        Alert::success('Success', 'Data berhasil dihapus');
+        return redirect()->back();
+    }
+
+    public function classroom($id)
+    {
+        $data = [
+            'title' => 'Kelas Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+
+            'exam' => Exam::with('teacher', 'schoolYear')->find($id),
+            'list_exam_classroom' => ExamClassroom::where('exam_id', $id)->with('classroom')->get(),
+            'list_classroom' => Classroom::with('schoolYear')->get(),
+        ];
+
+        return view('back.pages.exam.detail-classroom', $data);
+    }
+
+    public function classroomStore(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'classroom_id' => 'required',
+        ], [
+            'classroom_id.required' => 'Kelas wajib diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        foreach ($request->classroom_id as $classroom_id) {
+            ExamClassroom::create([
+                'exam_id' => $id,
+                'classroom_id' => $classroom_id,
+            ]);
+        }
+
+        Alert::success('Success', 'Data berhasil ditambahkan');
+        return redirect()->route('back.exam.classroom', $id);
+    }
+
+    public function classroomDestroy($id)
+    {
+        ExamClassroom::find($id)->delete();
 
         Alert::success('Success', 'Data berhasil dihapus');
         return redirect()->back();
