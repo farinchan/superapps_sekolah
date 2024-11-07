@@ -131,12 +131,12 @@ class ClassroomController extends Controller
         return redirect()->route('back.classroom.detail', $id);
     }
 
-    public function removeStudent($id, $classroom_id)
+    public function removeStudent($id, $student_id)
     {
-        ClassroomStudent::find($id)->delete();
+        ClassroomStudent::where('classroom_id', $id)->where('student_id', $student_id)->delete();
 
         Alert::success('Berhasil', 'Siswa berhasil dikeluarkan');
-        return redirect()->route('back.classroom.detail', $classroom_id);
+        return redirect()->route('back.classroom.detail', $id);
     }
 
     public function export($id)

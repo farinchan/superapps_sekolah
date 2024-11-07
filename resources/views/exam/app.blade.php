@@ -38,6 +38,7 @@
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{ asset('exam/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('exam/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    @livewireStyles
     <!--end::Global Stylesheets Bundle-->
     <script>
         // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking)
@@ -58,42 +59,17 @@
     <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
         <!--begin::Page-->
         {{ $slot }}
-        {{-- <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
-            @include('exam/layout/partials/_header')
-            <!--begin::Wrapper-->
-            <div class="app-wrapper  flex-column flex-row-fluid " id="kt_app_wrapper">
-                <!--begin::Wrapper container-->
-                <div class="app-container  container-xxl d-flex flex-row-fluid ">
-                    @include('exam/layout/partials/_sidebar')
-                    <!--begin::Main-->
-                    <div class="app-main flex-column flex-row-fluid " id="kt_app_main">
-                        <!--begin::Content wrapper-->
-                        <div class="d-flex flex-column flex-column-fluid">
-                            @include('exam/layout/partials/_toolbar')
-                            <div id="kt_app_content" class="app-content  flex-column-fluid ">
-                                {{ $slot }}
-                            </div>
-                        </div>
-                        <!--end::Content wrapper-->
-                        @include('exam/layout/partials/_footer')
-                    </div>
-                    <!--end:::Main-->
-                </div>
-                <!--end::Wrapper container-->
-            </div>
-            <!--end::Wrapper-->
-        </div> --}}
-        <!--end::Page-->
+
     </div>
     <!--end::App-->
-    @include('exam/partials/_drawers')
+    {{-- @include('exam/partials/_drawers') --}}
     @include('exam/partials/_scrolltop')
     <!--begin::Modals-->
-    @include('exam/partials/modals/_upgrade-plan')
+    {{-- @include('exam/partials/modals/_upgrade-plan')
     @include('exam/partials/modals/_invite-friends')
     @include('exam/partials/modals/_new-target')
     @include('exam/partials/modals/_view-users')
-    @include('exam/partials/modals/users-search/_main')
+    @include('exam/partials/modals/users-search/_main') --}}
     <!--end::Modals-->
     <!--begin::Javascript-->
     <script>
@@ -104,7 +80,7 @@
     <script src="{{ asset('exam/js/scripts.bundle.js') }}"></script>
     <!--end::Global Javascript Bundle-->
     <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{ asset('exam/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
+    {{-- <script src="{{ asset('exam/plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
     <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
@@ -115,18 +91,22 @@
     <script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-    <script src="{{ asset('exam/') }}plugins/custom/datatables/datatables.bundle.js"></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script> --}}
+    <script src="{{ asset('exam/plugins/custom/datatables/datatables.bundle.js') }}"></script>
     <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('exam/js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('exam/js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('exam/js/custom/apps/chat/chat.js') }}"></script>
+    {{-- <script src="{{ asset('exam/js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('exam/js/custom/utilities/modals/upgrade-plan.js') }}"></script>
     <script src="{{ asset('exam/js/custom/utilities/modals/new-target.js') }}"></script>
-    <script src="{{ asset('exam/js/custom/utilities/modals/users-search.js') }}"></script>
+    <script src="{{ asset('exam/js/custom/utilities/modals/users-search.js') }}"></script> --}}
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
+
+    @livewireScripts
+    @stack('scripts')
+
 </body>
 <!--end::Body-->
 

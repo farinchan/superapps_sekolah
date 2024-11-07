@@ -16,7 +16,7 @@ class RedirectExamIfNotAuthenticated
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() && Auth::user()->hasRole('student')) {
+        if (!Auth::check()) {
             session()->flash('warning', 'Silahkan login terlebih dahulu');
             return redirect()->route('exam.login');
         }

@@ -15,10 +15,11 @@
                                 <div class="page-title d-flex align-items-center me-3">
                                     <h1
                                         class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-lg-2x gap-2">
-                                        <span><span class="fw-light">Selamat Datang</span>,&nbsp;{{ Auth::user()->student?->name ?? "NONE" }}</span>
+                                        <span><span class="fw-light">Selamat
+                                                Datang</span>,&nbsp;{{ Auth::user()->student?->name ?? 'NONE' }}</span>
                                         <span class="page-desc text-gray-600 fs-base fw-semibold">
                                             Selamat mengerjakan ujian dan semoga sukses!
-                                         </span>
+                                        </span>
                                     </h1>
                                 </div>
                             </div>
@@ -30,13 +31,16 @@
                             <div class="card-header card-header-stretch">
                                 <!--begin::Title-->
                                 <div class="card-title d-flex align-items-center">
-                                    <i class="ki-duotone ki-calendar-8 fs-1 text-primary me-3 lh-0"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span><span class="path6"></span></i>
+                                    <i class="ki-duotone ki-calendar-8 fs-1 text-primary me-3 lh-0"><span
+                                            class="path1"></span><span class="path2"></span><span
+                                            class="path3"></span><span class="path4"></span><span
+                                            class="path5"></span><span class="path6"></span></i>
 
                                     <h3 class="fw-bold m-0 text-gray-800">Ujian yang kamu ikuti</h3>
                                 </div>
                             </div>
                             <div class="card-body py-4">
-                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatable">
+                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="tabel">
                                     <thead>
                                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                             <th class="min-w-125px">Ujian</th>
@@ -46,24 +50,25 @@
                                         </tr>
                                     </thead>
                                     @foreach ($exam_list as $exam)
-
                                     @endforeach
                                     <tbody class="text-gray-600 fw-semibold">
                                         <tr>
                                             <td class="d-flex align-items-center">
                                                 <div class="d-flex flex-column">
                                                     <a href="#"
-                                                        class="text-gray-800 text-hover-primary mb-1">Ujian Akhir Semester - Bahasa Jepang Lanjutan</a>
-                                                        <span>
-                                                            Waktu Ujian : 20 Agustus 2021 08:00 s/d 20 Agustus 2021 10:00
-                                                        </span>
-                                                        <span>
-                                                            Durasi : 60 Menit
-                                                        </span>
+                                                        class="text-gray-800 text-hover-primary mb-1">Ujian Akhir
+                                                        Semester - Bahasa Jepang Lanjutan</a>
+                                                    <span>
+                                                        Waktu Ujian : 20 Agustus 2021 08:00 s/d 20 Agustus 2021 10:00
+                                                    </span>
+                                                    <span>
+                                                        Durasi : 60 Menit
+                                                    </span>
                                                 </div>
                                             </td>
                                             <td>
-                                                <a href="#" class="text-gray-800 text-hover-primary mb-1">Fajri Rinaldi Chan</a>
+                                                <a href="#" class="text-gray-800 text-hover-primary mb-1">Fajri
+                                                    Rinaldi Chan</a>
                                                 <span class="text-muted fw-bold d-block">NIP.903u09130130173</span>
                                             </td>
 
@@ -92,10 +97,18 @@
         </div>
         <!--end::Wrapper container-->
     </div>
-    <script>
 
-        $(document).ready(function () {
-            $('#datatable').DataTable();
-        });
-    </script>
 </div>
+
+@push('scripts')
+<script>
+
+        $('#tabel').DataTable({
+            responsive: true,
+            paging: true,
+            searching: false,
+        });
+
+</script>
+
+@endpush
