@@ -49,40 +49,65 @@
                                             <th class="text-end "></th>
                                         </tr>
                                     </thead>
-                                    @foreach ($exam_list as $exam)
-                                    @endforeach
                                     <tbody class="text-gray-600 fw-semibold">
-                                        <tr>
-                                            <td class="d-flex align-items-center">
-                                                <div class="d-flex flex-column">
-                                                    <a href="#"
-                                                        class="text-gray-800 text-hover-primary mb-1">Ujian Akhir
-                                                        Semester - Bahasa Jepang Lanjutan</a>
-                                                    <span>
-                                                        Waktu Ujian : 20 Agustus 2021 08:00 s/d 20 Agustus 2021 10:00
+                                        @foreach ($exam_list as $exam)
+                                            <tr>
+                                                <td class="d-flex align-items-center">
+                                                    <div class="d-flex flex-column">
+                                                        <a href="#" class="text-gray-800 text-hover-primary mb-1">
+                                                            @if ($exam->type == 'UH')
+                                                                Ujian Harian
+                                                            @elseif ($exam->type == 'UTS')
+                                                                Ujian Tengah Semester
+                                                            @elseif ($exam->type == 'UAS')
+                                                                Ujian Akhir Semester
+                                                            @endif
+                                                            - {{ $exam->subject?->name }}
+                                                        </a>
+                                                        <span>
+                                                            Waktu Ujian :
+                                                            {{ Carbon\Carbon::parse($exam->start_time)->format('d F Y H:i') }}
+                                                            s/d
+                                                            {{ Carbon\Carbon::parse($exam->end_time)->format('d F Y H:i') }}
+                                                        </span>
+                                                        <span>
+                                                            Durasi : {{ $exam->duration }} Menit
+                                                        </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary mb-1">
+                                                        {{ $exam->teacher_name }}
+                                                    </a>
+                                                    <span class="text-muted fw-bold d-block">
+                                                        NIP. {{ $exam->teacher_nip }}
                                                     </span>
-                                                    <span>
-                                                        Durasi : 60 Menit
-                                                    </span>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <a href="#" class="text-gray-800 text-hover-primary mb-1">Fajri
-                                                    Rinaldi Chan</a>
-                                                <span class="text-muted fw-bold d-block">NIP.903u09130130173</span>
-                                            </td>
+                                                </td>
 
-                                            <td>
-                                                <span class="badge badge-light-success">100</span>
-                                            </td>
+                                                <td>
+                                                    {{ $exam->score ?? '-' }}
+                                                </td>
 
 
-                                            <td class="text-end">
-                                                <a href="#" class="btn btn-secondary">Mulai Ujian</a>
+                                                <td class="text-end">
+                                                    @if ($exam->start_time < now() && $exam->end_time > now())
+                                                        @if ($exam->score)
+                                                            <span class="badge badge-light-success">Sudah Dinilai</span>
+                                                        @else
+                                                            <a href=""
+                                                                class="btn btn-sm btn-success">Mulai Ujian</a>
+                                                        @endif
+                                                    @elseif ($exam->start_time > now())
+                                                        <span class="badge badge-light-warning">Belum Dimulai</span>
+                                                    @elseif ($exam->end_time < now())
+                                                        <span class="badge badge-light-danger">Sudah Selesai</span>
+                                                    @endif
 
 
-                                            </td>
-                                        </tr>
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -101,14 +126,11 @@
 </div>
 
 @push('scripts')
-<script>
-
+    <script>
         $('#tabel').DataTable({
             responsive: true,
             paging: true,
             searching: false,
         });
-
-</script>
-
+    </script>
 @endpush

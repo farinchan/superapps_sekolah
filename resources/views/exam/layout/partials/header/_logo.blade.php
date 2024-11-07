@@ -6,8 +6,8 @@
 		<!--end::Logo wrapper-->
 	<!--begin::Logo image-->
 	<a href="?page=index">
-		<img alt="Logo" src="assets/media/logos/default-small.svg" class="h-30px h-lg-40px theme-light-show"/>
-		<img alt="Logo" src="assets/media/logos/default-small-dark.svg" class="h-30px h-lg-40px theme-dark-show"/>
+		<img alt="Logo" src="{{ asset("img_ext/logo.png") }}" class="h-30px h-lg-40px theme-light-show"/>
+		<img alt="Logo" src="{{ asset("img_ext/logo.png") }}" class="h-30px h-lg-40px theme-dark-show"/>
 	</a>
 	<!--end::Logo image-->
 </div>
