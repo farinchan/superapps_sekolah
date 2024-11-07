@@ -334,5 +334,6 @@ Route::domain(env('APP_URL'))->group(function () {
 
 
 Route::domain('exam.' . env('APP_URL'))->name('exam.')->group(function () {
-    Route::get("/", App\Livewire\Exam\Home::class)->name('home');
+    Route::get("/login", App\Livewire\Exam\Login::class)->name('login');
+    Route::get("/", App\Livewire\Exam\Home::class)->name('home')->middleware('auth-exam');
 });

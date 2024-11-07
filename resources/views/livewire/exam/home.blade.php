@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="card-body py-4">
-                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
+                                <table class="table align-middle table-row-dashed fs-6 gy-5" id="datatable">
                                     <thead>
                                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                             <th class="min-w-125px">Ujian</th>
@@ -45,6 +45,9 @@
                                             <th class="text-end "></th>
                                         </tr>
                                     </thead>
+                                    @foreach ($exam_list as $exam)
+
+                                    @endforeach
                                     <tbody class="text-gray-600 fw-semibold">
                                         <tr>
                                             <td class="d-flex align-items-center">
@@ -89,5 +92,10 @@
         </div>
         <!--end::Wrapper container-->
     </div>
-    <!--end::Wrapper-->
+    <script>
+
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
 </div>
