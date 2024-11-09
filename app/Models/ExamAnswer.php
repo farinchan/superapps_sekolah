@@ -8,6 +8,9 @@ class ExamAnswer extends Model
 {
     protected $table = 'exam_answer';
     protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $casts = [
+        'answer' => 'array',
+    ];
 
     public function ExamSession()
     {

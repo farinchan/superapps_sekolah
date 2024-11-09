@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('exam_session_id')->constrained('exam_session')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('exam_question_id')->constrained('exam_question')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('answer_text')->nullable();
+            $table->json('answer')->nullable();
             $table->boolean('is_correct')->nullable();
             $table->timestamps();
         });
@@ -29,3 +29,21 @@ return new class extends Migration
         Schema::dropIfExists('exam_answers');
     }
 };
+
+// FORMAT JSON ANSWER
+// {
+//     "multiple_choice": {
+//         "id": 1,
+//         "text": "ini adalah jawaban",
+//      }
+//     "multiple_choice_complex": {[
+//         {'id': 1, 'text': 'ini adalah jawaban'},
+//         {'id': 2, 'text': 'ini adalah jawaban'},
+//         {'id': 3, 'text': 'ini adalah jawaban'},
+//     ]}
+//     "matching_pair": {[
+//         {'left': "ini adalah sisi kiri", 'right': "ini adalah sisi kanan"},
+//         {'left': "ini adalah sisi kiri", 'right': "ini adalah sisi kanan"},
+//         {'left': "ini adalah sisi kiri", 'right': "ini adalah sisi kanan"},
+//     ]}
+// }

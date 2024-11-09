@@ -104,6 +104,8 @@
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 
+    @include('sweetalert::alert')
+
     @livewireScripts
     @stack('scripts')
 

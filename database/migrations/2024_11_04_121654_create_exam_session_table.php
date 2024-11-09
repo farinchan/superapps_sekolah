@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('exam_id')->constrained('exam')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('student_id')->constrained('student')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamp('start_time');
-            $table->timestamp('end_time');
-            $table->integer('score');
+            $table->timestamp('end_time')->nullable();
+            $table->integer('score')->nullable();
             $table->timestamps();
         });
     }

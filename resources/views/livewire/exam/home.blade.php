@@ -18,7 +18,7 @@
                                         <span><span class="fw-light">Selamat
                                                 Datang</span>,&nbsp;{{ Auth::user()->student?->name ?? 'NONE' }}</span>
                                         <span class="page-desc text-gray-600 fs-base fw-semibold">
-                                            Selamat mengerjakan ujian dan semoga sukses!
+                                            Apakah kamu siap untuk mengerjakan ujian?, semangat!!
                                         </span>
                                     </h1>
                                 </div>
@@ -62,7 +62,7 @@
                                                             @elseif ($exam->type == 'UAS')
                                                                 Ujian Akhir Semester
                                                             @endif
-                                                            - {{ $exam->subject?->name }}
+                                                            - {{ $exam->subject }}
                                                         </a>
                                                         <span>
                                                             Waktu Ujian :
@@ -94,8 +94,8 @@
                                                         @if ($exam->score)
                                                             <span class="badge badge-light-success">Sudah Dinilai</span>
                                                         @else
-                                                            <a href=""
-                                                                class="btn btn-sm btn-success">Mulai Ujian</a>
+                                                            <button type="button" wire:click="startExam({{ $exam->id }})"
+                                                                class="btn btn-sm btn-success">Mulai Ujian</button>
                                                         @endif
                                                     @elseif ($exam->start_time > now())
                                                         <span class="badge badge-light-warning">Belum Dimulai</span>
