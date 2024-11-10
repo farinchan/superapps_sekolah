@@ -337,11 +337,8 @@ Route::domain(env('APP_URL'))->group(function () {
 
 
 Route::domain('elearning.' . env('APP_URL'))->name('exam.')->group(function () {
-    Route::get("/", function () {
-        return redirect()->route('exam.login');
-    });
     Route::get("/login", App\Livewire\Exam\Login::class)->name('login');
-    Route::get("/logout", App\Livewire\Exam\Login::class)->name('logout');
-    Route::get("/exam", App\Livewire\Exam\Home::class)->name('home')->middleware('auth-exam');
+    // Route::get("/logout", App\Livewire\Exam\Login::class)->name('logout');
+    Route::get("/", App\Livewire\Exam\Home::class)->name('home')->middleware('auth-exam');
     Route::get("/exam/{session_id}", App\Livewire\Exam\Show::class)->name('show')->middleware('auth-exam');
 });
