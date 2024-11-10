@@ -264,7 +264,7 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/detail/{id}/question', [BackExamController::class, 'question'])->name('question');
             Route::post('/detail/{id}/question/import', [BackExamController::class, 'questionImport'])->name('question.import');
             Route::delete('/detail/{id}/question/reset', [BackExamController::class, 'questionReset'])->name('question.reset');
-            
+
             Route::get('/detail/{id}/question/create-multipleChoice', [BackExamController::class, 'questionMultipleChoice'])->name('question.multiple-choice.create');
             Route::post('/detail/{id}/question/store-multipleChoice', [BackExamController::class, 'questionStoreMultipleChoice'])->name('question.multiple-choice.store');
             Route::get('/detail/{id}/question/create-multipleChoicecomplex', [BackExamController::class, 'questionMultipleChoiceComplex'])->name('question.multiple-choice-complex.create');
@@ -336,7 +336,7 @@ Route::domain(env('APP_URL'))->group(function () {
 
 
 
-Route::domain('exam.' . env('APP_URL'))->name('exam.')->group(function () {
+Route::domain('elearning.' . env('APP_URL'))->name('exam.')->group(function () {
     Route::get("/login", App\Livewire\Exam\Login::class)->name('login');
     Route::get("/logout", App\Livewire\Exam\Login::class)->name('login');
     Route::get("/", App\Livewire\Exam\Home::class)->name('home')->middleware('auth-exam');
