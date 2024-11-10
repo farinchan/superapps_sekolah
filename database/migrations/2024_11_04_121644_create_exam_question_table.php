@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('question_type', ['pilihan ganda', 'pilihan ganda kompleks', 'menjodohkan']);
             $table->longText('question_text');
             $table->string('question_image')->nullable();
+            $table->integer('question_score')->default(1);
             $table->timestamps();
         });
     }

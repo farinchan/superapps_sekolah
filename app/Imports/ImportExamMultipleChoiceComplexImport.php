@@ -13,7 +13,7 @@ use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 
 
-class ImportExamMultipleChoiceComplex implements ToModel, WithHeadingRow, WithValidation, WithCustomStartCell
+class ImportExamMultipleChoiceComplexImport implements ToModel, WithHeadingRow, WithValidation, WithCustomStartCell
 {
    /**
      * @param Collection $collection
@@ -33,6 +33,7 @@ class ImportExamMultipleChoiceComplex implements ToModel, WithHeadingRow, WithVa
             $question = new ExamQuestion();
             $question->question_type = "pilihan ganda";
             $question->question_text = $row["isi"];
+            $question->question_score = $row["bobot"];
             $question->save();
             $question_id = $question->id;
         } elseif ($row["kode"] == "A") {
@@ -63,6 +64,6 @@ class ImportExamMultipleChoiceComplex implements ToModel, WithHeadingRow, WithVa
 
     public function startCell(): string
     {
-        return 'A6';  // Mulai di baris 1
+        return 'A7';  // Mulai di baris 1
     }
 }

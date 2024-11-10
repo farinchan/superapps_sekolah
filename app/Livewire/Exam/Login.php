@@ -50,4 +50,5 @@ class Login extends Component
             session()->flash('error', 'NISN atau password salah');
         }
     }
+
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Imports\ImportExamMatchingPairImport;
+use App\Imports\ImportExamMultipleChoiceComplexImport;
+use App\Imports\ImportExamMultipleChoiceImport;
 use App\Models\Classroom;
 use App\Models\Exam;
 use App\Models\ExamAnswer;
@@ -18,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ExamController extends Controller
 {
@@ -194,6 +198,59 @@ class ExamController extends Controller
         ];
 
         return view('back.pages.exam.detail-question', $data);
+    }
+
+    public function questionImport($id, Request $request)
+    {
+        $validator = Validator::make(request()->all(), [
+            'question_type' => 'required',
+            'file' => 'required|mimes:xlsx,xls',
+        ], [
+            'file.required' => 'File wajib diisi',
+            'file.mimes' => 'Format file tidak valid',
+            'question_type.required' => 'Tipe soal wajib diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $file = request()->file('file');
+        try {
+            if ($request->question_type == 'pilihan ganda') {
+                Excel::import(new ImportExamMultipleChoiceImport($id), $file);
+            } elseif ($request->question_type == 'pilihan ganda kompleks') {
+                Excel::import(new ImportExamMultipleChoiceComplexImport, $file);
+            } elseif ($request->question_type == 'menjodohkan') {
+                // Excel::import(new ExamQuestionMatching, $file);
+            } else {
+                Alert::error('Error', 'Tipe soal tidak valid');
+                return redirect()->back();
+            }
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->back();
+        }
+
+        Alert::success('Success', 'Data berhasil diimport');
+        return redirect()->back();
+    }
+
+    public function questionReset($id)
+    {
+        $exam_question = ExamQuestion::where('exam_id', $id)->get();
+
+        foreach ($exam_question as $question) {
+            $question->multipleChoice()->delete();
+            $question->multipleChoiceComplex()->delete();
+            $question->matchingPair()->delete();
+            $question->examAnswer()->delete();
+            $question->delete();
+        }
+
+        Alert::success('Success', 'Data berhasil direset');
+        return redirect()->back();
     }
 
     public function questionMultipleChoice($id)

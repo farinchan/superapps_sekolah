@@ -15,11 +15,20 @@ class ExamQuestion extends Model
         return $this->hasMany(ExamQuestionMultipleChoice::class, 'exam_question_id');
     }
 
-    public function matchingPairs()
+    public function multipleChoiceComplex()
+    {
+        return $this->hasMany(ExamQuestionMultipleChoiceComplex::class, 'exam_question_id');
+    }
+
+    public function matchingPair()
     {
         return $this->hasMany(ExamQuestionMatchingPair::class, 'exam_question_id');
     }
-    
+
+    public function examAnswer()
+    {
+        return $this->hasMany(ExamAnswer::class, 'exam_question_id');
+    }
 
     public function getImage()
     {
