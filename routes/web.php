@@ -267,8 +267,16 @@ Route::domain(env('APP_URL'))->group(function () {
 
             Route::get('/detail/{id}/question/create-multipleChoice', [BackExamController::class, 'questionMultipleChoice'])->name('question.multiple-choice.create');
             Route::post('/detail/{id}/question/store-multipleChoice', [BackExamController::class, 'questionStoreMultipleChoice'])->name('question.multiple-choice.store');
+            Route::get('/detail/{id}/question/edit-multipleChoice/{question_id}', [BackExamController::class, 'questionEditMultipleChoice'])->name('question.multiple-choice.edit');
+            Route::put('/detail/{id}/question/update-multipleChoice/{question_id}', [BackExamController::class, 'questionUpdateMultipleChoice'])->name('question.multiple-choice.update');
+
+
             Route::get('/detail/{id}/question/create-multipleChoicecomplex', [BackExamController::class, 'questionMultipleChoiceComplex'])->name('question.multiple-choice-complex.create');
             Route::post('/detail/{id}/question/store-multipleChoicecomplex', [BackExamController::class, 'questionStoreMultipleChoiceComplex'])->name('question.multiple-choice-complex.store');
+            Route::get('/detail/{id}/question/edit-multipleChoicecomplex/{question_id}', [BackExamController::class, 'questionEditMultipleChoiceComplex'])->name('question.multiple-choice-complex.edit');
+            Route::put('/detail/{id}/question/update-multipleChoicecomplex/{question_id}', [BackExamController::class, 'questionUpdateMultipleChoiceComplex'])->name('question.multiple-choice-complex.update');
+
+
             Route::get('/detail/{id}/question/{question_id}/edit', [BackExamController::class, 'questionEdit'])->name('question.edit');
             Route::put('/detail/{id}/question/{question_id}/update', [BackExamController::class, 'questionUpdate'])->name('question.update');
             Route::delete('/detail/{id}/question/{question_id}/delete', [BackExamController::class, 'questionDelete'])->name('question.delete');

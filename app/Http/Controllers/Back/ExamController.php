@@ -253,6 +253,8 @@ class ExamController extends Controller
         return redirect()->back();
     }
 
+
+    //TODO: EXAM QUESTION MULTIPLE CHOICE
     public function questionMultipleChoice($id)
     {
         $data = [
@@ -319,6 +321,107 @@ class ExamController extends Controller
         return redirect()->route('back.exam.question', $id);
     }
 
+    public function questionEditMultipleChoice($id, $question_id)
+    {
+        $data = [
+            'title' => 'Edit Soal Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+            'exam_id' => $id,
+
+            'exam' => Exam::with('teacher', 'schoolYear')->find($id),
+            'question' => ExamQuestion::with('multipleChoice')->find($question_id),
+        ];
+
+        return view('back.pages.exam.edit.multiple-choice', $data);
+    }
+
+    public function questionUpdateMultipleChoice(Request $request, $id, $questionId)
+    {
+        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'question_text' => 'required',
+            'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'choices' => 'required|array|min:2',
+            'choices.*.choice_text' => 'required',
+            'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_correct' => 'required',  // Tambahkan ini
+        ], [
+            'question_text.required' => 'Pertanyaan wajib diisi',
+            'question_image.image' => 'Pertanyaan harus berupa gambar',
+            'question_image.mimes' => 'Format gambar tidak valid',
+            'question_image.max' => 'Ukuran gambar terlalu besar',
+            'choices.required' => 'Pilihan jawaban wajib diisi',
+            'choices.array' => 'Pilihan jawaban harus berupa array',
+            'choices.min' => 'Pilihan jawaban minimal 2',
+            'choices.*.choice_text.required' => 'Pilihan jawaban wajib diisi',
+            'choices.*.choice_image.image' => 'Pilihan jawaban harus berupa gambar',
+            'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
+            'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
+            'is_correct.required' => 'Pilih salah satu jawaban yang benar',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Pastikan bahwa `is_correct` dikirim
+        if (!isset($request->is_correct)) {
+            return back()->withErrors(['is_correct' => 'Pilih salah satu jawaban yang benar'])->withInput();
+        }
+
+        // Update soal
+        $question = ExamQuestion::findOrFail($questionId);
+        $question->update([
+            'question_text' => $request->question_text,
+            'question_image' => $request->hasFile('question_image')
+                ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public')
+                : $question->question_image,
+        ]);
+
+        // Update atau buat pilihan jawaban
+        foreach ($request->choices as $index => $choice) {
+            // Cek apakah pilihan ditandai sebagai dihapus
+            if (isset($choice['is_deleted']) && $choice['is_deleted'] == '1') {
+                if (isset($choice['id'])) {
+                    // Jika item sudah ada di database, hapus
+                    ExamQuestionMultipleChoice::where('id', $choice['id'])->delete();
+                }
+                continue;
+            }
+
+            // Jika item baru (belum ada id), maka buat item baru
+            if (!isset($choice['id'])) {
+                ExamQuestionMultipleChoice::create([
+                    'exam_question_id' => $question->id,
+                    'choice_text' => $choice['choice_text'],
+                    'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
+                        ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
+                        : null,
+                    'is_correct' => $index == $request->is_correct ? 1 : 0,
+                ]);
+            } else {
+                // Update item yang ada
+                $multipleChoice = ExamQuestionMultipleChoice::findOrFail($choice['id']);
+                $multipleChoice->update([
+                    'choice_text' => $choice['choice_text'],
+                    'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
+                        ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
+                        : $multipleChoice->choice_image,
+                    'is_correct' => $index == $request->is_correct ? 1 : 0,
+                ]);
+            }
+        }
+
+        Alert::success('Success', 'Data berhasil diperbarui');
+        return redirect()->back();
+    }
+
+
+
+
+    //TODO: EXAM QUESTION MULTIPLE CHOICE COMPLEX
     public function questionMultipleChoiceComplex($id)
     {
         $data = [
@@ -382,5 +485,99 @@ class ExamController extends Controller
 
         Alert::success('Success', 'Data berhasil ditambahkan');
         return redirect()->route('back.exam.question', $id);
+    }
+
+    public function questionEditMultipleChoiceComplex($id, $question_id)
+    {
+        $data = [
+            'title' => 'Edit Soal Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+            'exam_id' => $id,
+
+            'exam' => Exam::with('teacher', 'schoolYear')->find($id),
+            'question' => ExamQuestion::with('multipleChoiceComplex')->find($question_id),
+        ];
+
+        return view('back.pages.exam.edit.multiple-choice-complex', $data);
+    }
+
+    public function questionUpdateMultipleChoiceComplex(Request $request, $exam_id, $question_id)
+    {
+        dd($request->all());
+        // Validasi data yang diterima dari form
+        $validator = Validator::make($request->all(), [
+            'question_text' => 'required',
+            'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'choices' => 'required|array|min:2',
+            'choices.*.choice_text' => 'required',
+            'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'choices.*.is_correct' => 'nullable'
+        ], [
+            'question_text.required' => 'Pertanyaan wajib diisi',
+            'question_image.image' => 'Pertanyaan harus berupa gambar',
+            'question_image.mimes' => 'Format gambar tidak valid',
+            'question_image.max' => 'Ukuran gambar terlalu besar',
+            'choices.required' => 'Pilihan jawaban wajib diisi',
+            'choices.array' => 'Pilihan jawaban harus berupa array',
+            'choices.min' => 'Pilihan jawaban minimal 2',
+            'choices.*.choice_text.required' => 'Pilihan jawaban wajib diisi',
+            'choices.*.choice_image.image' => 'Pilihan jawaban harus berupa gambar',
+            'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
+            'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
+        ]);
+
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Update soal
+        $question = ExamQuestion::findOrFail($question_id);
+        $question->update([
+            'question_text' => $request->question_text,
+            'question_image' => $request->hasFile('question_image')
+                ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public')
+                : $question->question_image,
+        ]);
+
+        // Update atau buat pilihan jawaban
+        foreach ($request->choices as $index => $choice) {
+
+            if (isset($choice['is_deleted']) && $choice['is_deleted'] == '1') {
+                if (isset($choice['id'])) {
+                    // Jika item sudah ada di database, hapus
+                    ExamQuestionMultipleChoiceComplex::where('id', $choice['id'])->delete();
+                    dd($choice['id']);
+                }
+                continue;
+            }
+
+            if (isset($choice['id']) && $choice['id']) {
+                // Jika ID ada, update pilihan yang ada
+                $choiceRecord = ExamQuestionMultipleChoiceComplex::find($choice['id']);
+                $choiceRecord->update([
+                    'choice_text' => $choice['choice_text'],
+                    'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
+                        ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
+                        : $choiceRecord->choice_image, // Tidak mengubah jika tidak ada gambar baru
+                    'is_correct' => isset($choice['is_correct']) ? 1 : 0,
+                ]);
+            } else {
+                // Jika tidak ada ID, berarti ini pilihan baru
+                ExamQuestionMultipleChoiceComplex::create([
+                    'exam_question_id' => $question->id,
+                    'choice_text' => $choice['choice_text'],
+                    'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
+                        ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
+                        : null,
+                    'is_correct' => isset($choice['is_correct']) ? 1 : 0,
+                ]);
+            }
+        }
+
+        Alert::success('Success', 'Data berhasil diperbarui');
+        return redirect()->back();
     }
 }

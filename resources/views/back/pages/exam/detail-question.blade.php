@@ -45,7 +45,15 @@
             <div class="row g-6 g-xl-9">
                 @foreach ($list_exam_question as $question)
                     <div class="col-md-6 col-xl-4">
-                        <a href="apps/projects/project.html" class="card border-hover-primary">
+                        <a href="
+                        @if ($question->question_type == 'pilihan ganda')
+                            {{ route("back.exam.question.multiple-choice.edit", [$exam->id, $question->id]) }}
+                        @elseif ($question->question_type == 'pilihan ganda kompleks')
+                            {{ route("back.exam.question.multiple-choice-complex.edit", [$exam->id, $question->id]) }}
+                        @elseif ($question->question_type == 'menjodohkan')
+                            {{-- {{ route("back.exam.question.matching.edit", [$exam->id, $question->id]) }} --}}
+                        @endif
+                        " class="card border-hover-primary">
                             {{-- <div class="card-header border-0 pt-5">
                                 <div class="card-title m-0">
                                     @if ($question->question_type == 'pilihan ganda')

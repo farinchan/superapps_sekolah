@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class ExamQuestionMultipleChoice extends Model
 {
@@ -12,5 +13,10 @@ class ExamQuestionMultipleChoice extends Model
     public function question()
     {
         return $this->belongsTo(ExamQuestion::class, 'exam_question_id');
+    }
+
+    public function getImage()
+    {
+        return $this->image ? Storage::url($this->image) : null;
     }
 }
