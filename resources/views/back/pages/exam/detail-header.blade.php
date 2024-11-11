@@ -70,10 +70,6 @@
         <div class="separator"></div>
         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
             <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6"
-                    href="#">Overview</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.question')) active @endif"
                 href="{{ route("back.exam.question", $exam->id) }}">Soal</a>
             </li>
@@ -82,7 +78,8 @@
                 href="{{ route("back.exam.classroom", $exam->id) }}">Kelas</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-active-primary py-5 me-6" href="apps/projects/users.html">Nilai Siswa</a>
+                <a class="nav-link text-active-primary py-5 me-6  @if (request()->routeIs('back.exam.student')) active @endif"
+                    href="{{ route("back.exam.student", $exam->id) }}">Nilai Siswa</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.setting')) active @endif"
