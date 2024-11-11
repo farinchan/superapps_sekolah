@@ -77,7 +77,7 @@
                 data: function(d) {
                     // Kirim parameter tambahan jika diperlukan
                     d.search = $('#search').val();
-                    d.class_id = $('#class_id').val();
+                    d.classroom_id = $('#class_id').val();
                 }
             },
             columns: [{

@@ -215,7 +215,7 @@ class ExamController extends Controller
             ->when(function ($query) use ($search) {
                 $query->where('student.name', 'like', '%' . $search . '%');
             })
-            ->when($classroom_id, function ($query, $classroom_id) {
+            ->when(function ($query) use ($classroom_id) {
                 $query->where('classroom_id', $classroom_id);
             })
             ->leftJoin('exam_session', function ($join) use ($id) {
@@ -273,13 +273,15 @@ class ExamController extends Controller
                                 title="Selesaikan Paksa ujian?">
                                 <i class="fa-solid fa-xmark fs-4"></i>
                             </a>';
-
-                }else{
-                    return '<a href="#" class="btn btn-icon btn-light-youtube me-2"
+                } else {
+                    return '<a href="#" class="btn btn-icon btn-light-linkedin me-2"
                                 data-bs-toggle="modal" data-bs-target="#delete' . $row->id . '"
                                 data-bs-toggle="tooltip" data-bs-placement="right"
-                                title="Selesaikan Paksa ujian?">
-                                <i class="fa-solid fa-xmark fs-4"></i>
+                                title="Buka Akses Kembali, dan reset waktu">
+                                <i class="ki-duotone ki-delete-files fs-4">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    </i>
                             </a>';
                 }
             })
