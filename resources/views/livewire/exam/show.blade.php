@@ -22,7 +22,7 @@
                                 @foreach ($exam_question_state as $state)
                                     @if ($state->id == $exam_question->id)
                                         <div class="col-4">
-                                            <button wire:click="changeQuestion({{ $state->id }})"
+                                            <button wire:click.prevent="changeQuestion({{ $state->id }})"
                                                 class="btn btn-icon btn-outline btn-light-primary btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                 data-kt-button="true">
                                                 <span class="mb-2" style="font-size: 1.8rem;"> {{ $loop->iteration }}
@@ -32,7 +32,7 @@
                                     @else
                                         @if ($state->answer)
                                             <div class="col-4">
-                                                <button wire:click="changeQuestion({{ $state->id }})"
+                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"
                                                     class="btn btn-icon btn-outline btn-light-success btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                     data-kt-button="true">
                                                     <span class="mb-2" style="font-size: 1.8rem;">
@@ -42,7 +42,7 @@
                                             </div>
                                         @else
                                             <div class="col-4">
-                                                <button wire:click="changeQuestion({{ $state->id }})"
+                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"
                                                     class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                     data-kt-button="true">
                                                     <span class="mb-2"
@@ -100,8 +100,8 @@
                                             class="path1"></span><span class="path2"></span><span
                                             class="path3"></span><span class="path4"></span><span
                                             class="path5"></span><span class="path6"></span>
-                                        </i>
-                                        Soal {{ $exam_question->question_type }}
+                                    </i>
+                                    Soal {{ $exam_question->question_type }}
 
 
                                 </div>
@@ -111,29 +111,57 @@
                                     <img class="mb-5" src="{{ $exam_question->getImage() }}" alt=""
                                         style="height: 300px;">
                                 @endif
-                                {!! $exam_question->question_text !!}
+                                <p>
+
+                                    {!! $exam_question->question_text !!}
+                                </p>
 
                                 <div class="separator my-10"></div>
                                 <div class="mb-5">
-                                    @php
-                                        $id_answer = $exam_answer?->answer['multiple_choice']['id'];
-                                        $text_answer = $exam_answer?->answer['multiple_choice']['text'];
-                                    @endphp
-                                    @foreach ($exam_question->multipleChoice as $choice)
-                                        <div class="d-flex fv-row">
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <input class="form-check-input me-3" type="radio"
-                                                    wire:click="answerMultipleChoice({{ $choice->id }})"
-                                                    name="answer" @if ($id_answer == $choice->id) checked @endif>
-                                                <label class="form-check-label" for="kt_modal_update_role_option_0">
-                                                    <div class="fw-bold text-gray-800">{{ $choice->choice_text }} /
-                                                        {{ $id_answer }}
-                                                    </div>
-                                                </label>
+                                    @if ($exam_question->question_type == 'pilihan ganda')
+                                        @php
+                                            $id_answer = $exam_answer?->answer['multiple_choice']['id'];
+                                            $text_answer = $exam_answer?->answer['multiple_choice']['text'];
+                                        @endphp
+                                        @foreach ($exam_question->multipleChoice as $choice)
+                                            <div class="d-flex fv-row">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <input class="form-check-input me-3" type="radio"
+                                                        wire:click="answerMultipleChoice({{ $choice->id }})"
+                                                        name="{{ $exam_question->id }}"
+                                                        {{ $id_answer == $choice->id ? 'checked' : '' }}>
+                                                    <label class="form-check-label">
+                                                        @if ($choice->choice_image)
+                                                            <img src="{{ $choice->getImage() }}" alt=""
+                                                                style="max-height: 150px;">
+                                                        @endif
+                                                        <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
+                                                        </div>
+                                                    </label>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="separator separator-dashed my-5"></div>
-                                    @endforeach
+                                            <div class="separator separator-dashed my-5"></div>
+                                        @endforeach
+                                    @elseif ($exam_question->question_type == 'pilihan ganda kompleks')
+                                        @foreach ($exam_question->multipleChoiceComplex as $choice)
+                                            <div class="d-flex fv-row">
+                                                <div class="form-check form-check-custom form-check-solid">
+                                                    <input class="form-check-input me-3" type="checkbox"
+                                                        wire:change="answerMultipleChoiceComplex({{ $choice->id }})"
+                                                        @if (in_array($choice->id, $exam_multiple_choice_complex_text)) checked @endif>
+                                                    <label class="form-check-label">
+                                                        @if ($choice->choice_image)
+                                                            <img src="{{ $choice->getImage() }}" alt=""
+                                                                style="max-height: 150px;">
+                                                        @endif
+                                                        <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
+                                                        </div>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="separator separator-dashed my-5"></div>
+                                        @endforeach
+                                    @endif
                                 </div>
                             </div>
                             @php
@@ -141,12 +169,11 @@
                             @endphp
                             <div class="card-footer d-flex justify-content-end">
                                 @if ($exam_question->id == $end_question->id)
-                                    <button type="button" class="btn btn-light-success" data-bs-toggle="modal" data-bs-target="#end_exam"
-                                    >Selesaikan Ujian</button>
+                                    <button type="button" class="btn btn-light-success" data-bs-toggle="modal"
+                                        data-bs-target="#end_exam">Selesaikan Ujian</button>
                                 @else
-
-                                <button type="button" class="btn btn-light-primary"
-                                    wire:click="nextQuestion">Selanjutnya</button>
+                                    <button type="button" class="btn btn-light-primary"
+                                        wire:click.prevent="nextQuestion">Selanjutnya</button>
                                 @endif
                             </div>
                         </div>
@@ -168,21 +195,26 @@
                     <h3 class="modal-title">Selesaikan Ujian?</h3>
 
                     <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                        aria-label="Close">
+                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                class="path2"></span></i>
                     </div>
                     <!--end::Close-->
                 </div>
 
                 <div class="modal-body">
                     <p>
-                        <strong>Perhatian!</strong> Apakah kamu yakin ingin menyelesaikan ujian ini?, setelah kamu menyelesaikan ujian ini, kamu tidak bisa kembali lagi.
+                        <strong>Perhatian!</strong> Apakah kamu yakin ingin menyelesaikan ujian ini?, setelah kamu
+                        menyelesaikan ujian ini, kamu tidak bisa kembali lagi.
                     </p>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" wire:click="endExam" data-bs-dismiss="modal">Ya, Selesai</button>
+                    <button type="button" class="btn btn-success" wire:click.prevent="endExam"
+                        data-bs-dismiss="modal">Ya,
+                        Selesai</button>
                 </div>
             </div>
         </div>
@@ -193,10 +225,25 @@
 @push('scripts')
     <script src="{{ asset('exam/plugins/custom/fslightbox/fslightbox.bundle.js') }}"></script>
     <script>
-        var countDownDate = new Date(new Date().getTime() + 60 * 60 * 1000).getTime();
+        var exam = @json($exam);
+        var exam_session = @json($exam_session);
+
+        console.log(exam);
+        console.log(exam_session);
+
+        // Durasi dalam menit diambil dari exam.durasi
+        var durationInMinutes = exam.duration;
+
+        // Waktu mulai diambil dari exam_session.start_time
+        var startTime = new Date(exam_session.start_time).getTime();
+
+        console.log(startTime);
+        console.log(durationInMinutes);
+
+        // Hitung waktu selesai berdasarkan startTime + durasi
+        var countDownDate = new Date(startTime + durationInMinutes * 60 * 1000).getTime();
 
         var x = setInterval(function() {
-
             var now = new Date().getTime();
 
             var distance = countDownDate - now;
@@ -212,7 +259,11 @@
             if (distance < 0) {
                 clearInterval(x);
                 document.getElementById("timer").innerHTML = "EXPIRED";
+
+                alert('Waktu pengerjaan ujian telah habis', 'warning', 5000);
+                @this.call('endExam');
             }
         }, 1000);
     </script>
+
 @endpush

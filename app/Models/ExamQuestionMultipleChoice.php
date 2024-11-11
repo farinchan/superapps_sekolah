@@ -17,6 +17,6 @@ class ExamQuestionMultipleChoice extends Model
 
     public function getImage()
     {
-        return $this->image ? Storage::url($this->image) : null;
+        return $this->choice_image ? Storage::url($this->choice_image) : null;
     }
 }

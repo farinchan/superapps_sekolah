@@ -6,6 +6,7 @@ use App\Models\Exam;
 use App\Models\ExamAnswer;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionMultipleChoice;
+use App\Models\ExamQuestionMultipleChoiceComplex;
 use App\Models\ExamSession;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
@@ -15,7 +16,6 @@ use RealRashid\SweetAlert\Facades\Alert;
 #[Layout('exam.app')]
 class Show extends Component
 {
-
     public $exam_session_id;
     public $exam_session;
     public $exam;
@@ -24,54 +24,75 @@ class Show extends Component
     public $exam_question_state;
     public $exam_question_percentage;
 
+    public $exam_multiple_choice_complex_text = [];
+    public $exam_multiple_choice_complex_is_correct = [];
+
     public function mount($session_id)
     {
         $this->exam_session_id = $session_id;
-        $exam_session = ExamSession::find($session_id);
-        if ($exam_session) {
-            if ($exam_session->student_id == Auth::user()->student->id) {
-                $this->exam_question = ExamQuestion::where('exam_id', $exam_session->exam_id)->first();
-                $this->exam_answer = ExamAnswer::where('exam_session_id', $exam_session->id)->where('exam_question_id', $this->exam_question->id)->first();
-                $this->exam = Exam::find($exam_session->exam_id);
+        $this->exam_session = ExamSession::find($session_id);
+
+        if ($this->exam_session) {
+            if ($this->exam_session->student_id == Auth::user()->student->id) {
+                $this->exam = Exam::find($this->exam_session->exam_id);
+                $this->exam_question = ExamQuestion::where('exam_id', $this->exam->id)->first();
+                $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)
+                    ->where('exam_question_id', $this->exam_question->id)
+                    ->first();
                 $this->refresh($session_id);
             } else {
                 Alert::error('Error', 'Anda tidak memiliki akses ke ujian ini');
-                redirect()->route('exam.home');
+                return redirect()->route('exam.home');
             }
         } else {
             Alert::error('Error', 'Anda tidak memiliki akses ke ujian ini');
-            redirect()->route('exam.home');
+            return redirect()->route('exam.home');
         }
     }
 
     public function nextQuestion()
     {
-        if ($this->exam_question->id < ExamQuestion::where('exam_id', $this->exam_question->exam_id)->max('id')) {
-            $this->refresh($this->exam_session_id);
-            $this->exam_question = ExamQuestion::where('exam_id', $this->exam_question->exam_id)->where('id', '>', $this->exam_question->id)->first();
-            $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)->where('exam_question_id', $this->exam_question->id)->first();
+        $next_question = ExamQuestion::where('exam_id', $this->exam->id)
+            ->where('id', '>', $this->exam_question->id)
+            ->first();
+
+        if ($next_question) {
+            $this->exam_question = $next_question;
+            $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)
+                ->where('exam_question_id', $this->exam_question->id)
+                ->first();
+            $this->refresh($this->exam_session_id); // Memastikan state diperbarui
         }
     }
 
     public function prevQuestion()
     {
-        if ($this->exam_question->id > ExamQuestion::where('exam_id', $this->exam_question->exam_id)->min('id')) {
-            $this->refresh($this->exam_session_id);
-            $this->exam_question = ExamQuestion::where('exam_id', $this->exam_question->exam_id)->where('id', '<', $this->exam_question->id)->first();
-            $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)->where('exam_question_id', $this->exam_question->id)->first();
+        $prev_question = ExamQuestion::where('exam_id', $this->exam->id)
+            ->where('id', '<', $this->exam_question->id)
+            ->first();
+
+        if ($prev_question) {
+            $this->exam_question = $prev_question;
+            $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)
+                ->where('exam_question_id', $this->exam_question->id)
+                ->first();
+            $this->refresh($this->exam_session_id); // Memastikan state diperbarui
         }
     }
 
     public function changeQuestion($id)
     {
-        $this->refresh($this->exam_session_id);
         $this->exam_question = ExamQuestion::find($id);
-        $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)->where('exam_question_id', $this->exam_question->id)->first();
+        $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)
+            ->where('exam_question_id', $this->exam_question->id)
+            ->first();
+        $this->refresh($this->exam_session_id); // Pastikan state diperbarui
     }
 
     public function answerMultipleChoice($id)
     {
         $answer = ExamQuestionMultipleChoice::find($id);
+
         ExamAnswer::updateOrCreate(
             [
                 'exam_session_id' => $this->exam_session->id,
@@ -81,39 +102,87 @@ class Show extends Component
                 'answer' => [
                     'multiple_choice' => [
                         'id' => $id,
-                        'text' => $answer->text
+                        'text' => $answer->choice_text
                     ]
                 ],
                 'is_correct' => $answer->is_correct
             ]
         );
+
+        $this->refresh($this->exam_session_id);
+    }
+
+    public function answerMultipleChoiceComplex($id)
+    {
+        $answer = ExamQuestionMultipleChoiceComplex::find($id);
+
+        // Cek apakah pilihan sudah ada dalam array
+        if (in_array($id, $this->exam_multiple_choice_complex_text)) {
+            // Jika sudah ada, hapus dari array
+            $key = array_search($id, $this->exam_multiple_choice_complex_text);
+            array_splice($this->exam_multiple_choice_complex_text, $key, 1);
+            array_splice($this->exam_multiple_choice_complex_is_correct, $key, 1);
+        } else {
+            // Jika belum ada, tambahkan ke array
+            $this->exam_multiple_choice_complex_text[] = $id;
+            $this->exam_multiple_choice_complex_is_correct[] = $answer->is_correct;
+        }
+
+        // Simpan atau perbarui jawaban di database
+        ExamAnswer::updateOrCreate(
+            [
+                'exam_session_id' => $this->exam_session->id,
+                'exam_question_id' => $this->exam_question->id,
+            ],
+            [
+                'answer' => [
+                    'multiple_choice_complex' => array_map(function ($id) {
+                        return [
+                            'id' => $id,
+                            'text' => ExamQuestionMultipleChoiceComplex::find($id)->choice_text
+                        ];
+                    }, $this->exam_multiple_choice_complex_text)
+                ],
+                'is_correct' => collect($this->exam_multiple_choice_complex_is_correct)->contains(false) ? false : true
+            ]
+        );
+
+        // Perbarui state soal ujian
         $this->refresh($this->exam_session_id);
     }
 
     public function refresh($session_id)
     {
-        $exam_session = ExamSession::find($session_id);
-        $this->exam_session = $exam_session;
-        $this->exam_question_state = ExamQuestion::where('exam_id', $exam_session->exam_id)->leftJoin('exam_answer', function ($join) use ($exam_session) {
-            $join->on('exam_question.id', '=', 'exam_answer.exam_question_id')
-                ->where('exam_answer.exam_session_id', $exam_session->id);
-        })->select('exam_question.*', 'exam_answer.answer')->get();
-        $this->exam_question_percentage = ExamAnswer::where('exam_session_id', $exam_session->id)->get()->count()   / ExamQuestion::where('exam_id', $exam_session->exam_id)->get()->count() * 100;
+        $this->exam_session = ExamSession::find($session_id);
+        $this->exam_question_state = ExamQuestion::where('exam_id', $this->exam_session->exam_id)
+            ->leftJoin('exam_answer', function ($join) use ($session_id) {
+                $join->on('exam_question.id', '=', 'exam_answer.exam_question_id')
+                    ->where('exam_answer.exam_session_id', $session_id);
+            })
+            ->select('exam_question.*', 'exam_answer.answer')
+            ->get();
+
+        $this->exam_question_percentage = ExamAnswer::where('exam_session_id', $session_id)
+            ->count() / ExamQuestion::where('exam_id', $this->exam_session->exam_id)->count() * 100;
     }
 
-    public function endExam() {
-        $total_score = ExamAnswer::where('exam_session_id', $this->exam_session_id)->where('is_correct', true)->get()->count();
+    public function endExam()
+    {
+        $total_score = ExamAnswer::where('exam_session_id', $this->exam_session_id)
+            ->where('is_correct', true)
+            ->count();
+
         ExamSession::find($this->exam_session_id)->update([
             'end_time' => now(),
-            'score' => $total_score / ExamQuestion::where('exam_id', $this->exam_session->exam_id)->get()->count() * 100
+            'score' => $total_score / ExamQuestion::where('exam_id', $this->exam_session->exam_id)->count() * 100
         ]);
+
         Alert::success('Berhasil', 'Ujian telah selesai');
-        redirect()->route('exam.home');
+        return redirect()->route('exam.home');
     }
 
     public function render()
     {
-        // dd($this->exam_question_state);
         return view('livewire.exam.show');
     }
 }

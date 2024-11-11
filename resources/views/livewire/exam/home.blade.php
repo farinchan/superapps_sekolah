@@ -94,8 +94,16 @@
                                                         @if ($exam->score)
                                                             <span class="badge badge-light-success">Sudah Dinilai</span>
                                                         @else
-                                                            <button type="button" wire:click="startExam({{ $exam->id }})"
-                                                                class="btn btn-sm btn-success">Mulai Ujian</button>
+                                                            @if ($exam->session_start_time)
+                                                                <button type="button"
+                                                                    wire:click="startExam({{ $exam->id }})"
+                                                                    class="btn btn-sm btn-light-success">Lanjutkan
+                                                                    Ujian</button>
+                                                            @else
+                                                                <button type="button"
+                                                                    wire:click="startExam({{ $exam->id }})"
+                                                                    class="btn btn-sm btn-success">Mulai Ujian</button>
+                                                            @endif
                                                         @endif
                                                     @elseif ($exam->start_time > now())
                                                         <span class="badge badge-light-warning">Belum Dimulai</span>

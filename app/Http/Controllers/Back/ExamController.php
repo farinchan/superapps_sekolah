@@ -338,7 +338,7 @@ class ExamController extends Controller
 
     public function questionUpdateMultipleChoice(Request $request, $id, $questionId)
     {
-        dd($request->all());
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'question_text' => 'required',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
@@ -504,7 +504,7 @@ class ExamController extends Controller
 
     public function questionUpdateMultipleChoiceComplex(Request $request, $exam_id, $question_id)
     {
-        dd($request->all());
+        // dd($request->all());
         // Validasi data yang diterima dari form
         $validator = Validator::make($request->all(), [
             'question_text' => 'required',
@@ -549,7 +549,7 @@ class ExamController extends Controller
                 if (isset($choice['id'])) {
                     // Jika item sudah ada di database, hapus
                     ExamQuestionMultipleChoiceComplex::where('id', $choice['id'])->delete();
-                    dd($choice['id']);
+                    // dd($choice['id']);
                 }
                 continue;
             }
