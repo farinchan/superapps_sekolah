@@ -36,11 +36,7 @@
     </div>
 
 
-    <div class="menu-item px-5">
-        <a href="#" class="menu-link px-5">
-            Sign Out
-        </a>
-    </div>
+    <livewire:exam.logout />
     <!--end::Menu item-->
 </div>
 <!--end::User account menu-->

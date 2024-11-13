@@ -87,8 +87,6 @@ Route::domain(env('APP_URL'))->group(function () {
     });
 
 
-
-
     Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::get('/dashboard', [BackDashboardController::class, 'index'])->name('dashboard');
 
@@ -347,7 +345,7 @@ Route::domain(env('APP_URL'))->group(function () {
 
 Route::domain('elearning.' . env('APP_URL'))->name('exam.')->group(function () {
     Route::get("/login", App\Livewire\Exam\Login::class)->name('login');
-    // Route::get("/logout", App\Livewire\Exam\Login::class)->name('logout');
+    Route::get("/logout", App\Livewire\Exam\Logout::class)->name('logout');
     Route::get("/", App\Livewire\Exam\Home::class)->name('home')->middleware('auth-exam');
     Route::get("/exam/{session_id}", App\Livewire\Exam\Show::class)->name('show')->middleware('auth-exam');
 });

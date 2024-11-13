@@ -1,3 +1,5 @@
-<div>
-    {{-- If your happiness depends on money, you will never be happy with yourself. --}}
+<div class="menu-item px-5">
+    <a href="#" wire:click="logout"  class="menu-link px-5">
+        Sign Out
+    </a>
 </div>
