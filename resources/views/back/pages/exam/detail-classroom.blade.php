@@ -5,14 +5,15 @@
             @include('back.pages.exam.detail-header')
             <div class="card card-flush">
                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+                    @role('admin')
+                        <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-                    <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
-
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
-                            <i class="ki-duotone ki-plus fs-2"></i>
-                            Tambah Kelas
-                        </a>
-                    </div>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
+                                <i class="ki-duotone ki-plus fs-2"></i>
+                                Tambah Kelas
+                            </a>
+                        </div>
+                    @endrole
                 </div>
                 <div class="card-body pt-0">
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table"">
@@ -41,7 +42,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('back.classroom.detail', $item->classroom?->id) }}"
+                                            <a href="@role('admin'){{ route('back.classroom.detail', $item->classroom?->id) }}@else#@endrole"
                                                 class="text-gray-800 text-hover-primary fs-5 fw-bold mb-1">
                                                 {{ $item->classroom?->name }}</a>
                                         </div>

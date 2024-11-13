@@ -14,6 +14,7 @@
                                 class="form-control form-control-solid w-250px ps-13" placeholder="Cari Ujian" />
                         </div>
                     </div>
+                    @role('admin')
                     <div class="card-toolbar">
                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                             <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
@@ -97,6 +98,7 @@
                         </div>
 
                     </div>
+                    @endrole
                 </div>
                 <div class="card-body py-4">
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">

@@ -24,8 +24,9 @@
                         </div>
                         <div class="mb">
                             <label for="name" class=" form-label required"> Bobot</label>
-                            <input type="number" class="form-control" id="question_score" name="question_score" required>
+                            <input type="number" class="form-control" id="question_score" name="question_score" value="1" required>
                         </div>
+
                         <div class="separator my-10"></div>
 
                         <div>

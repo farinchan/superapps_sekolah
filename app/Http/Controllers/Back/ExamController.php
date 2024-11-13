@@ -31,12 +31,20 @@ class ExamController extends Controller
 {
     public function index()
     {
+        $list_exam = [];
+
+        if (Auth::user()->hasRole('admin')) {
+            $list_exam = Exam::with('teacher', 'schoolYear')->get();
+        } elseif (Auth::user()->hasRole('guru')) {
+            $list_exam = Exam::with('teacher', 'schoolYear')->where('teacher_id', Auth::user()->teacher->id)->get();
+        }
+
         $data = [
             'title' => 'List Ujian',
             'menu' => 'E-Learning',
             'sub_menu' => 'Ujian',
 
-            'list_exam' => Exam::with('teacher', 'schoolYear')->get(),
+            'list_exam' => $list_exam,
 
             'list_subject' => Subject::all(),
             'list_school_year' => SchoolYear::all(),
@@ -299,8 +307,6 @@ class ExamController extends Controller
             'score' => null,
         ]);
 
-        ExamAnswer::where('exam_session_id', $session_id)->delete();
-
         Alert::success('Success', 'Data berhasil direset');
         return redirect()->back();
     }
@@ -409,6 +415,7 @@ class ExamController extends Controller
         $validator = Validator::make($request->all(), [
             'question_text' => 'required',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'question_score' => 'required|numeric',
             'choices' => 'required|array|min:2',
             'choices.*.choice_text' => 'required',
             'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -426,7 +433,11 @@ class ExamController extends Controller
             'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
             'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
             'is_correct.required' => 'Pilih salah satu jawaban yang benar',
+            'question_score.required' => 'Skor soal wajib diisi',
+            'question_score.numeric' => 'Skor soal harus berupa angka',
         ]);
+
+        // dd($request->all());
 
         if ($validator->fails()) {
             Alert::error('Error', $validator->errors()->all());
@@ -438,6 +449,7 @@ class ExamController extends Controller
             'question_type' => 'pilihan ganda',
             'question_text' => $request->question_text,
             'question_image' => $request->hasFile('question_image') ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public') : null,
+            'question_score' => $request->question_score,
         ]);
 
         foreach ($request->choices as $index => $choice) {
@@ -477,6 +489,7 @@ class ExamController extends Controller
         $validator = Validator::make($request->all(), [
             'question_text' => 'required',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'question_score' => 'required|numeric',
             'choices' => 'required|array|min:2',
             'choices.*.choice_text' => 'required',
             'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -494,6 +507,8 @@ class ExamController extends Controller
             'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
             'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
             'is_correct.required' => 'Pilih salah satu jawaban yang benar',
+            'question_score.required' => 'Skor soal wajib diisi',
+            'question_score.numeric' => 'Skor soal harus berupa angka',
         ]);
 
         if ($validator->fails()) {
@@ -513,6 +528,7 @@ class ExamController extends Controller
             'question_image' => $request->hasFile('question_image')
                 ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public')
                 : $question->question_image,
+            'question_score' => $request->question_score,
         ]);
 
         // Update atau buat pilihan jawaban
@@ -573,6 +589,7 @@ class ExamController extends Controller
         $validator = Validator::make($request->all(), [
             'question_text' => 'required',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'question_score' => 'required|numeric',
             'choices' => 'required|array|min:2',
             'choices.*.choice_text' => 'required',
             'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -590,6 +607,9 @@ class ExamController extends Controller
             'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
             'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
             'choices.*.is_correct.required' => 'Pilih salah satu jawaban yang benar',
+            'question_score.required' => 'Skor soal wajib diisi',
+            'question_score.numeric' => 'Skor soal harus berupa angka',
+
         ]);
 
         if ($validator->fails()) {
@@ -602,6 +622,7 @@ class ExamController extends Controller
             'question_type' => 'pilihan ganda kompleks',
             'question_text' => $request->question_text,
             'question_image' => $request->hasFile('question_image') ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public') : null,
+            'question_score' => $request->question_score,
         ]);
 
         foreach ($request->choices as $index => $choice) {
@@ -641,6 +662,7 @@ class ExamController extends Controller
         $validator = Validator::make($request->all(), [
             'question_text' => 'required',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'question_score' => 'required|numeric',
             'choices' => 'required|array|min:2',
             'choices.*.choice_text' => 'required',
             'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -650,6 +672,8 @@ class ExamController extends Controller
             'question_image.image' => 'Pertanyaan harus berupa gambar',
             'question_image.mimes' => 'Format gambar tidak valid',
             'question_image.max' => 'Ukuran gambar terlalu besar',
+            'question_score.required' => 'Skor soal wajib diisi',
+            'question_score.numeric' => 'Skor soal harus berupa angka',
             'choices.required' => 'Pilihan jawaban wajib diisi',
             'choices.array' => 'Pilihan jawaban harus berupa array',
             'choices.min' => 'Pilihan jawaban minimal 2',
@@ -672,6 +696,7 @@ class ExamController extends Controller
             'question_image' => $request->hasFile('question_image')
                 ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public')
                 : $question->question_image,
+            'question_score' => $request->question_score,
         ]);
 
         // Update atau buat pilihan jawaban
@@ -734,6 +759,7 @@ class ExamController extends Controller
         $validator = Validator::make($request->all(), [
             'question_text' => 'required',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'question_score' => 'required|numeric',
             'pairs' => 'required|array|min:2',
             'pairs.*.pair_text' => 'required',
             'pairs.*.pair_match' => 'required',

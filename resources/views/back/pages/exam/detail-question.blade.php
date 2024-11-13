@@ -73,6 +73,9 @@
                                 <p class="text-gray-500 fw-semibold fs-5 mt-1 mb-7">
                                     Soal: {{ Str::limit(strip_tags($question->question_text), 100) }}
                                 </p>
+                                <div class="fs-5 text-gray-900">
+                                    Bobot: {{ $question->question_score }}
+                                </div>
                             </div>
                         </a>
                     </div>

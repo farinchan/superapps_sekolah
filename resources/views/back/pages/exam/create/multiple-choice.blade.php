@@ -22,6 +22,10 @@
                             </div>
                             <input type="hidden" name="question_text" id="question_text">
                         </div>
+                        <div class="mb">
+                            <label for="name" class=" form-label required"> Bobot</label>
+                            <input type="number" class="form-control" id="question_score" name="question_score" value="1" required>
+                        </div>
                         <div class="separator my-10"></div>
 
                         <div>
@@ -46,8 +50,7 @@
                                                 <div class="col-md-2">
                                                     <div
                                                         class="form-check form-check-custom form-check-solid mt-2 mt-md-11">
-                                                        <input class="form-check-input" type="radio" name="is_correct"
-                                                            class="is_correct" value="1" id="form_radio" required />
+                                                        <input class="form-check-input is_correct_radio" type="radio" name="is_correct" value="0" required />
                                                         <label class="form-check-label" for="form_radio">
                                                             Jawaban Benar
                                                         </label>
@@ -136,7 +139,7 @@
             var questionName = 'is_correct'; // All radio buttons will have this name
 
             $('#kt_docs_repeater_basic').find('[data-repeater-item]').each(function(index, item) {
-                $(item).find('input[type="radio"]').attr('name', questionName);
+                $(item).find('input[type="radio"]').attr('name', questionName).val(index);
             });
         }
 

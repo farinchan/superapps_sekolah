@@ -154,6 +154,10 @@ class Show extends Component
     public function refresh($session_id)
     {
         $this->exam_session = ExamSession::find($session_id);
+        if ($this->exam_session->score) {
+            Alert::info('Info', 'Ujian telah selesai');
+            return redirect()->route('exam.home');
+        }
         $this->exam_question_state = ExamQuestion::where('exam_id', $this->exam_session->exam_id)
             ->leftJoin('exam_answer', function ($join) use ($session_id) {
                 $join->on('exam_question.id', '=', 'exam_answer.exam_question_id')

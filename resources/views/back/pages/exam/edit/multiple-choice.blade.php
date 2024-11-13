@@ -32,6 +32,10 @@
                             <input type="hidden" name="question_text" id="question_text"
                                 value="{{ $question->question_text }}">
                         </div>
+                        <div class="mb">
+                            <label for="name" class=" form-label required"> Bobot</label>
+                            <input type="number" class="form-control" id="question_score" name="question_score" value="{{ $question->question_score }}" required>
+                        </div>
                         <div class="separator my-10"></div>
 
                         <div>
