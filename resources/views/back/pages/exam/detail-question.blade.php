@@ -128,7 +128,8 @@
                             </a>
                         </div>
                         <div class="col-md-12">
-                            <a href="#" class="card hover-elevate-up shadow-sm parent-hover">
+                            <a href="{{ route('back.exam.question.matching-pair.create', $exam->id) }}"
+                            class="card hover-elevate-up shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <i class="ki-duotone ki-abstract-28 fs-1">
                                         <span class="path1"></span>

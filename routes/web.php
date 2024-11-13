@@ -265,6 +265,8 @@ Route::domain(env('APP_URL'))->group(function () {
 
             Route::get('/detail/{id}/student', [BackExamController::class, 'student'])->name('student');
             Route::get('/detail/{id}/student/datatable', [BackExamController::class, 'studentDatatable'])->name('student.datatable');
+            Route::get('/student/reset/{session_id}', [BackExamController::class, 'studentExamReset'])->name('student.reset');
+            Route::get('/student/finish/{session_id}', [BackExamController::class, 'studentExamForceEnd'])->name('student.finish');
 
             Route::get('/detail/{id}/question', [BackExamController::class, 'question'])->name('question');
             Route::post('/detail/{id}/question/import', [BackExamController::class, 'questionImport'])->name('question.import');
@@ -279,6 +281,8 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::post('/detail/{id}/question/store-multipleChoicecomplex', [BackExamController::class, 'questionStoreMultipleChoiceComplex'])->name('question.multiple-choice-complex.store');
             Route::get('/detail/{id}/question/edit-multipleChoicecomplex/{question_id}', [BackExamController::class, 'questionEditMultipleChoiceComplex'])->name('question.multiple-choice-complex.edit');
             Route::put('/detail/{id}/question/update-multipleChoicecomplex/{question_id}', [BackExamController::class, 'questionUpdateMultipleChoiceComplex'])->name('question.multiple-choice-complex.update');
+
+            Route::get('/detail/{id}/question/create-matchingPair', [BackExamController::class, 'questionMatchingPair'])->name('question.matching-pair.create');
 
             Route::get('/detail/{id}/question/{question_id}/edit', [BackExamController::class, 'questionEdit'])->name('question.edit');
             Route::put('/detail/{id}/question/{question_id}/update', [BackExamController::class, 'questionUpdate'])->name('question.update');

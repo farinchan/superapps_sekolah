@@ -170,11 +170,12 @@ class Show extends Component
     {
         $total_score = ExamAnswer::where('exam_session_id', $this->exam_session_id)
             ->where('is_correct', true)
-            ->count();
+            ->join('exam_question', 'exam_question.id', '=', 'exam_answer.exam_question_id')
+            ->sum('exam_question.question_score');
 
         ExamSession::find($this->exam_session_id)->update([
             'end_time' => now(),
-            'score' => $total_score / ExamQuestion::where('exam_id', $this->exam_session->exam_id)->count() * 100
+            'score' => $total_score
         ]);
 
         Alert::success('Berhasil', 'Ujian telah selesai');

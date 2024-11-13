@@ -94,7 +94,7 @@
                                                         @if ($exam->score)
                                                             <span class="badge badge-light-success">Sudah Dinilai</span>
                                                         @else
-                                                            @if ($exam->session_start_time)
+                                                            @if ($exam->session_end_time == null)
                                                                 <button type="button"
                                                                     wire:click="startExam({{ $exam->id }})"
                                                                     class="btn btn-sm btn-light-success">Lanjutkan

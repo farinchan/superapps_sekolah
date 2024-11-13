@@ -12,6 +12,7 @@ use App\Models\Exam;
 use App\Models\ExamAnswer;
 use App\Models\ExamClassroom;
 use App\Models\ExamQuestion;
+use App\Models\ExamQuestionMatchingPair;
 use App\Models\ExamQuestionMultipleChoice;
 use App\Models\ExamQuestionMultipleChoiceComplex;
 use App\Models\ExamSession;
@@ -255,27 +256,27 @@ class ExamController extends Controller
                 return '<span class="fw-bold">' . $row->classroom_name . '</span> <br> <span>' . $row->school_year_start . '/' . $row->school_year_end . '</span>';
             })
             ->addColumn('nilai', function ($row) {
-                if ($row->start_time == null) {
+                if ($row->start_time === null) {
                     return '<span class="fw-bold text-danger">Belum Ujian</span>';
-                } elseif ($row->score == null) {
+                } elseif ($row->score === null) {
                     return '<span class="fw-bold text-warning">Sedang Ujian</span>';
                 } else {
                     return '<span class="fw-bold text-success fs-2">' . $row->score . '</span>';
                 }
             })
             ->addColumn('action', function ($row) {
-                if ($row->start_time == null) {
+                if ($row->start_time === null) {
                     return '-';
-                } elseif ($row->score == null) {
-                    return '<a href="#" class="btn btn-icon btn-light-youtube me-2"
-                                data-bs-toggle="modal" data-bs-target="#delete' . $row->id . '"
+                } elseif ($row->score === null) {
+                    return '<a href=" ' . route('back.exam.student.finish', $row->session_id) . '"
+                                class="btn btn-icon btn-light-youtube me-2"
                                 data-bs-toggle="tooltip" data-bs-placement="right"
                                 title="Selesaikan Paksa ujian?">
                                 <i class="fa-solid fa-xmark fs-4"></i>
                             </a>';
                 } else {
-                    return '<a href="#" class="btn btn-icon btn-light-linkedin me-2"
-                                data-bs-toggle="modal" data-bs-target="#delete' . $row->id . '"
+                    return '<a href=" ' . route('back.exam.student.reset', $row->session_id) . '"
+                                class="btn btn-icon btn-light-linkedin me-2"
                                 data-bs-toggle="tooltip" data-bs-placement="right"
                                 title="Buka Akses Kembali, dan reset waktu">
                                 <i class="ki-duotone ki-delete-files fs-4">
@@ -287,6 +288,37 @@ class ExamController extends Controller
             })
             ->rawColumns(['index', 'siswa', 'kelas', 'nilai', 'action'])
             ->make(true);
+    }
+
+    public function studentExamReset($session_id)
+    {
+        $exam_session = ExamSession::find($session_id);
+        $exam_session->update([
+            'start_time' => now(),
+            'end_time' => null,
+            'score' => null,
+        ]);
+
+        ExamAnswer::where('exam_session_id', $session_id)->delete();
+
+        Alert::success('Success', 'Data berhasil direset');
+        return redirect()->back();
+    }
+
+    public function studentExamForceEnd($session_id)
+    {
+        $total_score = ExamAnswer::where('exam_session_id', $session_id)
+            ->where('is_correct', true)
+            ->join('exam_question', 'exam_question.id', '=', 'exam_answer.exam_question_id')
+            ->sum('exam_question.question_score');
+
+        ExamSession::find($session_id)->update([
+            'end_time' => now(),
+            'score' => $total_score,
+        ]);
+
+        Alert::success('Success', 'Ujian telah selesai');
+        return redirect()->back();
     }
 
     public function question($id)
@@ -679,5 +711,67 @@ class ExamController extends Controller
 
         Alert::success('Success', 'Data berhasil diperbarui');
         return redirect()->back();
+    }
+
+    //TODO: EXAM QUESTION MATCHING PAIR
+
+    public function questionMatchingPair($id)
+    {
+        $data = [
+            'title' => 'Tambah Soal Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+            'exam_id' => $id,
+
+            'exam' => Exam::with('teacher', 'schoolYear')->find($id),
+        ];
+
+        return view('back.pages.exam.create.matching-pair', $data);
+    }
+
+    public function questionStoreMatchingPair(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'question_text' => 'required',
+            'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'pairs' => 'required|array|min:2',
+            'pairs.*.pair_text' => 'required',
+            'pairs.*.pair_match' => 'required',
+        ], [
+            'question_text.required' => 'Pertanyaan wajib diisi',
+            'question_image.image' => 'Pertanyaan harus berupa gambar',
+            'question_image.mimes' => 'Format gambar tidak valid',
+            'question_image.max' => 'Ukuran gambar terlalu besar',
+            'pairs.required' => 'Pasangan jawaban wajib diisi',
+            'pairs.array' => 'Pasangan jawaban harus berupa array',
+            'pairs.min' => 'Pasangan jawaban minimal 2',
+            'pairs.*.pair_text.required' => 'Pasangan jawaban wajib diisi',
+            'pairs.*.pair_match.required' => 'Pasangan jawaban wajib dipasangkan',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $question = ExamQuestion::create([
+            'exam_id' => $id,
+            'question_type' => 'menjodohkan',
+            'question_text' => $request->question_text,
+            'question_image' => $request->hasFile('question_image') ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public') : null,
+            'question_score' => $request->question_score,
+        ]);
+
+        foreach ($request->pairs as $pair) {
+            ExamQuestionMatchingPair::create([
+                'exam_question_id' => $question->id,
+                'pair_text' => $pair['pair_text'],
+                'pair_match' => $pair['pair_match'],
+            ]);
+        }
+
+        Alert::success('Success', 'Data berhasil ditambahkan');
+        return redirect()->route('back.exam.question', $id);
+
     }
 }
