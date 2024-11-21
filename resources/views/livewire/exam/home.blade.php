@@ -136,7 +136,6 @@
 @push('scripts')
     <script>
         $('#tabel').DataTable({
-            responsive: true,
             paging: true,
             searching: false,
         });
