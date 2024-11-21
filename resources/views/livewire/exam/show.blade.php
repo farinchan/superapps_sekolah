@@ -1,4 +1,4 @@
-<div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
+<div class="app-page  flex-column flex-column-fluid " id="kt_app_page" data-kt-drawer-dismiss="true">
     @include('exam/layout/partials/_header')
     <!--begin::Wrapper-->
     <div class="app-wrapper  flex-column flex-row-fluid " id="kt_app_wrapper">
