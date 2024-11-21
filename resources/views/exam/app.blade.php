@@ -50,7 +50,7 @@
 <!--end::Head-->
 <!--begin::Body-->
 
-<body id="kt_app_body"
+<body id="kt_app_body" data-kt-drawer-dismiss="true"
     @if (!request()->routeIs('exam.home')) data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true"
     data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" @endif
     data-kt-app-toolbar-enabled="true" class="app-default">
