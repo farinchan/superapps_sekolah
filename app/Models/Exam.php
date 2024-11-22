@@ -19,9 +19,9 @@ class Exam extends Model
         return $this->hasMany(ExamQuestion::class);
     }
 
-    public function examAnswer()
+    public function examSession()
     {
-        return $this->hasMany(ExamAnswer::class);
+        return $this->hasMany(ExamSession::class);
     }
 
     public function teacher()

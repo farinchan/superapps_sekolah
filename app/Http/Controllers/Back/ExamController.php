@@ -145,10 +145,15 @@ class ExamController extends Controller
 
     public function settingDestroy($id)
     {
-        Exam::find($id)->delete();
+        $examData = Exam::find($id);
+
+        $examData->examClassroom()->delete();
+        $examData->examQuestion()->delete();
+        $examData->examSession()->delete();
+        $examData->delete();
 
         Alert::success('Success', 'Data berhasil dihapus');
-        return redirect()->back();
+        return redirect()->route('back.exam.index');
     }
 
     public function classroom($id)

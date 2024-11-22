@@ -9,8 +9,9 @@
                         ({{ $list_exam_question->count() }} soal)
                     </span>
                 </h3>
-                <div class="d-flex my-2">
-                    {{-- <div class="d-flex align-items-center position-relative me-4">
+                @if ($exam->end_time > now())
+                    <div class="d-flex my-2">
+                        {{-- <div class="d-flex align-items-center position-relative me-4">
                         <i class="ki-duotone ki-magnifier fs-3 position-absolute translate-middle-y top-50 ms-4">
                             <span class="path1"></span>
                             <span class="path2"></span>
@@ -22,38 +23,38 @@
                                 placeholder="Cari" name="q" value="{{ request()->q }}" />
                         </form>
                     </div> --}}
-                    <a href="#" class='btn btn-bg-light btn-active-color-danger btn-sm' data-bs-toggle="modal"
-                        data-bs-target="#reset">
-                        <i class="ki-duotone ki-file-deleted fs-2">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                        Reset Soal</a>
-                    <a href="#" class='btn btn-bg-light btn-active-color-primary btn-sm' data-bs-toggle="modal"
-                        data-bs-target="#import">
-                        <i class="ki-duotone ki-file-down fs-2">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                        Import</a>
-                    <a href="#" class='btn btn-primary btn-sm fw-bolder' class="btn btn-primary"
-                        data-bs-toggle="modal" data-bs-target="#jenis_soal">
-                        <i class="ki-duotone ki-plus fs-2"></i>
-                        Tambah Soal</a>
-                </div>
+                        <a href="#" class='btn btn-bg-light btn-active-color-danger btn-sm' data-bs-toggle="modal"
+                            data-bs-target="#reset">
+                            <i class="ki-duotone ki-file-deleted fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            Reset Soal</a>
+                        <a href="#" class='btn btn-bg-light btn-active-color-primary btn-sm' data-bs-toggle="modal"
+                            data-bs-target="#import">
+                            <i class="ki-duotone ki-file-down fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            Import</a>
+                        <a href="#" class='btn btn-primary btn-sm fw-bolder' class="btn btn-primary"
+                            data-bs-toggle="modal" data-bs-target="#jenis_soal">
+                            <i class="ki-duotone ki-plus fs-2"></i>
+                            Tambah Soal</a>
+                    </div>
+                @endif
             </div>
             <div class="row g-6 g-xl-9">
                 @foreach ($list_exam_question as $question)
                     <div class="col-md-6 col-xl-4">
                         <a href="
-                        @if ($question->question_type == 'pilihan ganda')
-                            {{ route("back.exam.question.multiple-choice.edit", [$exam->id, $question->id]) }}
+                        @if ($question->question_type == 'pilihan ganda') {{ route('back.exam.question.multiple-choice.edit', [$exam->id, $question->id]) }}
                         @elseif ($question->question_type == 'pilihan ganda kompleks')
-                            {{ route("back.exam.question.multiple-choice-complex.edit", [$exam->id, $question->id]) }}
+                            {{ route('back.exam.question.multiple-choice-complex.edit', [$exam->id, $question->id]) }}
                         @elseif ($question->question_type == 'menjodohkan')
-                            {{-- {{ route("back.exam.question.matching.edit", [$exam->id, $question->id]) }} --}}
-                        @endif
-                        " class="card border-hover-primary">
+                            {{-- {{ route("back.exam.question.matching.edit", [$exam->id, $question->id]) }} --}} @endif
+                        "
+                            class="card border-hover-primary">
                             {{-- <div class="card-header border-0 pt-5">
                                 <div class="card-title m-0">
                                     @if ($question->question_type == 'pilihan ganda')
@@ -132,7 +133,7 @@
                         </div>
                         <div class="col-md-12">
                             <a href="{{ route('back.exam.question.matching-pair.create', $exam->id) }}"
-                            class="card hover-elevate-up shadow-sm parent-hover">
+                                class="card hover-elevate-up shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
                                     <i class="ki-duotone ki-abstract-28 fs-1">
                                         <span class="path1"></span>
@@ -227,7 +228,8 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <p>Apakah anda yakin akan mereset semua soal pada ujian ini?</p>
-                            <p class="text-danger"><strong>Perhatian</strong> : Setelah direset, semua soal yang telah diinputkan akan
+                            <p class="text-danger"><strong>Perhatian</strong> : Setelah direset, semua soal yang telah
+                                diinputkan akan
                                 dihapus
                                 dan tidak dapat dikembalikan lagi.</p>
                         </div>

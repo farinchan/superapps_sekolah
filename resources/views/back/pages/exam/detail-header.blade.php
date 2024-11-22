@@ -28,17 +28,58 @@
                             {{ $exam->description }}
                         </div>
                     </div>
-                    <div class="d-flex mb-4">
-                        <a href="#" class="btn btn-sm btn-bg-light btn-active-color-primary me-3">Export
-                            Excel</a>
-                        <a href="#" class="btn btn-sm btn-danger me-3">Hapus Ujian</a>
+                    @role('admin')
+                        <div class="d-flex mb-4">
 
-                    </div>
+                            <a href="#" class="btn btn-sm btn-danger me-3"data-bs-toggle="modal"
+                                data-bs-target="#modal-delete-exam">
+                                Hapus Ujian
+                            </a>
+
+                            <div class="modal fade" tabindex="-1" id="modal-delete-exam">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title">Hapus Ujian</h3>
+
+                                            <!--begin::Close-->
+                                            <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                data-bs-dismiss="modal" aria-label="Close">
+                                                <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                                        class="path2"></span></i>
+                                            </div>
+                                            <!--end::Close-->
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <p>Apakah Anda yakin ingin menghapus ujian ini?</p>
+                                            <p class="text-danger">
+                                                <strong>Peringatan: </strong> Seluruh data yang terkait dengan ujian ini
+                                                akan dihapus dan tidak dapat dikembalikan.
+
+                                            </p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light"
+                                                data-bs-dismiss="modal">Batal</button>
+                                            <form action="{{ route('back.exam.setting.destroy', $exam->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    @endrole
                 </div>
                 <div class="d-flex flex-wrap justify-content-start">
                     <div class="d-flex flex-wrap">
-                        <div
-                            class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <div class="d-flex align-items-center">
                                 <div class="fs-4 fw-bold">
                                     {{ Carbon\Carbon::parse($exam->start_time)->format('d M Y H:i') }} -
@@ -47,19 +88,19 @@
                             </div>
                             <div class="fw-semibold fs-6 text-gray-500">Waktu Ujian</div>
                         </div>
-                        <div
-                            class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <div class="d-flex align-items-center">
-                                <div class="fs-4 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ $exam->duration }} " data-kt-countup-suffix="Menit">
+                                <div class="fs-4 fw-bold" data-kt-countup="true"
+                                    data-kt-countup-value="{{ $exam->duration }} " data-kt-countup-suffix="Menit">
                                     0
                                 </div>
                             </div>
                             <div class="fw-semibold fs-6 text-gray-500">Durasi Ujian</div>
                         </div>
-                        <div
-                            class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
                             <div class="d-flex align-items-center">
-                                <div class="fs-4 fw-bold" data-kt-countup="true" data-kt-countup-value="{{ $exam->examQuestion->count() }}">0</div>
+                                <div class="fs-4 fw-bold" data-kt-countup="true"
+                                    data-kt-countup-value="{{ $exam->examQuestion->count() }}">0</div>
                             </div>
                             <div class="fw-semibold fs-6 text-gray-500">Pertanyaan</div>
                         </div>
@@ -71,19 +112,19 @@
         <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.question')) active @endif"
-                href="{{ route("back.exam.question", $exam->id) }}">Soal</a>
+                    href="{{ route('back.exam.question', $exam->id) }}">Soal</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.classroom')) active @endif"
-                href="{{ route("back.exam.classroom", $exam->id) }}">Kelas</a>
+                    href="{{ route('back.exam.classroom', $exam->id) }}">Kelas</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6  @if (request()->routeIs('back.exam.student')) active @endif"
-                    href="{{ route("back.exam.student", $exam->id) }}">Nilai Siswa</a>
+                    href="{{ route('back.exam.student', $exam->id) }}">Nilai Siswa</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link text-active-primary py-5 me-6 @if (request()->routeIs('back.exam.setting')) active @endif"
-                    href="{{ route("back.exam.setting", $exam->id) }}">Settings</a>
+                    href="{{ route('back.exam.setting', $exam->id) }}">Settings</a>
             </li>
         </ul>
     </div>
