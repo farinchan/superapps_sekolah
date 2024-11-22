@@ -205,7 +205,7 @@
                                     @else
                                         <li class="pg-text">
                                             <a
-                                                href="{{ route('news', ['page' => $list_news->currentPage() - 1, 'q' => request()->q]) }}">PREV</a>
+                                                href="{{ route('news.index', ['page' => $list_news->currentPage() - 1, 'q' => request()->q]) }}">PREV</a>
                                         </li>
                                     @endif
 
@@ -225,7 +225,7 @@
                                             <li class="active"><a href="#">{{ $page }}</a></li>
                                         @else
                                             <li><a
-                                                    href="{{ route('news', ['page' => $page, 'q' => request()->q]) }}">{{ $page }}</a>
+                                                    href="{{ route('news.index', ['page' => $page, 'q' => request()->q]) }}">{{ $page }}</a>
                                             </li>
                                         @endif
                                     @endforeach
@@ -236,7 +236,7 @@
 
                                     @if ($list_news->hasMorePages())
                                         <li class="pg-text"><a
-                                                href="{{ route('news', ['page' => $list_news->currentPage() + 1, 'q' => request()->q]) }}">NEXT</a>
+                                                href="{{ route('news.index', ['page' => $list_news->currentPage() + 1, 'q' => request()->q]) }}">NEXT</a>
                                         </li>
                                     @else
                                         <li class="pg-text"><a href="#">NEXT</a></li>

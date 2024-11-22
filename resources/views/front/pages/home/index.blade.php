@@ -825,12 +825,12 @@
                                 <div class="about-btn">
                                     <div
                                         class="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font float-left">
-                                        <a href="#">Download </a>
+                                        <a href="/file_ext/app-release.apk">Download </a>
                                     </div>
 
                                     <div class="app-stor ul-li mt10">
                                         <ul>
-                                            <li><a href="#"><i class="fab fa-android"></i></a></li>
+                                            <li><a href="/file_ext/app-release.apk"><i class="fab fa-android"></i></a></li>
                                             <li><a href="#"><i class="fab fa-apple"></i></a></li>
                                             <li><a href="#"><i class="fab fa-windows"></i></a></li>
                                         </ul>
