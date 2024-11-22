@@ -128,7 +128,8 @@
                                                 <div class="form-check form-check-custom form-check-solid">
                                                     <input class="form-check-input me-3" type="radio"
                                                         wire:click="answerMultipleChoice({{ $choice->id }})"
-                                                        name="{{ $exam_question->id }}"
+                                                        name="{{ $exam_question->id }}" id="{{ $choice->id }}"
+                                                        onload="@if ($id_answer != $choice->id) unchecked({{ $choice->id }}); @endif"
                                                         {{ $id_answer == $choice->id ? 'checked' : '' }}>
                                                     <label class="form-check-label">
                                                         @if ($choice->choice_image)
@@ -231,6 +232,11 @@
         });
     </script>
     <script>
+        function unchecked(id) {
+            document.getElementById(id).checked = false;
+        }
+    </script>
+    <script>
         var exam = @json($exam);
         var exam_session = @json($exam_session);
 
@@ -271,5 +277,4 @@
             }
         }, 1000);
     </script>
-
 @endpush
