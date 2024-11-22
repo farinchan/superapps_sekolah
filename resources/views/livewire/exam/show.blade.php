@@ -109,7 +109,7 @@
                             <div class="card-body py-4">
                                 @if ($exam_question->question_image != null)
                                     <img class="mb-5" src="{{ $exam_question->getImage() }}" alt=""
-                                        style="height: 300px;">
+                                        style=" width: 100%;">
                                 @endif
                                 <p>
 

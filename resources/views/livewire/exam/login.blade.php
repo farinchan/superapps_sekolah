@@ -68,13 +68,13 @@
                     </div>
                 </form>
             </div>
-            <div class="d-flex flex-stack">
+            {{-- <div class="d-flex flex-stack">
                 <div class="d-flex fw-semibold text-primary fs-base gap-5">
                     <a href="https://gariskode.com" target="_blank">Support</a>
                     <a href="https://wa.me/6289613390766" target="_blank">Help</a>
                     <a href="{{ env('APP_URL') }}" target="_blank">Main Website</a>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
