@@ -5,7 +5,7 @@
         <!--begin::Wrapper container-->
         <div class="app-container  container-xxl d-flex flex-row-fluid ">
             <!--begin::Sidebar-->
-            <div id="kt_app_sidebar" class="app-sidebar  flex-column " data-kt-drawer="true"
+            <div id="kt_app_sidebar" class="app-sidebar flex-column " data-kt-drawer="true" data-button-nav="kt_nav"
                 data-kt-drawer-name="app-sidebar" data-kt-drawer-activate="{default: true, lg: false}"
                 data-kt-drawer-overlay="true" data-kt-drawer-width="275px" data-kt-drawer-direction="start"
                 data-kt-drawer-toggle="#kt_app_sidebar_toggle">
@@ -24,7 +24,7 @@
                                         <div class="col-4">
                                             <button wire:click.prevent="changeQuestion({{ $state->id }})"
                                                 class="btn btn-icon btn-outline btn-light-primary btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
-                                                data-kt-button="true">
+                                                data-kt-button="true" data-kt-drawer-dismiss="true">
                                                 <span class="mb-2" style="font-size: 1.8rem;"> {{ $loop->iteration }}
                                                 </span>
                                             </button>
@@ -34,7 +34,7 @@
                                             <div class="col-4">
                                                 <button wire:click.prevent="changeQuestion({{ $state->id }})"
                                                     class="btn btn-icon btn-outline btn-light-success btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
-                                                    data-kt-button="true">
+                                                    data-kt-button="true" data-kt-drawer-dismiss="true">
                                                     <span class="mb-2" style="font-size: 1.8rem;">
                                                         {{ $loop->iteration }}
                                                     </span>
@@ -44,7 +44,7 @@
                                             <div class="col-4">
                                                 <button wire:click.prevent="changeQuestion({{ $state->id }})"
                                                     class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
-                                                    data-kt-button="true">
+                                                    data-kt-button="true" data-kt-drawer-dismiss="true">
                                                     <span class="mb-2"
                                                         style="font-size: 1.8rem;">{{ $loop->iteration }}
                                                     </span>
@@ -224,6 +224,12 @@
 
 @push('scripts')
     <script src="{{ asset('exam/plugins/custom/fslightbox/fslightbox.bundle.js') }}"></script>
+    <script>
+        $('#kt_app_sidebar_toggle').on('click', function(e) {
+            console.log('clicked');
+            $('[data-button-nav="kt_nav"]').addClass('drawer drawer-start');
+        });
+    </script>
     <script>
         var exam = @json($exam);
         var exam_session = @json($exam_session);
