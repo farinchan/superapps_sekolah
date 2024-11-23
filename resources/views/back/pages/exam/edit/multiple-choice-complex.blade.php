@@ -6,6 +6,52 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Edit Soal - Pilihan Ganda Kompleks</h3>
+                    <div class="card-toolbar">
+                        <button type="button" class="btn btn-light-danger" data-bs-toggle="modal"
+                            data-bs-target="#delete_question">
+                            <i class="ki-duotone ki-trash fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_question">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Hapus Soal</h3>
+
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                            data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                                    class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <form action="{{ route('back.exam.question.destroy', $question->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <div class="modal-body">
+                                            <p>Apakah anda yakin akan menghapus soal ini?</p>
+                                            <p class="text-danger"><strong>Perhatian</strong> : Seluruh data yang terkait
+                                                dengan
+                                                soal ini akan dihapus dan tidak dapat dikembalikan.
+                                            </p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light"
+                                                data-bs-dismiss="modal">batal</button>
+                                            <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <form action="{{ route('back.exam.question.multiple-choice-complex.update', [$exam_id, $question->id]) }}"
                     method="post" enctype="multipart/form-data">

@@ -5,6 +5,52 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">Update Soal - Pilihan Ganda</h3>
+                    <div class="card-toolbar">
+                        <button type="button" class="btn btn-light-danger" data-bs-toggle="modal"
+                            data-bs-target="#delete_question">
+                            <i class="ki-duotone ki-trash fs-1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                                <span class="path5"></span>
+                            </i>
+                        </button>
+                        <div class="modal fade" tabindex="-1" id="delete_question">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Hapus Soal</h3>
+
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                            data-bs-dismiss="modal" aria-label="Close">
+                                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                                    class="path2"></span></i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <form action="{{ route('back.exam.question.destroy', $question->id) }}" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <div class="modal-body">
+                                            <p>Apakah anda yakin akan menghapus soal ini?</p>
+                                            <p class="text-danger"><strong>Perhatian</strong> : Seluruh data yang terkait
+                                                dengan
+                                                soal ini akan dihapus dan tidak dapat dikembalikan.
+                                            </p>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-light"
+                                                data-bs-dismiss="modal">batal</button>
+                                            <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <form action="{{ route('back.exam.question.multiple-choice.update', [$exam_id, $question->id]) }}"
                     method="post" enctype="multipart/form-data">
@@ -34,7 +80,8 @@
                         </div>
                         <div class="mb">
                             <label for="name" class=" form-label required"> Bobot</label>
-                            <input type="number" class="form-control" id="question_score" name="question_score" value="{{ $question->question_score }}" required>
+                            <input type="number" class="form-control" id="question_score" name="question_score"
+                                value="{{ $question->question_score }}" required>
                         </div>
                         <div class="separator my-10"></div>
 
@@ -74,18 +121,24 @@
                                                             placeholder="text">{{ $choice->choice_text }}</textarea>
                                                     </div>
                                                     <div class="col-md-2">
-                                                        <div class="form-check form-check-custom form-check-solid mt-2 mt-md-11">
-                                                            <input class="form-check-input" type="radio" name="is_correct" value="{{ $index }}" id="form_radio_{{ $index }}" {{ $choice->is_correct ? 'checked' : '' }} required>
-                                                            <label class="form-check-label" for="form_radio_{{ $index }}">Jawaban Benar</label>
+                                                        <div
+                                                            class="form-check form-check-custom form-check-solid mt-2 mt-md-11">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="is_correct" value="{{ $index }}"
+                                                                id="form_radio_{{ $index }}"
+                                                                {{ $choice->is_correct ? 'checked' : '' }} required>
+                                                            <label class="form-check-label"
+                                                                for="form_radio_{{ $index }}">Jawaban Benar</label>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-2">
                                                         <a href="javascript:;" data-repeater-delete
                                                             class="btn btn-sm btn-light-danger mt-3 mt-md-8">
                                                             <i class="ki-duotone ki-trash fs-5"><span
-                                                                    class="path1"></span><span class="path2"></span><span
-                                                                    class="path3"></span><span class="path4"></span><span
-                                                                    class="path5"></span></i>
+                                                                    class="path1"></span><span
+                                                                    class="path2"></span><span
+                                                                    class="path3"></span><span
+                                                                    class="path4"></span><span class="path5"></span></i>
                                                             Hapus
                                                         </a>
                                                     </div>

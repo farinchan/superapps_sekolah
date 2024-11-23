@@ -399,6 +399,21 @@ class ExamController extends Controller
         return redirect()->back();
     }
 
+    public function questionDestroy($question_id){
+
+        $question = ExamQuestion::find($question_id);
+        $exam_id = $question->exam_id;
+        $question->multipleChoice()->delete();
+        $question->multipleChoiceComplex()->delete();
+        $question->matchingPair()->delete();
+        $question->examAnswer()->delete();
+        $question->delete();
+
+        Alert::success('Success', 'Data berhasil dihapus');
+        return redirect()->route('back.exam.question', $exam_id);
+
+    }
+
 
     //TODO: EXAM QUESTION MULTIPLE CHOICE
     public function questionMultipleChoice($id)

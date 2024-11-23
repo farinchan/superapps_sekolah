@@ -272,6 +272,8 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::post('/detail/{id}/question/import', [BackExamController::class, 'questionImport'])->name('question.import');
             Route::delete('/detail/{id}/question/reset', [BackExamController::class, 'questionReset'])->name('question.reset');
 
+            Route::delete('/detail/question/delete/{question_id}', [BackExamController::class, 'questionDestroy'])->name('question.destroy');
+
             Route::get('/detail/{id}/question/create-multipleChoice', [BackExamController::class, 'questionMultipleChoice'])->name('question.multiple-choice.create');
             Route::post('/detail/{id}/question/store-multipleChoice', [BackExamController::class, 'questionStoreMultipleChoice'])->name('question.multiple-choice.store');
             Route::get('/detail/{id}/question/edit-multipleChoice/{question_id}', [BackExamController::class, 'questionEditMultipleChoice'])->name('question.multiple-choice.edit');
