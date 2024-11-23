@@ -1,16 +1,16 @@
 @extends('front.app')
 
 @section('seo')
-<title>{{ $title }}</title>
-<meta name="description" content="{{ $meta_description }}">
-<meta name="keywords" content="{{ $meta_keywords }}">
+    <title>{{ $title }}</title>
+    <meta name="description" content="{{ $meta_description }}">
+    <meta name="keywords" content="{{ $meta_keywords }}">
 
-<meta property="og:title" content="{{ $title }}">
-<meta property="og:description" content="{{ $meta_description }}">
-<meta property="og:type" content="website">
-<meta property="og:url" content="{{ route('teacher') }}">
-<link rel="canonical" href="{{ route('teacher') }}">
-<meta property="og:image" content="{{ Storage::url($favicon) }}">
+    <meta property="og:title" content="{{ $title }}">
+    <meta property="og:description" content="{{ $meta_description }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ route('teacher') }}">
+    <link rel="canonical" href="{{ route('teacher') }}">
+    <meta property="og:image" content="{{ Storage::url($favicon) }}">
 @endsection
 
 @section('styles')
@@ -18,13 +18,13 @@
 
 @section('content')
     <!-- Start of breadcrumb section
-                                                              ============================================= -->
+                                                                          ============================================= -->
     <section id="breadcrumb" class="breadcrumb-section relative-position backgroud-style">
         <div class="blakish-overlay"></div>
         <div class="container">
             <div class="page-breadcrumb-content text-center">
                 <div class="page-breadcrumb-title">
-                        <h2 class="breadcrumb-head black bold"><span>
+                    <h2 class="breadcrumb-head black bold"><span>
                             @if (request()->routeIs('teacher'))
                                 Tenaga Pendidik
                             @endif
@@ -37,7 +37,7 @@
                 </div>
                 <div class="page-breadcrumb-item ul-li">
                     <ul class="breadcrumb text-uppercase black">
-                        <li class="breadcrumb-item"><a href="{{ route("home") }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                         <li class="breadcrumb-item active">Tenaga Pendidik</li>
                     </ul>
                 </div>
@@ -45,49 +45,54 @@
         </div>
     </section>
     <!-- End of breadcrumb section
-                                                              ============================================= -->
+                                                                          ============================================= -->
 
     <!-- Start of blog content
-                                                              ============================================= -->
+                                                                          ============================================= -->
     <section id="blog-item" class="blog-item-post">
         <div class="container">
             <div class="blog-content-details">
                 <div class="row">
                     <div class="col-md-9">
-						<div class="teachers-archive">
-							<div class="row">
+                        <div class="teachers-archive">
+                            <div class="row">
                                 @foreach ($list_teacher as $teacher)
+                                    <div class="col-md-4 col-sm-6">
+                                        <div class="teacher-pic-content">
+                                            <div class="teacher-img-content relative-position">
+                                                <img src="{{ $teacher->getPhoto() }}" alt=""
+                                                    style="height: 300px; width: 100%; object-fit: cover;">
+                                                <div class="teacher-hover-item">
+                                                    <div class="teacher-social-name ul-li-block">
+                                                        <ul>
+                                                            <li><a href="{{ $teacher->facebook }}"><i
+                                                                        class="fab fa-facebook-f"></i></a></li>
+                                                            <li><a href="{{ $teacher->instagram }}"><i
+                                                                        class="fab fa-instagram"></i></a></li>
+                                                            <li><a href="{{ $teacher->linkedin }}"><i
+                                                                        class="fab fa-linkedin"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="teacher-text">
+                                                        {{ Str::limit(strip_tags($teacher->about), 70) }}
+                                                    </div>
+                                                </div>
+                                                <div class="teacher-next text-center">
+                                                    <a href="{{ route('staff.detail', $teacher->id) }}"><i
+                                                            class="text-gradiant fas fa-arrow-right"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="teacher-name-designation">
+                                                <a href="{{ route('staff.detail', $teacher->id) }}"><span
+                                                        class="teacher-name">{{ $teacher->name }}</span></a>
 
-								<div class="col-md-4 col-sm-6">
-									<div class="teacher-pic-content">
-										<div class="teacher-img-content relative-position">
-											<img src="{{ $teacher->getPhoto() }}" alt="" style="height: 300px; object-fit: cover;">
-											<div class="teacher-hover-item">
-												<div class="teacher-social-name ul-li-block">
-													<ul>
-														<li><a href="{{ $teacher->facebook }}"><i class="fab fa-facebook-f"></i></a></li>
-                                                        <li><a href="{{ $teacher->instagram }}"><i class="fab fa-instagram"></i></a></li>
-                                                        <li><a href="{{ $teacher->linkedin }}"><i class="fab fa-linkedin"></i></a></li>
-													</ul>
-												</div>
-												<div class="teacher-text">
-													{{ Str::limit(strip_tags($teacher->about), 70) }}
-												</div>
-											</div>
-											<div class="teacher-next text-center">
-												<a href="{{ route("staff.detail", $teacher->id) }}"><i class="text-gradiant fas fa-arrow-right"></i></a>
-											</div>
-										</div>
-										<div class="teacher-name-designation">
-                                            <a href="{{ route("staff.detail", $teacher->id) }}"><span class="teacher-name">{{ $teacher->name }}</span></a>
-
-											<span class="teacher-designation">{{ $teacher->position }}</span>
-										</div>
-									</div>
-								</div>
+                                                <span class="teacher-designation">{{ $teacher->position }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 @endforeach
-							</div>
-							<div class="couse-pagination text-center ul-li">
+                            </div>
+                            <div class="couse-pagination text-center ul-li">
                                 <ul>
                                     @if ($list_teacher->onFirstPage())
                                         <li class="pg-text"><a href="#">PREV</a></li>
@@ -134,8 +139,8 @@
                                 </ul>
                             </div>
 
-						</div>
-					</div>
+                        </div>
+                    </div>
 
                     <div class="col-md-3">
                         <div class="side-bar">
@@ -160,10 +165,10 @@
                                 </div> --}}
                             </div>
 
-                            @include("front.components.news-categories")
+                            @include('front.components.news-categories')
 
 
-                            @include("front.components.latest-news")
+                            @include('front.components.latest-news')
 
 
                         </div>
@@ -173,7 +178,7 @@
         </div>
     </section>
     <!-- End of blog content
-                                                              ============================================= -->
+                                                                          ============================================= -->
 @endsection
 
 @section('scripts')
