@@ -172,7 +172,7 @@ class UserController extends Controller
             'birth_date' => 'nullable',
             'birth_place' => 'nullable',
             'no_telp' => 'nullable',
-            'email' => 'nullable|email|unique:users,email,' . $id,
+            'email' => 'nullable|email',
             'address' => 'nullable|max:255',
             'position' => 'nullable',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
