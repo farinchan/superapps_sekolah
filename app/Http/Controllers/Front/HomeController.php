@@ -38,7 +38,7 @@ class HomeController extends Controller
             'list_extracurricular' => Extracurricular::all(),
             'list_student_achievement' => StudentAchievement::latest()->limit(6)->get(),
             'list_teacher' => Teacher::where('type', 'tenaga pendidik')->inRandomOrder()->limit(7)->get(),
-            'list_blog_teacher' => BlogTeacher::where('status', 'published')->latest()->limit(3)->get(),
+            'list_blog_teacher' => BlogTeacher::where('status', 'published')->latest()->limit(8)->get(),
             'list_partner' => Partner::all(),
             'instagram_feed' => Profile::where('username', 'mansapapaofficial')->first()->freshFeed(12),
             'list_album' => GalleryAlbum::latest()->limit(12)->get(),
