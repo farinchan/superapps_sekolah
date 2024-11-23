@@ -570,7 +570,7 @@
                                         </div>
                                         <div class="teacher-img-category">
                                             <div class="teacher-img">
-                                                <img src="{{ $teacher->getPhoto() }}" alt="">
+                                                <img src="{{ $teacher->getPhoto() }}" alt="" style="height: 170px; width: 200; object-fit: cover;">
                                                 <div class="course-price text-uppercase text-center gradient-bg">
                                                     <span>Featured</span>
                                                 </div>
