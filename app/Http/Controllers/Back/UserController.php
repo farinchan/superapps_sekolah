@@ -599,14 +599,18 @@ class UserController extends Controller
             'meta_keywords' => 'nullable',
             'password' => 'nullable|min:8',
         ], [
-            'required' => ':attribute harus diisi',
+            'name.required' => 'Nama harus diisi',
+            'email.email' => 'Email tidak valid',
             'email.unique' => 'Email sudah terdaftar',
-            'email' => 'Email tidak valid',
-            'image' => 'File harus berupa gambar',
-            'mimes' => 'File harus berupa gambar',
-            'max' => 'Ukuran file maksimal 2MB',
-            'in' => 'Pilih :attribute yang benar',
-            'url' => 'URL tidak valid',
+            'photo.image' => 'File photo harus berupa gambar',
+            'photo.mimes' => 'File photo harus berupa gambar',
+            'photo.max' => 'Ukuran photo maksimal 2MB',
+            'facebook.url' => 'URL Facebook tidak valid',
+            'instagram.url' => 'URL Instagram tidak valid',
+            'twitter.url' => 'URL Twitter tidak valid',
+            'linkedin.url' => 'URL Linkedin tidak valid',
+            'password.min' => 'Password minimal 8 karakter',
+
         ]);
 
         if ($validator->fails()) {
