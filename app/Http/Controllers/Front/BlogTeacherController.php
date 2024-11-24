@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\BlogTeacher;
+use App\Models\BlogTeacherComment;
 use App\Models\BlogTeacherViewer;
 use App\Models\SettingWebsite;
 use Illuminate\Http\Request;
@@ -133,8 +134,8 @@ class BlogTeacherController extends Controller
 
         $blog_teacher = BlogTeacher::where('slug', $slug)->firstOrFail();
 
-        $comment = new BlogTeacher();
-        $comment->blog_teacher_id	 = $blog_teacher->id;
+        $comment = new BlogTeacherComment();
+        $comment->blog_teacher_id = $blog_teacher->id;
         // if (Auth::check()) {
         //     $comment->user_id = Auth::user()->id;
         //     $comment->name = Auth::user()->name;
