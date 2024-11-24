@@ -62,8 +62,8 @@ class ImportExamMultipleChoiceImport implements ToModel, WithHeadingRow, WithVal
     public function customValidationMessages()
     {
         return [
-            'kode.required' => 'Kode soal harus diisi',
-            'isi.required' => 'Isi soal harus diisi',
+            '1.required' => 'Kode soal harus diisi',
+            '2.required' => 'Isi soal harus diisi',
         ];
     }
 
