@@ -825,7 +825,7 @@
                                 <div class="about-btn">
                                     <div
                                         class="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font float-left">
-                                        <a href="/file_ext/app-release.apk">Download </a>
+                                        <a href="https://drive.google.com/uc?export=download&id=1hf-gkJyaAnsmbZlQzNib9pqo_jQoxCXs">Download </a>
                                     </div>
 
                                     <div class="app-stor ul-li mt10">
