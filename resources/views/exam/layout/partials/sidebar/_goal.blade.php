@@ -1,12 +1,12 @@
 <!--begin::Progress-->
-<div class="d-flex align-items-center flex-column w-100 mb-8 mb-lg-10">
+{{-- <div class="d-flex align-items-center flex-column w-100 mb-8 mb-lg-10">
     <div class="d-flex justify-content-between fw-bolder fs-6 text-gray-800  w-100 mt-auto mb-3">
         <span>Waktu Pengerjaan</span>
     </div>
     <div class="fw-semibold fs-4 text-danger w-100 mt-auto">
         <span id="timer"> </span>
     </div>
-</div>
+</div> --}}
 <div class="d-flex align-items-center flex-column w-100 mb-8 mb-lg-10">
     <div class="d-flex justify-content-between fw-bolder fs-6 text-gray-800  w-100 mt-auto mb-3">
         <span>Your Goal</span>

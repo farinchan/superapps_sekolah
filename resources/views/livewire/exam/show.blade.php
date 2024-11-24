@@ -1,3 +1,13 @@
+@push('styles')
+
+<style>
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+@endpush
+
 <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
     @include('exam/layout/partials/_header')
     <!--begin::Wrapper-->
@@ -91,6 +101,8 @@
                         </div>
                     </div>
 
+
+
                     <div id="kt_app_content" class="app-content  flex-column-fluid ">
                         <div class="card">
                             <div class="card-header card-header-stretch">
@@ -108,8 +120,8 @@
                             </div>
                             <div class="card-body py-4">
                                 @if ($exam_question->question_image != null)
-                                    <img class="mb-5" src="{{ $exam_question->getImage() }}" alt=""
-                                        style=" width: 100%;">
+                                    <img class="mb-5 img-fluid" src="{{ $exam_question->getImage() }}" alt=""
+                                        >
                                 @endif
                                 <p>
 
@@ -133,8 +145,7 @@
                                                         {{ $id_answer == $choice->id ? 'checked' : '' }}>
                                                     <label class="form-check-label">
                                                         @if ($choice->choice_image)
-                                                            <img src="{{ $choice->getImage() }}" alt=""
-                                                                style="max-height: 150px;">
+                                                            <img class="img-fluid" src="{{ $choice->getImage() }}" alt="" >
                                                         @endif
                                                         <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
                                                         </div>
@@ -152,8 +163,7 @@
                                                         @if (in_array($choice->id, $exam_multiple_choice_complex_text)) checked @endif>
                                                     <label class="form-check-label">
                                                         @if ($choice->choice_image)
-                                                            <img src="{{ $choice->getImage() }}" alt=""
-                                                                style="max-height: 150px;">
+                                                            <img class="img-fluid" src="{{ $choice->getImage() }}" alt="">
                                                         @endif
                                                         <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
                                                         </div>

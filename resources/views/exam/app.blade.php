@@ -30,6 +30,8 @@
     <link href="{{ asset('exam/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('exam/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     @livewireStyles
+    @stack('style')
+
     <!--end::Global Stylesheets Bundle-->
     <script>
         // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking)

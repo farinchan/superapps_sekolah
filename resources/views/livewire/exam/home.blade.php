@@ -45,7 +45,7 @@
                                         <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                             <th class="min-w-125px">Ujian</th>
                                             <th class="min-w-125px">Guru</th>
-                                            <th class="">Nilai</th>
+                                            {{-- <th class="">Nilai</th> --}}
                                             <th class="text-end "></th>
                                         </tr>
                                     </thead>
@@ -84,14 +84,14 @@
                                                     </span>
                                                 </td>
 
-                                                <td>
+                                                {{-- <td>
                                                     {{ $exam->score ?? '-' }}
-                                                </td>
+                                                </td> --}}
 
 
                                                 <td class="text-end">
                                                     @if ($exam->start_time < now() && $exam->end_time > now())
-                                                        @if ($exam->score)
+                                                        @if ($exam->score !== null)
                                                             <span class="badge badge-light-success">Sudah Dinilai</span>
                                                         @else
                                                             @if ($exam->session_start_time && $exam->session_end_time === null)

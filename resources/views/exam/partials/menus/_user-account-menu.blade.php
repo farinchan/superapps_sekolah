@@ -6,7 +6,7 @@
         <div class="menu-content d-flex align-items-center px-3">
             <!--begin::Avatar-->
             <div class="symbol symbol-50px me-5">
-                <img alt="Logo" src="assets/media/avatars/300-13.jpg" />
+                <img alt="Logo" src="{{ Auth::user()->student->getPhoto() }}" />
             </div>
             <!--end::Avatar-->
             <!--begin::Username-->

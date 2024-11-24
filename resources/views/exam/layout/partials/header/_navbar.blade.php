@@ -31,6 +31,19 @@
             <i class="ki-outline ki-notification-on fs-1"></i>
         </div>
     </div> --}}
+    @if (request()->routeIs('exam.show'))
+        <div class="app-navbar-item ms-1 ms-lg-5 text-end">
+            <div class="d-flex align-items-center flex-column ">
+                <div class="d-flex  fw-bolder fs-6 text-gray-800  mt-auto ">
+                    <span>Sisa Waktu Pengerjaan</span>
+                </div>
+                <div class="fw-semibold fs-4 text-danger mt-auto text-end">
+                    <span id="timer"> </span>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <!--end::Chat-->
     <!--begin::User menu-->
     <div class="app-navbar-item ms-3 ms-lg-5" id="kt_header_user_menu_toggle">
