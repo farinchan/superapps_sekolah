@@ -170,7 +170,7 @@
                 @foreach ($list_news as $news)
                     <div class="course-item-pic-text ">
                         <div class="course-pic relative-position mb25">
-                            <img src="{{ $news->getThumbnail() }}" alt="" style="height: 200px; width: 100%; object-fit: cover;">
+                            <img src="{{ $news->getThumbnail() }}" alt="" style="height: 250px; width: 100%; object-fit: cover;">
                             {{-- <div class="course-price text-center gradient-bg">
                                 <span>$99.00</span>
                             </div> --}}
