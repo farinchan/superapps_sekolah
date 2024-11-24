@@ -54,7 +54,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="teacher-details-img">
-                                        <img src="{{ $teacher->getPhoto() }}" alt="" style="width: 100%; height: 400px; object-fit: cover;">
+                                        <img src="{{ $teacher->getPhoto() }}" alt="" style="width: 100%; height: 470px; object-fit: cover;">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
