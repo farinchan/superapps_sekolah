@@ -58,9 +58,9 @@
                                                             @if ($exam->type == 'UH')
                                                                 Ujian Harian
                                                             @elseif ($exam->type == 'UTS')
-                                                                Ujian Tengah Semester
+                                                                Sumatif Tengah Semester
                                                             @elseif ($exam->type == 'UAS')
-                                                                Ujian Akhir Semester
+                                                                Sumatif Akhir Semester
                                                             @endif
                                                             - {{ $exam->subject }}
                                                         </a>

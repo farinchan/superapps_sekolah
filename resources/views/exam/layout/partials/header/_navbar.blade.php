@@ -34,10 +34,10 @@
     @if (request()->routeIs('exam.show'))
         <div class="app-navbar-item ms-1 ms-lg-5 text-end">
             <div class="d-flex align-items-center flex-column ">
-                <div class="d-flex  fw-bolder fs-6 text-gray-800  mt-auto ">
+                <div class="d-flex  fw-bolder fs-7 text-gray-800  mt-auto ">
                     <span>Sisa Waktu Pengerjaan</span>
                 </div>
-                <div class="fw-semibold fs-4 text-danger mt-auto text-end">
+                <div class="fw-semibold fs-5 text-danger mt-auto text-end">
                     <span id="timer"> </span>
                 </div>
             </div>

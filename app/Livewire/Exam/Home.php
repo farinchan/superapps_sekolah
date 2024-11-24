@@ -35,6 +35,7 @@ class Home extends Component
                     $query->where('student_id', Auth::user()->student->id);
                 });
             })->join('exam', 'exam.id', '=', 'exam_classroom.exam_id')
+            ->where('exam.start_time', '<=', now())
             ->join('subject', 'subject.id', '=', 'exam.subject_id')
             ->leftJoin('teacher', 'teacher.id', '=', 'exam.teacher_id')
             ->leftJoin('exam_session', function ($join) {

@@ -36,8 +36,8 @@
                                             data-kt-user-table-filter="type" data-hide-search="true">
                                             <option></option>
                                             <option value="UH">Ulangan Harian</option>
-                                            <option value="UTS">Ujian Tengah Semester</option>
-                                            <option value="UAS">Ujian Akhir Semester</option>
+                                            <option value="UTS">Sumatif Tengah Semester</option>
+                                            <option value="UAS">Sumatif Akhir Semester</option>
                                         </select>
                                     </div>
                                     <div class="mb-5">
@@ -232,8 +232,8 @@
                             <select class="form-select" id="type" name="type" data-control="select2"
                                 data-placeholder="Select an option" data-hide-search="true" required>
                                 <option value="UH">Ulangan Harian</option>
-                                <option value="UTS">Ujian Tengah Semester</option>
-                                <option value="UAS">Ujian Akhir Semester</option>
+                                <option value="UTS">Sumatif Tengah Semester</option>
+                                <option value="UAS">Sumatif Akhir Semester</option>
                             </select>
                         </div>
                         <div class="mb-3">
