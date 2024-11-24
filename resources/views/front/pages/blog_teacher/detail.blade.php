@@ -157,12 +157,12 @@
                     <div class="blog-comment-area ul-li about-teacher-2">
                         @if ($comments->count() > 0)
                             <div class="section-title-2  headline text-left">
-                                <h2>Post <span>Comments.</span></h2>
+                                <h2><span>Komentar</span></h2>
                             </div>
 
                             <ul class="comment-list">
                                 @foreach ($comments as $comment)
-                                    <li>
+                                    <li style="width: 100%">
                                         <div class=" comment-avater">
                                             <img src="https://ui-avatars.com/api/?background=000C32&color=fff&name={{ $comment->name }}"
                                                 alt="" style="border-radius: 50%">
