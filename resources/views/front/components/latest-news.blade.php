@@ -12,7 +12,7 @@
         @foreach ($latest_news as $latest)
             <div class="latest-news-area">
                 <div class="latest-news-thumbnile relative-position">
-                    <img src="{{ $latest->getThumbnail() }}" alt="" style="width: 100%; height: 120px; object-fit: cover;">
+                    <img src="{{ $latest->getThumbnail() }}" alt="" style="width: 100%; height: 100px; object-fit: cover;">
                     <div class="hover-search">
                         <i class="fas fa-search"></i>
                     </div>
