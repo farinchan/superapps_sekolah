@@ -5,7 +5,7 @@
             @include('back.pages.exam.detail-header')
             <div class="card card-flush">
                 <div class="card-header align-items-center">
-                    <div class="card-title fw-bolder">Pelanggaran Siswa</div>
+                    <div class="card-title fw-bolder">Penilaian Siswa</div>
                 </div>
                 <div class="card-body pt-0">
 
@@ -24,7 +24,7 @@
                             <div class="d-flex align-items-center position-relative my-1">
                                 <select data-control="select2" data-hide-search="true" data-placeholder="Pilih Kelas"
                                     id="class_id" class="form-select form-select-solid form-select-lg fw-bold">
-                                    <option selected disabled></option>
+                                    <option value="0" selected>Semua</option>
                                     @foreach ($list_classroom as $class)
                                         <option value="{{ $class->id }}">{{ $class->name }} -
                                             {{ $class->schoolYear?->start_year }}
@@ -33,6 +33,16 @@
 
                                 </select>
                             </div>
+                        </div>
+                    </div>
+                    <div class=" mb-5">
+                        <div class="btn-group" role="group">
+                            <button onclick="exportNilai({{ $exam->id }})" class="btn  btn-secondary"><i
+                                    class="ki-duotone ki-file-up fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>&nbsp;
+                                Export Nilai</button>
                         </div>
                     </div>
 
@@ -77,7 +87,7 @@
                 data: function(d) {
                     // Kirim parameter tambahan jika diperlukan
                     d.search = $('#search').val();
-                    d.classroom_id = $('#class_id').val();
+                    d.classroom_id = $('#class_id').val() != 0 ? $('#class_id').val() : null;
                 }
             },
             columns: [{
@@ -121,5 +131,16 @@
         $('#class_id').on('change', function() {
             $('#datatable_ajax').DataTable().ajax.reload();
         });
+    </script>
+
+    <script>
+        function exportNilai(exam_id) {
+            console.log(exam_id);
+
+            var search = $('#search').val();
+            var classroom_id = $('#class_id').val() != 0 ? $('#class_id').val() : "";
+            window.location.href =
+                `/back/exam/detail/${exam_id}/student/export?search=${search}&classroom_id=${classroom_id}`;
+        }
     </script>
 @endsection

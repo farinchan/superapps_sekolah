@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Exports\ExamScoreStudent;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportExamMatchingPairImport;
 use App\Imports\ImportExamMultipleChoiceComplexImport;
@@ -223,15 +224,17 @@ class ExamController extends Controller
         $classroom_id = $request->classroom_id;
 
         $student = ClassroomStudent::join('student', 'student.id', '=', 'classroom_student.student_id')
-            ->wherehas('classroom.examClassroom', function ($query) use ($id) {
-                $query->where('exam_id', $id);
+            ->when($classroom_id, function ($query) use ($classroom_id) {
+                $query->where('classroom_id', $classroom_id);
             })
+
             ->when(function ($query) use ($search) {
                 $query->where('student.name', 'like', '%' . $search . '%');
             })
-            ->when(function ($query) use ($classroom_id) {
-                $query->where('classroom_id', $classroom_id);
+            ->wherehas('classroom.examClassroom', function ($query) use ($id) {
+                $query->where('exam_id', $id);
             })
+
             ->leftJoin('exam_session', function ($join) use ($id) {
                 $join->on('exam_session.student_id', '=', 'student.id')
                     ->where('exam_session.exam_id', $id);
@@ -239,6 +242,7 @@ class ExamController extends Controller
             ->leftJoin('school_year', 'school_year.id', '=', 'classroom.school_year_id')
             ->select('student.id as student_id', 'student.name', 'student.nisn', 'student.nik', 'student.photo', 'exam_session.id as session_id', 'exam_session.start_time', 'exam_session.end_time', 'exam_session.score', 'classroom.id as classroom_id', 'classroom.name as classroom_name', 'school_year.start_year as school_year_start', 'school_year.end_year as school_year_end')
             ->get();
+
 
         return datatables()->of($student)
             ->addColumn('index', function ($row) {
@@ -251,7 +255,7 @@ class ExamController extends Controller
                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                             <a href="#">
                                 <div class="symbol-label">
-                                    <img src="' . $row->photo . '"
+                                    <img src="' . ($row->photo == null ? asset('img_ext/anonim_person.png') : asset('storage/' . $row->photo)) . '"
                                         alt="' . $row->name . '" class="h-75"
                                         width="50px" />
                                 </div>
@@ -301,6 +305,14 @@ class ExamController extends Controller
             })
             ->rawColumns(['index', 'siswa', 'kelas', 'nilai', 'action'])
             ->make(true);
+    }
+
+    public function studentExport(Request $request, $id)
+    {
+        $search = $request->search;
+        $classroom_id = $request->classroom_id;
+
+        return Excel::download(new ExamScoreStudent($id, $classroom_id, $search), 'nilai-ujian-' . now() . '.xlsx');
     }
 
     public function studentExamReset($session_id)
@@ -399,7 +411,8 @@ class ExamController extends Controller
         return redirect()->back();
     }
 
-    public function questionDestroy($question_id){
+    public function questionDestroy($question_id)
+    {
 
         $question = ExamQuestion::find($question_id);
         $exam_id = $question->exam_id;
@@ -411,7 +424,6 @@ class ExamController extends Controller
 
         Alert::success('Success', 'Data berhasil dihapus');
         return redirect()->route('back.exam.question', $exam_id);
-
     }
 
 
@@ -818,6 +830,5 @@ class ExamController extends Controller
 
         Alert::success('Success', 'Data berhasil ditambahkan');
         return redirect()->route('back.exam.question', $id);
-
     }
 }
