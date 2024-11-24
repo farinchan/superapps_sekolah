@@ -28,7 +28,7 @@
                         @include('exam/layout/partials/sidebar/_goal')
                         <div class="mb-0">
                             <h3 class="text-gray-800 fw-bold mb-8">Soal</h3>
-                            <div class="row g-5 justify-content-center">
+                            <div class="row g-5 justify-content-center mb-10">
                                 @foreach ($exam_question_state as $state)
                                     @if ($state->id == $exam_question->id)
                                         <div class="col-4">
@@ -65,8 +65,11 @@
                                 @endforeach
 
 
-
                             </div>
+                            <button class="btn btn-light-success fs-5 w-100 py-4" data-bs-toggle="modal"
+                            data-bs-target="#end_exam" >
+                                Selesaikan Ujian
+                            </button>
                         </div>
                     </div>
                 </div>
