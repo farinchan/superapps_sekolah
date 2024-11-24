@@ -146,7 +146,7 @@
 
 							<ul class="comment-list">
                                 @foreach ($comments as $comment)
-                                <li>
+                                <li style="width: 100%">
 									<div class=" comment-avater">
 										<img src="https://ui-avatars.com/api/?background=000C32&color=fff&name={{  $comment->name }}" alt="" style="border-radius: 50%">
 									</div>
