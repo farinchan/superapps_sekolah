@@ -123,6 +123,7 @@
                                 <th class="min-w-125px">Waktu Ujian</th>
                                 <th class="min-w-125px">Durasi</th>
                                 <th class="min-w-125px">Tipe Ujian</th>
+                                <th class="">Jumlah Soal</th>
                                 <th class="min-w-125px">Tahun Ajaran</th>
                                 <th class="min-w-125px">Guru</th>
                                 <th class="text-end ">Action</th>
@@ -159,6 +160,9 @@
                                         @elseif ($exam->type == 'UAS')
                                             SAS
                                         @endif
+                                    </td>
+                                    <td>
+                                        {{ $exam->examQuestion->count() }} Soal
                                     </td>
                                     <td>
                                         @if ($exam->semester == 'ganjil')
