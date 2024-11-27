@@ -128,6 +128,11 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if ($exam->semester == 'ganjil')
+                                            Semester Ganjil <br>
+                                        @elseif ($exam->semester == 'genap')
+                                            Semester Genap <br>
+                                        @endif
                                         {{ $exam->schoolYear->start_year }}/{{ $exam->schoolYear->end_year }}
                                     </td>
                                     <td>
