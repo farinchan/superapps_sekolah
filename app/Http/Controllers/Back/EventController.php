@@ -60,9 +60,17 @@ class EventController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $slug = "";
+        if (Event::where('slug', Str::slug($request->title))->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        } else {
+            $slug = Str::slug($request->title);
+        }
+
+
         $event = new event();
         $event->title = $request->title;
-        $event->slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        $event->slug = $slug;
         $event->content = $request->content;
         $event->start = $request->start;
         $event->end = $request->end;
@@ -123,9 +131,16 @@ class EventController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $slug = "";
+        if (Event::where('slug', Str::slug($request->title))->where('id', '!=', $id)->count() > 0) {
+            $slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        } else {
+            $slug = Str::slug($request->title);
+        }
+
         $event = Event::find($id);
         $event->title = $request->title;
-        $event->slug = Str::slug($request->title) . '-' . rand(1000, 9999);
+        $event->slug = $slug;
         $event->content = $request->content;
         $event->start = $request->start;
         $event->end = $request->end;

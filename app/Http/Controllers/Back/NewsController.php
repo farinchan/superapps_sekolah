@@ -204,7 +204,7 @@ class NewsController extends Controller
         }
 
         $slug = "";
-        if (News::where('slug', Str::slug($request->title))->count() > 0) {
+        if (News::where('slug', Str::slug($request->title))->where('id', '!=', $id)->count() > 0) {
             $slug = Str::slug($request->title) . '-' . rand(1000, 9999);
         } else {
             $slug = Str::slug($request->title);
