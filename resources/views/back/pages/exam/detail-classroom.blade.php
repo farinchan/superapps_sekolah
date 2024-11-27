@@ -5,7 +5,7 @@
             @include('back.pages.exam.detail-header')
             <div class="card card-flush">
                 <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-                    @role('admin')
+                    @role('admin|proktor')
                         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
 
                             <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add">
