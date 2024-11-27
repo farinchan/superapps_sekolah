@@ -216,9 +216,9 @@ class ExamController extends Controller
         return redirect()->route('back.exam.classroom', $id);
     }
 
-    public function classroomDestroy($id)
+    public function classroomDestroy($id, $classroom_id)
     {
-        ExamClassroom::find($id)->delete();
+        ExamClassroom::find($classroom_id)->delete();
 
         Alert::success('Success', 'Data berhasil dihapus');
         return redirect()->back();
