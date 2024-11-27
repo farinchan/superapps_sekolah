@@ -69,31 +69,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4">
-                    <div class="card h-md-100" dir="ltr">
-                        <div class="card-body d-flex flex-column flex-center">
-                            <div class="mb-2">
-                                <h1 class="fw-semibold text-gray-800 text-center lh-lg">
-                                    Halo Admin 👋<br>
-                                    <span class="fw-bolder">{{ Auth::user()->name }}</span>
-                                </h1>
-                                <div class="py-10 text-center">
-                                    <img src="{{ asset('back/media/svg/illustrations/easy/1.svg') }}"
-                                        class="theme-light-show w-200px" alt="">
-                                    <img src="/metronic8/demo1/assets/media/svg/illustrations/easy/1-dark.svg"
-                                        class="theme-dark-show w-200px" alt="">
-                                </div>
-                            </div>
-                            <div class="text-center mb-1">
-                                <p>
-                                    Selamat datang di halaman admin PDM Bukittinggi <br>
-                                    Dashboard ini adalah tempat untuk melihat data dan statistik dari website PDM
-                                    Bukittinggi
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="row g-5 g-xl-10">
                 <div class="col-sm-6 col-xl-2 mb-xl-10">
