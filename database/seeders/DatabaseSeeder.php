@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $staff =  Role::create(['name' => 'staff']);
         $siswa =  Role::create(['name' => 'siswa']);
         $orangtua =  Role::create(['name' => 'orangtua']);
+        $proktor =  Role::create(['name' => 'proktor']);
 
         user::create([
             'email' => 'fajri@gariskode.com',

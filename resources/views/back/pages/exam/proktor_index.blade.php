@@ -66,6 +66,16 @@
 
                                         </select>
                                     </div>
+                                    <div class="mb-5">
+                                        <label class="form-label fs-6 fw-semibold">Semester</label>
+                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                            data-placeholder="Pilih Guru" data-allow-clear="true" data-hide-search="true"
+                                            data-kt-user-table-filter="semester">
+                                            <option value="ganjil">Semester Ganjil</option>
+                                            <option value="genap">Semester Genap</option>
+
+                                        </select>
+                                    </div>
                                     <div class="d-flex justify-content-end">
                                         <button type="reset"
                                             class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"

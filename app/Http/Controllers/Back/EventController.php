@@ -42,6 +42,7 @@ class EventController extends Controller
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'nullable|mimes:pdf|max:8192',
             'title' => 'required',
             'content' => 'required',
             'start' => 'required',
@@ -76,6 +77,11 @@ class EventController extends Controller
             $event->image =  $image->storeAs('event', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension(), 'public');
         }
 
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $event->file =  $file->storeAs('event', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $file->getClientOriginalExtension(), 'public');
+        }
+
         $event->save();
 
         Alert::success('Sukses', 'event berhasil ditambahkan');
@@ -98,6 +104,7 @@ class EventController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'nullable|mimes:pdf|max:8192',
             'title' => 'required',
             'content' => 'required',
             'start' => 'required',
@@ -129,8 +136,19 @@ class EventController extends Controller
         $event->user_id = Auth::user()->id;
 
         if ($request->hasFile('image')) {
+            if ($event->image) {
+                Storage::delete('public/' . $event->image);
+            }
             $image = $request->file('image');
             $event->image = $image->storeAs('event', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        if ($request->hasFile('file')) {
+            if ($event->file) {
+                Storage::delete('public/' . $event->file);
+            }
+            $file = $request->file('file');
+            $event->file = $file->storeAs('event', date('YmdHis') . '_' . Str::slug($request->title) . '.' . $file->getClientOriginalExtension(), 'public');
         }
 
         $event->save();
@@ -142,6 +160,12 @@ class EventController extends Controller
     public function destroy($id)
     {
         $event = Event::find($id);
+        if ($event->file) {
+            Storage::delete('public/' . $event->file);
+        }
+        if ($event->image) {
+            Storage::delete('public/' . $event->image);
+        }
         $event->delete();
 
         if ($event->image) {

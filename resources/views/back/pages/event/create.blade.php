@@ -107,6 +107,16 @@
                                 @enderror
                             </div>
                             <div class="mb-10">
+                                <label class="form-label ">File Lampiran</label>
+                                <input type="file" name="file" class="form-control mb-2" accept=".pdf" />
+                                @error('file')
+                                    <div class="text-danger fs-7">{{ $message }}</div>
+                                @enderror
+                                <div class="text-muted fs-7">
+                                    File agenda, Hanya menerima file dengan ekstensi <code>.pdf</code> , dengan ukuran maksimal 8 MB
+                                </div>
+                            </div>
+                            <div class="mb-10">
                                 <div class="row">
                                     <div class="col">
                                         <label class="form-label required">Tanggal Mulai</label>

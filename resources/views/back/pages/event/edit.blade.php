@@ -2,7 +2,8 @@
 @section('content')
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
-            <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row" action="{{ route("back.event.update", $event->id) }}" method="POST" enctype="multipart/form-data">
+            <form id="kt_ecommerce_add_category_form" class="form d-flex flex-column flex-lg-row"
+                action="{{ route('back.event.update', $event->id) }}" method="POST" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
@@ -15,7 +16,9 @@
                         <div class="card-body text-center pt-0">
                             <style>
                                 .image-input-placeholder {
-                                    background-image: url('@if($event->image) {{ Storage::url($event->image) }} @else {{ asset('back/media/svg/files/blank-image.svg') }} @endif');'
+                                    background-image: url('@if ($event->image) {{ Storage::url($event->image) }} @else {{ asset('back/media/svg/files/blank-image.svg') }} @endif');
+                                    '
+
                                 }
                             </style>
                             <div class="image-input image-input-empty image-input-outline image-input-placeholder mb-3"
@@ -86,8 +89,8 @@
                         <div class="card-body pt-0">
                             <div class="mb-10 fv-row">
                                 <label class="required form-label">Judul</label>
-                                <input type="text" name="title" class="form-control mb-2"
-                                    placeholder="Judul agenda" value="{{ $event->title }}" required />
+                                <input type="text" name="title" class="form-control mb-2" placeholder="Judul agenda"
+                                    value="{{ $event->title }}" required />
                                 @error('title')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror
@@ -104,11 +107,29 @@
                                 @enderror
                             </div>
                             <div class="mb-10">
+                                <label class="form-label ">File Lampiran</label>
+                                <input type="file" name="file" class="form-control mb-2" accept=".pdf" />
+                                @error('file')
+                                    <div class="text-danger fs-7">{{ $message }}</div>
+                                @enderror
+                                <div class="text-muted fs-7">
+                                    File agenda, Hanya menerima file dengan ekstensi <code>.pdf</code> , dengan ukuran
+                                    maksimal 8 MB
+                                </div>
+                                @if ($event->file)
+                                    <div class="text-muted fs-7">
+                                        File Lampiran Sebelumnya : <a href="{{ $event->getFile() }}" target="_blank">
+                                            {{ $event->getFile() }} </a>, kosongkan jika tidak ingin mengganti file
+                                    </div>
+                                @endif
+                            </div>
+                            <div class="mb-10">
                                 <div class="row">
                                     <div class="col">
                                         <label class="form-label required">Tanggal Mulai</label>
                                         <input type="datetime-local" name="start" class="form-control mb-2"
-                                            value=" {{ Carbon\Carbon::parse($event->start)->format('Y-m-d\TH:i') }}" required />
+                                            value="{{ Carbon\Carbon::parse($event->start)->format('Y-m-d\TH:i') }}"
+                                            required />
                                         @error('start')
                                             <div class="text-danger fs-7">{{ $message }}</div>
                                         @enderror
@@ -116,7 +137,7 @@
                                     <div class="col">
                                         <label class="form-label required">Tanggal Selesai</label>
                                         <input type="datetime-local" name="end" class="form-control mb-2"
-                                            value=" {{ Carbon\Carbon::parse($event->end)->format('Y-m-d\TH:i') }}" required />
+                                            value="{{ Carbon\Carbon::parse($event->end)->format('Y-m-d\TH:i') }}" required />
                                         @error('end')
                                             <div class="text-danger fs-7">{{ $message }}</div>
                                         @enderror
@@ -125,8 +146,8 @@
                             </div>
                             <div>
                                 <label class="form-label">Meta Tag Keywords</label>
-                                <input id="keyword_tagify" name="meta_keywords"
-                                    class="form-control mb-2" value="{{ $event->meta_keywords }}" />
+                                <input id="keyword_tagify" name="meta_keywords" class="form-control mb-2"
+                                    value="{{ $event->meta_keywords }}" />
                                 @error('meta_keywords')
                                     <div class="text-danger fs-7">{{ $message }}</div>
                                 @enderror

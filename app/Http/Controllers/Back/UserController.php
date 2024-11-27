@@ -113,6 +113,10 @@ class UserController extends Controller
             $user->assignRole('bendahara');
         }
 
+        if ($request->role_proktor) {
+            $user->assignRole('proktor');
+        }
+
         if ($request->role_staff) {
             $user->assignRole('staff');
         }
@@ -273,6 +277,12 @@ class UserController extends Controller
             $user->assignRole('bendahara');
         } else {
             $user->removeRole('bendahara');
+        }
+
+        if ($request->role_proktor) {
+            $user->assignRole('proktor');
+        } else {
+            $user->removeRole('proktor');
         }
 
         if ($request->role_staff) {

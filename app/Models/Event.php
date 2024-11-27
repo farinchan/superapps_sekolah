@@ -16,6 +16,7 @@ class Event extends Model
         'title',
         'content',
         'image',
+        'file',
         'slug',
         'is_active',
         'start',
@@ -34,5 +35,10 @@ class Event extends Model
     public function getImage()
     {
         return $this->image ? Storage::url($this->image) : asset('back/media/svg/files/blank-image.svg');
+    }
+
+    public function getFile()
+    {
+        return $this->file ? Storage::url($this->file) : null;
     }
 }

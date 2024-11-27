@@ -253,7 +253,7 @@ Route::domain(env('APP_URL'))->group(function () {
 
         Route::prefix('exam')->name('exam.')->group(function () {
             Route::get('/', [BackExamController::class, 'index'])->name('index');
-            Route::get('/operator', [BackExamController::class, 'operator'])->name('operator');
+            Route::get('/proktor', [BackExamController::class, 'proktor'])->name('proktor');
             Route::post('/create', [BackExamController::class, 'store'])->name('store');
 
             Route::get('/detail/{id}/setting', [BackExamController::class, 'setting'])->name('setting');

@@ -54,15 +54,12 @@
                                         </select>
                                     </div>
                                     <div class="mb-5">
-                                        <label class="form-label fs-6 fw-semibold">Guru</label>
+                                        <label class="form-label fs-6 fw-semibold">Semester</label>
                                         <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                            data-placeholder="Pilih Guru" data-allow-clear="true"
-                                            data-kt-user-table-filter="teacher">
-                                            <option></option>
-                                            @foreach ($list_teacher as $teacher)
-                                                <option value="{{ $teacher->name }}">{{ $teacher->name }} -
-                                                    {{ $teacher->nip }} </option>
-                                            @endforeach
+                                            data-placeholder="Pilih Guru" data-allow-clear="true" data-hide-search="true"
+                                            data-kt-user-table-filter="semester">
+                                            <option value="ganjil">Semester Ganjil</option>
+                                            <option value="genap">Semester Genap</option>
 
                                         </select>
                                     </div>
@@ -74,19 +71,6 @@
                                             data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
                                     </div>
                                 </div>
-                            </div>
-
-                            <a href="#" class="btn btn-primary me-3" data-bs-toggle="modal"
-                                data-bs-target="#add_exam">
-                                <i class="ki-duotone ki-plus fs-2"></i>Tambah Ujian</a>
-                            <div class="btn-group">
-                                <a class="btn btn-secondary" href="#">
-                                    <i class="ki-duotone ki-file-up fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                    Export
-                                </a>
                             </div>
                         </div>
                         <div class="d-flex justify-content-end align-items-center d-none" {{-- data-kt-user-table-toolbar="selected" --}}>
@@ -174,99 +158,6 @@
     </div>
 
 
-    <!-- Modal Add Exam -->
-    <div class="modal fade" tabindex="-1" id="add_exam">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3 class="modal-title">Modal title</h3>
-
-                    <!--begin::Close-->
-                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
-                        aria-label="Close">
-                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
-                    </div>
-                    <!--end::Close-->
-                </div>
-
-                <form action="{{ route('back.exam.store') }}" method="POST">
-                    @csrf
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="name" class="form-label required">Mata Pelajaran</label>
-                            <select class="form-select" id="subject_id" name="subject_id" data-control="select2"
-                                data-placeholder="Select an option" data-dropdown-parent="#add_exam" required>
-                                @foreach ($list_subject as $subject)
-                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">Deskripsi</label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Deskripsi" rows="3"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <div class="row">
-                                <div class="col">
-                                    <label for="start_time" class="form-label required">Waktu Mulai</label>
-                                    <input type="datetime-local" class="form-control" id="start_time" name="start_time"
-                                        required>
-                                </div>
-                                <div class="col">
-                                    <label for="end_time" class="form-label required">Waktu Selesai</label>
-                                    <input type="datetime-local" class="form-control" id="end_time" name="end_time"
-                                        required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="duration" class="form-label required">Durasi</label>
-                            <div class="input-group mb-5">
-                                <input type="number" class="form-control" id="duration" name="duration"
-                                    placeholder="60" required>
-                                <span class="input-group-text">Menit</span>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="type" class="form-label required">Tipe Ujian</label>
-                            <select class="form-select" id="type" name="type" data-control="select2"
-                                data-placeholder="Select an option" data-hide-search="true" required>
-                                <option value="UH">Ulangan Harian</option>
-                                <option value="UTS">Sumatif Tengah Semester</option>
-                                <option value="UAS">Sumatif Akhir Semester</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="school_year" class="form-label required">Tahun Ajaran</label>
-                            <select class="form-select" id="school_year_id" name="school_year_id" data-control="select2"
-                                data-placeholder="Select an option" data-hide-search="true" required>
-                                @foreach ($list_school_year as $school_year)
-                                    <option value="{{ $school_year->id }}">
-                                        {{ $school_year->start_year }}/{{ $school_year->end_year }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="teacher" class="form-label required">Guru</label>
-                            <select class="form-select" id="teacher_id" name="teacher_id" data-control="select2"
-                                data-placeholder="Select an option" data-dropdown-parent="#add_exam" required>
-                                @foreach ($list_teacher as $teacher)
-                                    <option value="{{ $teacher->id }}">{{ $teacher->name }} - NIP.{{ $teacher->nip }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary">Tambah</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('scripts')

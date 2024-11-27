@@ -379,7 +379,7 @@
 
                 @role('admin|guru')
                     <div class="menu-item">
-                        <a class="menu-link @if (request()->routeIs('back.exam.*')) active @endif"
+                        <a class="menu-link @if (request()->routeIs('back.exam.index')) active @endif"
                             href="{{ route('back.exam.index') }}">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-tablet-book fs-2">
@@ -388,6 +388,21 @@
                                 </i>
                             </span>
                             <span class="menu-title">Ujian</span>
+                        </a>
+                    </div>
+                @endrole
+                @role('admin|proktor')
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.exam.proktor')) active @endif"
+                            href="{{ route('back.exam.proktor') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-tablet-down fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Proktor Ujian</span>
                         </a>
                     </div>
                 @endrole

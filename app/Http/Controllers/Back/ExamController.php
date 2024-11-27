@@ -34,22 +34,15 @@ class ExamController extends Controller
     {
         $list_exam = [];
 
-        if (Auth::user()->hasRole('admin')) {
-            $list_exam = Exam::with('teacher', 'schoolYear')->get();
-        } elseif (Auth::user()->hasRole('guru')) {
-            $list_exam = Exam::with('teacher', 'schoolYear')->where('teacher_id', Auth::user()->teacher->id)->get();
-        }
+        $list_exam = Exam::with('teacher', 'schoolYear')->where('teacher_id', Auth::user()->teacher->id)->get();
 
         $data = [
-            'title' => 'List Ujian',
+            'title' => 'Ujian yang ditugaskan',
             'menu' => 'E-Learning',
             'sub_menu' => 'Ujian',
 
             'list_exam' => $list_exam,
-
-            'list_subject' => Subject::all(),
             'list_school_year' => SchoolYear::all(),
-            'list_teacher' => Teacher::where('type', 'tenaga pendidik')->get(),
 
 
         ];
@@ -57,13 +50,13 @@ class ExamController extends Controller
         return view('back.pages.exam.index', $data);
     }
 
-    public function operator()
+    public function proktor()
     {
         $list_exam = Exam::with('teacher', 'schoolYear')->get();
 
 
         $data = [
-            'title' => 'List Ujian',
+            'title' => 'Proktor Ujian',
             'menu' => 'E-Learning',
             'sub_menu' => 'Ujian',
 
@@ -76,7 +69,7 @@ class ExamController extends Controller
 
         ];
 
-        return view('back.pages.exam.operator_index', $data);
+        return view('back.pages.exam.proktor_index', $data);
     }
 
 
