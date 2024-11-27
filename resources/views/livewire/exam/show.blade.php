@@ -1,11 +1,23 @@
 @push('styles')
+    <style>
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+@endpush
 
-<style>
-    .img-fluid {
-        max-width: 100%;
-        height: auto;
-    }
-</style>
+@push('timer')
+    <div class="app-navbar-item ms-1 ms-lg-5 text-end">
+        <div class="d-flex align-items-center flex-column ">
+            <div class="d-flex  fw-bolder fs-7 text-gray-800  mt-auto ">
+                <span>Sisa Waktu Pengerjaan</span>
+            </div>
+            <div class="fw-semibold fs-5 text-danger mt-auto text-end">
+                <span id="timer"> </span>
+            </div>
+        </div>
+    </div>
 @endpush
 
 <div class="app-page  flex-column flex-column-fluid " id="kt_app_page">
@@ -67,7 +79,7 @@
 
                             </div>
                             <button class="btn btn-light-success fs-5 w-100 py-4" data-bs-toggle="modal"
-                            data-bs-target="#end_exam" >
+                                data-bs-target="#end_exam">
                                 Selesaikan Ujian
                             </button>
                         </div>
@@ -123,8 +135,7 @@
                             </div>
                             <div class="card-body py-4">
                                 @if ($exam_question->question_image != null)
-                                    <img class="mb-5 img-fluid" src="{{ $exam_question->getImage() }}" alt=""
-                                        >
+                                    <img class="mb-5 img-fluid" src="{{ $exam_question->getImage() }}" alt="">
                                 @endif
                                 <p>
 
@@ -148,7 +159,8 @@
                                                         {{ $id_answer == $choice->id ? 'checked' : '' }}>
                                                     <label class="form-check-label">
                                                         @if ($choice->choice_image)
-                                                            <img class="img-fluid" src="{{ $choice->getImage() }}" alt="" >
+                                                            <img class="img-fluid" src="{{ $choice->getImage() }}"
+                                                                alt="">
                                                         @endif
                                                         <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
                                                         </div>
@@ -166,7 +178,8 @@
                                                         @if (in_array($choice->id, $exam_multiple_choice_complex_text)) checked @endif>
                                                     <label class="form-check-label">
                                                         @if ($choice->choice_image)
-                                                            <img class="img-fluid" src="{{ $choice->getImage() }}" alt="">
+                                                            <img class="img-fluid" src="{{ $choice->getImage() }}"
+                                                                alt="">
                                                         @endif
                                                         <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
                                                         </div>
