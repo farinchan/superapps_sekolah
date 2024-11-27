@@ -28,7 +28,7 @@
                             {{ $exam->description }}
                         </div>
                     </div>
-                    @role('admin')
+                    @role('admin|proktor')
                         <div class="d-flex mb-4">
 
                             <a href="#" class="btn btn-sm btn-danger me-3"data-bs-toggle="modal"
