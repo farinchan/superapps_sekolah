@@ -57,6 +57,29 @@ class ExamController extends Controller
         return view('back.pages.exam.index', $data);
     }
 
+    public function operator()
+    {
+        $list_exam = Exam::with('teacher', 'schoolYear')->get();
+
+
+        $data = [
+            'title' => 'List Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+
+            'list_exam' => $list_exam,
+
+            'list_subject' => Subject::all(),
+            'list_school_year' => SchoolYear::all(),
+            'list_teacher' => Teacher::where('type', 'tenaga pendidik')->get(),
+
+
+        ];
+
+        return view('back.pages.exam.operator_index', $data);
+    }
+
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [

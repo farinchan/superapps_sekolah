@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-xl-9 fv-row">
                                 <textarea class="form-control form-control-solid form-control-lg" name="description"
-                                    rows="3" @notRole('admin') @else disabled @endrole>{{ $exam->description }}</textarea>
+                                    rows="3" @notRole('admin') disabled @endrole>{{ $exam->description }}</textarea>
                             </div>
                         </div>
                         <div class="row mb-8">
