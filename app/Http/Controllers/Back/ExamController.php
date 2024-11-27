@@ -84,6 +84,7 @@ class ExamController extends Controller
             'teacher_id' => 'required',
             'type' => 'required',
             'school_year_id' => 'required',
+            'semester' => 'required',
         ], [
             'subject_id.required' => 'Mata pelajaran wajib diisi',
             'description.required' => 'Deskripsi wajib diisi',
@@ -93,6 +94,7 @@ class ExamController extends Controller
             'teacher_id.required' => 'Guru wajib diisi',
             'type.required' => 'Jenis Ujian wajib diisi',
             'school_year_id.required' => 'Tahun ajaran wajib diisi',
+            'semester.required' => 'Semester wajib diisi',
         ]);
 
         if ($validator->fails()) {
@@ -138,6 +140,7 @@ class ExamController extends Controller
             'teacher_id' => 'required',
             'type' => 'required',
             'school_year_id' => 'required',
+            'semester' => 'required',
         ], [
             'subject_id.required' => 'Mata pelajaran wajib diisi',
             'description.required' => 'Deskripsi wajib diisi',
@@ -147,6 +150,7 @@ class ExamController extends Controller
             'teacher_id.required' => 'Guru wajib diisi',
             'type.required' => 'Jenis Ujian wajib diisi',
             'school_year_id.required' => 'Tahun ajaran wajib diisi',
+            'semester.required' => 'Semester wajib diisi',
         ]);
 
         if ($validator->fails()) {
