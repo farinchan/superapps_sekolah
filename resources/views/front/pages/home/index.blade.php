@@ -825,14 +825,14 @@
                                 <div class="about-btn">
                                     <div
                                         class="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font float-left">
-                                        <a href="https://drive.google.com/uc?export=download&id=1hf-gkJyaAnsmbZlQzNib9pqo_jQoxCXs">Download </a>
+                                        <a href="https://docs.google.com/uc?export=download&id=1gmHKvb8Na_2sAhH1S4N4-niQefdC9-9e">Download </a>
                                     </div>
 
                                     <div class="app-stor ul-li mt10">
                                         <ul>
-                                            <li><a href="/file_ext/app-release.apk"><i class="fab fa-android"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-apple"></i></a></li>
-                                            <li><a href="#"><i class="fab fa-windows"></i></a></li>
+                                            <li><a href="https://docs.google.com/uc?export=download&id=1gmHKvb8Na_2sAhH1S4N4-niQefdC9-9e"><i class="fab fa-android"></i></a></li>
+                                            {{-- <li><a href="#"><i class="fab fa-apple"></i></a></li> --}}
+                                            <li><a href="https://docs.google.com/uc?export=download&id=18HF1doKz1xlz6TwpBiIndrMy1r6TVDT5"><i class="fab fa-windows"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
