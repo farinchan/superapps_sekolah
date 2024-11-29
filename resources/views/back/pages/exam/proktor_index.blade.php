@@ -145,6 +145,14 @@
                                         </div>
                                     </td>
                                     <td>
+                                        @if ($exam->start_time < now() && $exam->end_time > now())
+                                            <span class="badge badge-light-success ">Sedang Berlangsung</span>
+                                        @elseif($exam->start_time > now())
+                                            <span class="badge badge-light-warning ">Terjadwal</span>
+                                        @else
+                                            <span class="badge badge-light-danger ">Selesai</span>
+                                        @endif
+                                        <br>
                                         {{ Carbon\Carbon::parse($exam->start_time)->format('d M Y H:i') }} <br>
                                         s/d <br>
                                         {{ Carbon\Carbon::parse($exam->end_time)->format('d M Y H:i') }}

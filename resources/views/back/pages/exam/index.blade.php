@@ -14,67 +14,67 @@
                                 class="form-control form-control-solid w-250px ps-13" placeholder="Cari Ujian" />
                         </div>
                     </div>
-                        <div class="card-toolbar">
-                            <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                                <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
-                                    data-kt-menu-placement="bottom-end">
-                                    <i class="ki-duotone ki-filter fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>Filter</button>
-                                <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
-                                    <div class="px-7 py-5">
-                                        <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                    <div class="card-toolbar">
+                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                            <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click"
+                                data-kt-menu-placement="bottom-end">
+                                <i class="ki-duotone ki-filter fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>Filter</button>
+                            <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                                <div class="px-7 py-5">
+                                    <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                                </div>
+                                <div class="separator border-gray-200"></div>
+                                <div class="px-7 py-5" data-kt-user-table-filter="form">
+                                    <div class="mb-5">
+                                        <label class="form-label fs-6 fw-semibold">Jenis Ujian</label>
+                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                            data-placeholder="Pilih Jenis Ujian" data-allow-clear="true"
+                                            data-kt-user-table-filter="type" data-hide-search="true">
+                                            <option></option>
+                                            <option value="UH">Ulangan Harian</option>
+                                            <option value="UTS">Sumatif Tengah Semester</option>
+                                            <option value="UAS">Sumatif Akhir Semester</option>
+                                        </select>
                                     </div>
-                                    <div class="separator border-gray-200"></div>
-                                    <div class="px-7 py-5" data-kt-user-table-filter="form">
-                                        <div class="mb-5">
-                                            <label class="form-label fs-6 fw-semibold">Jenis Ujian</label>
-                                            <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                                data-placeholder="Pilih Jenis Ujian" data-allow-clear="true"
-                                                data-kt-user-table-filter="type" data-hide-search="true">
-                                                <option></option>
-                                                <option value="UH">Ulangan Harian</option>
-                                                <option value="UTS">Sumatif Tengah Semester</option>
-                                                <option value="UAS">Sumatif Akhir Semester</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label class="form-label fs-6 fw-semibold">Tahun Ajaran</label>
-                                            <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                                data-placeholder="Pilih Tahun Ajaran" data-allow-clear="true"
-                                                data-kt-user-table-filter="schoolyear" data-hide-search="true">
-                                                <option></option>
-                                                @foreach ($list_school_year as $school_year)
-                                                    <option value="{{ $school_year->start_year }}/{{ $school_year->end_year }}">
-                                                        {{ $school_year->start_year }}/{{ $school_year->end_year }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <div class="mb-5">
-                                            <label class="form-label fs-6 fw-semibold">Semester</label>
-                                            <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
-                                                data-placeholder="Pilih Semester" data-allow-clear="true" data-hide-search="true"
-                                                data-kt-user-table-filter="semester">
-                                                <option></option>
-                                                <option value="ganjil">Semester Ganjil</option>
-                                                <option value="genap">Semester Genap</option>
+                                    <div class="mb-5">
+                                        <label class="form-label fs-6 fw-semibold">Tahun Ajaran</label>
+                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                            data-placeholder="Pilih Tahun Ajaran" data-allow-clear="true"
+                                            data-kt-user-table-filter="schoolyear" data-hide-search="true">
+                                            <option></option>
+                                            @foreach ($list_school_year as $school_year)
+                                                <option value="{{ $school_year->start_year }}/{{ $school_year->end_year }}">
+                                                    {{ $school_year->start_year }}/{{ $school_year->end_year }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="mb-5">
+                                        <label class="form-label fs-6 fw-semibold">Semester</label>
+                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                            data-placeholder="Pilih Semester" data-allow-clear="true"
+                                            data-hide-search="true" data-kt-user-table-filter="semester">
+                                            <option></option>
+                                            <option value="ganjil">Semester Ganjil</option>
+                                            <option value="genap">Semester Genap</option>
 
-                                            </select>
-                                        </div>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="reset"
-                                                class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
-                                                data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
-                                            <button type="submit" class="btn btn-primary fw-semibold px-6"
-                                                data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
-                                        </div>
+                                        </select>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="reset"
+                                            class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
+                                            data-kt-menu-dismiss="true" data-kt-user-table-filter="reset">Reset</button>
+                                        <button type="submit" class="btn btn-primary fw-semibold px-6"
+                                            data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
+
+                    </div>
                 </div>
                 <div class="card-body py-4">
                     <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_table_users">
@@ -111,6 +111,14 @@
                                         </div>
                                     </td>
                                     <td>
+                                        @if ($exam->start_time < now() && $exam->end_time > now())
+                                            <span class="badge badge-light-success">Sedang Berlangsung</span>
+                                        @elseif($exam->start_time > now())
+                                            <span class="badge badge-light-warning">Terjadwal</span>
+                                        @else
+                                            <span class="badge badge-light-danger">Selesai</span>
+                                        @endif
+                                        <br>
                                         {{ Carbon\Carbon::parse($exam->start_time)->format('d M Y H:i') }} <br>
                                         s/d <br>
                                         {{ Carbon\Carbon::parse($exam->end_time)->format('d M Y H:i') }}
@@ -161,8 +169,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 
 @section('scripts')
