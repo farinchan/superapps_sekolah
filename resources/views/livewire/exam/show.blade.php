@@ -36,7 +36,7 @@
                         data-kt-scroll="true" data-kt-scroll-activate="true" data-kt-scroll-max-height="auto"
                         data-kt-scroll-dependencies="{default: false, lg: '#kt_app_header'}"
                         data-kt-scroll-wrappers="#kt_app_sidebar, #kt_app_sidebar_wrapper"
-                        data-kt-scroll-offset="{default: '10px', lg: '40px'}">
+                        data-kt-scroll-offset="{default: '10px', lg: '40px'}" style="max-height: 930px;">
                         @include('exam/layout/partials/sidebar/_goal')
                         <div class="mb-0">
                             <h3 class="text-gray-800 fw-bold mb-8">Soal</h3>
@@ -44,7 +44,7 @@
                                 @foreach ($exam_question_state as $state)
                                     @if ($state->id == $exam_question->id)
                                         <div class="col-4">
-                                            <button wire:click.prevent="changeQuestion({{ $state->id }})"
+                                            <button wire:click.prevent="changeQuestion({{ $state->id }})" id="side_question_number"
                                                 class="btn btn-icon btn-outline btn-light-primary btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                 data-kt-button="true" data-kt-drawer-dismiss="true">
                                                 <span class="mb-2" style="font-size: 1.8rem;"> {{ $loop->iteration }}
@@ -54,7 +54,7 @@
                                     @else
                                         @if ($state->answer)
                                             <div class="col-4">
-                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"
+                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"  id="side_question_number"
                                                     class="btn btn-icon btn-outline btn-light-success btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                     data-kt-button="true" data-kt-drawer-dismiss="true">
                                                     <span class="mb-2" style="font-size: 1.8rem;">
@@ -64,7 +64,7 @@
                                             </div>
                                         @else
                                             <div class="col-4">
-                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"
+                                                <button wire:click.prevent="changeQuestion({{ $state->id }})" id="side_question_number"
                                                     class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                     data-kt-button="true" data-kt-drawer-dismiss="true">
                                                     <span class="mb-2"

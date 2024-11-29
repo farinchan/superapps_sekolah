@@ -5,6 +5,7 @@ namespace App\Exports;
 use App\Models\Classroom;
 use App\Models\ClassroomStudent;
 use App\Models\Exam;
+use App\Models\ExamClassroom;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
@@ -30,25 +31,47 @@ class ExamScoreStudent implements FromCollection, WithHeadings, WithStyles, With
 
     public function collection()
     {
-        return ClassroomStudent::join('student', 'student.id', '=', 'classroom_student.student_id')
+
+        return ExamClassroom::where('exam_classroom.exam_id', $this->id)
             ->when($this->classroom_id, function ($query) {
-                $query->where('classroom_id', $this->classroom_id);
+                $query->where('exam_classroom.classroom_id', $this->classroom_id);
             })
-
-            ->when(function ($query) {
-                $query->where('student.name', 'like', '%' . $this->search . '%');
+            ->leftJoin('classroom', 'classroom.id', '=', 'exam_classroom.classroom_id')
+            ->leftJoin('classroom_student', function ($join) {
+                $join->on('classroom_student.classroom_id', '=', 'exam_classroom.classroom_id');
             })
-            ->wherehas('classroom.examClassroom', function ($query) {
-                $query->where('exam_id', $this->id);
+            ->leftJoin('student', function ($join) {
+                $join->on('student.id', '=', 'classroom_student.student_id');
             })
-
+            ->when($this->search, function ($query) {
+                $query->where('student.name', 'like', '%' . $this->search . '%')->orWhere('student.nisn', 'like', '%' . $this->search . '%');
+            })
             ->leftJoin('exam_session', function ($join) {
                 $join->on('exam_session.student_id', '=', 'student.id')
                     ->where('exam_session.exam_id', $this->id);
-            })->leftJoin('classroom', 'classroom.id', '=', 'classroom_student.classroom_id')
-            ->leftJoin('school_year', 'school_year.id', '=', 'classroom.school_year_id')
+            })
             ->select('student.nisn', 'student.name', 'classroom.name as classroom_name','exam_session.score')
             ->get();
+
+        // return ClassroomStudent::join('student', 'student.id', '=', 'classroom_student.student_id')
+        //     ->when($this->classroom_id, function ($query) {
+        //         $query->where('classroom_id', $this->classroom_id);
+        //     })
+
+        //     ->when(function ($query) {
+        //         $query->where('student.name', 'like', '%' . $this->search . '%');
+        //     })
+        //     ->wherehas('classroom.examClassroom', function ($query) {
+        //         $query->where('exam_id', $this->id);
+        //     })
+
+        //     ->leftJoin('exam_session', function ($join) {
+        //         $join->on('exam_session.student_id', '=', 'student.id')
+        //             ->where('exam_session.exam_id', $this->id);
+        //     })->leftJoin('classroom', 'classroom.id', '=', 'classroom_student.classroom_id')
+        //     ->leftJoin('school_year', 'school_year.id', '=', 'classroom.school_year_id')
+        //     ->select('student.nisn', 'student.name', 'classroom.name as classroom_name','exam_session.score')
+        //     ->get();
     }
 
     public function headings(): array
@@ -113,9 +136,9 @@ class ExamScoreStudent implements FromCollection, WithHeadings, WithStyles, With
                 $sheet->getStyle('A5')->getFont()->setBold(true);
 
                 $kelas = '';
-                if($this->classroom_id){
+                if ($this->classroom_id) {
                     $kelas = Classroom::find($this->classroom_id)->name;
-                }else {
+                } else {
                     foreach ($Exam->examClassroom as $item) {
                         $kelas .= $item->classroom->name . ', ';
                     }
