@@ -26,9 +26,9 @@
                                     id="class_id" class="form-select form-select-solid form-select-lg fw-bold">
                                     <option value="0" selected>Semua</option>
                                     @foreach ($list_classroom as $class)
-                                        <option value="{{ $class->id }}">{{ $class->name }} -
-                                            {{ $class->schoolYear?->start_year }}
-                                            / {{ $class->schoolYear?->end_year }}</option>
+                                        <option value="{{ $class->classroom?->id }}">{{ $class->classroom?->name }} -
+                                            {{ $class->classroom?->schoolYear?->start_year }}
+                                            / {{ $class->classroom?->schoolYear?->end_year }}</option>
                                     @endforeach
 
                                 </select>

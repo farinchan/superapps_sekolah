@@ -232,8 +232,9 @@ class ExamController extends Controller
             'sub_menu' => 'Ujian',
 
             'exam' => Exam::with('teacher', 'schoolYear')->find($id),
-            'list_classroom' => Classroom::with('schoolYear')->get(),
+            'list_classroom' => ExamClassroom::where('exam_id', $id)->with('classroom')->get(),
         ];
+        // return response()->json($data);
 
         return view('back.pages.exam.detail-student', $data);
     }
@@ -243,25 +244,30 @@ class ExamController extends Controller
         $search = $request->search;
         $classroom_id = $request->classroom_id;
 
-        $student = ClassroomStudent::join('student', 'student.id', '=', 'classroom_student.student_id')
+
+        $student = ExamClassroom::where('exam_classroom.exam_id', $id)
             ->when($classroom_id, function ($query) use ($classroom_id) {
-                $query->where('classroom_id', $classroom_id);
+                $query->where('exam_classroom.classroom_id', $classroom_id);
             })
-
-            ->when(function ($query) use ($search) {
-                $query->where('student.name', 'like', '%' . $search . '%');
+            ->leftJoin('classroom', 'classroom.id', '=', 'exam_classroom.classroom_id')
+            ->leftJoin('school_year', 'school_year.id', '=', 'classroom.school_year_id')
+            ->leftJoin('classroom_student', function ($join) {
+                $join->on('classroom_student.classroom_id', '=', 'exam_classroom.classroom_id');
             })
-            ->wherehas('classroom.examClassroom', function ($query) use ($id) {
-                $query->where('exam_id', $id);
+            ->leftJoin('student', function ($join) {
+                $join->on('student.id', '=', 'classroom_student.student_id');
             })
-
+            ->when($search, function ($query) use ($search) {
+                $query->where('student.name', 'like', '%' . $search . '%')->orWhere('student.nisn', 'like', '%' . $search . '%');
+            })
             ->leftJoin('exam_session', function ($join) use ($id) {
                 $join->on('exam_session.student_id', '=', 'student.id')
                     ->where('exam_session.exam_id', $id);
-            })->leftJoin('classroom', 'classroom.id', '=', 'classroom_student.classroom_id')
-            ->leftJoin('school_year', 'school_year.id', '=', 'classroom.school_year_id')
-            ->select('student.id as student_id', 'student.name', 'student.nisn', 'student.nik', 'student.photo', 'exam_session.id as session_id', 'exam_session.start_time', 'exam_session.end_time', 'exam_session.score', 'classroom.id as classroom_id', 'classroom.name as classroom_name', 'school_year.start_year as school_year_start', 'school_year.end_year as school_year_end')
+            })
+            ->select('student.id as student_id', 'student.name', 'student.nisn', 'student.nik', 'student.photo', 'classroom.id as classroom_id', 'classroom.name as classroom_name', 'exam_session.id as session_id', 'exam_session.start_time', 'exam_session.end_time', 'exam_session.score', 'school_year.start_year as school_year_start', 'school_year.end_year as school_year_end')
             ->get();
+
+        // return response()->json($student);
 
 
         return datatables()->of($student)
