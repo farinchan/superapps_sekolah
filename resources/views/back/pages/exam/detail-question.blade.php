@@ -6,7 +6,10 @@
             <div class="d-flex flex-wrap flex-stack my-5">
                 <h3 class="fw-bold my-2">Soal Ujian
                     <span class="fs-6 text-gray-500 fw-semibold ms-1">
-                        ({{ $list_exam_question->count() }} soal)
+                        ( {{ $list_exam_question->count() }} soal )
+                    </span>
+                    <span class="fs-6 text-gray-500 fw-semibold ms-1">
+                        ( Total Bobot : {{ $list_exam_question->sum('question_score') }} )
                     </span>
                 </h3>
                 @if ($exam->end_time > now())
