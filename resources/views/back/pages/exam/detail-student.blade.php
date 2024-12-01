@@ -37,6 +37,13 @@
                     </div>
                     <div class=" mb-5">
                         <div class="btn-group" role="group">
+                            <button class="btn  btn-secondary" id="">
+                                <i class="ki-duotone ki-delete-files fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    </i>&nbsp;
+                                Reset Waktu dan Buka Akses
+                            </button>
                             <button onclick="exportNilai({{ $exam->id }})" class="btn  btn-secondary"><i
                                     class="ki-duotone ki-file-up fs-2">
                                     <span class="path1"></span>

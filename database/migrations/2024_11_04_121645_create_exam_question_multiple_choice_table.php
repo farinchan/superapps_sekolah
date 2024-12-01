@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('exam_question_multiple_choice', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_question_id')->constrained('exam_question')->onDelete('cascade')->onUpdate('cascade');
-            $table->text('choice_text');
+            $table->text('choice_text')->nullable();
             $table->string('choice_image')->nullable();
             $table->boolean('is_correct')->default(false);
             $table->timestamps();

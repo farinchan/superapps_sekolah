@@ -71,7 +71,7 @@
                             @endif
                         </div>
                         <div class="mb">
-                            <label for="name" class="form-label required"> Soal</label>
+                            <label for="name" class="form-label"> Soal</label>
                             <div id="question_text_quill" style="height: 200px;">
                                 {!! $question->question_text !!}
                             </div>
@@ -116,8 +116,8 @@
                                                         @endif
                                                     </div>
                                                     <div class="col-md-5">
-                                                        <label class="form-label required">Text:</label>
-                                                        <textarea class="form-control mb-2 mb-md-0" rows="1" name="choices[{{ $index }}][choice_text]"
+                                                        <label class="form-label ">Text:</label>
+                                                        <textarea class="form-control mb-2 mb-md-0 choice-text-editor" rows="1" name="choices[{{ $index }}][choice_text]"
                                                             placeholder="text">{{ $choice->choice_text }}</textarea>
                                                     </div>
                                                     <div class="col-md-2">
@@ -174,6 +174,8 @@
 
 @section('scripts')
     <script src="{{ asset('back/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
+    <script src="{{ asset('back/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
+
 
     <script>
         var quill = new Quill('#question_text_quill', {
@@ -195,6 +197,21 @@
     </script>
 
     <script>
+        function initCKEditor() {
+        document.querySelectorAll('.choice-text-editor').forEach(textarea => {
+            if (!textarea.classList.contains('ckeditor-initialized')) {
+                ClassicEditor.create(textarea, {
+                    toolbar: ['bold', 'italic'], // Toolbar hanya Bold dan Italic
+                })
+                .then(editor => {
+                    textarea.classList.add('ckeditor-initialized'); // Tandai sudah diinisialisasi
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+            }
+        });
+    }
         $('#kt_docs_repeater_basic').repeater({
             initEmpty: false,
 
@@ -205,6 +222,7 @@
             show: function() {
                 $(this).slideDown();
                 updateRadioValues();
+                initCKEditor();
             },
 
             hide: function(deleteElement) {
@@ -230,5 +248,6 @@
 
         // Panggil saat awal untuk memastikan name radio terupdate
         updateRadioValues();
+        initCKEditor();
     </script>
 @endsection

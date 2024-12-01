@@ -326,6 +326,15 @@ class ExamController extends Controller
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     </i>
+                            </a>
+                            <a href=" ' . route('back.exam.student.analysis', $row->session_id) . '"
+                                class="btn btn-icon btn-light-info me-2"
+                                data-bs-toggle="tooltip" data-bs-placement="right"
+                                title="Analisis Siswa">
+                                <i class="ki-duotone ki-delete-files fs-4">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    </i>
                             </a>';
                 }
             })
@@ -339,6 +348,27 @@ class ExamController extends Controller
         $classroom_id = $request->classroom_id;
 
         return Excel::download(new ExamScoreStudent($id, $classroom_id, $search), 'nilai-ujian-' . now() . '.xlsx');
+    }
+
+    public function studentExamResetAll($id)
+    {
+
+        $classroom_id = ExamClassroom::where('exam_id', $id)->pluck('classroom_id');
+        $student_id = ClassroomStudent::whereIn('classroom_id', $classroom_id)->pluck('student_id');
+
+        $exam_session = ExamSession::where('exam_id', $id)->get();
+        foreach ($exam_session as $session) {
+            if ($session->start_time !== null) {
+                $session->update([
+                    'start_time' => now(),
+                    'end_time' => null,
+                    'score' => null,
+                ]);
+            }
+        }
+
+        Alert::success('Success', 'Data berhasil direset');
+        return redirect()->back();
     }
 
     public function studentExamReset($session_id)
@@ -368,6 +398,30 @@ class ExamController extends Controller
 
         Alert::success('Success', 'Ujian telah selesai');
         return redirect()->back();
+    }
+
+
+    public function studentExamAnalysis($session_id)
+    {
+        $exam_session = ExamSession::with('exam')->find($session_id);
+        $data = [
+            'title' => 'Analisis Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+
+            'exam_session' => $exam_session,
+            'exam_question_n_answer' => ExamQuestion::with([
+                'multipleChoice',
+                'examAnswer' => function ($query) use ($session_id) {
+                    $query->where('exam_session_id', $session_id);
+                }
+            ])
+            ->where('exam_id', $exam_session->exam_id)
+            ->get()
+        ];
+
+        return response()->json($data);
+        return view('back.pages.exam.detail-analysis', $data);
     }
 
     public function question($id)
@@ -471,22 +525,22 @@ class ExamController extends Controller
     public function questionStoreMultipleChoice(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
-            'question_text' => 'required',
+            'question_text' => 'nullable',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'question_score' => 'required|numeric',
             'choices' => 'required|array|min:2',
-            'choices.*.choice_text' => 'required',
+            'choices.*.choice_text' => 'nullable',
             'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_correct' => 'required'
         ], [
-            'question_text.required' => 'Pertanyaan wajib diisi',
+            // 'question_text.required' => 'Pertanyaan wajib diisi',
             'question_image.image' => 'Pertanyaan harus berupa gambar',
             'question_image.mimes' => 'Format gambar tidak valid',
             'question_image.max' => 'Ukuran gambar terlalu besar',
             'choices.required' => 'Pilihan jawaban wajib diisi',
             'choices.array' => 'Pilihan jawaban harus berupa array',
             'choices.min' => 'Pilihan jawaban minimal 2',
-            'choices.*.choice_text.required' => 'Pilihan jawaban wajib diisi',
+            // 'choices.*.choice_text.required' => 'Pilihan jawaban wajib diisi',
             'choices.*.choice_image.image' => 'Pilihan jawaban harus berupa gambar',
             'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
             'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
@@ -505,7 +559,7 @@ class ExamController extends Controller
         $question = ExamQuestion::create([
             'exam_id' => $id,
             'question_type' => 'pilihan ganda',
-            'question_text' => $request->question_text,
+            'question_text' => $request->question_text ?? "",
             'question_image' => $request->hasFile('question_image') ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public') : null,
             'question_score' => $request->question_score,
         ]);
@@ -513,7 +567,7 @@ class ExamController extends Controller
         foreach ($request->choices as $index => $choice) {
             ExamQuestionMultipleChoice::create([
                 'exam_question_id' => $question->id,
-                'choice_text' => $choice['choice_text'],
+                'choice_text' => $choice['choice_text'] ?? "",
                 'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
                     ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
                     : null,
@@ -545,15 +599,15 @@ class ExamController extends Controller
     {
         // dd($request->all());
         $validator = Validator::make($request->all(), [
-            'question_text' => 'required',
+            'question_text' => 'nullable',
             'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
             'question_score' => 'required|numeric',
             'choices' => 'required|array|min:2',
-            'choices.*.choice_text' => 'required',
+            'choices.*.choice_text' => 'nullable',
             'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'is_correct' => 'required',  // Tambahkan ini
         ], [
-            'question_text.required' => 'Pertanyaan wajib diisi',
+            // 'question_text.required' => 'Pertanyaan wajib diisi',
             'question_image.image' => 'Pertanyaan harus berupa gambar',
             'question_image.mimes' => 'Format gambar tidak valid',
             'question_image.max' => 'Ukuran gambar terlalu besar',

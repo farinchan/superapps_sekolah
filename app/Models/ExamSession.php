@@ -14,9 +14,9 @@ class ExamSession extends Model
         return $this->belongsTo(Exam::class);
     }
 
-    public function User()
+    public function Student()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
 
     public function ExamAnswer()

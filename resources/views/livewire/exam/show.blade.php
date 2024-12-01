@@ -162,7 +162,7 @@
                                                             <img class="img-fluid" src="{{ $choice->getImage() }}"
                                                                 alt="">
                                                         @endif
-                                                        <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
+                                                        <div class=" text-gray-800">{!! $choice->choice_text !!}
                                                         </div>
                                                     </label>
                                                 </div>
