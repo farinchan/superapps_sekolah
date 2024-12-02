@@ -37,13 +37,20 @@
                     </div>
                     <div class=" mb-5">
                         <div class="btn-group" role="group">
-                            <button class="btn  btn-secondary" id="">
+                            <a href="{{ route("back.exam.student.reset-all", $exam->id ) }}" class="btn  btn-secondary" id="">
                                 <i class="ki-duotone ki-delete-files fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
-                                    </i>&nbsp;
+                                </i>&nbsp;
                                 Reset Waktu dan Buka Akses
-                            </button>
+                            </a>
+                            {{-- <a href="{{ route("back.exam.student.reset-all") }}" class="btn  btn-secondary" id="">
+                                <i class="ki-duotone ki-delete-files fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>&nbsp;
+                                Paksa Berhenti Semua
+                            </a> --}}
                             <button onclick="exportNilai({{ $exam->id }})" class="btn  btn-secondary"><i
                                     class="ki-duotone ki-file-up fs-2">
                                     <span class="path1"></span>

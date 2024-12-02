@@ -350,11 +350,10 @@ class ExamController extends Controller
         return Excel::download(new ExamScoreStudent($id, $classroom_id, $search), 'nilai-ujian-' . now() . '.xlsx');
     }
 
-    public function studentExamResetAll($id)
+    public function studentExamResetAll(Request $request, $id)
     {
 
-        $classroom_id = ExamClassroom::where('exam_id', $id)->pluck('classroom_id');
-        $student_id = ClassroomStudent::whereIn('classroom_id', $classroom_id)->pluck('student_id');
+        $classroom_id = $request->classroom_id;
 
         $exam_session = ExamSession::where('exam_id', $id)->get();
         foreach ($exam_session as $session) {

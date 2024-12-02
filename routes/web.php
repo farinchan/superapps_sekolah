@@ -267,7 +267,7 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/detail/{id}/student', [BackExamController::class, 'student'])->name('student');
             Route::get('/detail/{id}/student/datatable', [BackExamController::class, 'studentDatatable'])->name('student.datatable');
             Route::get('/detail/{id}/student/export', [BackExamController::class, 'studentExport'])->name('student.export');
-            Route::post('/detail/{id}/student/reset-all', [BackExamController::class, 'studentExamResetAll'])->name('student.reset-all');
+            Route::get('/detail/{id}/student/reset-all', [BackExamController::class, 'studentExamResetAll'])->name('student.reset-all');
             Route::get('/student/reset/{session_id}', [BackExamController::class, 'studentExamReset'])->name('student.reset');
             Route::get('/student/finish/{session_id}', [BackExamController::class, 'studentExamForceEnd'])->name('student.finish');
             Route::get('/student/analysis/{session_id}', [BackExamController::class, 'studentExamAnalysis'])->name('student.analysis');
