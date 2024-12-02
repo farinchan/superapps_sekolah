@@ -90,25 +90,31 @@
 
 
                                                 <td class="text-end">
-                                                    @if ($exam->start_time < now() && $exam->end_time > now())
-                                                        @if ($exam->score !== null)
-                                                            <span class="badge badge-light-success">Sudah Dinilai</span>
-                                                        @else
-                                                            @if ($exam->session_start_time && $exam->session_end_time === null)
-                                                                <button type="button"
-                                                                    wire:click="startExam({{ $exam->id }})"
-                                                                    class="btn btn-sm btn-light-success">Lanjutkan
-                                                                    Ujian</button>
+                                                    @if ($exam->score !== null)
+                                                        <span class="badge badge-light-success">Sudah Dinilai</span>
+                                                    @else
+                                                        @if ($exam->start_time < now() && $exam->end_time > now())
+                                                            @if ($exam->score !== null)
+                                                                <span class="badge badge-light-success">Sudah
+                                                                    Dinilai</span>
                                                             @else
-                                                                <button type="button"
-                                                                    wire:click="startExam({{ $exam->id }})"
-                                                                    class="btn btn-sm btn-success">Mulai Ujian</button>
+                                                                @if ($exam->session_start_time && $exam->session_end_time === null)
+                                                                    <button type="button"
+                                                                        wire:click="startExam({{ $exam->id }})"
+                                                                        class="btn btn-sm btn-light-success">Lanjutkan
+                                                                        Ujian</button>
+                                                                @else
+                                                                    <button type="button"
+                                                                        wire:click="startExam({{ $exam->id }})"
+                                                                        class="btn btn-sm btn-success">Mulai
+                                                                        Ujian</button>
+                                                                @endif
                                                             @endif
+                                                        @elseif ($exam->start_time > now())
+                                                            <span class="badge badge-light-warning">Belum Dimulai</span>
+                                                        @elseif ($exam->end_time < now())
+                                                            <span class="badge badge-light-danger">Sudah Selesai</span>
                                                         @endif
-                                                    @elseif ($exam->start_time > now())
-                                                        <span class="badge badge-light-warning">Belum Dimulai</span>
-                                                    @elseif ($exam->end_time < now())
-                                                        <span class="badge badge-light-danger">Sudah Selesai</span>
                                                     @endif
 
 
