@@ -206,11 +206,11 @@ var KTSigninGeneral = function () {
 
             handleValidation();
 
-            if (isValidUrl(submitButton.closest('form').getAttribute('action'))) {
-                handleSubmitAjax(); // use for ajax submit
-            } else {
-                handleSubmitDemo(); // used for demo purposes only
-            }
+            // if (isValidUrl(submitButton.closest('form').getAttribute('action'))) {
+            //     handleSubmitAjax(); // use for ajax submit
+            // } else {
+            //     handleSubmitDemo(); // used for demo purposes only
+            // }
         }
     };
 }();
