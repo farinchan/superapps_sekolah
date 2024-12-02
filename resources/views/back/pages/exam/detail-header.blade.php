@@ -36,48 +36,49 @@
                                     data-bs-target="#modal-delete-exam">
                                     Hapus Ujian
                                 </a>
+                            @endif
 
 
-                                @if ($exam->start_time > now())
-                                    <div class="modal fade" tabindex="-1" id="modal-delete-exam">
-                                        <div class="modal-dialog modal-dialog-centered">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h3 class="modal-title">Hapus Ujian</h3>
+                            @if ($exam->start_time > now())
+                                <div class="modal fade" tabindex="-1" id="modal-delete-exam">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title">Hapus Ujian</h3>
 
-                                                    <!--begin::Close-->
-                                                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
-                                                        data-bs-dismiss="modal" aria-label="Close">
-                                                        <i class="ki-duotone ki-cross fs-1"><span
-                                                                class="path1"></span><span class="path2"></span></i>
-                                                    </div>
-                                                    <!--end::Close-->
+                                                <!--begin::Close-->
+                                                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2"
+                                                    data-bs-dismiss="modal" aria-label="Close">
+                                                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                                            class="path2"></span></i>
                                                 </div>
+                                                <!--end::Close-->
+                                            </div>
 
-                                                <div class="modal-body">
-                                                    <p>Apakah Anda yakin ingin menghapus ujian ini?</p>
-                                                    <p class="text-danger">
-                                                        <strong>Peringatan: </strong> Seluruh data yang terkait dengan ujian
-                                                        ini
-                                                        akan dihapus dan tidak dapat dikembalikan.
+                                            <div class="modal-body">
+                                                <p>Apakah Anda yakin ingin menghapus ujian ini?</p>
+                                                <p class="text-danger">
+                                                    <strong>Peringatan: </strong> Seluruh data yang terkait dengan ujian
+                                                    ini
+                                                    akan dihapus dan tidak dapat dikembalikan.
 
-                                                    </p>
-                                                </div>
+                                                </p>
+                                            </div>
 
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light"
-                                                        data-bs-dismiss="modal">Batal</button>
-                                                    <form action="{{ route('back.exam.setting.destroy', $exam->id) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
-                                                    </form>
-                                                </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light"
+                                                    data-bs-dismiss="modal">Batal</button>
+                                                <form action="{{ route('back.exam.setting.destroy', $exam->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
-                                @endif
+                                </div>
+                            @endif
 
                         </div>
                     @endrole
