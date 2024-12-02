@@ -220,14 +220,14 @@
         <div class="container">
             <div class="row">
 
-                <div class="col-md-7">
+                <div class="col-md-4">
                     <div class="latest-area-content ">
                         <div class="section-title-2 mb65 headline text-left">
-                            <h2><span>Agenda</span></h2>
+                            <h2 style="font-size: 30px;"><span>Agenda</span></h2>
                         </div>
                         <div class="row">
                             @foreach ($list_agenda as $agenda)
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="latest-events">
                                         <div class="latest-event-item">
                                             <div class="events-date  relative-position text-center">
@@ -245,6 +245,36 @@
                                                     <span class="course-category"><a href="#">HUMAS</a></span>
                                                     <span class="course-author"><a href="#">HUMAS</a></span>
                                                 </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="latest-area-content ">
+                        <div class="section-title-2 mb65 headline text-left">
+                            <h2 style="font-size: 30px;"
+                            ><span>Pengumuman</span></h2>
+                        </div>
+                        <div class="row">
+                            @foreach ($list_pengumuman as $pengumuman)
+                                <div class="col-md-12">
+                                    <div class="latest-events">
+                                        <div class="latest-event-item">
+
+                                            <div class="event-text">
+                                                <h3 class="latest-title"><a
+                                                        href="{{ route('announcement.show', $pengumuman->slug) }}">
+                                                        {{ Str::limit($pengumuman->title, 65) }}
+                                                    </a></h3>
+                                                <div class="course-meta">
+                                                    <span class="course-category"><a href="#">{{ Carbon\Carbon::parse($pengumuman->created_at)->format('d M Y') }}</a></span>
+                                                    <span class="course-author"><a href="#">HUMAS</a></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

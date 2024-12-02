@@ -8,9 +8,9 @@
     <meta property="og:title" content="{{ $title }}">
     <meta property="og:description" content="{{ $meta_description }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ route('event.show', $event->slug) }}">
-    <link rel="canonical" href="{{ route('event.show', $event->slug) }}">
-    <meta property="og:image" content="{{ $event->getImage() }}">
+    <meta property="og:url" content="{{ route('announcement.show', $announcement->slug) }}">
+    <link rel="canonical" href="{{ route('announcement.show', $announcement->slug) }}">
+    <meta property="og:image" content="{{ Storage::url($favicon) }}">
 @endsection
 
 @section('styles')
@@ -24,12 +24,12 @@
         <div class="container">
             <div class="page-breadcrumb-content text-center">
                 <div class="page-breadcrumb-title">
-                    <h2 class="breadcrumb-head black bold">Detail <span>Agenda </span></h2>
+                    <h2 class="breadcrumb-head black bold">Detail <span>Pengumuman </span></h2>
                 </div>
                 <div class="page-breadcrumb-item ul-li">
                     <ul class="breadcrumb text-uppercase black">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Agenda</li>
+                        <li class="breadcrumb-item active">Pengumuman</li>
                     </ul>
                 </div>
             </div>
@@ -47,41 +47,36 @@
                 <div class="col-md-9">
                     <div class="blog-details-content">
                         <div class="post-content-details">
-                            @if ($event->image)
-                                <div class="blog-detail-thumbnile mb35">
-                                    <img src="{{ $event->getImage() }}" alt="" style="width: 100%">
-                                </div>
-                            @endif
-                            <h2>{{ $event->title }}</h2>
+                            <h2>{{ $announcement->title }}</h2>
 
                             <div class="date-meta text-uppercase">
-                                <span><i class="fas fa-calendar-alt"></i> {{ $event->created_at->format('d M Y') }} </span>
+                                <span><i class="fas fa-calendar-alt"></i> {{ $announcement->created_at->format('d M Y') }} </span>
                                 <span><i class="fas fa-user"></i> Humas </span>
                             </div>
                             <p>
-                                {!! $event->content !!}
+                                {!! $announcement->content !!}
                             </p>
                             <br>
-                            @if ($event->file != null)
-                                <object data="{{ $event->getFile() }}" type="application/pdf" width="100%"
+                            @if ($announcement->file != null)
+                                <object data="{{ $announcement->getFile() }}" type="application/pdf" width="100%"
                                     height="800px">
-                                    <embed src="{{ $event->getFile() }}" type="application/pdf" />
+                                    <embed src="{{ $announcement->getFile() }}" type="application/pdf" />
                                 </object>
                             @endif
                         </div>
                         <div class="blog-share-tag">
                             <div class="share-text float-left">
-                                Share Agenda ini
+                                Share Pengumuman ini
                             </div>
                             <div class="share-social ul-li float-right">
                                 <ul>
-                                    <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ route('news.show', $event->slug) }}&t={{ $event->title }}"
+                                    <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ route('news.show', $announcement->slug) }}&t={{ $announcement->title }}"
                                             target="_blank"><i class="fab fa-facebook-f"></i></a></li>
-                                    <li><a href="https://twitter.com/intent/tweet?url={{ route('news.show', $event->slug) }}&text={{ $event->title }}"
+                                    <li><a href="https://twitter.com/intent/tweet?url={{ route('news.show', $announcement->slug) }}&text={{ $announcement->title }}"
                                             target="_blank"><i class="fab fa-twitter"></i></a></li>
-                                    <li><a href="https://www.linkedin.com/shareArticle?mini=true&url={{ route('news.show', $event->slug) }}&title={{ $event->title }}"
+                                    <li><a href="https://www.linkedin.com/shareArticle?mini=true&url={{ route('news.show', $announcement->slug) }}&title={{ $announcement->title }}"
                                             target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
-                                    <li><a href="https://wa.me/?text={{ route('news.show', $event->slug) }}&title={{ $event->title }}"
+                                    <li><a href="https://wa.me/?text={{ route('news.show', $announcement->slug) }}&title={{ $announcement->title }}"
                                             target="_blank"><i class="fab fa-whatsapp"></i></a></li>
                                 </ul>
                             </div>

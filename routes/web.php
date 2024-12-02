@@ -12,6 +12,7 @@ use App\Http\Controllers\Front\ProfilMenu;
 use App\Http\Controllers\Front\PersonaliaMenu;
 
 use App\Http\Controllers\Back\DashboardController as BackDashboardController;
+use App\Http\Controllers\Back\AnnouncementController as BackAnnouncementController;
 use App\Http\Controllers\Back\EventController as BackEventController;
 use App\Http\Controllers\Back\NewsController as BackNewsController;
 use App\Http\Controllers\Back\BlogTeacherController as BackBlogTeacherController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
 use App\Http\Controllers\Back\DisciplineRulesController as BackDisciplineRulesController;
 use App\Http\Controllers\Back\DisciplineStudentController as BackDisciplineStudentController;
+use App\Http\Controllers\Front\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 
 Route::domain(env('APP_URL'))->group(function () {
@@ -66,6 +68,11 @@ Route::domain(env('APP_URL'))->group(function () {
         Route::get('/{slug}', [EventController::class, 'show'])->name('show');
     });
 
+    Route::prefix('announcement')->name('announcement.')->group(function () {
+        // Route::get('/', [EventController::class, 'index'])->name('index');
+        Route::get('/{slug}', [AnnouncementController::class, 'show'])->name('show');
+    });
+
     Route::prefix('news')->name('news.')->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('index');
         route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
@@ -89,6 +96,15 @@ Route::domain(env('APP_URL'))->group(function () {
 
     Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::get('/dashboard', [BackDashboardController::class, 'index'])->name('dashboard');
+
+        Route::prefix('announcement')->name('announcement.')->group(function () {
+            Route::get('/', [BackAnnouncementController::class, 'index'])->name('index');
+            Route::get('/create', [BackAnnouncementController::class, 'create'])->name('create');
+            Route::post('/create', [BackAnnouncementController::class, 'store'])->name('store');
+            Route::get('/edit/{id}', [BackAnnouncementController::class, 'edit'])->name('edit');
+            Route::put('/edit/{id}', [BackAnnouncementController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [BackAnnouncementController::class, 'destroy'])->name('destroy');
+        });
 
         Route::prefix('event')->name('event.')->group(function () {
             Route::get('/', [BackEventController::class, 'index'])->name('index');

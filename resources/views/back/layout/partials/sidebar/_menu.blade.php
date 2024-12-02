@@ -47,13 +47,26 @@
 
                 @role('admin|humas')
                     <div class= "menu-item">
-                        <a class="menu-link @if (request()->routeIs('back.event.*')) active @endif"
-                            href=" {{ route('back.event.index') }} ">
+                        <a class="menu-link @if (request()->routeIs('back.announcement.*')) active @endif"
+                            href=" {{ route('back.announcement.index') }} ">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-information fs-2">
                                     <span class="path1"></span>
                                     <span class="path2"></span>
                                     <span class="path3"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Pengumuman</span>
+                        </a>
+                    </div>
+
+                    <div class= "menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.event.*')) active @endif"
+                            href=" {{ route('back.event.index') }} ">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-pin fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
                                 </i>
                             </span>
                             <span class="menu-title">Agenda</span>
