@@ -31,10 +31,13 @@
                     @role('admin|proktor')
                         <div class="d-flex mb-4">
 
-                            <a href="#" class="btn btn-sm btn-danger me-3"data-bs-toggle="modal"
-                                data-bs-target="#modal-delete-exam">
-                                Hapus Ujian
-                            </a>
+                            @if ($exam->start_time > now())
+                                <a href="#" class="btn btn-sm btn-danger me-3"data-bs-toggle="modal"
+                                    data-bs-target="#modal-delete-exam">
+                                    Hapus Ujian
+                                </a>
+                            @endif
+
 
                             <div class="modal fade" tabindex="-1" id="modal-delete-exam">
                                 <div class="modal-dialog modal-dialog-centered">
