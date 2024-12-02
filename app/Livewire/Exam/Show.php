@@ -11,6 +11,7 @@ use App\Models\ExamSession;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
 use Livewire\Component;
+use phpDocumentor\Reflection\Types\This;
 use RealRashid\SweetAlert\Facades\Alert;
 
 #[Layout('exam.app')]
@@ -29,6 +30,7 @@ class Show extends Component
 
     public function mount($session_id)
     {
+        $this->checkLogin();
         $this->exam_session_id = $session_id;
         $this->exam_session = ExamSession::find($session_id);
 
@@ -52,6 +54,7 @@ class Show extends Component
 
     public function nextQuestion()
     {
+        $this->checkLogin();
         $next_question = ExamQuestion::where('exam_id', $this->exam->id)
             ->where('id', '>', $this->exam_question->id)
             ->first();
@@ -67,6 +70,7 @@ class Show extends Component
 
     public function prevQuestion()
     {
+        $this->checkLogin();
         $prev_question = ExamQuestion::where('exam_id', $this->exam->id)
             ->where('id', '<', $this->exam_question->id)
             ->first();
@@ -82,6 +86,7 @@ class Show extends Component
 
     public function changeQuestion($id)
     {
+        $this->checkLogin();
         $this->exam_question = ExamQuestion::find($id);
         $this->exam_answer = ExamAnswer::where('exam_session_id', $this->exam_session->id)
             ->where('exam_question_id', $this->exam_question->id)
@@ -184,6 +189,13 @@ class Show extends Component
 
         Alert::success('Berhasil', 'Ujian telah selesai');
         return redirect()->route('exam.home');
+    }
+
+    public function checkLogin()
+    {
+        if (!Auth::check()) {
+            return redirect()->route('exam.login');
+        }
     }
 
     public function render()
