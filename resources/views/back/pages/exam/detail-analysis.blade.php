@@ -128,7 +128,6 @@
                                 <img class="mb-5 img-fluid" src="{{ $exam_question_number->getImage() }}" alt="">
                             @endif
                             <p>
-
                                 {!! $exam_question_number->question_text !!}
                             </p>
 
@@ -136,21 +135,30 @@
                             <div class="mb-5">
                                 @if ($exam_question_number->question_type == 'pilihan ganda')
                                     @php
-                                        $answer = $exam_question_number->examAnswer->first()->answer ?? null;
+                                        $answer = $exam_question_number->examAnswer->first()->answer ?? [
+                                            'multiple_choice' => [
+                                                'id' => 0,
+                                            ],
+                                        ];
                                     @endphp
                                     @foreach ($exam_question_number->multipleChoice as $choice)
                                         <div class="d-flex fv-row">
                                             <div class="form-check form-check-custom form-check-solid">
                                                 <input class="form-check-input me-3" type="radio"
                                                     name="{{ $exam_question_number->id }}" id="{{ $choice->id }}"
-                                                    {{ $answer['multiple_choice']['id'] ?? "" == $choice->id ? 'checked' : '' }}
+                                                    {{ $answer['multiple_choice']['id'] == $choice->id ? 'checked' : '' }}
                                                     onclick="return false">
                                                 <label class="form-check-label">
                                                     @if ($choice->choice_image)
                                                         <img class="img-fluid" src="{{ $choice->getImage() }}"
                                                             alt="">
                                                     @endif
-                                                    <div class=" text-gray-800">{!! $choice->choice_text !!}
+                                                    <div class=" text-gray-800">
+                                                        {!! $choice->choice_text !!}
+                                                        @if ($choice->is_correct)
+                                                            <span class="fw-bold text-success">&nbsp; ( Jawaban Benar )
+                                                            </span>
+                                                        @endif
                                                     </div>
                                                 </label>
                                             </div>
@@ -180,6 +188,21 @@
                             </div>
                         </div>
                     </div>
+                    {{-- <div class="card mt-5">
+                        <div class="card-header card-header-stretch">
+                            <!--begin::Title-->
+                            <div class="card-title d-flex align-items-center">
+                                <i class="ki-duotone ki-chart-pie-3 fs-1 text-primary me-3 lh-0">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                                Analisis soal
+                            </div>
+                        </div>
+                        <div class="card-body py-4">
+                        </div>
+                    </div> --}}
 
 
                 </div>
