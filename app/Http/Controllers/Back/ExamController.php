@@ -331,9 +331,10 @@ class ExamController extends Controller
                                 class="btn btn-icon btn-light-info me-2"
                                 data-bs-toggle="tooltip" data-bs-placement="right"
                                 title="Analisis Siswa">
-                                <i class="ki-duotone ki-delete-files fs-4">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
+                                    <i class="ki-duotone ki-chart-pie-3 fs-4">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                        <span class="path3"></span>
                                     </i>
                             </a>';
                 }
@@ -400,26 +401,52 @@ class ExamController extends Controller
     }
 
 
-    public function studentExamAnalysis($session_id)
+    public function studentExamAnalysis(Request $request, $session_id)
     {
-        $exam_session = ExamSession::with('exam')->find($session_id);
+
+        $question_id = $request->question_id;
+
+        $exam_session = ExamSession::with('Exam', 'Student')->find($session_id);
+        $exam_question_number = "";
+        if ($question_id) {
+            $exam_question_number = ExamQuestion::with([
+                'multipleChoice',
+                'examAnswer' => function ($query) use ($session_id) {
+                    $query->where('exam_session_id', $session_id);
+                }
+            ])
+                ->where('exam_id', $exam_session->exam_id)
+                ->where('id', $question_id)
+                ->first();
+        } else {
+            $exam_question_number = ExamQuestion::with([
+                'multipleChoice',
+                'examAnswer' => function ($query) use ($session_id) {
+                    $query->where('exam_session_id', $session_id);
+                }
+            ])
+                ->where('exam_id', $exam_session->exam_id)
+                ->first();
+        }
         $data = [
             'title' => 'Analisis Ujian',
             'menu' => 'E-Learning',
             'sub_menu' => 'Ujian',
 
             'exam_session' => $exam_session,
+            'exam_question_number' => $exam_question_number,
             'exam_question_n_answer' => ExamQuestion::with([
                 'multipleChoice',
                 'examAnswer' => function ($query) use ($session_id) {
                     $query->where('exam_session_id', $session_id);
                 }
             ])
-            ->where('exam_id', $exam_session->exam_id)
-            ->get()
+                ->where('exam_id', $exam_session->exam_id)
+                ->get(),
+
         ];
 
-        return response()->json($data);
+        // return response()->json($data);
         return view('back.pages.exam.detail-analysis', $data);
     }
 
