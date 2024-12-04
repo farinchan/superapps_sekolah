@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\LogLogin;
 use Illuminate\Http\Request;
 use App\Models\SettingWebsite;
 use App\Models\Student;
@@ -14,7 +15,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Hash;
-
+use Jenssegers\Agent\Facades\Agent;
 
 class AuthController extends Controller
 {
@@ -58,6 +59,14 @@ class AuthController extends Controller
 
         if ($user && hash::check($request->password, $user->password)) {
             Auth::login($user);
+            LogLogin::create([
+                'user_id' => $user->id,
+                'ip' => request()->ip(),
+                'user_agent' => Agent::getUserAgent(),
+                'platform' => Agent::platform(),
+                'browser' => Agent::browser(),
+                'device' => Agent::device(),
+            ]);
             return redirect()->route('back.dashboard');
         }
 
