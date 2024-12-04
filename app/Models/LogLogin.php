@@ -4,14 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class log_login_elearning extends Model
+class LogLogin extends Model
 {
-    protected $table = 'log_login_elearning';
+    protected $table = 'log_login';
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 }

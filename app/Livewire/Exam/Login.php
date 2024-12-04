@@ -44,6 +44,7 @@ class Login extends Component
 
         if ($user && Hash::check($this->password, $user->password)) {
             Auth::login($user);
+            
             session()->flash('success', 'Login berhasil');
             return redirect()->route('exam.home');
         } else {
