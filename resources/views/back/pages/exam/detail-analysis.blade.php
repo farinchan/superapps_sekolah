@@ -78,6 +78,14 @@
                         </div>
                     </div>
                     <div class="card mb-5 mb-xl-8">
+                        <div class="card-body">
+                            <div class="d-flex flex-stack fs-4 py-3">
+                                Siswa melakukan tindakan Login ulang saat ujian sebanyak: <br>
+                            </div>
+                            <span class="fw-bold fs-2x ms-3">{{ $login_count }} Kali</span>
+                        </div>
+                    </div>
+                    <div class="card mb-5 mb-xl-8">
                         <div class="card-header border-0">
                             <div class="card-title">
                                 <h3 class="fw-bold m-0">Nomor Soal Ujian</h3>

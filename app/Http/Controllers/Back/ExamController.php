@@ -17,6 +17,7 @@ use App\Models\ExamQuestionMatchingPair;
 use App\Models\ExamQuestionMultipleChoice;
 use App\Models\ExamQuestionMultipleChoiceComplex;
 use App\Models\ExamSession;
+use App\Models\LogLoginElearning;
 use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\Subject;
@@ -437,6 +438,11 @@ class ExamController extends Controller
             'sub_menu' => 'Ujian',
 
             'exam_session' => $exam_session,
+            'login_count' => LogLoginElearning::where('user_id', $exam_session->Student?->user_id)
+                ->where('created_at', '>=', $exam_session->start_time)->when($exam_session->end_time, function ($query) use ($exam_session) {
+                    $query->where('created_at', '<=', $exam_session->end_time);
+                })
+                ->count(),
             'exam_answer_analysis' => $exam_answer_analysis,
             'exam_answer_analysis_perkelas' => ExamAnswer::leftJoin('exam_session', 'exam_session.id', '=', 'exam_answer.exam_session_id')
                 ->leftJoin('student', 'student.id', '=', 'exam_session.student_id')
