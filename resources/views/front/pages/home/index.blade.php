@@ -721,7 +721,7 @@
 
     <!-- Start of genius teacher v2
                                                        ============================================= -->
-    <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
+    {{-- <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
                 <h2><span>Instagram</span> Post.</h2>
@@ -764,20 +764,14 @@
                                     <li><a href="{{ $instagram->permalink }}"><i class="fab fa-telegram-plane"></i></a>
                                     </li>
                                 </ul>
-                                {{-- <div class="teacher-name">
-                                        {{ $loop->iteration }}. {{ $instagram->type }}
-                                    </div> --}}
                             </div>
                         </div>
-                        {{-- <div class="teacher-category float-right">
-                                <span class="st-name">Mobile Apps </span>
-                            </div> --}}
                     </div>
                 @endforeach
 
             </div>
         </div>
-    </section>
+    </section> --}}
     <!-- End of genius teacher v2
                                                      ============================================= -->
 
