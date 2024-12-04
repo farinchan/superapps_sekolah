@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\BlogTeacher;
 use App\Models\MenuPersonalia;
 use App\Models\News;
 use App\Models\NewsCategory;
@@ -68,6 +69,7 @@ class PersonaliaMenu extends Controller
             'meta_keywords' => $teacher->meta_keywords,
             'favicon' => $setting_web->favicon,
             'setting_web' => $setting_web,
+            'list_blog_teacher' => BlogTeacher::where('status', 'published')->where('teacher_id', $teacher->id)->latest()->get(),
 
             'teacher' => $teacher,
         ];

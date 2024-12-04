@@ -147,6 +147,50 @@
                             </p>
                         </div>
 
+                        <div class="about-teacher mb45">
+                            <div class="section-title-2  headline text-left">
+                                <h2>Blog <span>Saya.</span></h2>
+                            </div>
+                            <div class="best-course-area mb45" style="background-color: #f5f5f5; padding: 20px;">
+                                <div class="row">
+                                    @foreach ($list_blog_teacher as $blog_teacher)
+                                        <div class="col-md-4">
+                                            <div class="best-course-pic-text relative-position ">
+                                                <div class="best-course-pic relative-position">
+                                                    <img src="{{ $blog_teacher->getThumbnail() }}" alt=""
+                                                        style="height: 200px; width: 100%; object-fit: cover;">
+                                                    @if ($blog_teacher->viewers->count() > 100)
+                                                        <div class="trend-badge-2 text-center text-uppercase">
+                                                            <i class="fas fa-bolt"></i>
+                                                            <span>Trending</span>
+                                                        </div>
+                                                    @endif
+                                                    <div class="course-details-btn">
+                                                        <a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">Selengkapnya <i
+                                                                class="fas fa-arrow-right"></i></a>
+                                                    </div>
+                                                    <div class="blakish-overlay"></div>
+                                                </div>
+                                                <div class="best-course-text">
+                                                    <div class="course-title mb20 headline relative-position">
+                                                        <h3><a href="{{ route('blog_teacher.show', $blog_teacher->slug) }}">
+                                                                {{ Str::limit($blog_teacher->title, 65) }}
+                                                            </a></h3>
+                                                    </div>
+                                                    <div class="course-meta">
+                                                        <span class="course-category"><a
+                                                                href=" {{ route('staff.detail', $blog_teacher->teacher->id) }}">{{ $blog_teacher->teacher->name }}</a></span>
+                                                        <span class="course-author"><a href="#">
+                                                                {{ $blog_teacher->viewers->count() }} dilihat</a></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="col-md-3">

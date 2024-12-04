@@ -201,6 +201,14 @@
                             </div>
                         </div>
                         <div class="card-body py-4">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div id="chart"></div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div id="barchart"></div>
+                                </div>
+                            </div>
                         </div>
                     </div> --}}
 
@@ -211,4 +219,94 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        // Data dan konfigurasi untuk Pie Chart
+        var options = {
+            chart: {
+                type: 'pie',
+                height: 350
+            },
+            series: [{{ $exam_answer_analysis->sum('is_correct') }},
+                {{ $exam_answer_analysis->count() - $exam_answer_analysis->sum('is_correct') }}
+            ], // Data Chart
+            labels: ['Yang Menjawab benar', 'yang menjawab salah'], // Label Kategori
+            colors: ['#1BC5BD', '#F64E60'], // Warna Chart
+            title: {
+                text: 'Total Jawaban Benar dan Salah',
+                align: 'left'
+            },
+            legend: {
+                position: 'bottom', // Meletakkan legenda di bawah
+                horizontalAlign: 'center', // Meratakan secara horizontal di tengah
+            }
+        };
+
+        // Inisialisasi chart
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        var exam_answer_analysis = @json($exam_answer_analysis);
+        // var exam_analysis_per kelas = [];
+
+        // exam_answer_analysis.forEach(function(item) {
+        //     if (exam_analysis_per_kelas[item.classroom_id] == undefined) {
+        //         exam_analysis_per_kelas[item.classroom_id] = {
+        //             classroom: item.classroom,
+        //             correct: 0,
+        //             wrong: 0
+        //         };
+        //     }
+
+        //     if (item.is_correct == 1) {
+        //         exam_analysis_per_kelas[item.classroom_id].correct++;
+        //     } else {
+        //         exam_analysis_per_kelas[item.classroom_id].wrong++;
+        //     }
+        // });
+
+        // Data dan konfigurasi untuk Bar Chart
+        var options = {
+            series: [{
+                data: [44, 55, 41, 64, 22, 43, 21]
+            }, {
+                data: [53, 32, 33, 52, 13, 44, 32]
+            }],
+            chart: {
+                type: 'bar',
+                height: 430
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                offsetX: -6,
+                style: {
+                    fontSize: '12px',
+                    colors: ['#fff']
+                }
+            },
+            stroke: {
+                show: true,
+                width: 1,
+                colors: ['#fff']
+            },
+            tooltip: {
+                shared: true,
+                intersect: false
+            },
+            xaxis: {
+                categories: [2001, 2002, 2003, 2004, 2005, 2006, 2007],
+            },
+        };
+
+        // Inisialisasi chart
+        var barchart = new ApexCharts(document.querySelector("#barchart"), options);
+        barchart.render();
+    </script>
 @endsection

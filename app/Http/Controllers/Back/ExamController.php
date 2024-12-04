@@ -428,12 +428,25 @@ class ExamController extends Controller
                 ->where('exam_id', $exam_session->exam_id)
                 ->first();
         }
+        $exam_answer_analysis = ExamQuestion::with(['examAnswer'])->when($question_id, function ($query) use ($question_id) {
+            $query->where('id', $question_id);
+        })->where('exam_id', $exam_session->exam_id)->first()->examAnswer;
         $data = [
             'title' => 'Analisis Ujian',
             'menu' => 'E-Learning',
             'sub_menu' => 'Ujian',
 
             'exam_session' => $exam_session,
+            'exam_answer_analysis' => $exam_answer_analysis,
+            'exam_answer_analysis_perkelas' => ExamAnswer::leftJoin('exam_session', 'exam_session.id', '=', 'exam_answer.exam_session_id')
+                ->leftJoin('student', 'student.id', '=', 'exam_session.student_id')
+                ->leftJoin('exam', 'exam.id', '=', 'exam_session.exam_id')
+                ->leftJoin('exam_classroom', 'exam_classroom.exam_id', '=', 'exam.id')
+                ->leftJoin('classroom', 'classroom.id', '=', 'exam_classroom.classroom_id')
+                ->where('exam.id', $exam_session->exam_id)
+                ->select('exam_answer.*', 'exam.id as exam_id', 'exam_classroom.classroom_id', 'classroom.name as classroom_name', 'student.name as student_name')
+                ->orderBy('exam_answer.exam_question_id')
+                ->get(),
             'exam_question_number' => $exam_question_number,
             'exam_question_n_answer' => ExamQuestion::with([
                 'multipleChoice',
