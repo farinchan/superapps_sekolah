@@ -8,6 +8,56 @@ var KTUsersList = function () {
     var toolbarSelected;
     var selectedCount;
 
+    function convertDatetimeToFormattedString(datetime) {
+        if (!datetime) return '';
+
+        const dateObj = new Date(datetime);
+
+        // Array nama bulan
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // Mendapatkan bagian-bagian tanggal dan waktu
+        const day = String(dateObj.getDate()).padStart(2, '0');
+        const month = monthNames[dateObj.getMonth()];
+        const year = dateObj.getFullYear();
+
+        const hours = String(dateObj.getHours()).padStart(2, '0');
+        const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+
+        // Format akhir
+        return `${day} ${month} ${year} ${hours}:${minutes}`;
+    }
+
+    function convertToDate(dateString) {
+        // Array nama bulan
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // Memisahkan tanggal, bulan, tahun, jam, dan menit
+        const [day, month, year, time] = dateString.split(" ");
+        const [hour, minute] = time.split(":");
+
+        // Menemukan bulan (dalam angka)
+        const monthIndex = monthNames.indexOf(month);
+
+        // Membuat objek Date
+        const date = new Date(year, monthIndex, day, hour, minute);
+
+        // Mengonversi ke format ISO (YYYY-MM-DDTHH:MM)
+        const isoString = date // Mengambil bagian sampai menit
+
+        return isoString;
+    }
+
+    function stripTags(input) {
+        var doc = new DOMParser().parseFromString(input, 'text/html');
+        return doc.body.textContent || doc.body.innerText || "";
+    }
+    function removeExtraSpaces(str) {
+        return str.replace(/\s+/g, ' ').trim();
+    }
+
     // Private functions
     var initUserTable = function () {
         // Set date data order
@@ -76,11 +126,17 @@ var KTUsersList = function () {
         });
     }
 
+    var datatable_date_filter = [];
+
     // Filter Datatable
     var handleFilterDatatable = () => {
         // Select filter options
         const filterForm = document.querySelector('[data-kt-user-table-filter="form"]');
         const filterButton = filterForm.querySelector('[data-kt-user-table-filter="filter"]');
+
+        const start_exams = filterForm.querySelector('[data-kt-user-table-filter="start_exams"]');
+        const end_exams = filterForm.querySelector('[data-kt-user-table-filter="end_exams"]');
+
         const selectOptions = filterForm.querySelectorAll('select');
 
         // Filter datatable on submit
@@ -98,9 +154,80 @@ var KTUsersList = function () {
                     filterString += item.value;
                 }
             });
-
             // Filter datatable --- official docs reference: https://datatables.net/reference/api/search()
             datatable.search(filterString).draw();
+
+            // 03 Dec 2024 07:30 <br> s/d <br> 03 Dec 2024 09:00"
+            var startDate = start_exams.value ? new Date(start_exams.value) : 0;
+            var endDate = end_exams.value ? new Date(end_exams.value) : 0;
+
+            console.log(startDate, endDate);
+
+
+
+            var data_columns2 = [];
+            datatable.columns(2).data().each(function (value, index) {
+                data_columns2 = data_columns2.concat(value);
+
+            });
+
+            data_columns2.forEach(function (value, index) {
+                var result = stripTags(value);
+                var result = removeExtraSpaces(result);
+
+                var [start, end] = result.replace('Sedang Berlangsung ', '').replace('Selesai ', '').replace('Terjadwal ', '').split(' s/d ');
+                start = convertToDate(start);
+                end = convertToDate(end);
+
+                datatable_date_filter.push({
+                    id: index,
+                    start: start,
+                    end: end
+                });
+
+            });
+
+            console.log(datatable_date_filter);
+
+            var removeIndex = [];
+
+            datatable_date_filter.map(function (value, index) {
+                if (startDate !== 0 && endDate !== 0) {
+                    if (value.start < startDate || value.end > endDate) {
+                        removeIndex.push(value.id);
+                    }
+                }
+
+                if (startDate !== 0 && endDate === 0) {
+                    if (value.start < startDate) {
+                        removeIndex.push(value.id);
+                    }
+                }
+
+                if (startDate === 0 && endDate !== 0) {
+                    if (value.end > endDate) {
+                        removeIndex.push(value.id);
+                    }
+                }
+
+            });
+
+            console.log(removeIndex);
+
+            // datatable.rows(function (idx, data, node) {
+            //     return removeIndex.includes(idx);
+            // }).remove().draw();
+
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+                    if (removeIndex.includes(dataIndex)) {
+                        return false;
+                    }
+                    return true;
+                }
+            );
+            datatable.draw();
+
         });
     }
 
@@ -113,12 +240,22 @@ var KTUsersList = function () {
         resetButton.addEventListener('click', function () {
             // Select filter options
             const filterForm = document.querySelector('[data-kt-user-table-filter="form"]');
+            var startexams = filterForm.querySelector('[data-kt-user-table-filter="start_exams"]')
+            var endexams = filterForm.querySelector('[data-kt-user-table-filter="end_exams"]')
             const selectOptions = filterForm.querySelectorAll('select');
 
             // Reset select2 values -- more info: https://select2.org/programmatic-control/add-select-clear-items
             selectOptions.forEach(select => {
                 $(select).val('').trigger('change');
             });
+
+            if (startexams.value || endexams.value) {
+                startexams.value = '';
+                endexams.value = '';
+                $.fn.dataTable.ext.search.pop();
+                datatable.draw();
+
+            }
 
             // Reset datatable --- official docs reference: https://datatables.net/reference/api/search()
             datatable.search('').draw();
@@ -281,14 +418,14 @@ var KTUsersList = function () {
         });
 
         // Toggle toolbars
-        if (checkedState) {
-            selectedCount.innerHTML = count;
-            toolbarBase.classList.add('d-none');
-            toolbarSelected.classList.remove('d-none');
-        } else {
-            toolbarBase.classList.remove('d-none');
-            toolbarSelected.classList.add('d-none');
-        }
+        // if (checkedState) {
+        //     selectedCount.innerHTML = count;
+        //     toolbarBase.classList.add('d-none');
+        //     toolbarSelected.classList.remove('d-none');
+        // } else {
+        //     toolbarBase.classList.remove('d-none');
+        //     toolbarSelected.classList.add('d-none');
+        // }
     }
 
     return {
@@ -304,6 +441,7 @@ var KTUsersList = function () {
             handleResetForm();
             handleDeleteRows();
             handleFilterDatatable();
+
 
         }
     }

@@ -63,6 +63,16 @@
 
                                         </select>
                                     </div>
+                                    <div class="mb-5">
+                                        <label class="form-label fs-6 fw-semibold">Waktu Mulai</label>
+                                        <input type="datetime-local" class="form-control form-control-solid fw-bold"
+                                            data-kt-user-table-filter="start_exams" />
+                                    </div>
+                                    <div class="mb-5">
+                                        <label class="form-label fs-6 fw-semibold">Waktu Selesai</label>
+                                        <input type="datetime-local" class="form-control form-control-solid fw-bold"
+                                            data-kt-user-table-filter="end_exams" />
+                                    </div>
                                     <div class="d-flex justify-content-end">
                                         <button type="reset"
                                             class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6"
