@@ -61,7 +61,7 @@ class AuthController extends Controller
             Auth::login($user);
             LogLogin::create([
                 'user_id' => $user->id,
-                'ip' => request()->ip(),
+                'ip_address' => request()->ip(),
                 'user_agent' => Agent::getUserAgent(),
                 'platform' => Agent::platform(),
                 'browser' => Agent::browser(),

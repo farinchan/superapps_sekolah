@@ -45,7 +45,7 @@
                                                 <td>
                                                     <ul>
                                                         <li>
-                                                            IP Address : {{ $login_elearning->ip }}
+                                                            IP Address : {{ $login_elearning->ip_address }}
                                                         </li>
                                                         <li>
                                                             User Agent : {{ $login_elearning->user_agent }}
@@ -141,7 +141,7 @@
                                                 <td>
                                                     <ul>
                                                         <li>
-                                                            IP Address : {{ $login->ip }}
+                                                            IP Address : {{ $login->ip_address }}
                                                         </li>
                                                         <li>
                                                             User Agent : {{ $login->user_agent }}
