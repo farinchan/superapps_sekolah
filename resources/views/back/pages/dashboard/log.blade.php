@@ -25,7 +25,7 @@
                                     <tbody>
                                         @foreach ($log_login_elearning as $login_elearning)
                                             <tr class="text-gray-800">
-                                                <td class="d-flex align-items-center" style="min-height: 100px;">
+                                                <td class="d-flex align-items-center" style="min-height: 110px;">
                                                     <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                         <a href="#">
                                                             <div class="symbol-label">
@@ -111,7 +111,7 @@
                                                         </div>
                                                     </td>
                                                 @elseif ($login->user?->teacher)
-                                                    <td class="d-flex align-items-center" style="min-height: 100px;">
+                                                    <td class="d-flex align-items-center" style="min-height: 110px;">
                                                         <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                                             <a href="#">
                                                                 <div class="symbol-label">
