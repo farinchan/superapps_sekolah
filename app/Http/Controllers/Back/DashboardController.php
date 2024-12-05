@@ -43,7 +43,7 @@ class DashboardController extends Controller
                 ->whereHas('blogTeacher', function ($query) {
                     $query->where('teacher_id', Auth::user()->teacher->id);
                 })
-                ->orderBy('date', 'asc')
+                ->orderBy('date', 'desc')
                 ->limit(30)
                 ->groupBy('date')
                 ->get(),
@@ -93,7 +93,7 @@ class DashboardController extends Controller
 
         $data = [
             'news_viewer_monthly' => NewsViewer::select(DB::raw('Date(created_at) as date'), DB::raw('count(*) as total'))
-                ->orderBy('date', 'asc')
+            ->orderBy('date', 'desc')
                 ->limit(30)
                 ->groupBy('date')
                 ->get(),

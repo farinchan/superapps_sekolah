@@ -272,13 +272,13 @@
             chart_1.updateSeries([{
                 data: response.blog_viewer_monthly.map(function(item) {
                     return item.total;
-                })
+                }).reverse()
             }]);
             chart_1.updateOptions({
                 xaxis: {
                     categories: response.blog_viewer_monthly.map(function(item) {
                         return item.date;
-                    })
+                    }).reverse()
                 }
             });
         }
