@@ -7,7 +7,7 @@
                     <div class="card card-flush h-lg-100">
                         <div class="card-header pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-gray-900">Statistik Pengunjung berita</span>
+                                <span class="card-label fw-bold text-gray-900">Statistik Pengunjung berita sebulan terakhir</span>
                             </h3>
                         </div>
                         <div class="card-body pt-0 px-0">
@@ -55,7 +55,7 @@
                         </div>
                         <div class="card-body pt-0 px-5">
                             <div class="table-responsive">
-                                <table class="table gs-7 gy-7 gx-7">
+                                <table class="table gs-7 gx-7">
                                     <thead>
                                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                             <th>Berita</th>
@@ -66,7 +66,7 @@
                                     <tbody>
                                         @foreach ($news_popular as $item_news_popular)
                                             <tr>
-                                                <td><a class="text-gray-800 text-hover-primary fw-bold" href="{{ route('news.detail', $item_news_popular->slug) }}">{{ $item_news_popular->title }}</a></td>
+                                                <td><a class="text-gray-800 text-hover-primary fs-6" href="{{ route('news.show', $item_news_popular->slug) }}">{{ $item_news_popular->title }}</a></td>
                                                 <td class="text-center">{{ $item_news_popular->viewers_count }}</td>
                                                 <td class="text-center">{{ $item_news_popular->comments->count() }}</td>
                                             </tr>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="card-body pt-0 px-5">
                             <div class="table-responsive">
-                                <table class="table gs-7 gy-7 gx-7">
+                                <table class="table gs-7 gx-7">
                                     <thead>
                                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
                                             <th>Berita</th>
@@ -99,7 +99,7 @@
                                     <tbody>
                                         @foreach ($news_new as $item_news_new)
                                             <tr>
-                                                <td><a class="text-gray-800 text-hover-primary fw-bold" href="{{ route('news.detail', $item_news_new->slug) }}">{{ $item_news_new->title }}</a></td>
+                                                <td><a class="text-gray-800 text-hover-primary fs-6" href="{{ route('news.show', $item_news_new->slug) }}">{{ $item_news_new->title }}</a></td>
                                                 <td class="text-center">{{ $item_news_new->viewers->count() }}</td>
                                                 <td class="text-center">{{ $item_news_new->comments->count() }}</td>
                                             </tr>
@@ -114,19 +114,25 @@
                     <div class="card card-flush h-lg-100">
                         <div class="card-header pt-5">
                             <h3 class="card-title align-items-start flex-column">
-                                <span class="card-label fw-bold text-gray-900">Komentar Terbaru</span>
+                                <span class="card-label fw-bold text-gray-900">Penulis Berita (HUMAS)</span>
                             </h3>
                         </div>
                         <div class="card-body pt-0 px-5">
                             <div class="table-responsive">
-                                <table class="table gs-7 gy-7 gx-7">
+                                <table class="table gs-7 gx-7">
                                     <thead>
                                         <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
-                                            <th>User</th>
-                                            <th class="text-center">Komentar</th>
+                                            <th>Humas</th>
+                                            <th class="text-center">Jumlah Berita</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($news_writer as $item_news_writer)
+                                            <tr>
+                                                <td>{{ $item_news_writer->name }} <br> <small>NIP.{{ $item_news_writer->nip }}</small></td>
+                                                <td class="text-center">{{ $item_news_writer->total }}</td>
+                                            </tr>
+                                        @endforeach
 
                                     </tbody>
                                 </table>
@@ -232,7 +238,7 @@
         chart_3.render();
 
         $.ajax({
-            url: "{{ route('back.dashboard.news.stat') }}",
+            url: "{{ route('back.dashboard.news-stat') }}",
             type: "GET",
             success: function(response) {
                 console.log(response);

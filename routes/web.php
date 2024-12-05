@@ -96,6 +96,10 @@ Route::domain(env('APP_URL'))->group(function () {
 
     Route::prefix('back')->middleware('auth')->name('back.')->group(function () {
         Route::get('/dashboard', [BackDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard/stat', [BackDashboardController::class, 'indexStat'])->name('dashboard.stat');
+        Route::get('/dashboard/news', [BackDashboardController::class, 'news'])->name('dashboard.news');
+        Route::get('/dashboard/news-stat', [BackDashboardController::class, 'newsStat'])->name('dashboard.news-stat');
+        Route::get('/dashboard/log', [BackDashboardController::class, 'log'])->name('dashboard.log');
 
         Route::prefix('announcement')->name('announcement.')->group(function () {
             Route::get('/', [BackAnnouncementController::class, 'index'])->name('index');

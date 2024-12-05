@@ -142,8 +142,9 @@
 @push('scripts')
     <script>
         $('#tabel').DataTable({
-            paging: true,
-            searching: false,
+            'paging': true,
+            'searching': true,
+            'order': []
         });
     </script>
 @endpush

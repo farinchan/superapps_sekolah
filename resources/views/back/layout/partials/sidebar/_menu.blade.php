@@ -23,15 +23,28 @@
                                 <span class="menu-title">Default</span>
                             </a>
                         </div>
-                        {{-- <div class="menu-item">
-                            <a class="menu-link @if (request()->routeIs('back.dashboard.news')) active @endif"
-                                href="{{ route('back.dashboard.news') }}">
-                                <span class="menu-bullet">
-                                    <span class="bullet bullet-dot"></span>
-                                </span>
-                                <span class="menu-title">Berita</span>
-                            </a>
-                        </div> --}}
+                        @role('humas|kepsek|admin')
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.dashboard.news')) active @endif"
+                                    href="{{ route('back.dashboard.news') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Berita</span>
+                                </a>
+                            </div>
+                        @endrole
+                        @role('proktor|kepsek|admin')
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.dashboard.log')) active @endif"
+                                    href="{{ route('back.dashboard.log') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">LOG</span>
+                                </a>
+                            </div>
+                        @endrole
                     </div>
                 </div>
 
@@ -381,7 +394,7 @@
                     </div>
                 @endrole
 
-                @role('admin|guru')
+                @role('admin|guru|proktor')
                     <div class="menu-item pt-5">
                         <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
                                 E-Learning

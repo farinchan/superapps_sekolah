@@ -18,6 +18,11 @@ class Teacher extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
+
     public function getPhoto(){
         return $this->photo ? Storage::url($this->photo) : asset('img_ext/anonim_person.png');
     }
