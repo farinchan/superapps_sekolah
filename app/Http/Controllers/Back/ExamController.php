@@ -338,7 +338,11 @@ class ExamController extends Controller
                 return '<span class="fw-bold">' . $row->classroom_name . '</span> <br> <span>' . $row->school_year_start . '/' . $row->school_year_end . '</span>';
             })
             ->addColumn('login', function ($row) {
+                if ($row->start_time === null) {
+                    return '-';
+                } else{
                     return '<span class="fw-bold">' . $row->login_count . '</span>';
+                }
 
             })
             ->addColumn('nilai', function ($row) {
