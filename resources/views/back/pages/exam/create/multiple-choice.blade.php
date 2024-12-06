@@ -1,4 +1,12 @@
 @extends('back.app')
+
+@section('styles')
+    <!-- KaTeX -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+@endsection
+
 @section('content')
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div id="kt_app_content_container" class="app-container container-xxl">
@@ -101,21 +109,37 @@
 @section('scripts')
     <script src="{{ asset('back/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
     <script src="{{ asset('back/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@wiris/mathtype-ckeditor5/build/mathtype.min.js"></script>
+
 
     <script>
         var quill = new Quill('#question_text_quill', {
             modules: {
+                formula: true,
                 toolbar: [
                     [{
                         header: [1, 2, false]
                     }],
-                    ['bold', 'italic', 'underline'],
-                    ['image', 'code-block']
+                    ['bold', 'italic', 'underline', 'formula'],
+
+                    [{
+                        'script': 'sub'
+                    }, {
+                        'script': 'super'
+                    }],
+                    [{
+                        list: 'ordered'
+                    }, {
+                        list: 'bullet'
+                    }],
+                    ['image'],
+                    ['clean']
                 ]
             },
             placeholder: 'Type your text here...',
             theme: 'snow' // or 'bubble'
         });
+
         $('#question_text').val(quill.root.innerHTML);
         quill.on('text-change', function() {
             $('#question_text').val(quill.root.innerHTML);
@@ -125,20 +149,29 @@
         function initCKEditor() {
             document.querySelectorAll('.choice-text-editor').forEach(textarea => {
                 if (!textarea.classList.contains('ckeditor-initialized')) {
-                    ClassicEditor.create(textarea,
-                        {
+                    ClassicEditor.create(textarea, {
                             toolbar: {
                                 items: [
                                     'bold',
                                     'italic',
-                                    'underline'
+                                    'underline',
+                                    'subscript', // Tambahkan tombol Subscript
+                                    'superscript', // Tambahkan tombol Superscript
                                 ]
                             },
-                        }
-                    )
+                            plugins: [
+                                'Essentials',
+                                'Paragraph',
+                                'Bold',
+                                'Italic',
+                                // 'Underline',
+                                // 'Subscript', // Tambahkan plugin Subscript
+                                // 'Superscript', // Tambahkan plugin Superscript
+                            ]
+                        })
                         .then(editor => {
                             textarea.classList.add(
-                            'ckeditor-initialized'); // Tandai sebagai sudah diinisialisasi
+                                'ckeditor-initialized'); // Tandai sebagai sudah diinisialisasi
                             editor.ui.view.editable.element.style.minHeight = '80px';
                         })
                         .catch(error => {

@@ -24,6 +24,7 @@ use App\Models\Subject;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
@@ -247,26 +248,63 @@ class ExamController extends Controller
 
 
         $student = ExamClassroom::where('exam_classroom.exam_id', $id)
-            ->when($classroom_id, function ($query) use ($classroom_id) {
-                $query->where('exam_classroom.classroom_id', $classroom_id);
-            })
-            ->leftJoin('classroom', 'classroom.id', '=', 'exam_classroom.classroom_id')
-            ->leftJoin('school_year', 'school_year.id', '=', 'classroom.school_year_id')
-            ->leftJoin('classroom_student', function ($join) {
-                $join->on('classroom_student.classroom_id', '=', 'exam_classroom.classroom_id');
-            })
-            ->leftJoin('student', function ($join) {
-                $join->on('student.id', '=', 'classroom_student.student_id');
-            })
-            ->when($search, function ($query) use ($search) {
-                $query->where('student.name', 'like', '%' . $search . '%')->orWhere('student.nisn', 'like', '%' . $search . '%');
-            })
-            ->leftJoin('exam_session', function ($join) use ($id) {
-                $join->on('exam_session.student_id', '=', 'student.id')
-                    ->where('exam_session.exam_id', $id);
-            })
-            ->select('student.id as student_id', 'student.name', 'student.nisn', 'student.nik', 'student.photo', 'classroom.id as classroom_id', 'classroom.name as classroom_name', 'exam_session.id as session_id', 'exam_session.start_time', 'exam_session.end_time', 'exam_session.score', 'school_year.start_year as school_year_start', 'school_year.end_year as school_year_end')
-            ->get();
+        ->when($classroom_id, function ($query) use ($classroom_id) {
+            $query->where('exam_classroom.classroom_id', $classroom_id);
+        })
+        ->leftJoin('classroom', 'classroom.id', '=', 'exam_classroom.classroom_id')
+        ->leftJoin('school_year', 'school_year.id', '=', 'classroom.school_year_id')
+        ->leftJoin('classroom_student', function ($join) {
+            $join->on('classroom_student.classroom_id', '=', 'exam_classroom.classroom_id');
+        })
+        ->leftJoin('student', function ($join) {
+            $join->on('student.id', '=', 'classroom_student.student_id');
+        })
+
+        ->when($search, function ($query) use ($search) {
+            $query->where('student.name', 'like', '%' . $search . '%')
+                ->orWhere('student.nisn', 'like', '%' . $search . '%');
+        })
+        ->leftJoin('exam_session', function ($join) use ($id) {
+            $join->on('exam_session.student_id', '=', 'student.id')
+                ->where('exam_session.exam_id', $id);
+        })
+        ->leftJoin('log_login_elearning', function ($join) {
+            $join->on('log_login_elearning.user_id', '=', 'student.user_id')
+                ->on('log_login_elearning.created_at', '>=', DB::raw('COALESCE(exam_session.start_time, log_login_elearning.created_at)'))
+                ->on('log_login_elearning.created_at', '<=', DB::raw('COALESCE(exam_session.end_time, log_login_elearning.created_at)'));
+        })
+        ->select(
+            'student.id as student_id',
+            'student.name',
+            'student.nisn',
+            'student.nik',
+            'student.photo',
+            'classroom.id as classroom_id',
+            'classroom.name as classroom_name',
+            'exam_session.id as session_id',
+            'exam_session.start_time',
+            'exam_session.end_time',
+            'exam_session.score',
+            'school_year.start_year as school_year_start',
+            'school_year.end_year as school_year_end',
+            DB::raw('count(log_login_elearning.id) as login_count')
+        )
+        ->groupBy(
+            'student.id',
+            'student.name',
+            'student.nisn',
+            'student.nik',
+            'student.photo',
+            'classroom.id',
+            'classroom.name',
+            'exam_session.id',
+            'exam_session.start_time',
+            'exam_session.end_time',
+            'exam_session.score',
+            'school_year.start_year',
+            'school_year.end_year'
+        )
+        ->get();
 
         // return response()->json($student);
 
@@ -298,6 +336,10 @@ class ExamController extends Controller
             })
             ->addColumn('kelas', function ($row) {
                 return '<span class="fw-bold">' . $row->classroom_name . '</span> <br> <span>' . $row->school_year_start . '/' . $row->school_year_end . '</span>';
+            })
+            ->addColumn('login', function ($row) {
+                    return '<span class="fw-bold">' . $row->login_count . '</span>';
+
             })
             ->addColumn('nilai', function ($row) {
                 if ($row->start_time === null) {
@@ -340,7 +382,7 @@ class ExamController extends Controller
                             </a>';
                 }
             })
-            ->rawColumns(['index', 'siswa', 'kelas', 'nilai', 'action'])
+            ->rawColumns(['index', 'siswa', 'kelas','login', 'nilai', 'action'])
             ->make(true);
     }
 

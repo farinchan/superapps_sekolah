@@ -72,6 +72,7 @@
                                 </th>
                                 <th class="min-w-200px">Siswa</th>
                                 <th class="text-start min-w-70px">Kelas</th>
+                                <th class="text-end ">Login</th>
                                 <th class="text-end min-w-70px">Nilai</th>
                                 <th class="text-end min-w-70px">Actions</th>
                             </tr>
@@ -119,6 +120,10 @@
                     name: 'kelas'
                 },
                 {
+                    data: 'login',
+                    name: 'login'
+                },
+                {
                     data: 'nilai',
                     name: 'nilai'
                 },
@@ -134,7 +139,8 @@
                 $(row).find('td').eq(1).addClass('d-flex align-items-center');
                 $(row).find('td').eq(2).addClass('text-start pe-0');
                 $(row).find('td').eq(3).addClass('text-end pe-0');
-                $(row).find('td').eq(4).addClass('text-end');
+                $(row).find('td').eq(4).addClass('text-end pe-0');
+                $(row).find('td').eq(5).addClass('text-end');
             }
         });
 
