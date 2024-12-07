@@ -15,7 +15,7 @@ use App\Models\LogLoginElearning;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
@@ -115,7 +115,7 @@ class DashboardController extends Controller
             'sub_menu' => '',
             'log_login' => LogLogin::with('user')->latest()->get(),
             'log_login_elearning' => LogLoginElearning::with('user')->latest()->get(),
-            'log_perubahan' => ''
+            'log_activity' => Activity::latest()->get(),
         ];
         return view('back.pages.dashboard.log', $data);
     }

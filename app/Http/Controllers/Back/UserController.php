@@ -140,7 +140,7 @@ class UserController extends Controller
         $teacher->linkedin = $request->linkedin;
         $teacher->meta_title = $request->name;
         $teacher->meta_description = $request->about;
-        $teacher->meta_keywords = "Guru, Staff, Tenaga Pendidik, Tenaga Kependidikan" . $request->name . $request->position . $request->type;
+        $teacher->meta_keywords = "Guru, Staff, Tenaga Pendidik, Tenaga Kependidikan " . $request->name . " " . $request->position . " " . $request->type;
         $teacher->user_id = $user->id;
 
         if ($request->hasFile('photo')) {
@@ -225,7 +225,7 @@ class UserController extends Controller
         $teacher->linkedin = $request->linkedin;
         $teacher->meta_title = $request->name;
         $teacher->meta_description = $request->about;
-        $teacher->meta_keywords = "Guru, Staff, Tenaga Pendidik, Tenaga Kependidikan" . $request->name . $request->position . $request->type;
+        $teacher->meta_keywords = "Guru, Staff, Tenaga Pendidik, Tenaga Kependidikan " . $request->name . " " . $request->position . " " . $request->type;
 
         if ($request->hasFile('photo')) {
             $image = $request->file('photo');

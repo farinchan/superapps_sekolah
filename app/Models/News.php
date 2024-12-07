@@ -5,10 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class News extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logUnguarded()
+        ->logOnlyDirty()
+        ->setDescriptionForEvent(fn (string $eventName) => "This model has been {$eventName}");
+    }
 
     protected $table = 'news';
     protected $guarded = ['id', 'created_at', 'updated_at'];

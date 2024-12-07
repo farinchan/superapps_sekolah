@@ -15,6 +15,7 @@
         "livewire/livewire": "^3.5",
         "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^7.2",
+        "spatie/laravel-activitylog": "^4.9",
         "spatie/laravel-permission": "^6.9",
         "stevebauman/location": "^7.3",
         "yajra/laravel-datatables": "^11.0"

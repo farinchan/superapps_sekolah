@@ -5,11 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Event extends Model
 {
 
-    use HasFactory;
+    use HasFactory, LogsActivity;
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+        ->logFillable()
+        ->logOnlyDirty()
+        ->setDescriptionForEvent(fn (string $eventName) => "This model has been {$eventName}");
+    }
 
     protected $table = 'event';
     protected $fillable = [
