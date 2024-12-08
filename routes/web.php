@@ -32,6 +32,7 @@ use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
 use App\Http\Controllers\Back\DisciplineRulesController as BackDisciplineRulesController;
 use App\Http\Controllers\Back\DisciplineStudentController as BackDisciplineStudentController;
+use App\Http\Controllers\Back\StudentAttendancesController as BackStudentAttendancesController;
 use App\Http\Controllers\Front\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 
@@ -189,6 +190,12 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::post('/create', [BackCalendarController::class, 'store'])->name('store');
             Route::put('/edit', [BackCalendarController::class, 'update'])->name('update');
             Route::delete('/delete', [BackCalendarController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('student-attendance')->name('student-attendance.')->group(function () {
+            Route::get('/scan', [BackStudentAttendancesController::class, 'scan'])->name('scan');
+            Route::post('/scan', [BackStudentAttendancesController::class, 'scanProcess'])->name('scan.process');
+            Route::get('/history-scan', [BackStudentAttendancesController::class, 'HistoryScanDatatable'])->name('history-scan');
         });
 
         Route::prefix('school-year')->name('school-year.')->group(function () {

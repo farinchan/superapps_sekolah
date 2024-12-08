@@ -281,7 +281,7 @@
                 @role('admin')
                     <div class="menu-item pt-5">
                         <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
-                                Absensi
+                                Presensi
                             </span>
                         </div>
                     </div>
@@ -295,16 +295,17 @@
                                     <span class="path3"></span>
                                 </i>
                             </span>
-                            <span class="menu-title">Absensi Siswa</span>
+                            <span class="menu-title">Presensi Siswa</span>
                             <span class="menu-arrow"></span>
                         </span>
                         <div class="menu-sub menu-sub-accordion">
                             <div class="menu-item">
-                                <a class="menu-link" href="#">
+                                <a class="menu-link @if (request()->routeIs('back.student-attendance.index')) active @endif"
+                                    href="{{ route('back.student-attendance.scan') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
-                                    <span class="menu-title">Absensi</span>
+                                    <span class="menu-title">Scan</span>
                                 </a>
                             </div>
                             <div class="menu-item">
@@ -328,7 +329,7 @@
                                     <span class="path4"></span>
                                 </i>
                             </span>
-                            <span class="menu-title">Absensi Guru</span>
+                            <span class="menu-title">Presensi Guru</span>
                         </a>
                     </div>
                 @endrole
