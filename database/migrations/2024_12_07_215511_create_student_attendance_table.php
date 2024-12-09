@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('student_attendance', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('student_id')->constrained("student")->onDelete('cascade')->onUpdate('cascade');
             $table->date('date');
-            $table->time('time');
-            $table->enum('type', ['masuk', 'pulang']);
-            $table->foreignId('teacher_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->time('time_in');
+            $table->string('time_in_info')->nullable();
+            $table->time('time_out')->nullable();
+            $table->string('time_out_info')->nullable();
+            $table->foreignId('teacher_id')->constrained("teacher")->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

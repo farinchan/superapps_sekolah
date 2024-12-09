@@ -309,6 +309,15 @@
                                 </a>
                             </div>
                             <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.student-attendance.timetable')) active @endif"
+                                    href="{{ route('back.student-attendance.timetable') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Jadwal</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
                                 <a class="menu-link " href="#">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>

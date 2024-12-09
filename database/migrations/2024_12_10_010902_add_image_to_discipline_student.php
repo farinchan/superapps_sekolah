@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('student_attendance_rule', function (Blueprint $table) {
-            $table->id();
-            $table->string('day');
-            $table->time('start');
-            $table->time('end');
-            $table->enum('type', ['masuk', 'pulang']);
-            $table->timestamps();
+        Schema::table('discipline_student', function (Blueprint $table) {
+            $table->string('image')->nullable()->after('date');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('student_attendance_rules');
+        Schema::table('discipline_student', function (Blueprint $table) {
+
+        });
     }
 };

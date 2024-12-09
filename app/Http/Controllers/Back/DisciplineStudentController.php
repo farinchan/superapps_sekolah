@@ -14,6 +14,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class DisciplineStudentController extends Controller
 {
@@ -160,12 +161,16 @@ class DisciplineStudentController extends Controller
             'student_id' => 'required|integer',
             'discipline_rule_id' => 'required|integer',
             'date' => 'required|date',
+            'image' => 'nullable|image|max:6248',
             'description' => 'required|string',
         ], [
             'required' => ':attribute tidak boleh kosong',
             'integer' => ':attribute harus berupa angka',
             'date' => ':attribute harus berupa tanggal',
             'string' => ':attribute harus berupa teks',
+            'image' => ':attribute harus berupa gambar',
+            'mimes' => ':attribute harus berupa gambar dengan format jpeg, png, jpg, gif, svg',
+            'max' => ':attribute tidak boleh lebih dari 6MB',
         ]);
 
         if ($validator->fails()) {
@@ -173,10 +178,19 @@ class DisciplineStudentController extends Controller
             return redirect()->back()->withInput();
         }
 
+        $image_path = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $image_path = $image->storeAs('discipline', Str::random(16) . '.' . $image->getClientOriginalExtension(), 'public');
+        } else {
+            $image_path = null;
+        }
+
         DisciplineStudent::create([
             'student_id' => $request->student_id,
             'discipline_rule_id' => $request->discipline_rule_id,
             'date' => $request->date,
+            'image' => $image_path,
             'description' => $request->description,
             'teacher_id' => Auth::user()->teacher->id,
         ]);

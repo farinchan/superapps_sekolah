@@ -196,6 +196,8 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/scan', [BackStudentAttendancesController::class, 'scan'])->name('scan');
             Route::post('/scan', [BackStudentAttendancesController::class, 'scanProcess'])->name('scan.process');
             Route::get('/history-scan', [BackStudentAttendancesController::class, 'HistoryScanDatatable'])->name('history-scan');
+            Route::get('/timetable', [BackStudentAttendancesController::class, 'timetable'])->name('timetable');
+            Route::put('/timetable', [BackStudentAttendancesController::class, 'timetableUpdate'])->name('timetable.update');
         });
 
         Route::prefix('school-year')->name('school-year.')->group(function () {

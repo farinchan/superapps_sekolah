@@ -17,7 +17,7 @@
                         </div>
                         <div class="col-md-8">
                             <form id="kt_modal_create_discipline_rule_form" class="form"
-                                action="{{ route('back.discipline.student.store') }}" method="POST">
+                                action="{{ route('back.discipline.student.store') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="fv-row mb-4">
                                     <label class="required fw-bold fs-6 mb-2">Kelas</label>
@@ -55,6 +55,12 @@
                                     <label class="required fw-bold fs-6 mb-2">Tanggal</label>
                                     <input class="form-control form-control-solid form-control-lg fw-bold" type="datetime-local"
                                         name="date" />
+                                </div>
+
+                                <div class="fv-row mb-4">
+                                    <label class="fw-bold fs-6 mb-2">Photo</label>
+                                    <input class="form-control form-control-solid form-control-lg fw-bold" type="file" name="image" accept="image/*" />
+                                    <small class="text-muted">Photo harus berformat jpg, jpeg, png, atau gif dengan ukuran maksimal 6MB</small>
                                 </div>
 
                                 <div class="fv-row mb-4">
