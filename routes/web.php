@@ -20,6 +20,7 @@ use App\Http\Controllers\Back\SekapurSirihController as BackSekapurSirihControll
 use App\Http\Controllers\Back\AchievementController as BackAchievementController;
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\CalendarController as BackCalendarController;
+use App\Http\Controllers\Back\BillingController as BackBillingController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
 use App\Http\Controllers\Back\SubjectController as BackSubjectController;
 use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
@@ -192,6 +193,26 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::delete('/delete', [BackCalendarController::class, 'destroy'])->name('destroy');
         });
 
+        Route::prefix('billing')->name('billing.')->group(function () {
+            Route::get('/', [BackBillingController::class, 'index'])->name('index');
+            Route::post('/create', [BackBillingController::class, 'store'])->name('store');
+            Route::put('/edit/{id}', [BackBillingController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [BackBillingController::class, 'destroy'])->name('destroy');
+            Route::get('/detail/{id}', [BackBillingController::class, 'detail'])->name('detail');
+            Route::get('/billing-classroom-ajax', [BackBillingController::class, 'billingClassroomAjax'])->name('detail.billingClassroomAjax');
+            Route::post('/payment/{id}', [BackBillingController::class, 'payment'])->name('payment');
+
+            Route::get('/confirm-payment', [BackBillingController::class, 'confirmPayment'])->name('confirm-payment');
+            Route::put('/confirm-payment/{id}', [BackBillingController::class, 'confirmPaymentProcess'])->name('confirm-payment.process');
+            Route::get('/paid-payment', [BackBillingController::class, 'paidPayment'])->name('paid-payment');
+            Route::get('/rejected-payment', [BackBillingController::class, 'rejectedPayment'])->name('rejected-payment');
+
+            Route::prefix('student')->name('student.')->group(function () {
+                Route::get('/', [BackBillingController::class, 'BillingStudentIndex'])->name('index');
+            });
+
+        });
+
         Route::prefix('student-attendance')->name('student-attendance.')->group(function () {
             Route::get('/scan', [BackStudentAttendancesController::class, 'scan'])->name('scan');
             Route::post('/scan', [BackStudentAttendancesController::class, 'scanProcess'])->name('scan.process');
@@ -254,6 +275,9 @@ Route::domain(env('APP_URL'))->group(function () {
 
                 Route::post('/import', [BackUserController::class, 'studentImport'])->name('import');
                 Route::get('/export', [BackUserController::class, 'studentExport'])->name('export');
+
+                Route::get('/profil', [BackUserController::class, 'profileStudent'])->name('profile');
+                Route::put('/profil', [BackUserController::class, 'profileStudentUpdate'])->name('profile.update');
             });
 
             Route::prefix('parent')->name('parent.')->group(function () {
@@ -263,6 +287,12 @@ Route::domain(env('APP_URL'))->group(function () {
                 Route::get('/edit/{id}', [BackUserController::class, 'parentEdit'])->name('edit');
                 Route::put('/edit/{id}', [BackUserController::class, 'parentUpdate'])->name('update');
                 Route::delete('/delete/{id}', [BackUserController::class, 'parentDestroy'])->name('destroy');
+
+                Route::post('/import', [BackUserController::class, 'parentImport'])->name('import');
+                Route::get('/export', [BackUserController::class, 'parentExport'])->name('export');
+
+                Route::get('/profil', [BackUserController::class, 'profileParent'])->name('profile');
+                Route::put('/profil', [BackUserController::class, 'profileParentUpdate'])->name('profile.update');
             });
         });
 

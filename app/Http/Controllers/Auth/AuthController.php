@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\LogLogin;
+use App\Models\ParentStudent;
 use Illuminate\Http\Request;
 use App\Models\SettingWebsite;
 use App\Models\Student;
@@ -55,6 +56,11 @@ class AuthController extends Controller
         $student = Student::where('nisn', $request->identifier)->first();
         if ($student) {
             $user = $student->user;
+        }
+
+        $parent = ParentStudent::where('nik', $request->identifier)->orWhere('no_telp', $request->identifier)->first();
+        if ($parent) {
+            $user = $parent->user;
         }
 
         if ($user && hash::check($request->password, $user->password)) {

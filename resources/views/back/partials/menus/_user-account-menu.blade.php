@@ -8,9 +8,13 @@
             <div class="symbol symbol-50px me-5">
                 <img alt="Logo"
                     src="
-                @if (Auth::user()->teacher != null) {{ Auth::user()->teacher->getPhoto() }}
+                @if (Auth::user()->teacher != null)
+                        {{ Auth::user()->teacher->getPhoto() }}
                 @elseif (Auth::user()->student != null)
-                    {{ Auth::user()->student->getPhoto() }} @endif
+                    {{ Auth::user()->student->getPhoto() }}
+                @elseif (Auth::user()->parent != null)
+                    {{ Auth::user()->parent->getPhoto() }}
+                @endif
                 " />
             </div>
             <!--end::Avatar-->
@@ -24,6 +28,10 @@
                 @elseif (Auth::user()->student != null)
                     <div class="fw-bold d-flex align-items-center fs-5">
                         {{ Auth::user()->student->name }}
+                    </div>
+                @elseif (Auth::user()->parent != null)
+                    <div class="fw-bold d-flex align-items-center fs-5">
+                        {{ Auth::user()->parent->name }}
                     </div>
                 @endif
                 <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
@@ -46,10 +54,14 @@
     <!--begin::Menu item-->
     <div class="menu-item px-5">
         @if (Auth::user()->teacher != null)
-            <a href="{{ route('back.user.staff.profile')}}" class="menu-link px-5">
+            <a href="{{ route('back.user.staff.profile') }}" class="menu-link px-5">
                 My Profile
             </a>
-
+        @endif
+        @if (Auth::user()->parent != null)
+            <a href="{{ route('back.user.parent.profile') }}" class="menu-link px-5">
+                My Profile
+            </a>
         @endif
     </div>
     <!--end::Menu item-->

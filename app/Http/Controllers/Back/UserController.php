@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Exports\ParentExport;
 use App\Http\Controllers\Controller;
 use App\Imports\StudentImport;
 use App\Exports\StudentExport;
 use App\Exports\TeacherExport;
+use App\Imports\ParentImport;
 use App\Imports\TeacherImport;
+use App\Models\ParentStudent;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -17,6 +20,7 @@ use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use phpDocumentor\Reflection\Types\Parent_;
 
 class UserController extends Controller
 {
@@ -559,15 +563,194 @@ class UserController extends Controller
 
     public function parent()
     {
-        return abort(404);
         $data = [
-            'title' => 'Orang Tua',
+            'title' => 'List Orang Tua',
             'menu' => 'User',
             'sub_menu' => 'Orang Tua',
-            'users' => User::role('orang_tua')->latest()->get(),
+            'users' => ParentStudent::latest()->get(),
         ];
 
-        return view('back.pages.user.orang_tua.index', $data);
+        return view('back.pages.user.orang-tua.index', $data);
+    }
+
+    public function parentCreate()
+    {
+        $data = [
+            'title' => 'Tambah Orang Tua',
+            'menu' => 'user',
+            'sub_menu' => 'Orang Tua',
+            'list_student' => Student::all(),
+        ];
+
+        return view('back.pages.user.orang-tua.create', $data);
+    }
+
+    public function parentStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'nik' => 'nullable|unique:parent_student',
+            'gender' => 'required',
+            'no_telp' => 'nullable',
+            'email' => 'nullable|email|unique:parent_student',
+            'profession' => 'nullable',
+            'student_id' => 'required',
+            'password' => 'required|min:8',
+        ], [
+            'required' => ':attribute harus diisi',
+            'unique' => ':attribute sudah terdaftar',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'email' => 'Email tidak valid',
+            'min' => 'Password minimal 8 karakter',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $user = new User();
+        $user->password = bcrypt($request->password);
+        $user->save();
+        $user->assignRole('orangtua');
+
+        $parent = new ParentStudent();
+        $parent->name = $request->name;
+        $parent->nik = $request->nik;
+        $parent->gender = $request->gender;
+        $parent->no_telp = $request->no_telp;
+        $parent->email = $request->email;
+        $parent->profession = $request->profession;
+        $parent->student_id = $request->student_id;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            $parent->photo = $image->storeAs('parent', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $parent->user_id = $user->id;
+        $parent->save();
+
+        Alert::success('Sukses', 'Orang Tua berhasil ditambahkan');
+        return redirect()->route('back.user.parent.index');
+    }
+
+    public function parentEdit($id)
+    {
+        $data = [
+            'title' => 'Edit Orang Tua',
+            'menu' => 'user',
+            'sub_menu' => 'Orang Tua',
+            'user' => ParentStudent::findOrFail($id),
+            'list_student' => Student::all(),
+        ];
+
+        return view('back.pages.user.orang-tua.edit', $data);
+    }
+
+    public function parentUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'nik' => 'nullable|unique:parent_student,nik,' . $id,
+            'gender' => 'required',
+            'no_telp' => 'nullable',
+            'email' => 'nullable|email',
+            'profession' => 'nullable',
+            'student_id' => 'required',
+            'password' => 'nullable|min:8',
+        ], [
+            'required' => ':attribute harus diisi',
+            'unique' => ':attribute sudah terdaftar',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'email' => 'Email tidak valid',
+            'min' => 'Password minimal 8 karakter',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $parent = ParentStudent::findOrFail($id);
+        $parent->name = $request->name;
+        $parent->nik = $request->nik;
+        $parent->gender = $request->gender;
+        $parent->no_telp = $request->no_telp;
+        $parent->email = $request->email;
+        $parent->profession = $request->profession;
+        $parent->student_id = $request->student_id;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            if ($parent->photo) {
+                Storage::delete($parent->photo);
+            }
+            $parent->photo = $image->storeAs('parent', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $parent->save();
+
+        $user = User::findOrFail($parent->user_id);
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+        // $user->assignRole('orangtua');
+
+        Alert::success('Sukses', 'Orang Tua berhasil diubah');
+        return redirect()->route('back.user.parent.index');
+    }
+
+    public function parentDestroy($id)
+    {
+        $parent = ParentStudent::findOrFail($id);
+        $user = User::findOrFail($parent->user_id);
+        if ($parent->photo) {
+            Storage::delete($parent->photo);
+        }
+        $parent->delete();
+        $user->delete();
+
+        Alert::success('Sukses', 'Orang Tua berhasil dihapus');
+        return redirect()->route('back.user.parent.index');
+    }
+
+    public function parentImport(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'file' => 'required|mimes:xls,xlsx',
+        ], [
+            'required' => ':attribute harus diisi',
+            'mimes' => 'File harus berupa excel',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try {
+            Excel::import(new ParentImport, $request->file('file'));
+        } catch (\Exception $e) {
+            Alert::error('Error', $e->getMessage());
+            return redirect()->back();
+        }
+
+        Alert::success('Sukses', 'Data orang tua berhasil diimport');
+        return redirect()->route('back.user.parent.index');
+    }
+
+    public function parentExport()
+    {
+        return Excel::download(new ParentExport, 'orang_tua_' . date('YmdHis') . '.xlsx');
     }
 
     public function profile()
@@ -671,6 +854,77 @@ class UserController extends Controller
         Alert::success('Sukses', 'Profil berhasil diperbarui');
         return redirect()->route('back.user.staff.profile');
     }
+
+    public function profileParent()
+    {
+        $teacher = ParentStudent::findOrFail(Auth::user()->parent->id);
+        $data = [
+            'title' =>  $teacher->name,
+            'menu' => 'user',
+            'sub_menu' => 'Profil',
+            'user' => $teacher,
+        ];
+
+        return view('back.pages.user.orang-tua.profile', $data);
+    }
+
+    public function profileParentUpdate(Request $request)
+    {
+        $id = Auth::user()->parent->id;
+        $validator = Validator::make($request->all(), [
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'nik' => 'nullable|unique:parent_student,nik,' . $id,
+            'gender' => 'required',
+            'no_telp' => 'nullable',
+            'email' => 'nullable|email',
+            'profession' => 'nullable',
+            'password' => 'nullable|min:8',
+        ], [
+            'required' => ':attribute harus diisi',
+            'unique' => ':attribute sudah terdaftar',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'email' => 'Email tidak valid',
+            'min' => 'Password minimal 8 karakter',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $parent = ParentStudent::findOrFail($id);
+        $parent->name = $request->name;
+        $parent->nik = $request->nik;
+        $parent->gender = $request->gender;
+        $parent->no_telp = $request->no_telp;
+        $parent->email = $request->email;
+        $parent->profession = $request->profession;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            if ($parent->photo) {
+                Storage::delete($parent->photo);
+            }
+            $parent->photo = $image->storeAs('parent', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $parent->save();
+
+        $user = User::findOrFail($parent->user_id);
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+        // $user->assignRole('orangtua');
+
+        Alert::success('Sukses', 'Profile berhasil diubah');
+        return redirect()->back();
+    }
+
 
 
 }

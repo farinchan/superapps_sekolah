@@ -277,6 +277,97 @@
                     </div>
                 @endrole
 
+                @role('admin|bendahara')
+                    <div class="menu-item pt-5">
+                        <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
+                                Keuangan
+                            </span>
+                        </div>
+                    </div>
+                @endrole
+
+                @role('orangtua|siswa')
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.billing.student.index')) active @endif"
+                            href="{{ route('back.billing.student.index') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-two-credit-cart fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Tagihan Siswa</span>
+                        </a>
+                    </div>
+                @endrole
+
+                @role('admin|bendahara')
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.billing.index')) active @endif"
+                            href="{{ route('back.billing.index') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-two-credit-cart fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Tagihan</span>
+                        </a>
+                    </div>
+
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.billing.*')) here show @endif">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-bill fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                    <span class="path6"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Pembayaran</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion">
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.billing.confirm-payment')) active @endif"
+                                    href="{{ route('back.billing.confirm-payment') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Konfirmasi Pembayaran</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.billing.paid-payment')) active @endif"
+                                    href="{{ route('back.billing.paid-payment') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Diterima</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.billing.rejected-payment')) active @endif"
+                                    href="{{ route('back.billing.rejected-payment') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Ditolak</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endrole
+
 
                 @role('admin')
                     <div class="menu-item pt-5">
@@ -342,6 +433,7 @@
                         </a>
                     </div>
                 @endrole
+
 
                 @role('admin|guru|guru_bk|siswa')
                     <div class="menu-item pt-5">

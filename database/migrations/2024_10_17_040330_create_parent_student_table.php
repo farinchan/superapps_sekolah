@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('parent_student', function (Blueprint $table) {
             $table->id();
+            $table->string('photo')->nullable();
             $table->string('name');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('profession');
-            $table->string('photo');
+            $table->string("nik")->unique()->nullable();
+            $table->enum('gender', ['laki-laki', 'perempuan'])->nullable();
+            $table->string('no_telp')->nullable();
+            $table->string('email')->nullable();
+            $table->string('profession')->nullable();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('student_id')->nullable()->constrained('student')->onDelete('cascade');
 
             $table->timestamps();
         });

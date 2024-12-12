@@ -23,5 +23,8 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('notRole', function ($role) {
             return !auth()->check() || !auth()->user()->hasRole($role);
         });
+        Blade::directive('money', function ($expression) {
+            return "<?php echo 'Rp. ' . number_format($expression, 0, ',', '.'); ?>";
+        });
     }
 }

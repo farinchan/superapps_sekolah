@@ -66,7 +66,13 @@
         <!--begin::Menu wrapper-->
         <div class="cursor-pointer symbol symbol-35px" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
             data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-            <img src="@if (Auth::user()->teacher != null) {{ Auth::user()->teacher->getPhoto() }} @elseif (Auth::user()->student != null) {{ Auth::user()->student->getPhoto() }}  @endif"
+            <img src="
+             @if (Auth::user()->teacher != null) {{ Auth::user()->teacher->getPhoto() }}
+                @elseif (Auth::user()->student != null)
+                    {{ Auth::user()->student->getPhoto() }}
+                @elseif (Auth::user()->parent != null)
+                    {{ Auth::user()->parent->getPhoto() }} @endif
+            "
                 class="rounded-3" alt="user" />
         </div>
         @include('back/partials/menus/_user-account-menu')

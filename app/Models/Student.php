@@ -33,6 +33,12 @@ class Student extends Model
         return $this->belongsTo(User::class);
     }
 
+
+    public function billing_payment()
+    {
+        return $this->hasMany(BillingPayment::class, 'student_id', 'id');
+    }
+
     public function getPhoto(){
         return $this->photo ? Storage::url($this->photo) : asset('img_ext/anonim_person.png');
     }
