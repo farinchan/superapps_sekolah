@@ -7,12 +7,36 @@ use App\Models\BlogTeacher;
 use App\Models\MenuPersonalia;
 use App\Models\News;
 use App\Models\NewsCategory;
+use App\Models\SchoolYear;
 use App\Models\SettingWebsite;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 
 class PersonaliaMenu extends Controller
 {
+    public function student(Request $request)
+    {
+        $search = $request->q;
+        $setting_web = SettingWebsite::first();
+
+        $data = [
+            'title' => "Siswa/i | " . $setting_web->name,
+            'meta_description' => strip_tags($setting_web->about),
+            'meta_keywords' => 'Siswa, Siswi, MAN 1 Padang Panjang, Padang Panjang',
+            'favicon' => $setting_web->favicon,
+            'setting_web' => $setting_web,
+            'list_school_year' => SchoolYear::orderBy('start_year', 'asc')->get(),
+            'list_teacher' => Teacher::where('type', 'tenaga pendidik')
+                ->orderBy('name', 'asc')
+                ->where(function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                })->paginate(12),
+        ];
+
+
+        return view('front.pages.personalia.student', $data);
+    }
+
     public function teacher(Request $request)
     {
         $search = $request->q;

@@ -52,6 +52,7 @@ Route::domain(env('APP_URL'))->group(function () {
     Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('reset.password');
     Route::post('/reset-password/{token}', [AuthController::class, 'resetPasswordProcess'])->name('reset.password.process');
 
+    Route::get('/student', [PersonaliaMenu::class, 'student'])->name('student');
     Route::get('/tenaga-pendidik', [PersonaliaMenu::class, 'teacher'])->name('teacher');
     Route::get('/tenaga-kependidikan', [PersonaliaMenu::class, 'staff'])->name('staff');
     Route::get('/staff/{id}', [PersonaliaMenu::class, 'staffDetail'])->name('staff.detail');

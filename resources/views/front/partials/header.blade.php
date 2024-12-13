@@ -165,6 +165,7 @@
                                         @endforeach
                                         <li><a href="{{ route('teacher') }}">Tenaga Pendidik</a></li>
                                         <li><a href="{{ route('staff') }}">Tenaga Kependidikan</a></li>
+                                        <li><a href="{{ route('student') }}">Siswa/Siswi</a></li>
 
                                     </ul>
                                 </li>

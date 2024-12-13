@@ -11,3 +11,4 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/get-calendar', [UtilityController::class, 'getCalendar'])->name('get-calendar');
 Route::get('/get-classroom', [UtilityController::class, 'getClassroom'])->name('api.get-classroom');
+Route::get('/get-detail-classroom', [UtilityController::class, 'getDetailClassroom'])->name('api.get-detail-classroom');
