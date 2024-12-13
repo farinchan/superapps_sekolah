@@ -71,7 +71,7 @@
                 @role('siswa')
                     <div class="col-xl-12">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-4 mb-5">
                                 <div class="card card-flush h-xl-100">
                                     <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-150px"
                                         style="background-image:url('{{ asset('back/media/svg/shapes/top-green.png') }}"
@@ -113,7 +113,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-8 mb-5">
                                 <div class="card card-flush shadow-sm">
                                     <div class="card-body py-5 d-flex flex-column flex-center">
                                         <div class="mb-2">
