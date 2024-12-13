@@ -12,6 +12,7 @@ use App\Models\NewsViewer;
 use App\Models\GalleryAlbum;
 use App\Models\LogLogin;
 use App\Models\LogLoginElearning;
+use App\Models\StudentAttendance;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -32,7 +33,11 @@ class DashboardController extends Controller
             $data['blog_new'] = BlogTeacher::with(['comments', 'viewers'])->where('teacher_id', Auth::user()->teacher->id)->latest()->limit(5)->get();
         }
 
-        // dd($data);
+        if (Auth::user()->hasRole('siswa')) {
+            $data['my_attendance_now'] = StudentAttendance::where('student_id', Auth::user()->student->id)->whereDate('created_at', date('Y-m-d'))->first();
+        }
+
+        // return response()->json($data);
         return view('back.pages.dashboard.index', $data);
     }
     public function indexStat()
