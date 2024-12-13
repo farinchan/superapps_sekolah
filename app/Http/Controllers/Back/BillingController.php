@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
-use App\Models\billing;
+use App\Models\Billing;
 use App\Models\BillingClassroom;
 use App\Models\BillingPayment;
 use App\Models\Classroom;
@@ -22,7 +22,7 @@ class BillingController extends Controller
             'title' => 'List Tagihan',
             'menu' => 'Tagihan',
             // 'sub_menu' => '',
-            'list_billing' => billing::latest()->where('name', 'like', '%' . $search . '%')->paginate(10),
+            'list_billing' => Billing::latest()->where('name', 'like', '%' . $search . '%')->paginate(10),
             'list_classroom' => Classroom::with('schoolYear')->latest()->get(),
         ];
 
