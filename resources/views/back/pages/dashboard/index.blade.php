@@ -138,26 +138,26 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="fs-3">
-                                                                {{ $my_attendance_now->time_in }}
+                                                                {{ $my_attendance_now?->time_in ?? 'Belum Masuk' }}
                                                                 <br>
-                                                                @if ($my_attendance_now->time_in_info == 'Terlambat')
+                                                                @if ($my_attendance_now?->time_in_info == 'Terlambat')
                                                                     <span
-                                                                        class="badge badge-light-danger">{{ $my_attendance_now->time_in_info }}</span>
+                                                                        class="badge badge-light-danger">{{ $my_attendance_now?->time_in_info }}</span>
                                                                 @else
                                                                     <span
-                                                                        class="badge badge-light-success">{{ $my_attendance_now->time_in_info }}</span>
+                                                                        class="badge badge-light-success">{{ $my_attendance_now?->time_in_info }}</span>
                                                                 @endif
 
                                                             </td>
                                                             <td class="fs-4">
-                                                                {{ $my_attendance_now->time_out ?? 'Belum Pulang' }}
+                                                                {{ $my_attendance_now?->time_out ?? 'Belum Pulang' }}
                                                                 <br>
-                                                                @if ($my_attendance_now->time_out_info == 'Pulang Cepat')
+                                                                @if ($my_attendance_now?->time_out_info == 'Pulang Cepat')
                                                                     <span
-                                                                        class="badge badge-light-warning">{{ $my_attendance_now->time_out_info }}</span>
+                                                                        class="badge badge-light-warning">{{ $my_attendance_now?->time_out_info }}</span>
                                                                 @else
                                                                     <span
-                                                                        class="badge badge-light-success">{{ $my_attendance_now->time_out_info }}</span>
+                                                                        class="badge badge-light-success">{{ $my_attendance_now?->time_out_info }}</span>
                                                                 @endif
                                                             </td>
                                                         </tr>

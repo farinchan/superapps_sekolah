@@ -398,7 +398,7 @@
 
 
                 @role('admin|guru|guru_bk')
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.student-attendance.*')) here show @endif">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-user-tick fs-2">
@@ -412,7 +412,7 @@
                         </span>
                         <div class="menu-sub menu-sub-accordion">
                             <div class="menu-item">
-                                <a class="menu-link @if (request()->routeIs('back.student-attendance.index')) active @endif"
+                                <a class="menu-link @if (request()->routeIs('back.student-attendance.scan')) active @endif"
                                     href="{{ route('back.student-attendance.scan') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
