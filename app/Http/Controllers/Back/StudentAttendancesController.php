@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
+use App\Models\SchoolYear;
 use App\Models\Student;
 use App\Models\StudentAttendance;
 use App\Models\StudentAttendanceRule;
@@ -22,17 +23,6 @@ class StudentAttendancesController extends Controller
             'sub_menu' => 'Presensi Siswa',
 
         ];
-
-        // $timetable = StudentAttendanceRule::where('day', Carbon::now()->isoFormat('dddd'))->first();
-        // return response()->json(['status' => 'success', 'message' => [
-        //     'timetable' => $timetable,
-        //     'one_hour_before' => Carbon::parse($timetable->start)->subHour()->format('H:i:s'),
-        //     'one_hour_after' => Carbon::parse($timetable->start)->addHour()->format('H:i:s'),
-        //     'now' => Carbon::now()->format('H:i:s'),
-        //     'sejam_sebelum_status' => Carbon::now()->format('H:i:s') < Carbon::parse($timetable->start)->subHour()->format('H:i:s') ? 'true' : 'false',
-        //     'sejam_seletal_status' => Carbon::now()->format('H:i:s') > Carbon::parse($timetable->start)->subHour()->format('H:i:s') ? 'true' : 'false',
-        //     'sejam_setelah_status' => Carbon::now()->format('H:i:s') < Carbon::parse($timetable->start)->addHour()->format('H:i:s') ? 'true' : 'false',
-        // ]]);
 
 
         return view('back.pages.student-attendance.scan', $data);
@@ -256,4 +246,95 @@ class StudentAttendancesController extends Controller
         Alert::success('Berhasil', 'Jadwal Presensi Berhasil Diupdate');
         return redirect()->back();
     }
+
+    public function history()
+    {
+        $data = [
+            'title' => 'History',
+            'menu' => 'Presensi',
+            'sub_menu' => 'Presensi Siswa',
+            'list_school_year' => SchoolYear::orderBy('start_year', 'desc')->get(),
+
+        ];
+
+
+        return view('back.pages.student-attendance.history', $data);
+    }
+
+    public function HistoryDatatable(Request $request)
+    {
+        $search = request()->search;
+        $school_year_id = request()->school_year_id;
+        $class_id = request()->class_id;
+        $start_date = request()->start_date ? date('Y-m-d', strtotime(request()->start_date)) : null;
+        $end_date = request()->end_date ? date('Y-m-d', strtotime(request()->end_date)) : null;
+
+        $history = StudentAttendance::whereHas('student', function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('nisn', 'like', '%' . $search . '%');
+            })
+            ->when($school_year_id, function ($query) use ($school_year_id) {
+                $query->whereHas('student.classroomStudent.classroom.schoolYear', function ($query) use ($school_year_id) {
+                    $query->where('school_year_id', $school_year_id);
+                });
+            })->when($class_id, function ($query) use ($class_id) {
+                $query->whereHas('student.classroomStudent', function ($query) use ($class_id) {
+                    $query->where('classroom_id', $class_id);
+                });
+            })->when($start_date, function ($query) use ($start_date, $end_date) {
+                $query->whereBetween('date', [$start_date, $end_date]);
+            })->with('student.classroomStudent.classroom')->latest()->get();
+
+            // return response()->json($history);
+        return datatables()->of($history)
+            ->addIndexColumn()
+            ->addColumn('student', function ($row) {
+                return '
+                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                            <a href="#">
+                                <div class="symbol-label">
+                                    <img src="' . $row->student->getPhoto() . '"
+                                        alt="' . $row->student->name . '" class="h-75"
+                                        width="50px" />
+                                </div>
+                            </a>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <a href="#"
+                                class="text-gray-800 text-hover-primary mb-1">' . $row->student->name . '</a>
+                            <span> NISN.' . $row->student->nisn . '</span>
+                            <span> NIK.' . $row->student->nik . '</span>
+                        </div>
+                ';
+            })
+            ->addColumn('date', function ($row) {
+                return Carbon::parse($row->date)->isoFormat('dddd, D MMMM Y');
+            })
+            ->addColumn('time_in', function ($row) {
+                return '
+                    <span class="badge badge-light-primary">' . Carbon::parse($row->time_in)->format('H:i') . '</span>
+                    <span class="badge badge-light-' . ($row->time_in_info == 'Terlambat' ? 'danger' : 'success') . '">' . $row->time_in_info . '</span>
+                ';
+            })
+            ->addColumn('time_out', function ($row) {
+                return $row->time_out ? '
+                    <span class="badge badge-light-primary">' . Carbon::parse($row->time_out)->format('H:i') . '</span>
+                    <span class="badge badge-light-' . ($row->time_out_info == 'Pulang Cepat' ? 'warning' : 'success') . '">' . $row->time_out_info . '</span>
+                ' : '-';
+            })
+            ->rawColumns(['student', 'date', 'time_in', 'time_out'])
+            ->make(true);
+    }
+    public function historyStudent()
+    {
+        $data = [
+            'title' => 'History',
+            'menu' => 'Presensi',
+            'sub_menu' => 'Presensi Saya',
+
+        ];
+
+        return view('back.pages.student-attendance.history-student', $data);
+    }
+
 }

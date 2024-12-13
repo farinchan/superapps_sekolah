@@ -9,38 +9,6 @@
                 <div class="card-body pt-0">
 
                     <div class="row mb-5">
-                        <div class="col-md-4">
-                            <div class="d-flex align-items-center position-relative my-1">
-                                <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>
-                                <input type="text" id="search" class="form-control form-control-solid ps-12"
-                                    placeholder="Cari Siswa" />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex align-items-center position-relative my-1">
-                                <select data-control="select2" data-hide-search="true" data-placeholder="Pilih Tahun Ajaran"
-                                    id="school_year_id" class="form-select form-select-solid form-select-lg fw-bold">
-                                    <option selected disabled></option>
-                                    @foreach ($list_school_year as $school_year)
-                                        <option value="{{ $school_year->id }}">
-                                            {{ $school_year->start_year }}/{{ $school_year->end_year }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="d-flex align-items-center position-relative my-1">
-                                <select data-control="select2" data-hide-search="true" data-placeholder="Pilih Kelas"
-                                    id="class_id" class="form-select form-select-solid form-select-lg fw-bold">
-                                    <option selected disabled></option>
-
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="d-flex align-items-center position-relative my-1">
                                 <i class="ki-duotone ki-calendar-search fs-3 position-absolute ms-4">
@@ -96,11 +64,10 @@
                                     </div>
                                 </th>
                                 <th class="min-w-200px">Siswa</th>
-                                <th class="text-start min-w-100px">Pelanggaran</th>
+                                <th class="text-start min-w-70px">Pelanggaran</th>
                                 <th class="text-center min-w-70px">Bukti</th>
                                 <th class="text-end min-w-70px">Point</th>
                                 <th class="text-end min-w-70px">Waktu</th>
-                                <th class="text-end min-w-70px">Actions</th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
@@ -118,7 +85,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h3 class="modal-title">Hapus Pelanggaran</h3>
+                        <h3 class="modal-title">Hapus Berit</h3>
                         <!--begin::Close-->
                         <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
                             aria-label="Close">
@@ -150,6 +117,7 @@
 @section('scripts')
     <script src="{{ asset('back/js/custom/apps/ecommerce/catalog/discipline.js') }}"></script>
     <script src="{{ asset("back/plugins/custom/fslightbox/fslightbox.bundle.js") }}"></script>
+
     <script>
         $("#start_date").flatpickr({
             altInput: true,
@@ -162,26 +130,6 @@
             dateFormat: "Y-m-d",
         });
 
-        $('#school_year_id').on('change', function() {
-            var school_year_id = $(this).val();
-            $.ajax({
-                url: "{{ route('api.get-classroom') }}",
-                type: 'GET',
-                data: {
-                    school_year_id: school_year_id
-                },
-                success: function(data) {
-                    console.log(data);
-
-                    data.forEach(function(item) {
-                        console.log(item);
-                        $('#class_id').append(`<option value="${item.id}">${item.name}</option>`);
-                    });
-                }
-            });
-        });
-
-
 
         $('#datatable_ajax').DataTable({
             processing: true, // Menampilkan indikator loading
@@ -191,9 +139,7 @@
                 type: 'GET',
                 data: function(d) {
                     // Kirim parameter tambahan jika diperlukan
-                    d.search = $('#search').val();
-                    d.school_year_id = $('#school_year_id').val();
-                    d.class_id = $('#class_id').val();
+                    d.search = {{ Auth::user()->parent?->student?->nisn ?? Auth::user()->student?->nisn }};
                     d.start_date = $('#start_date').val();
                     d.end_date = $('#end_date').val();
                 }
@@ -224,12 +170,6 @@
                     data: 'date',
                     name: 'date'
                 },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                },
             ],
             "createdRow": function(row, data, dataIndex) {
                 $(row).find('td').eq(0).addClass('');
@@ -237,24 +177,12 @@
                 $(row).find('td').eq(2).addClass('text-start pe-0');
                 $(row).find('td').eq(3).addClass('text-end pe-0');
                 $(row).find('td').eq(4).addClass('text-end pe-0');
-                $(row).find('td').eq(5).addClass('text-end pe-0');
-                $(row).find('td').eq(6).addClass('text-end');
+                $(row).find('td').eq(5).addClass('text-end');
             }
         });
 
-        // Event listener untuk filter (optional)
-        $('#search').on('keyup', function() {
+        $(' #start_date, #end_date').on('change', function() {
             $('#datatable_ajax').DataTable().ajax.reload();
-        });
-
-        $('#school_year_id, #class_id, #start_date, #end_date').on('change', function() {
-            $('#datatable_ajax').DataTable().ajax.reload();
-            console.log(
-                $('#school_year_id').val(),
-                $('#class_id').val(),
-                $('#start_date').val(),
-                $('#end_date').val()
-            );
 
         });
     </script>

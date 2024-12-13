@@ -30,8 +30,10 @@
                                     <label
                                         class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center mb-5"
                                         for="camera_mode">
-                                        <i class="ki-duotone ki-setting-2 fs-4x me-4"><span class="path1"></span><span
-                                                class="path2"></span></i>
+                                        <i class="ki-duotone ki-picture fs-4x me-4">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
 
                                         <span class="d-block fw-semibold text-start">
                                             <span class="text-gray-900 fw-bold d-block fs-3">Camera QR Scanner</span>
@@ -46,8 +48,16 @@
                                     <label
                                         class="btn btn-outline btn-outline-dashed btn-active-light-primary p-7 d-flex align-items-center"
                                         for="scanner_mode">
-                                        <i class="ki-duotone ki-message-text-2 fs-4x me-4"><span class="path1"></span><span
-                                                class="path2"></span><span class="path3"></span></i>
+                                        <i class="ki-duotone ki-barcode fs-4x me-4">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                            <span class="path5"></span>
+                                            <span class="path6"></span>
+                                            <span class="path7"></span>
+                                            <span class="path8"></span>
+                                        </i>
 
                                         <span class="d-block fw-semibold text-start">
                                             <span class="text-gray-900 fw-bold d-block fs-3">Mesin QR Scanner</span>

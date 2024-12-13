@@ -77,7 +77,7 @@ Route::domain(env('APP_URL'))->group(function () {
 
     Route::prefix('news')->name('news.')->group(function () {
         Route::get('/', [NewsController::class, 'index'])->name('index');
-        route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
+        Route::get('/category/{slug}', [NewsController::class, 'category'])->name('category');
         Route::get('/{slug}', [NewsController::class, 'show'])->name('show');
         Route::post('/{slug}', [NewsController::class, 'comment'])->name('comment');
     });
@@ -219,6 +219,10 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/history-scan', [BackStudentAttendancesController::class, 'HistoryScanDatatable'])->name('history-scan');
             Route::get('/timetable', [BackStudentAttendancesController::class, 'timetable'])->name('timetable');
             Route::put('/timetable', [BackStudentAttendancesController::class, 'timetableUpdate'])->name('timetable.update');
+
+            Route::get('/history', [BackStudentAttendancesController::class, 'history'])->name('history');
+            Route::get('/HistoryDatatable', [BackStudentAttendancesController::class, 'HistoryDatatable'])->name('history.datatable');
+            Route::get('/my-history', [BackStudentAttendancesController::class, 'historyStudent'])->name('history.student');
         });
 
         Route::prefix('school-year')->name('school-year.')->group(function () {
@@ -405,6 +409,8 @@ Route::domain(env('APP_URL'))->group(function () {
                 Route::get('/datatable', [BackDisciplineStudentController::class, 'datatableAjax'])->name('datatableAjax');
 
                 Route::get('/apiStudent', [BackDisciplineStudentController::class, 'apiStudent'])->name('apiStudent');
+
+                Route::get('/me', [BackDisciplineStudentController::class, 'myDiscipline'])->name('myDiscipline');
             });
         });
     });

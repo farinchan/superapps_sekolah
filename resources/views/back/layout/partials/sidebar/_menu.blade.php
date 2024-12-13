@@ -299,7 +299,7 @@
                                     <span class="path5"></span>
                                 </i>
                             </span>
-                            <span class="menu-title">Tagihan Siswa</span>
+                            <span class="menu-title">Tagihan</span>
                         </a>
                     </div>
                 @endrole
@@ -321,7 +321,8 @@
                         </a>
                     </div>
 
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.billing.*')) here show @endif">
+                    <div data-kt-menu-trigger="click"
+                        class="menu-item menu-accordion @if (request()->routeIs('back.billing.*')) here show @endif">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-bill fs-2">
@@ -369,14 +370,34 @@
                 @endrole
 
 
-                @role('admin')
+                @role('admin|guru|guru_bk')
                     <div class="menu-item pt-5">
                         <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
                                 Presensi
                             </span>
                         </div>
                     </div>
+                @endrole
 
+                @role('orangtua|siswa')
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.student-attendance.history.student')) active @endif"
+                        href="{{ route('back.student-attendance.history.student') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-user-tick fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Presensi</span>
+                        </a>
+                    </div>
+                @endrole
+
+
+
+                @role('admin|guru|guru_bk')
                     <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -399,6 +420,7 @@
                                     <span class="menu-title">Scan</span>
                                 </a>
                             </div>
+                            @role("admin|guru_bk")
                             <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.student-attendance.timetable')) active @endif"
                                     href="{{ route('back.student-attendance.timetable') }}">
@@ -408,8 +430,11 @@
                                     <span class="menu-title">Jadwal</span>
                                 </a>
                             </div>
+                            @endrole
+
                             <div class="menu-item">
-                                <a class="menu-link " href="#">
+                                <a class="menu-link @if (request()->routeIs('back.student-attendance.history')) active @endif"
+                                href="{{ route("back.student-attendance.history") }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -418,7 +443,10 @@
                             </div>
                         </div>
                     </div>
+                @endrole
 
+
+                @role('admin')
                     <div class="menu-item">
                         <a class="menu-link" href="#">
                             <span class="menu-icon">
@@ -435,12 +463,29 @@
                 @endrole
 
 
-                @role('admin|guru|guru_bk|siswa')
+                @role('admin|guru|guru_bk')
                     <div class="menu-item pt-5">
                         <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
                                 Kedisiplinan
                             </span>
                         </div>
+                    </div>
+                @endrole
+
+                @role('orangtua|siswa')
+                    {{-- === UNTUK SISWA DAN ORANG TUA === --}}
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.discipline.student.myDiscipline')) active @endif"
+                            href="{{ route('back.discipline.student.myDiscipline') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-shield-cross fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Pelanggaran</span>
+                        </a>
                     </div>
                 @endrole
 
@@ -472,6 +517,8 @@
                             <span class="menu-arrow"></span>
                         </span>
                         <div class="menu-sub menu-sub-accordion">
+
+                            @role('admin|guru_bk')
                             <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.discipline.rule.index')) active @endif"
                                     href="{{ route('back.discipline.rule.index') }}">
@@ -481,8 +528,7 @@
                                     <span class="menu-title">Rules</span>
                                 </a>
                             </div>
-                        </div>
-                        <div class="menu-sub menu-sub-accordion">
+                            @endrole
                             <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.discipline.student.index')) active @endif"
                                     href="{{ route('back.discipline.student.index') }}">

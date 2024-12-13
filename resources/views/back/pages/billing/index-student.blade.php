@@ -39,7 +39,9 @@
                         $remaining_payment = 0;
                         $percent_payment = 0;
                         foreach ($bill->billing->billing_payment as $payment) {
-                            $total_payment += $payment->total;
+                            if ($payment->status == 'paid') {
+                                $total_payment += $payment->total;
+                            }
                         }
                         $remaining_payment = $total_billing - $total_payment;
                         $percent_payment = ($total_payment / $total_billing) * 100;
@@ -90,13 +92,16 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                            <div class="d-flex mb-4">
-                                                <button type="submit" class="btn btn-sm btn-primary me-3"
-                                                    data-bs-toggle="modal" data-bs-target="#bayar_{{ $bill->billing?->id }}">
-                                                    Bayar Sekarang
-                                                </button>
+                                            @role('orangtua')
+                                                <div class="d-flex mb-4">
+                                                    <button type="submit" class="btn btn-sm btn-primary me-3"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#bayar_{{ $bill->billing?->id }}">
+                                                        Bayar Sekarang
+                                                    </button>
 
-                                            </div>
+                                                </div>
+                                            @endrole
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +279,8 @@
                         </div>
                         <!--end::Close-->
                     </div>
-                    <form action="{{ route('back.billing.payment', $bill->billing?->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('back.billing.payment', $bill->billing?->id) }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
                             <input type="hidden" name="student_id" value="{{ Auth::user()->parent?->student_id }}">
@@ -282,13 +288,13 @@
                             <div class="mb-10">
                                 <label class="form-label fw-bold required">Jumlah Pembayaran</label>
                                 <input type="number" class="form-control" name="total"
-                                    placeholder="{{ $bill->billing?->total }}"
-                                     required />
+                                    placeholder="{{ $bill->billing?->total }}" required />
                             </div>
                             <div class="mb-10">
                                 <label class="form-label fw-bold required">Bukti Pembayaran</label>
                                 <input type="file" class="form-control" name="image" accept="image/*" required />
-                                <small class="text-muted">File harus berformat jpg, jpeg, png dengan ukuran maksimal 4MB</small>
+                                <small class="text-muted">File harus berformat jpg, jpeg, png dengan ukuran maksimal
+                                    4MB</small>
                             </div>
                         </div>
 
@@ -304,5 +310,5 @@
 
 @endsection
 @section('scripts')
-<script src="{{ asset("back/plugins/custom/fslightbox/fslightbox.bundle.js") }}"></script>
+    <script src="{{ asset('back/plugins/custom/fslightbox/fslightbox.bundle.js') }}"></script>
 @endsection

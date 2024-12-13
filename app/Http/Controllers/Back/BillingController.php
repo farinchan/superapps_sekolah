@@ -15,13 +15,14 @@ use Illuminate\Support\Str;
 
 class BillingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->input('q');
         $data = [
             'title' => 'List Tagihan',
             'menu' => 'Tagihan',
             // 'sub_menu' => '',
-            'list_billing' => billing::latest()->paginate(10),
+            'list_billing' => billing::latest()->where('name', 'like', '%' . $search . '%')->paginate(10),
             'list_classroom' => Classroom::with('schoolYear')->latest()->get(),
         ];
 
@@ -196,10 +197,10 @@ class BillingController extends Controller
             })->whereHas('billing', function ($query) use ($search) {
                 $query->where('name', 'like', '%' . $search . '%');
             })->with([
-                    'billing.billing_payment' => function ($query) {
-                        $query->where('student_id', Auth::user()->parent?->student_id ?? Auth::user()->student?->id);
-                    },
-                ])
+                'billing.billing_payment' => function ($query) {
+                    $query->where('student_id', Auth::user()->parent?->student_id ?? Auth::user()->student?->id);
+                },
+            ])
                 ->latest()
                 ->paginate(10),
         ];
@@ -214,7 +215,7 @@ class BillingController extends Controller
             'title' => 'Konfirmasi Pembayaran',
             'menu' => 'Tagihan',
             'sub_menu' => 'Pembayaran',
-            'billing_payment' => BillingPayment::where('status', 'pending')->with( 'student')->latest()->get(),
+            'billing_payment' => BillingPayment::where('status', 'pending')->with('student')->latest()->get(),
         ];
 
         // return response()->json($data);
@@ -223,7 +224,7 @@ class BillingController extends Controller
 
     public function confirmPaymentProcess(Request $request, $id)
     {
-       $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'status' => 'required|in:paid,rejected',
             'note' => 'nullable',
         ], [

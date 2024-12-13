@@ -21,9 +21,9 @@ class DisciplineStudentController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Discipline Student',
-            'menu' => 'Discipline Student',
-            'sub_menu' => '',
+            'title' => 'Kedisiplinan',
+            'menu' => 'Pelanggaran Siswa',
+            // 'sub_menu' => '',
 
             'list_discipline' => DisciplineStudent::orderBy('date', 'desc')->get(),
             'list_school_year' => SchoolYear::orderBy('start_year', 'desc')->get(),
@@ -117,11 +117,24 @@ class DisciplineStudentController extends Controller
                             <span>' . $row->rules->description . '</span>
                         </div>';
             })
+            ->addColumn('image', function ($row) {
+                return $row->image ? '
+                    <a class="d-block overlay" data-fslightbox="lightbox-basic" href="' . asset('storage/' . $row->image) . '">
+                        <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-100px"
+                            style="background-image:url(' . asset('storage/' . $row->image) . ')">
+                        </div>
+                        <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
+                            <i class="bi bi-eye-fill text-white fs-3x"></i>
+                        </div>
+                        <!--end::Action-->
+                    </a>
+                ' : '-';
+            })
             ->addColumn('date', function ($row) {
-                return Carbon::parse($row->date)->translatedFormat('d F Y');
+                return Carbon::parse($row->date)->translatedFormat('d F Y H:i');
             })
             ->addColumn('point', function ($row) {
-                return '<span class="fw-bold">+' . $row->rules->point . ' Point</span>';
+                return '<span class="fw-bold text-danger">+' . $row->rules->point . ' Point</span>';
             })
             ->addColumn('action', function ($row) {
                 if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('guru_bk')) {
@@ -131,11 +144,11 @@ class DisciplineStudentController extends Controller
                                 title="Hapus Pelanggaran?">
                                 <i class="fa-solid fa-xmark fs-4"></i>
                             </a>';
-                }else{
+                } else {
                     return '-';
                 }
             })
-            ->rawColumns(['index', 'siswa', 'pelanggaran', 'point', 'action'])
+            ->rawColumns(['index', 'siswa', 'pelanggaran', 'image', 'point', 'action'])
             ->make(true);
     }
 
@@ -152,8 +165,6 @@ class DisciplineStudentController extends Controller
 
         return view('back.pages.discipline.create', $data);
     }
-
-
 
     public function store(Request $request)
     {
@@ -248,12 +259,26 @@ class DisciplineStudentController extends Controller
         return response()->json($students);
     }
 
-
     public function apiClassroom()
     {
         $school_year_id = request()->school_year_id;
         $classrooms = Classroom::where('school_year_id', $school_year_id)->with('classroomStudent.student')->orderBy('name', 'asc')->get();
 
         return response()->json($classrooms);
+    }
+
+    public function myDiscipline()
+    {
+        $data = [
+            'title' => 'Pelanggaran Saya',
+            'menu' => 'Kedisiplinan',
+            // 'sub_menu' => '',
+
+            'list_discipline' => DisciplineStudent::orderBy('date', 'desc')->get(),
+            'list_school_year' => SchoolYear::orderBy('start_year', 'desc')->get(),
+
+        ];
+
+        return view('back.pages.discipline.index-student', $data);
     }
 }
