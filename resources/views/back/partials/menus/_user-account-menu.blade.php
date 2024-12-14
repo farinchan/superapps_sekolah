@@ -63,6 +63,11 @@
                 My Profile
             </a>
         @endif
+        @if (Auth::user()->student != null)
+            <a href="{{ route('back.user.student.profile') }}" class="menu-link px-5">
+                My Profile
+            </a>
+        @endif
     </div>
     <!--end::Menu item-->
     <!--begin::Menu item-->

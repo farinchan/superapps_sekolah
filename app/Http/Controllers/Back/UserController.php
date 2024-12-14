@@ -926,5 +926,88 @@ class UserController extends Controller
     }
 
 
+    public function profileStudent()
+    {
+        $student = Student::findOrFail(Auth::user()->student->id);
+        $data = [
+            'title' =>  $student->name,
+            'menu' => 'user',
+            'sub_menu' => 'Profil',
+            'user' => $student,
+        ];
+
+        return view('back.pages.user.siswa.profile', $data);
+    }
+
+    public function profileStudentUpdate(Request $request)
+    {
+        $id = Auth::user()->student->id;
+        $validator = Validator::make($request->all(), [
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name' => 'required',
+            'nisn' => 'required|unique:student,nisn,' . $id,
+            'nik' => 'nullable|unique:student,nik,' . $id,
+            'birth_place' => 'nullable',
+            'birth_date' => 'nullable|date',
+            'gender' => 'required',
+            'address' => 'nullable|max:255',
+            'no_telp' => 'nullable',
+            'email' => 'nullable|email',
+            'kebutuhan_khusus' => 'nullable',
+            'disabilitas' => 'nullable',
+            'father_name' => 'nullable',
+            'mother_name' => 'nullable',
+        ], [
+            'required' => ':attribute harus diisi',
+            'unique' => ':attribute sudah terdaftar',
+            'image' => 'File harus berupa gambar',
+            'mimes' => 'File harus berupa gambar',
+            'max' => 'Ukuran file maksimal 2MB',
+            'email' => 'Email tidak valid',
+            'date' => 'Tanggal tidak valid',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $student = Student::findOrFail($id);
+        $student->name = $request->name;
+        $student->nisn = $request->nisn;
+        $student->nik = $request->nik;
+        $student->birth_place = $request->birth_place;
+        $student->birth_date = $request->birth_date;
+        $student->gender = $request->gender;
+        $student->address = $request->address;
+        $student->no_telp = $request->no_telp;
+        $student->email = $request->email;
+        $student->kebutuhan_khusus = $request->kebutuhan_khusus;
+        $student->disabilitas = $request->disabilitas;
+        $student->father_name = $request->father_name;
+        $student->mother_name = $request->mother_name;
+
+        if ($request->hasFile('photo')) {
+            $image = $request->file('photo');
+            if ($student->photo) {
+                Storage::delete($student->photo);
+            }
+            $student->photo = $image->storeAs('student', date('YmdHis') . '_' . Str::slug($request->name) . '.' . $image->getClientOriginalExtension(), 'public');
+        }
+
+        $student->save();
+
+        $user = User::findOrFail($student->user_id);
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        Alert::success('Sukses', 'Profile berhasil diubah');
+        return redirect()->back();
+    }
+
+
 
 }
