@@ -251,6 +251,7 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::delete('/detail/{id}/delete-student/{student_id}', [BackClassroomController::class, 'removeStudent'])->name('delete.student.destroy');
 
             Route::get('/detail/{id}/export', [BackClassroomController::class, 'export'])->name('export');
+            Route::get('/export-exam-score', [BackClassroomController::class, 'exportExamScore'])->name('export-exam-score');
         });
 
 

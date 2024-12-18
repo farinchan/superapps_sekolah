@@ -9,8 +9,7 @@
                     </div>
                     <div class="card-toolbar">
                         <div class="btn-group">
-                            <a href="{{ route('back.classroom.export', $classroom_id) }}"
-                            class="btn btn-light-secondary">
+                            <a href="{{ route('back.classroom.export', $classroom_id) }}" class="btn btn-light-secondary">
 
                                 <i class="ki-duotone ki-file-up fs-2">
                                     <span class="path1"></span>
@@ -211,6 +210,15 @@
                                     </td>
 
                                     <td class="text-end">
+                                        <a href="#" class="btn btn-icon btn-light-success me-2"
+                                            data-bs-toggle="modal" data-bs-target="#exam{{ $student->student?->id }}">
+                                            <i class="ki-duotone ki-abstract-48 fs-2x" data-bs-toggle="tooltip"
+                                                data-bs-placement="right" title="Export Nilai Ujian">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                        </a>
                                         <a href="#" class="btn btn-icon btn-light-youtube me-2"
                                             data-bs-toggle="modal" data-bs-target="#delete{{ $student->student?->id }}"
                                             data-bs-toggle="tooltip" data-bs-placement="right"
@@ -248,8 +256,9 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="name" class="form-label">Siswa</label>
-                            <select class="form-select form-select-solid" name="student_id[]" data-control="select2" multiple="multiple"
-                                data-placeholder="Select an option" data-dropdown-parent="#add" required>
+                            <select class="form-select form-select-solid" name="student_id[]" data-control="select2"
+                                multiple="multiple" data-placeholder="Select an option" data-dropdown-parent="#add"
+                                required>
                                 <option></option>
                                 @foreach ($list_student as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }} - NISN.{{ $item->nisn }}
@@ -306,10 +315,61 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" tabindex="-1" id="exam{{ $student->student?->id }}">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Export Nilai Ujian</h3>
+
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal"
+                            aria-label="Close">
+                            <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span
+                                    class="path2"></span></i>
+                        </div>
+                        <!--end::Close-->
+                    </div>
+
+                    <form action="{{ route('back.classroom.export-exam-score') }}" method="GET">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <input type="hidden" name="student_id" value="{{ $student->student?->id }}">
+                                <input type="hidden" name="classroom_id" value="{{ $classroom_id }}">
+                                @foreach ($student->examClassroom as $examClassroom)
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox"
+                                            value="{{ $examClassroom->exam_id }}"name="exam_id[]" id="examCheck" checked />
+                                        <label class="form-check-label" for="exam">
+                                            @if ($examClassroom?->exam?->type == 'UTS')
+                                                Sumatif Tengah Semester
+                                            @elseif ($examClassroom?->exam?->type == 'UAS')
+                                                Sumatif Akhir Semester
+                                            @else
+                                                Ulangan Harian
+                                            @endif -
+                                            <b>
+                                                {{ $examClassroom?->exam?->subject?->name }}
+                                            </b>
+
+                                        </label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success">Export</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     @endforeach
 @endsection
 
 
 @section('scripts')
     <script src="{{ asset('back/js/custom/apps/user-management/users/list/table.js') }}"></script>
+    </script>
 @endsection

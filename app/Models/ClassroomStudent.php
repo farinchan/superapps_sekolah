@@ -24,11 +24,10 @@ class ClassroomStudent extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
-    
 
     public function examClassroom()
     {
-        return $this->hasMany(ExamClassroom::class);
+        return $this->hasMany(ExamClassroom::class, 'classroom_id');
     }
 
     public function student()
