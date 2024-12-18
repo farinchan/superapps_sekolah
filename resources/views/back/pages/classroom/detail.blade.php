@@ -346,7 +346,8 @@
                                                 Sumatif Akhir Semester
                                             @else
                                                 Ulangan Harian
-                                            @endif -
+                                            @endif  {{$examClassroom?->exam?->semester }}
+                                            -
                                             <b>
                                                 {{ $examClassroom?->exam?->subject?->name }}
                                             </b>
