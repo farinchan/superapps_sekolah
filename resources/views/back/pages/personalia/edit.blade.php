@@ -1,5 +1,9 @@
 @extends('back.app')
+@section('styles')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 @section('seo')
+
 @endsection
 @section('content')
     <div id="kt_app_content" class="app-content flex-column-fluid">
@@ -41,7 +45,14 @@
 
     <script>
         DecoupledEditor
-            .create(document.querySelector('#kt_docs_ckeditor_document'))
+            .create(document.querySelector('#kt_docs_ckeditor_document'),{
+                ckfinder: {
+                    uploadUrl: '{{ route('back.menu.personalia.upload') }}',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    }
+                }
+            })
             .then(editor => {
                 const toolbarContainer = document.querySelector('#kt_docs_ckeditor_document_toolbar');
                 toolbarContainer.appendChild(editor.ui.view.toolbar.element);
@@ -50,6 +61,12 @@
                 editor.model.document.on('change:data', () => {
                     const data = editor.getData();
                     document.querySelector('#content').value = data;
+                });
+
+                editor.plugins.get('FileRepository').on('uploadFailed', (evt, data) => {
+                    console.log(evt);
+                    console.log(data);
+                    Alert.error('Upload failed : ' + data.message);
                 });
             })
             .catch(error => {

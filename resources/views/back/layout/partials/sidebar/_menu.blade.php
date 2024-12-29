@@ -446,9 +446,25 @@
                 @endrole
 
 
+                @role("guru")
+                <div class="menu-item">
+                    <a class="menu-link @if (request()->routeIs('back.teacher-attendance.attandance')) active @endif"
+                    href="{{route("back.teacher-attendance.attandance")}}">
+                        <span class="menu-icon">
+                            <i class="ki-duotone ki-profile-user fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                                <span class="path3"></span>
+                                <span class="path4"></span>
+                            </i>
+                        </span>
+                        <span class="menu-title">Presensi Saya (Guru)</span>
+                    </a>
+                </div>
+                @endrole
                 @role('admin')
-                    <div class="menu-item">
-                        <a class="menu-link" href="#">
+                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.teacher-attendance.*')) here show @endif">
+                        <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-profile-user fs-2">
                                     <span class="path1"></span>
@@ -458,7 +474,28 @@
                                 </i>
                             </span>
                             <span class="menu-title">Presensi Guru</span>
-                        </a>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion">
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.teacher-attendance.timetable')) active @endif"
+                                    href="{{ route('back.teacher-attendance.timetable') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Jadwal</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link"
+                                    href="#">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">History</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 @endrole
 

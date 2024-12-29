@@ -34,6 +34,7 @@ use App\Http\Controllers\Back\SettingController as BackSettingController;
 use App\Http\Controllers\Back\DisciplineRulesController as BackDisciplineRulesController;
 use App\Http\Controllers\Back\DisciplineStudentController as BackDisciplineStudentController;
 use App\Http\Controllers\Back\StudentAttendancesController as BackStudentAttendancesController;
+use App\Http\Controllers\Back\TeacherAttendancesController as BackTeacherAttendancesController;
 use App\Http\Controllers\Front\AnnouncementController;
 use Illuminate\Support\Facades\Route;
 
@@ -226,6 +227,20 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/my-history', [BackStudentAttendancesController::class, 'historyStudent'])->name('history.student');
         });
 
+        Route::prefix('teacher-attendance')->name('teacher-attendance.')->group(function () {
+            Route::get('/timetable', [BackTeacherAttendancesController::class, 'timetable'])->name('timetable');
+            Route::post('/timetable', [BackTeacherAttendancesController::class, 'timetableStore'])->name('timetable.store');
+            Route::put('/timetable', [BackTeacherAttendancesController::class, 'timetableUpdate'])->name('timetable.update');
+
+            Route::get('/history', [BackTeacherAttendancesController::class, 'history'])->name('history');
+            Route::get('/HistoryDatatable', [BackTeacherAttendancesController::class, 'HistoryDatatable'])->name('history.datatable');
+
+            Route::get('/attandance', [BackTeacherAttendancesController::class, 'attandance'])->name('attandance');
+            Route::post('/attandance', [BackTeacherAttendancesController::class, 'attandanceStore'])->name('attandance.store');
+
+
+        });
+
         Route::prefix('school-year')->name('school-year.')->group(function () {
             Route::get('/', [BackSchoolYearController::class, 'index'])->name('index');
             Route::post('/create', [BackSchoolYearController::class, 'store'])->name('store');
@@ -369,6 +384,8 @@ Route::domain(env('APP_URL'))->group(function () {
                 Route::get('/edit/{id}', [BackMenuPersonaliaController::class, 'edit'])->name('edit');
                 Route::put('/edit/{id}', [BackMenuPersonaliaController::class, 'update'])->name('update');
                 Route::delete('/delete/{id}', [BackMenuPersonaliaController::class, 'destroy'])->name('destroy');
+
+                Route::post('/upload', [BackMenuPersonaliaController::class, 'upload'])->name('upload');
             });
 
             Route::prefix('profil')->name('profil.')->group(function () {
@@ -377,6 +394,8 @@ Route::domain(env('APP_URL'))->group(function () {
                 Route::get('/edit/{id}', [BackMenuProfilController::class, 'edit'])->name('edit');
                 Route::put('/edit/{id}', [BackMenuProfilController::class, 'update'])->name('update');
                 Route::delete('/delete/{id}', [BackMenuProfilController::class, 'destroy'])->name('destroy');
+
+                Route::post('/upload', [BackMenuPersonaliaController::class, 'upload'])->name('upload');
             });
         });
 

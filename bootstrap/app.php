@@ -21,7 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo('/');
         $middleware->validateCsrfTokens(except: [
             '/login',
-            '/back/user/student/import'
+            '/back/user/student/import',
+            '/back/menu/personalia/upload',
+            '/back/menu/profil/upload'
         ]);
 
 

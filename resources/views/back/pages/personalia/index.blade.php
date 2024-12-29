@@ -1,4 +1,4 @@
-@extends('back.app')
+    @extends('back.app')
 @section('seo')
 @endsection
 @section('content')
@@ -31,7 +31,8 @@
                                         </h1>
                                     </a>
                                     <div class="d-flex align-items-center">
-                                        <a href="" class="text-danger fw-bold me-4">Hapus</a>
+                                        <a href="" class="text-danger fw-bold me-4" data-bs-toggle="modal" data-bs-target="#delete{{ $personalia->id }}">
+                                            Hapus</a>
                                         <a href="{{ route('back.menu.personalia.edit', $personalia->id) }}"
                                             class="text-primary fw-bold me-1">Edit</a>
                                         <i class="ki-duotone ki-arrow-right fs-2 text-primary"><span
@@ -93,6 +94,35 @@
     </div>
 
     @foreach ($list_personalia as $personalia)
+    <div class="modal fade" tabindex="-1" id="delete{{ $personalia->id }}">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Hapus Menu</h3>
+
+                    <!--begin::Close-->
+                    <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                    </div>
+                    <!--end::Close-->
+                </div>
+
+                <div class="modal-body">
+                    <b>Apakah Anda Yakin Ingin Menghapus Menu {{ $personalia->name }} ?</b> <br>
+                    <span class="text-danger"><b>Perhatian :</b> Data yang sudah dihapus tidak dapat dikembalikan lagi</span>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <form action="{{ route('back.menu.personalia.destroy', $personalia->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Ya, hapus</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @endforeach
 @endsection
 @section('scripts')
