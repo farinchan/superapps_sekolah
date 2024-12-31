@@ -21,6 +21,7 @@ use App\Http\Controllers\Back\AchievementController as BackAchievementController
 use App\Http\Controllers\Back\GalleryController as BackGalleryController;
 use App\Http\Controllers\Back\CalendarController as BackCalendarController;
 use App\Http\Controllers\Back\BillingController as BackBillingController;
+use App\Http\Controllers\Back\BillingMonthlyController as BackBillingMonthlyController;
 use App\Http\Controllers\Back\SchoolYearController as BackSchoolYearController;
 use App\Http\Controllers\Back\SubjectController as BackSubjectController;
 use App\Http\Controllers\Back\ClassroomController as BackClassroomController;
@@ -211,6 +212,26 @@ Route::domain(env('APP_URL'))->group(function () {
 
             Route::prefix('student')->name('student.')->group(function () {
                 Route::get('/', [BackBillingController::class, 'BillingStudentIndex'])->name('index');
+            });
+
+        });
+
+        Route::prefix('billing-monthly')->name('billing-monthly.')->group(function () {
+            Route::get('/', [BackBillingMonthlyController::class, 'index'])->name('index');
+            Route::post('/create', [BackBillingMonthlyController::class, 'store'])->name('store');
+            Route::put('/edit/{id}', [BackBillingMonthlyController::class, 'update'])->name('update');
+            Route::delete('/delete/{id}', [BackBillingMonthlyController::class, 'destroy'])->name('destroy');
+            Route::get('/detail/{id}', [BackBillingMonthlyController::class, 'detail'])->name('detail');
+            Route::get('/billing-monthly-classroom-ajax', [BackBillingMonthlyController::class, 'billingMonthlyClassroomAjax'])->name('detail.billingMonthlyClassroomAjax');
+            Route::post('/payment/{id}', [BackBillingMonthlyController::class, 'payment'])->name('payment');
+
+            Route::get('/confirm-payment', [BackBillingMonthlyController::class, 'confirmPayment'])->name('confirm-payment');
+            Route::put('/confirm-payment/{id}', [BackBillingMonthlyController::class, 'confirmPaymentProcess'])->name('confirm-payment.process');
+            Route::get('/paid-payment', [BackBillingMonthlyController::class, 'paidPayment'])->name('paid-payment');
+            Route::get('/rejected-payment', [BackBillingMonthlyController::class, 'rejectedPayment'])->name('rejected-payment');
+
+            Route::prefix('student')->name('student.')->group(function () {
+                Route::get('/', [BackBillingMonthlyController::class, 'BillingMonthlyStudentIndex'])->name('index');
             });
 
         });

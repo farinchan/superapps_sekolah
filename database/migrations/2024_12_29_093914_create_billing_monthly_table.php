@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('exam', function (Blueprint $table) {
+        Schema::create('billing_monthly', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('subject_id')->constrained('subject')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('name');
             $table->text('description')->nullable();
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
-            $table->integer('duration');
-            $table->foreignId('teacher_id')->constrained('teacher')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('type', ['UH', 'UTS', 'UAS']);
+            $table->integer('amount');
             $table->foreignId('school_year_id')->constrained('school_year')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('semester', ['ganjil', 'genap']);
             $table->timestamps();
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('billing_monthlies');
     }
 };
