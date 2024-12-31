@@ -120,7 +120,7 @@ class DashboardController extends Controller
             'sub_menu' => '',
             'log_login' => LogLogin::with('user')->latest()->get(),
             'log_login_elearning' => LogLoginElearning::with('user')->latest()->get(),
-            'log_activity' => Activity::latest()->limit(500)->get(),
+            'log_activity' => Activity::latest()->limit(100)->get(),
         ];
         return view('back.pages.dashboard.log', $data);
     }
