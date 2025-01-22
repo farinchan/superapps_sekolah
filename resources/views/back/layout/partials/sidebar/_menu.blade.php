@@ -286,6 +286,63 @@
                     </div>
                 @endrole
 
+                @role('admin|bendahara')
+                    <div data-kt-menu-trigger="click"
+                        class="menu-item menu-accordion @if (request()->routeIs('back.billing-monthly.*')) here show @endif">
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-two-credit-cart fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Tagihan Bulanan</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <div class="menu-sub menu-sub-accordion">
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.billing-monthly.index')) active @endif"
+                                    href="{{ route('back.billing-monthly.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Tagihan</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.billing-monthly.confirm-payment')) active @endif"
+                                    href="{{ route('back.billing-monthly.confirm-payment') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Verifikasi Pembayaran</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.billing-monthly.paid-payment')) active @endif"
+                                    href="{{ route('back.billing-monthly.paid-payment') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Diterima</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.billing-monthly.rejected-payment')) active @endif"
+                                    href="{{ route('back.billing-monthly.rejected-payment') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Ditolak</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endrole
+
                 @role('orangtua|siswa')
                     <div class="menu-item">
                         <a class="menu-link @if (request()->routeIs('back.billing.student.index')) active @endif"

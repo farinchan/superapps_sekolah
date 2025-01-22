@@ -18,4 +18,15 @@ class BillingMonthlyClassroom extends Model
     {
         return $this->belongsTo(Classroom::class);
     }
+
+    public function classroom_student()
+    {
+        return $this->hasMany(ClassroomStudent::class, 'classroom_id', 'classroom_id');
+    }
+
+    public function billing_payment()
+    {
+        return $this->hasMany(BillingPayment::class, 'billing_id', 'billing_id');
+    }
+
 }

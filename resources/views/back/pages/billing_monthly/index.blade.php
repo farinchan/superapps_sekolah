@@ -42,7 +42,7 @@
 
                 @forelse ($list_billing as $billing)
                     <div class="col-md-4">
-                        <a href="{{ route('back.billing.detail', $billing->id) }}">
+                        <a href="{{ route('back.billing-monthly.detail', $billing->id) }}">
 
                             <div class="card  border-hover-primary mt-5">
                                 <div class="card-body p-9 ">
@@ -62,9 +62,16 @@
                                 <div class="card-footer border-0">
                                     <div class="d-flex justify-content-end">
                                         <div class="d-flex align-items-center text-end ">
+                                            <span
+                                                class="text-gray-600 me-2 ">TA. {{ $billing->schoolYear->start_year }}/{{ $billing->schoolYear->end_year }} - Semester
+                                                {{ $billing->semester }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <div class="d-flex align-items-center text-end ">
                                             <span class="fs-4 fw-semibold text-gray-500 align-self-start me-1">Rp.</span>
                                             <span
-                                                class="fs-1 fw-bold text-gray-800 me-2 lh-1 ls-n2">{{ number_format($billing->total, 0, ',', '.') }}</span>
+                                                class="fs-1 fw-bold text-gray-800 me-2 lh-1 ls-n2">{{ number_format($billing->amount, 0, ',', '.') }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -170,7 +177,7 @@
                     <!--end::Close-->
                 </div>
 
-                <form action="{{ route('back.billing.store') }}" method="post">
+                <form action="{{ route('back.billing-monthly.store') }}" method="post">
                     @csrf
 
                     <div class="modal-body">
@@ -184,20 +191,39 @@
                             <textarea name="description" class="form-control form-control-solid" placeholder="Deskripsi"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="total" class="required form-label">Total Tagihan</label>
-                            <input type="number" name="total" class="form-control form-control-solid"
-                                placeholder="Jumlah" />
+                            <label for="amount" class="required form-label">Jumlah Tagihan</label>
+                            <input type="number" name="amount" class="form-control form-control-solid"
+                                placeholder="1xxxxx" />
+                            <small class="text-muted">Jumlah tagihan dalam rupiah tanpa titik atau koma</small>
                         </div>
+                        <div class="mb-3">
+                            <label for="semester" class="required form-label">Semester</label>
+                            <select class="form-select form-select-solid" name="semester" required>
+                                <option value="ganjil">Ganjil</option>
+                                <option value="genap">Genap</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="school_year_id" class="required form-label">Tahun Ajaran</label>
+                            <select class="form-select form-select-solid" name="school_year_id" required>
+                                @foreach ($list_school_year as $school_year)
+                                    <option value="{{ $school_year->id }}">
+                                        {{ $school_year->start_year }}/{{ $school_year->end_year }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="mb-3">
                             <label for="classroom_id" class="required form-label">Untuk Kelas</label>
                             <select class="form-select form-select-solid" name="classroom_id[]" data-control="select2"
                                 multiple="multiple" data-placeholder="Pilih kelas" data-dropdown-parent="#add" required>
                                 <option></option>
-                                @foreach ($list_classroom as $classroom)
+                                {{-- @foreach ($list_classroom as $classroom)
                                     <option value="{{ $classroom->id }}">{{ $classroom->name }} - TA.
                                         {{ $classroom->schoolYear->start_year }}/{{ $classroom->schoolYear->end_year }}
                                     </option>
-                                @endforeach
+                                @endforeach --}}
                             </select>
                             <small class="text-muted">Pilih kelas yang akan dikenakan tagihan (dapat dipilih lebih dari
                                 satu)</small><br>
@@ -215,4 +241,33 @@
     </div>
 @endsection
 @section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('select[name="school_year_id"]').on('change', function() {
+                var school_year_id = $(this).val();
+                if (school_year_id) {
+                    $.ajax({
+                        url: '{{ route('api.get-classroom') }}',
+                        type: "GET",
+                        dataType: "json",
+                        data: {
+                            school_year_id: school_year_id
+                        },
+                        success: function(data) {
+                            $('select[name="classroom_id[]"]').empty();
+                            $.each(data, function(key, value) {
+                                console.log(value);
+                                $('select[name="classroom_id[]"]').append(
+                                    '<option value="' + value.id + '">' + value.name + ' - TA. ' + value.school_year.start_year + '/' + value.school_year.end_year +
+                                    '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('select[name="classroom_id[]"]').empty();
+                }
+            });
+            $('select[name="school_year_id"]').trigger('change');
+        });
+    </script>
 @endsection

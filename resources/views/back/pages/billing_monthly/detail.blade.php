@@ -18,7 +18,7 @@
                                     <div class="border border-gray-300 border-dashed rounded py-3 px-3 mb-3">
                                         <div class="fw-semibold text-muted">Jumlah Tagihan</div>
                                         <div class="fs-4 fw-bold text-gray-700">
-                                            <span class="w-75px"> @money($billing->total) </span>
+                                            <span class="w-75px"> @money($billing->amount) </span>
                                         </div>
                                     </div>
                                 </div>
@@ -46,7 +46,11 @@
                                     <div class="fw-bold mt-5">Deskripsi</div>
                                     <div class="text-gray-600">{{ $billing->description }}</div>
                                     <div class="fw-bold mt-5">Jumlah Tagihan</div>
-                                    <div class="text-gray-600">@money($billing->total)</div>
+                                    <div class="text-gray-600">@money($billing->amount)</div>
+                                    <div class="fw-bold mt-5">Tahun Ajaran</div>
+                                    <div class="text-gray-600">{{ $billing->schoolYear->start_year }}/{{ $billing->schoolYear->end_year }}</div>
+                                    <div class="fw-bold mt-5">Semester</div>
+                                    <div class="text-gray-600">{{ $billing->semester }}</div>
                                     <div class="fw-bold mt-5">Untuk Kelas</div>
                                     <div class="text-gray-600">
                                         <ul>
@@ -384,7 +388,7 @@
                 `);
 
                 $.ajax({
-                    url: '{{ route('back.billing.detail.billingClassroomAjax') }}',
+                    url: '{{ route('back.billing-monthly.detail.billingMonthlyClassroomAjax') }}',
                     method: 'GET',
                     data: {
                         billing_id: '{{ $billing->id }}',
@@ -412,10 +416,10 @@
                             });
                             let sum_billing_payment = billing_payment.reduce((a, b) => b
                                 .status == 'paid' ? a + b.total : a, 0);
-                            let remaining_billing_payment = response[0].billing.total -
+                            let remaining_billing_payment = response[0].billing.amount -
                                 sum_billing_payment;
                             let percentage_billing_payment = (sum_billing_payment /
-                                response[0].billing.total) * 100;
+                                response[0].billing.amount) * 100;
                             $('#classroom_detail').append(`
                                 <div class="py-0" data-kt-customer-payment-method="row">
                                     <div class="py-3 d-flex flex-stack flex-wrap">
@@ -446,7 +450,7 @@
                                                 <table class="table table-flush fw-semibold gy-1">
                                                     <tr>
                                                         <td class="text-muted min-w-125px w-125px">Tagihan</td>
-                                                        <td class="text-gray-800">${formatRupiah(response[0].billing.total)}</td>
+                                                        <td class="text-gray-800">${formatRupiah(response[0].billing.amount)}</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted min-w-125px w-125px">Dibayar</td>

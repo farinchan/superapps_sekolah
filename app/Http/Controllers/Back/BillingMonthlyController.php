@@ -8,11 +8,12 @@ use App\Models\BillingMonthly;
 use App\Models\BillingMonthlyClassroom;
 use App\Models\BillingMonthlyPayment;
 use App\Models\Classroom;
+use App\Models\SchoolYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
-use Illuminate\Support\Str; 
+use Illuminate\Support\Str;
 
 class BillingMonthlyController extends Controller
 {
@@ -23,10 +24,11 @@ class BillingMonthlyController extends Controller
             'title' => 'List Tagihan Bulanan',
             'menu' => 'Tagihan',
             'sub_menu' => 'Tagihan Bulanan',
-            'list_billing' => BillingMonthly::latest()->where('name', 'like', '%' . $search . '%')->paginate(10),
-            'list_classroom' => Classroom::with('schoolYear')->latest()->get(),
+            'list_school_year' => SchoolYear::latest()->get(),
+            'list_billing' => BillingMonthly::latest()->where('name', 'like', '%' . $search . '%')->with('schoolYear')->paginate(10),
+            // 'list_classroom' => Classroom::with('schoolYear')->latest()->get(),
         ];
-
+        // return response()->json($data);
         return view('back.pages.billing_monthly.index', $data);
     }
 
@@ -128,29 +130,29 @@ class BillingMonthlyController extends Controller
     public function detail($id)
     {
         $data = [
-            'title' => 'Detail Tagihan',
+            'title' => 'Detail Tagihan Bulanan',
             'menu' => 'Tagihan',
-            // 'sub_menu' => '',
-            'billing' => billing::findOrFail($id),
-            'billing_payment' => BillingMonthlyPayment::where('billing_id', $id)->with('parent_student', 'student')->latest()->get(),
-            'total_billing_payment' => BillingMonthlyPayment::where('billing_id', $id)->where('status', 'paid')->sum('total'),
-            'billing_classroom' => BillingMonthlyClassroom::where('billing_id', $id)->with(['classroom.schoolYear'])->get(),
+            'sub_menu' => 'Tagihan Bulanan',
+            'billing' => BillingMonthly::with('schoolYear')->findOrFail($id),
+            'billing_payment' => BillingMonthlyPayment::where('billing_monthly_id', $id)->with('parent_student', 'student')->latest()->get(),
+            'total_billing_payment' => BillingMonthlyPayment::where('billing_monthly_id', $id)->where('status', 'paid')->sum('amount'),
+            'billing_classroom' => BillingMonthlyClassroom::where('billing_monthly_id', $id)->with(['classroom.schoolYear'])->get(),
         ];
 
         // return response()->json($data);
         return view('back.pages.billing_monthly.detail', $data);
     }
 
-    public function billingClassroomAjax(Request $request)
+    public function billingMonthlyClassroomAjax(Request $request)
     {
         $classroom_id = $request->classroom_id;
         $billing_id = $request->billing_id;
 
-        $billing_classroom = BillingMonthlyClassroom::where('billing_id', $billing_id)
+        $billing_classroom = BillingMonthlyClassroom::where('billing_monthly_id', $billing_id)
             ->when($classroom_id, function ($query) use ($classroom_id) {
                 $query->where('classroom_id', $classroom_id);
             })
-            ->with(['billing', 'classroom_student.student.billing_payment'])
+            ->with(['billingMonthly', 'classroom_student.student.billing_payment'])
             ->get();
 
         return response()->json($billing_classroom);

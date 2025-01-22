@@ -466,3 +466,26 @@ Route::domain('elearning.' . env('APP_URL'))->name('exam.')->group(function () {
     Route::get("/", App\Livewire\Exam\Home::class)->name('home')->middleware('auth-exam');
     Route::get("/exam/{session_id}", App\Livewire\Exam\Show::class)->name('show')->middleware('auth-exam');
 });
+
+
+Route::domain('ppdb.' . env('APP_URL'))->name('ppdb.')->group(function () {
+    Route::get('/', [App\Http\Controllers\PPDB\HomeController::class, 'index'])->name('home');
+    Route::get('/information', [App\Http\Controllers\PPDB\HomeController::class, 'information'])->name('information');
+    Route::get('/contact', [App\Http\Controllers\PPDB\HomeController::class, 'contact'])->name('contact');
+
+    Route::get('/login', [App\Http\Controllers\PPDB\AuthController::class, 'login'])->name('login');
+    Route::post('/login', [App\Http\Controllers\PPDB\AuthController::class, 'loginProcess'])->name('login.process');
+    Route::get('/register', [App\Http\Controllers\PPDB\AuthController::class, 'register'])->name('register');
+    Route::post('/register', [App\Http\Controllers\PPDB\AuthController::class, 'registerProcess'])->name('register.process');
+
+    Route::middleware('auth:ppdb')->group(function () {
+        Route::get('/dashboard', [App\Http\Controllers\PPDB\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/logout', [App\Http\Controllers\PPDB\AuthController::class, 'logout'])->name('logout');
+        Route::get('/profile/my-data', [App\Http\Controllers\PPDB\ProfileController::class, 'myData'])->name('profile.my-data');
+        Route::put('/profile/my-data', [App\Http\Controllers\PPDB\ProfileController::class, 'myDataUpdate'])->name('profile.my-data.update');
+        Route::get('/profile/parent-data', [App\Http\Controllers\PPDB\ProfileController::class, 'parentData'])->name('profile.parent-data');
+        Route::put('/profile/parent-data', [App\Http\Controllers\PPDB\ProfileController::class, 'parentDataUpdate'])->name('profile.parent-data.update');
+        Route::get('/profile/other-data', [App\Http\Controllers\PPDB\ProfileController::class, 'otherData'])->name('profile.other-data');
+        Route::put('/profile/other-data', [App\Http\Controllers\PPDB\ProfileController::class, 'otherDataUpdate'])->name('profile.other-data.update');
+    });
+});

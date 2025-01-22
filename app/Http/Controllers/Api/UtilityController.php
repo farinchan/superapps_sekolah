@@ -25,7 +25,7 @@ class UtilityController extends Controller
 
         return response()->json(Classroom::when($school_year_id, function ($query) use ($school_year_id) {
             $query->where('school_year_id', $school_year_id);
-        })->get());
+        })->with('schoolYear')->get());
     }
 
     public function getDetailClassroom()

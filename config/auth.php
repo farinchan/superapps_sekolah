@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'ppdb' => [
+            'driver' => 'session',
+            'provider' => 'ppdb_user',
+        ],
     ],
 
     /*
@@ -63,6 +67,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'ppdb_user' => [
+            'driver' => 'eloquent',
+            'model' =>  App\Models\PpdbUser::class,
         ],
 
         // 'users' => [
