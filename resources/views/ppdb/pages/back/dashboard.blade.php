@@ -275,14 +275,14 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="text-center pt-15 pb-15">
-                                <h2 class="fs-2x fw-bold mb-0">Jalur Pendaftaran Tidak ada</h2>
-                                <p class="text-gray-500 fs-4 fw-semibold py-7">
-                                    Maaf, saat ini jalur pendaftaran tidak tersedia <br> silahkan tunggu hingga jalur
-                                    pendaftaran dibuka.
-                                </p>
-                                <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
-                                    data-bs-target="#kt_modal_select_users">Jalur Pendaftaran</a>
+                            <div class="border border-hover-primary rounded mt-3">
+                                <div class="text-center pt-15 pb-15">
+                                    <h2 class="fs-2x fw-bold mb-0">Jalur Pendaftaran Tidak ada</h2>
+                                    <p class="text-gray-500 fs-4 fw-semibold py-7">
+                                        Maaf, saat ini jalur pendaftaran tidak tersedia <br> silahkan tunggu hingga jalur
+                                        pendaftaran dibuka.
+                                    </p>
+                                </div>
                             </div>
                         @endforelse
                     </div>
