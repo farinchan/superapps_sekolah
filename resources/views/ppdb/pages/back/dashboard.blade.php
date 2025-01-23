@@ -215,7 +215,10 @@
                 <div class="modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15">
                     <div class="text-center mb-13">
                         <h1 class="d-flex justify-content-center align-items-center mb-3">Pilih Jalur Pendafaran
-                            <span class="badge badge-circle badge-secondary ms-3">2</span>
+                            <span class="badge badge-circle badge-secondary ms-3">
+                                {{ $list_path->count() }}
+
+                            </span>
                         </h1>
                         <div class="text-muted fw-semibold fs-5">Pilih jalur pendaftaran yang sesuai dengan anda.</div>
                         <div class="text-danger fw-semibold fs-5">*Setelah memilih jalur pendaftaran, anda tidak dapat
