@@ -274,7 +274,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @else
+                        @empty
                             <div class="text-center pt-15 pb-15">
                                 <h2 class="fs-2x fw-bold mb-0">Jalur Pendaftaran Tidak ada</h2>
                                 <p class="text-gray-500 fs-4 fw-semibold py-7">
