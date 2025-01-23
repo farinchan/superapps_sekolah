@@ -113,7 +113,7 @@ class AuthController extends Controller
                 $certificateName = $certificate['certificate_name'];
                 $certificateFile = $certificate['certificate_file'];
                 $certificatePath = $certificateFile->storeAs('ppdb/certificates', Str::slug($request->nisn) . '-' . Str::random(10) . '.' . $certificateFile->getClientOriginalExtension(), 'public');
-                $user->sertifikat()->create([
+                $user->certificate()->create([
                     'ppdb_user_id' => $user->id,
                     'name' => Str::limit($certificateName, 250),
                     'path' => $certificatePath
