@@ -29,7 +29,7 @@ use App\Http\Controllers\Back\ExtracurricularController as BackExtracurricularCo
 use App\Http\Controllers\Back\PartnerLinkController as BackPartnerLinkController;
 use App\Http\Controllers\Back\ExamController as BackExamController;
 use App\Http\Controllers\Back\UserController as BackUserController;
-use App\Http\Controllers\Back\PPDBController as BackPPDBController;
+use App\Http\Controllers\Back\PpdbController as BackPPDBController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
 use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
