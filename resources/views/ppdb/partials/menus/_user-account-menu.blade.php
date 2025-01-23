@@ -27,7 +27,7 @@
     <!--end::Menu separator-->
     <!--begin::Menu item-->
     <div class="menu-item px-5">
-        <a href="?page=account/overview" class="menu-link px-5">
+        <a href="{{ route("ppdb.dashboard") }}" class="menu-link px-5">
             Dashboard
         </a>
     </div>

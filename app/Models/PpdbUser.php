@@ -21,12 +21,13 @@ class PpdbUser extends Authenticatable
     {
         return [
             'password' => 'hashed',
+            'additional_data' => 'array'
         ];
     }
 
-    public function sertifikat()
+    public function certificate()
     {
         return $this->hasMany(PpdbUserCertificate::class, 'ppdb_user_id');
     }
-    
+
 }

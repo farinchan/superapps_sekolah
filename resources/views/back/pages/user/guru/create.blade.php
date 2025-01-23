@@ -115,6 +115,13 @@
                                 </label>
                             </div>
                             <div class="form-check mt-3">
+                                <input class="form-check-input" type="checkbox" name="role_ppdb" value="1"
+                                    @if (old('role_ppdb') == 1) checked @endif id="flexCheckDefault" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Panitia PPDB
+                                </label>
+                            </div>
+                            <div class="form-check mt-3">
                                 <input class="form-check-input" type="checkbox" name="role_staff" value="1"
                                     @if (old('role_staff') == 1) checked @endif id="flexCheckDefault" />
                                 <label class="form-check-label" for="flexCheckDefault">

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
+use App\Models\PpdbContact;
+use App\Models\PpdbPath;
 use App\Models\Student;
+use App\Models\StudentAchievement;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -32,8 +36,11 @@ class HomeController extends Controller
             'menu' => 'Beranda',
             'submenu' => 'Informasi',
             'page_title' => 'Informasi PPDB',
-            'page_description' => 'Informasi PPDB Madrasah Aliyah Negeri 1 Padang Panjang'
+            'page_description' => 'Informasi PPDB Madrasah Aliyah Negeri 1 Padang Panjang',
+            'list_achievement' => StudentAchievement::latest()->limit(5)->get(),
+            'list_path' => PpdbPath::with(['schoolYear','registrationUsers'])->where('start_date', '<=', date('Y-m-d'))->where('end_date', '>=', date('Y-m-d'))->get(),
         ];
+        // return response()->json($data);
         return view('ppdb.pages.front.information', $data);
     }
 
@@ -46,5 +53,40 @@ class HomeController extends Controller
             'page_description' => 'Hubungi Kami Mengenai PPDB Madrasah Aliyah Negeri 1 Padang Panjang'
         ];
         return view('ppdb.pages.front.contact', $data);
+    }
+
+    public function ContactSend(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'phone' => 'required|max:15',
+            'email' => 'required|email',
+            'subject' => 'required|max:255',
+            'message' => 'required',
+        ], [
+            'name.required' => 'Nama harus diisi',
+            'name.max' => 'Nama maksimal 255 karakter',
+            'phone.required' => 'Nomor telepon harus diisi',
+            'phone.max' => 'Nomor telepon maksimal 15 karakter',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Email tidak valid',
+            'subject.required' => 'Subjek harus diisi',
+            'subject.max' => 'Subjek maksimal 255 karakter',
+            'message.required' => 'Pesan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 'error', 'message' => $validator->errors()->all()], 422);
+        }
+
+        $ppdbContact = new PpdbContact();
+        $ppdbContact->name = $request->name;
+        $ppdbContact->phone = $request->phone;
+        $ppdbContact->email = $request->email;
+        $ppdbContact->subject = $request->subject;
+        $ppdbContact->message = $request->message;
+        $ppdbContact->save();
+
+        return response()->json(['status' => 'success', 'message' => 'Pesan berhasil dikirim']);
     }
 }

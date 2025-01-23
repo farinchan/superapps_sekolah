@@ -3,19 +3,24 @@
     <style>
         #kt_contact_map {
             height: 486px;
-    width: 100%;
-    position: relative; /* Tambahkan ini untuk mencegah overflow */
-    overflow: hidden; /* Pastikan kontainer tidak memengaruhi elemen lain */
+            width: 100%;
+            position: relative;
+            /* Tambahkan ini untuk mencegah overflow */
+            overflow: hidden;
+            /* Pastikan kontainer tidak memengaruhi elemen lain */
         }
+
         .leaflet-container {
-    background: #f0f0f0; /* Set background default */
-    all: unset; /* Reset semua properti */
-    display: block;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-}
+            background: #f0f0f0;
+            /* Set background default */
+            all: unset;
+            /* Reset semua properti */
+            display: block;
+            height: 100%;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
     </style>
 @endsection
 @section('content')
@@ -27,32 +32,39 @@
             <div class="card-body p-lg-17">
                 <div class="row mb-3">
                     <div class="col-md-6 pe-lg-10">
-                        <form action="" class="form mb-15" method="post" id="kt_contact_form">
+                        <form class="form mb-15" method="post" id="kt_contact_form">
                             <h1 class="fw-bold text-gray-900 mb-9">Kirim Kami Pertanyaan</h1>
+                            <div class="d-flex flex-column mb-5 fv-row">
+                                <label class="fs-5 fw-semibold mb-2 required">Nama</label>
+                                <input type="text" class="form-control form-control-solid" placeholder="" name="name"
+                                    required />
+                            </div>
                             <div class="row mb-5">
                                 <div class="col-md-6 fv-row">
-                                    <label class="fs-5 fw-semibold mb-2">Nama</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder=""
-                                        name="name" />
+                                    <label class="fs-5 fw-semibold mb-2 required">No.Telp/Whatsapp</label>
+                                    <input type="text" class="form-control form-control-solid" placeholder="+628XXXXX"
+                                        name="phone" required />
                                 </div>
                                 <div class="col-md-6 fv-row">
-                                    <label class="fs-5 fw-semibold mb-2">Email</label>
-                                    <input type="text" class="form-control form-control-solid" placeholder=""
-                                        name="email" />
+                                    <label class="fs-5 fw-semibold mb-2 required">Email</label>
+                                    <input type="email" class="form-control form-control-solid" placeholder=""
+                                        name="email" required />
                                 </div>
                             </div>
                             <div class="d-flex flex-column mb-5 fv-row">
-                                <label class="fs-5 fw-semibold mb-2">Subjek</label>
-                                <input class="form-control form-control-solid" placeholder="" name="subject" />
+                                <label class="fs-5 fw-semibold mb-2 required">Subjek</label>
+                                <input class="form-control form-control-solid" placeholder="" name="subject" required />
                             </div>
                             <div class="d-flex flex-column mb-10 fv-row">
-                                <label class="fs-6 fw-semibold mb-2">Pesan</label>
-                                <textarea class="form-control form-control-solid" rows="6" name="message" placeholder=""></textarea>
+                                <label class="fs-6 fw-semibold mb-2 required">Pesan</label>
+                                <textarea class="form-control form-control-solid" rows="6" name="message" placeholder="" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary" id="kt_contact_submit_button">
                                 <span class="indicator-label">Kirim Pertanyaan</span>
-                                <span class="indicator-progress">Please wait...
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                <span class="indicator-progress">
+                                    Please wait...
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
+                                </span>
                             </button>
                         </form>
                     </div>
@@ -111,20 +123,67 @@
 @section('scripts')
     <script src="{{ asset('back/plugins/custom/leaflet/leaflet.bundle.js') }}"></script>
     <script>
-            var leaflet = L.map('kt_contact_map', {
-                center: [{{ $setting_website->latitude }}, {{ $setting_website->longitude }}],
-                zoom: 15
+        var leaflet = L.map('kt_contact_map', {
+            center: [{{ $setting_website->latitude }}, {{ $setting_website->longitude }}],
+            zoom: 15
+        });
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19
+        }).addTo(leaflet);
+
+        L.marker([{{ $setting_website->latitude }}, {{ $setting_website->longitude }}]).addTo(leaflet);
+
+        // Panggil invalidateSize untuk memastikan layout map benar
+        setTimeout(function() {
+            leaflet.invalidateSize();
+        }, 500);
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#kt_contact_form').submit(function(e) {
+                e.preventDefault();
+                var form = $(this);
+                var btn = form.find('[type="submit"]');
+                var btnIcon = btn.find('.indicator-progress');
+                var btnLabel = btn.find('.indicator-label');
+                var btnSpinner = btn.find('.spinner-border');
+                $.ajax({
+                    url: '{{ route('ppdb.contact.send') }}',
+                    type: 'POST',
+                    data: form.serialize(),
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    beforeSend: function() {
+                        btn.attr('disabled', true);
+                        btnIcon.show();
+                        btnLabel.hide();
+                        btnSpinner.show();
+                    },
+                    success: function(response) {
+                        btn.attr('disabled', false);
+                        btnIcon.hide();
+                        btnLabel.show();
+                        btnSpinner.hide();
+                        form[0].reset();
+                        toastr.success(response.message);
+                    },
+                    error: function(xhr) {
+                        btn.attr('disabled', false);
+                        btnIcon.hide();
+                        btnLabel.show();
+                        btnSpinner.hide();
+                        var res = xhr.responseJSON;
+                        if (res.errors) {
+                            $.each(res.errors, function(key, value) {
+                                toastr.error(value);
+                            });
+                        } else {
+                            toastr.error(res.message);
+                        }
+                    }
+                });
             });
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19
-            }).addTo(leaflet);
-
-            L.marker([{{ $setting_website->latitude }}, {{ $setting_website->longitude }}]).addTo(leaflet);
-
-            // Panggil invalidateSize untuk memastikan layout map benar
-            setTimeout(function() {
-                leaflet.invalidateSize();
-            }, 500);
-
+        });
     </script>
 @endsection

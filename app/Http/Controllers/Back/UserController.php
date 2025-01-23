@@ -121,6 +121,10 @@ class UserController extends Controller
             $user->assignRole('proktor');
         }
 
+        if ($request->role_ppdb) {
+            $user->assignRole('ppdb');
+        }
+
         if ($request->role_staff) {
             $user->assignRole('staff');
         }
@@ -287,6 +291,12 @@ class UserController extends Controller
             $user->assignRole('proktor');
         } else {
             $user->removeRole('proktor');
+        }
+
+        if ($request->role_ppdb) {
+            $user->assignRole('ppdb');
+        } else {
+            $user->removeRole('ppdb');
         }
 
         if ($request->role_staff) {

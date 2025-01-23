@@ -138,7 +138,7 @@
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('ppdb.dashboard') }}"
                                 class="btn btn-light btn-active-light-primary me-2">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" class="btn btn-warning">Update</button>
                         </div>
                     </div>
                 </form>

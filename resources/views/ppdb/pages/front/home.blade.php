@@ -68,7 +68,7 @@
                         <div class="d-flex flex-center flex-wrap mb-10 mx-auto gap-5 w-xl-900px">
                             <div class="octagon d-flex flex-center h-200px w-200px bg-body mx-lg-10">
                                 <div class="text-center">
-                                    <i class="ki-outline ki-element-11 fs-2tx text-primary"></i>
+                                    <i class="ki-outline ki-profile-user fs-2tx text-primary"></i>
                                     <div class="mt-1">
                                         <div class="fs-lg-2hx fs-2x fw-bold text-gray-800 d-flex justify-content-center">
                                             <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="{{ $tenaga_pendidik_kependidikan }}">0
@@ -80,7 +80,7 @@
                             </div>
                             <div class="octagon d-flex flex-center h-200px w-200px bg-body mx-lg-10">
                                 <div class="text-center">
-                                    <i class="ki-outline ki-chart-pie-4 fs-2tx text-success"></i>
+                                    <i class="ki-outline ki-people fs-2tx text-success"></i>
                                     <div class="mt-1">
                                         <div class="fs-lg-2hx fs-2x fw-bold text-gray-800 d-flex justify-content-center">
                                             <div class="min-w-50px" data-kt-countup="true" data-kt-countup-value="{{ $siswa_count }}">0
@@ -92,7 +92,7 @@
                             </div>
                             <div class="octagon d-flex flex-center h-200px w-200px bg-body mx-lg-10">
                                 <div class="text-center">
-                                    <i class="ki-outline ki-basket fs-2tx text-info"></i>
+                                    <i class="ki-outline ki-user-tick fs-2tx text-info"></i>
                                     <div class="mt-1">
                                         <div class="fs-lg-2hx fs-2x fw-bold text-gray-800 d-flex align-items-center">
                                             <div class="min-w-50px" data-kt-countup="true" data-kt-countup-value="{{ $alumni_count }}">0

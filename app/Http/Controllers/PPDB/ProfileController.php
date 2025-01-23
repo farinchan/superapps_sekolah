@@ -88,6 +88,7 @@ class ProfileController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'no_kk' => 'required|max:255',
+            'nik' => 'required|max:255',
             'mother_nik' => 'required|max:255',
             'mother_name' => 'required|string|max:255',
             'mother_phone_number' => 'required|max:255',
@@ -107,6 +108,7 @@ class ProfileController extends Controller
 
         $user = PpdbUser::find(Auth::guard('ppdb')->user()->id);
         $user->no_kk = $request->no_kk;
+        $user->nik = $request->nik;
         $user->mother_nik = $request->mother_nik;
         $user->mother_name = $request->mother_name;
         $user->mother_phone_number = $request->mother_phone_number;

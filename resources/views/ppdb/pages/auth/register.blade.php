@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="stepper-label">
                                     <h3 class="stepper-title">Tahap 2</h3>
-                                    <div class="stepper-desc fw-semibold"> Data Orang Tua</div>
+                                    <div class="stepper-desc fw-semibold"> Data Keluarga</div>
                                 </div>
                             </div>
                             <div class="stepper-line h-40px"></div>
@@ -183,9 +183,8 @@
                     <div data-kt-stepper-element="content">
                         <div class="w-100">
                             <div class="pb-10 pb-lg-15">
-                                <h2 class="fw-bold text-gray-900">Data Orang Tua</h2>
-                                <div class="text-muted fw-semibold fs-6">Data orang tua atau wali yang akan dihubungi
-                                </div>
+                                <h2 class="fw-bold text-gray-900">Data Keluarga</h2>
+                                <div class="text-muted fw-semibold fs-6">Data orang tua dan keluarga</div>
                             </div>
                             <div class="fv-row">
                                 <div class="mb-10">
@@ -195,6 +194,15 @@
                                         placeholder="Nomor Kartu Keluarga" name="no_kk" value="{{ old('no_kk') }}"
                                         required />
                                     @error('no_kk')
+                                        <small class="text-danger">*{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">NIK Calon Peserta Didik</label>
+                                    <input type="text" class="form-control form-control-solid"
+                                        placeholder="Nomor Induk Kependudukan" name="nik" value="{{ old('nik') }}"
+                                        required />
+                                    @error('nik')
                                         <small class="text-danger">*{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -374,7 +382,61 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Dari Mana Mendapatkan informasi PPDB MAN 1 Padang Panjang</label>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="Brosur dan Pamflet sekolah" name="additional_data[]" id="flexCheckDefault"  @if (old('additional_data') && old('additional_data')->contains('Brosur dan Pamflet sekolah')) checked @endif />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Brosur dan Pamflet sekolah
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="Sosmed (IG, FB, Yt, WA Group, Tiktok)" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && old('additional_data')->contains('Sosmed (IG, FB, Yt, WA Group, Tiktok)')) checked @endif />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Sosmed (IG, FB, Yt, WA Group, Tiktok)
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="Keluarga" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && old('additional_data')->contains('Keluarga')) checked @endif />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Keluarga
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="Guru/tenaga kependidikan MAN 1 Padang Panjang" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && old('additional_data')->contains('Guru/tenaga kependidikan MAN 1 Padang Panjang')) checked @endif />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Guru/tenaga kependidikan MAN 1 Padang Panjang
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="Siswa/Siswi MAN 1 Padang Panjang" name="additional_data[]" id="flexCheckDefault"
+                                            @if (old('additional_data') && old('additional_data')->contains('Siswa/Siswi MAN 1 Padang Panjang')) checked @endif />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Siswa/Siswi MAN 1 Padang Panjang
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="Website MAN 1 Padang Padang Panjang" name="additional_data[]" id="flexCheckDefault"
+                                            @if (old('additional_data') && old('additional_data')->contains('Website MAN 1 Padang Padang Panjang')) checked @endif />
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                Website MAN 1 Padang Padang Panjang
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" value="Lainnya" id="flexCheckLainnya" />
+                                            <label class="form-check-label" for="flexCheckLainnya">
+                                                Lainnya
+                                            </label>
+                                        </div>
+                                        <div class="mb-10" id="lainnyaInput" style="display: none;">
+                                            <label for="exampleFormControlInput1" class="form-label">Sebutkan</label>
+                                            <input type="text" class="form-control form-control-solid" placeholder="Sebutkan sumber informasi lainnya" name="additional_data_other" id="additional_data_other" />
+                                        </div>
 
+                                    @error('additional_data')
+                                        <small class="text-danger">*{{ $message }}</small>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -459,4 +521,18 @@
             }
         });
     </script>
+
+<script>
+    document.getElementById('flexCheckLainnya').addEventListener('change', function() {
+        var lainnyaInput = document.getElementById('lainnyaInput');
+        var additionalDataOther = document.getElementById('additional_data_other');
+        if (this.checked) {
+            lainnyaInput.style.display = 'block';
+            additionalDataOther.setAttribute('name', 'additional_data[]');
+        } else {
+            lainnyaInput.style.display = 'none';
+            additionalDataOther.removeAttribute('name');
+        }
+    });
+</script>
 @endsection

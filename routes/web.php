@@ -29,6 +29,7 @@ use App\Http\Controllers\Back\ExtracurricularController as BackExtracurricularCo
 use App\Http\Controllers\Back\PartnerLinkController as BackPartnerLinkController;
 use App\Http\Controllers\Back\ExamController as BackExamController;
 use App\Http\Controllers\Back\UserController as BackUserController;
+use App\Http\Controllers\Back\PPDBController as BackPPDBController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
 use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
@@ -394,7 +395,22 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/detail/{id}/question/{question_id}/edit', [BackExamController::class, 'questionEdit'])->name('question.edit');
             Route::put('/detail/{id}/question/{question_id}/update', [BackExamController::class, 'questionUpdate'])->name('question.update');
             Route::delete('/detail/{id}/question/{question_id}/delete', [BackExamController::class, 'questionDelete'])->name('question.delete');
+        });
 
+        Route::prefix('ppdb')->name('ppdb.')->group(function () {
+            Route::get('/path', [BackPPDBController::class, 'path'])->name('path');
+            Route::post('/path', [BackPPDBController::class, 'pathStore'])->name('path.store');
+            Route::put('/path/{id}', [BackPPDBController::class, 'pathUpdate'])->name('path.update');
+            Route::delete('/path/{id}', [BackPPDBController::class, 'pathDestroy'])->name('path.destroy');
+            Route::get('/path/{id}/detail', [BackPPDBController::class, 'pathDetail'])->name('path.detail');
+            Route::delete('/path/kick-student/{register_id}', [BackPPDBController::class, 'pathKickStudent'])->name('path.kick-student');
+
+            Route::get('/student', [BackPPDBController::class, 'student'])->name('student');
+            Route::get('/student/{id}/detail', [BackPPDBController::class, 'studentDetail'])->name('student.detail');
+            Route::delete('/student/{id}', [BackPPDBController::class, 'studentDestroy'])->name('student.destroy');
+
+            Route::get('/message', [BackPPDBController::class, 'message'])->name('message');
+            Route::delete('/message/{id}', [BackPPDBController::class, 'messageDestroy'])->name('message.destroy');
 
         });
 
@@ -472,6 +488,7 @@ Route::domain('ppdb.' . env('APP_URL'))->name('ppdb.')->group(function () {
     Route::get('/', [App\Http\Controllers\PPDB\HomeController::class, 'index'])->name('home');
     Route::get('/information', [App\Http\Controllers\PPDB\HomeController::class, 'information'])->name('information');
     Route::get('/contact', [App\Http\Controllers\PPDB\HomeController::class, 'contact'])->name('contact');
+    Route::post('/contact', [App\Http\Controllers\PPDB\HomeController::class, 'ContactSend'])->name('contact.send');
 
     Route::get('/login', [App\Http\Controllers\PPDB\AuthController::class, 'login'])->name('login');
     Route::post('/login', [App\Http\Controllers\PPDB\AuthController::class, 'loginProcess'])->name('login.process');
@@ -479,13 +496,14 @@ Route::domain('ppdb.' . env('APP_URL'))->name('ppdb.')->group(function () {
     Route::post('/register', [App\Http\Controllers\PPDB\AuthController::class, 'registerProcess'])->name('register.process');
 
     Route::middleware('auth:ppdb')->group(function () {
-        Route::get('/dashboard', [App\Http\Controllers\PPDB\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/logout', [App\Http\Controllers\PPDB\AuthController::class, 'logout'])->name('logout');
+        Route::get('/dashboard', [App\Http\Controllers\PPDB\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/profile/my-data', [App\Http\Controllers\PPDB\ProfileController::class, 'myData'])->name('profile.my-data');
         Route::put('/profile/my-data', [App\Http\Controllers\PPDB\ProfileController::class, 'myDataUpdate'])->name('profile.my-data.update');
         Route::get('/profile/parent-data', [App\Http\Controllers\PPDB\ProfileController::class, 'parentData'])->name('profile.parent-data');
         Route::put('/profile/parent-data', [App\Http\Controllers\PPDB\ProfileController::class, 'parentDataUpdate'])->name('profile.parent-data.update');
         Route::get('/profile/other-data', [App\Http\Controllers\PPDB\ProfileController::class, 'otherData'])->name('profile.other-data');
         Route::put('/profile/other-data', [App\Http\Controllers\PPDB\ProfileController::class, 'otherDataUpdate'])->name('profile.other-data.update');
+        Route::post('/select/path/{path_id}', [App\Http\Controllers\PPDB\DashboardController::class, 'selectPath'])->name('select.path');
     });
 });

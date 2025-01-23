@@ -16,7 +16,7 @@
                                 <div class="m-0 ">
                                     <div class="mb-10">
                                         <h4 class="fs-1 text-gray-800 w-bolder mb-6">
-                                            Data Orang Tua
+                                            Data Keluarga
                                         </h4>
                                         <p class="fw-semibold fs-4 text-gray-600 mb-2">
                                             Ubah data orang tua dengan data orang tua atau wali yang dapat dihubungi.
@@ -31,6 +31,15 @@
                                                     placeholder="Nomor Kartu Keluarga" name="no_kk"
                                                     value="{{ $user->no_kk }}" required />
                                                 @error('no_kk')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-10">
+                                                <label for="exampleFormControlInput1" class="required form-label">NIK Calon Peserta Didik</label>
+                                                <input type="text" class="form-control form-control-solid"
+                                                    placeholder="Nomor Induk Kependudukan" name="nik"
+                                                    value="{{ $user->nik }}" required />
+                                                @error('nik')
                                                     <small class="text-danger">*{{ $message }}</small>
                                                 @enderror
                                             </div>
@@ -113,7 +122,7 @@
                         <div class="d-flex justify-content-end">
                             <a href="{{ route('ppdb.dashboard') }}"
                                 class="btn btn-light btn-active-light-primary me-2">Cancel</a>
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" class="btn btn-warning">Update</button>
                         </div>
                     </div>
                 </form>

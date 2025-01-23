@@ -72,7 +72,7 @@
                             href="{{ route('ppdb.profile.parent-data') }}">
                             <i class="ki-outline ki-profile-user fs-2tx mb-5 ms-n1 text-gray-500"></i>
                             <span class="fs-4 fw-bold">
-                                Data Orang Tua </span>
+                                Data Keluarga </span>
                         </a>
                     </div>
                     <div class="col-md-4">
@@ -83,22 +83,123 @@
                         </a>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="card-px text-center pt-15 pb-15">
-                            <h2 class="fs-2x fw-bold mb-0">Pilih Jalur Pendaftaran</h2>
-                            <p class="text-gray-500 fs-4 fw-semibold py-7">
-                                Anda belum mendaftar pada jalur pendaftaran manapun <br> silahkan pilih jalur pendaftaran yang sesuai dengan anda.
-                            </p>
-                            <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
-                                data-bs-target="#kt_modal_select_users">Jalur Pendaftaran</a>
-                        </div>
-                        <div class="text-center pb-15 px-5">
-                            <img src="{{ asset("back/media/illustrations/sketchy-1/17.png") }}" alt=""
-                                class="mw-100 h-200px h-sm-325px" />
+                @if ($path_select_check)
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">List Pendaftaran</h3>
+                            {{-- <div class="card-toolbar">
+                                <button type="button" class="btn btn-sm btn-light">
+                                    pilih Jalur Lain
+                                </button>
+                            </div> --}}
                         </div>
                     </div>
-                </div>
+                    @foreach ($my_list_path as $my_path)
+                        <div class="border border-hover-primary rounded mt-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex flex-stack pb-3">
+                                        <div class="d-flex">
+                                            <div class="">
+                                                <div class="d-flex align-items-center">
+                                                    <a href="#"
+                                                        class="text-gray-900 fw-bold text-hover-primary fs-5 me-4">
+                                                        {{ $my_path->path->name }}
+                                                    </a>
+                                                </div>
+                                                <span class="text-muted fw-semibold mb-3">
+                                                    T.A
+                                                    {{ $my_path->path->schoolYear->start_year }}/{{ $my_path->path->schoolYear->end_year }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div clas="d-flex">
+                                            <div class="text-end pb-3">
+                                                <span class="text-muted fs-7">ID Pendaftaran</span><br>
+                                                <span class="text-info fw-bold fs-5">
+                                                    ID-{{ $my_path->path->id }}-{{ $my_path->id }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="p-0">
+                                        <div class="d-flex flex-column">
+                                            <p class="text-gray-700 fw-semibold fs-6 mb-4">
+                                                {{ $my_path->path->description }}
+                                            </p>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <div class="separator separator-dashed border-muted my-5"></div>
+                                            <div class="d-flex flex-stack">
+                                                <div class="d-flex flex-column mw-200px">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <span class="text-gray-700 fs-6 fw-semibold me-2">Status: </span>
+                                                        @if ($my_path->status == 'registered')
+                                                            <span class="badge badge-light-primary">Terdaftar</span>
+                                                        @elseif($my_path->status == 'passed')
+                                                            <span class="badge badge-light-success">Lulus</span>
+                                                        @elseif($my_path->status == 'rejected')
+                                                            <span class="badge badge-light-danger">Tidak Lulus</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <a href="{{ $my_path->path->wa_group }}" target="_blank"
+                                                        class="btn btn-sm btn-light" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Bergabung Ke Whatsapp Grup">
+                                                        <img src="{{ asset('img_ext/whatsapp.svg') }}" alt="WA Group"
+                                                            width="40px">
+                                                    </a>
+                                                    @if ($my_path->status == 'registered')
+                                                        <a href="" class="btn btn-sm btn-light"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Cetak Kartu Ujian">
+                                                            <img src="{{ asset('img_ext/print.svg') }}" alt="Kartu Ujian"
+                                                                width="40px">
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    @if ($path_rejected_check)
+                        <div class="card mt-3">
+                            <div class="card-body">
+                                <div class="card-px text-center pt-15 pb-15">
+                                    <h2 class="fs-2x fw-bold mb-0">Pilih Jalur Pendaftaran Lain</h2>
+                                    <p class="text-gray-500 fs-4 fw-semibold py-7">
+                                        Sepertinya anda dinyatakan tidak lulus pada jalur pendaftaran sebelumnya <br>
+                                        Tapi Jangan Sedih kami membuka peluang untuk anda memilih jalur pendaftaran lain😀.
+                                    </p>
+                                    <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
+                                        data-bs-target="#kt_modal_select_users">Jalur Pendaftaran</a>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                @else
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="card-px text-center pt-15 pb-15">
+                                <h2 class="fs-2x fw-bold mb-0">Pilih Jalur Pendaftaran</h2>
+                                <p class="text-gray-500 fs-4 fw-semibold py-7">
+                                    Anda belum mendaftar pada jalur pendaftaran manapun <br> silahkan pilih jalur
+                                    pendaftaran yang sesuai dengan anda.
+                                </p>
+                                <a href="#" class="btn btn-primary er fs-6 px-8 py-4" data-bs-toggle="modal"
+                                    data-bs-target="#kt_modal_select_users">Jalur Pendaftaran</a>
+                            </div>
+                            <div class="text-center pb-15 px-5">
+                                <img src="{{ asset('back/media/illustrations/sketchy-1/17.png') }}" alt=""
+                                    class="mw-100 h-200px h-sm-325px" />
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -114,108 +215,66 @@
                 <div class="modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15">
                     <div class="text-center mb-13">
                         <h1 class="d-flex justify-content-center align-items-center mb-3">Pilih Jalur Pendafaran
-                        <span class="badge badge-circle badge-secondary ms-3">2</span></h1>
+                            <span class="badge badge-circle badge-secondary ms-3">2</span>
+                        </h1>
                         <div class="text-muted fw-semibold fs-5">Pilih jalur pendaftaran yang sesuai dengan anda.</div>
-                        <div class="text-danger fw-semibold fs-5">*Setelah memilih jalur pendaftaran, anda tidak dapat mengubahnya lagi.</div>
+                        <div class="text-danger fw-semibold fs-5">*Setelah memilih jalur pendaftaran, anda tidak dapat
+                            mengubahnya lagi.</div>
 
                     </div>
                     <div class="mh-475px scroll-y me-n7 pe-7">
-                        <div class="border border-hover-primary p-7 rounded mb-7">
-                            <div class="d-flex flex-stack pb-3">
-                                <div class="d-flex">
-                                    <div class="symbol symbol-circle symbol-45px">
-                                        <img src="assets/media/avatars/300-20.jpg" alt="" />
-                                    </div>
-                                    <div class="ms-5">
-                                        <div class="d-flex align-items-center">
-                                            <a href="pages/user-profile/overview.html" class="text-gray-900 fw-bold text-hover-primary fs-5 me-4">Emma Smith</a>
-                                            <span class="badge badge-light-success d-flex align-items-center fs-8 fw-semibold">
-                                            <i class="ki-outline ki-star fs-8 text-success me-1"></i>Author</span>
+                        @foreach ($list_path as $path)
+                            <div class="border border-hover-primary p-7 rounded mb-7">
+                                <div class="d-flex flex-stack pb-3">
+                                    <div class="d-flex">
+                                        <div class="">
+                                            <div class="d-flex align-items-center">
+                                                <a href="#"
+                                                    class="text-gray-900 fw-bold text-hover-primary fs-5 me-4">
+                                                    {{ $path->name }}
+                                                </a>
+                                            </div>
+                                            <span class="text-muted fw-semibold mb-3">
+                                                T.A {{ $path->schoolYear->start_year }}/{{ $path->schoolYear->end_year }}
+                                            </span>
                                         </div>
-                                        <span class="text-muted fw-semibold mb-3">Art Director</span>
+                                    </div>
+                                    <div clas="d-flex">
+                                        <div class="text-end pb-3">
+                                            <span class="text-muted fs-7">Waktu Pendaftaran</span><br>
+                                            <span
+                                                class="text-gray-900 fw-bold fs-5">{{ \Carbon\Carbon::parse($path->registration_start)->format('d M Y') }}
+                                                -
+                                                {{ \Carbon\Carbon::parse($path->registration_end)->format('d M Y') }}</span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div clas="d-flex">
-                                    <div class="text-end pb-3">
-                                        <span class="text-gray-900 fw-bold fs-5">$75.60</span>
-                                        <span class="text-muted fs-7">/hr</span>
+                                <div class="p-0">
+                                    <div class="d-flex flex-column">
+                                        <p class="text-gray-700 fw-semibold fs-6 mb-4">
+                                            {{ $path->description }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <div class="separator separator-dashed border-muted my-5"></div>
+                                        <div class="d-flex flex-stack">
+                                            <div class="d-flex flex-column mw-200px">
+                                                <div class="d-flex align-items-center mb-2">
+                                                    <span
+                                                        class="text-gray-700 fs-6 fw-semibold me-2">{{ $path->registrationUsers->count() }}
+                                                        Orang</span>
+                                                    <span class="text-muted fs-8">Sudah Mendaftar</span>
+                                                </div>
+                                            </div>
+                                            <form action="{{ route('ppdb.select.path', $path->id) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="btn btn-sm btn-primary">Pilih Jalur</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="p-0">
-                                <div class="d-flex flex-column">
-                                    <p class="text-gray-700 fw-semibold fs-6 mb-4">First, a disclaimer - the entire process writing a blog post often takes more.</p>
-                                    <div class="d-flex text-gray-700 fw-semibold fs-7">
-                                        <span class="border border-2 rounded me-3 p-1 px-2">Art Director</span>
-                                        <span class="border border-2 rounded me-3 p-1 px-2">UX</span>
-                                        <span class="border border-2 rounded me-3 p-1 px-2">Laravel</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <div class="separator separator-dashed border-muted my-5"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="d-flex flex-column mw-200px">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="text-gray-700 fs-6 fw-semibold me-2">90%</span>
-                                                <span class="text-muted fs-8">Job Success</span>
-                                            </div>
-                                            <div class="progress h-6px w-200px">
-                                                <div class="progress-bar bg-primary" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="btn btn-sm btn-primary">Select</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="border border-hover-primary p-7 rounded mb-7">
-                            <div class="d-flex flex-stack pb-3">
-                                <div class="d-flex">
-                                    <div class="symbol symbol-circle symbol-45px">
-                                        <img src="assets/media/avatars/300-11.jpg" alt="" />
-                                    </div>
-                                    <div class="ms-5">
-                                        <div class="d-flex align-items-center">
-                                            <a href="pages/user-profile/overview.html" class="text-gray-900 fw-bold text-hover-primary fs-5 me-4">Sean Bean</a>
-                                            <span class="badge badge-light-success d-flex align-items-center fs-8 fw-semibold">
-                                            <i class="ki-outline ki-star fs-8 text-success me-1"></i>Author</span>
-                                        </div>
-                                        <span class="text-muted fw-semibold mb-3">Project Manager</span>
-                                    </div>
-                                </div>
-                                <div clas="d-flex">
-                                    <div class="text-end pb-3">
-                                        <span class="text-gray-900 fw-bold fs-5">$65.45</span>
-                                        <span class="text-muted fs-7">/hr</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="p-0">
-                                <div class="d-flex flex-column">
-                                    <p class="text-gray-700 fw-semibold fs-6 mb-4">Outlines keep you honest. They stop you from indulging.</p>
-                                    <div class="d-flex text-gray-700 fw-semibold fs-7">
-                                        <span class="border border-2 rounded me-3 p-1 px-2">HTML</span>
-                                        <span class="border border-2 rounded me-3 p-1 px-2">Javascript</span>
-                                        <span class="border border-2 rounded me-3 p-1 px-2">Python</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <div class="separator separator-dashed border-muted my-5"></div>
-                                    <div class="d-flex flex-stack">
-                                        <div class="d-flex flex-column mw-200px">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <span class="text-gray-700 fs-6 fw-semibold me-2">58%</span>
-                                                <span class="text-muted fs-8">Job Success</span>
-                                            </div>
-                                            <div class="progress h-6px w-200px">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: 58%" aria-valuenow="58" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
-                                        </div>
-                                        <a href="#" class="btn btn-sm btn-primary">Select</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

@@ -439,7 +439,7 @@
                 @role('orangtua|siswa')
                     <div class="menu-item">
                         <a class="menu-link @if (request()->routeIs('back.student-attendance.history.student')) active @endif"
-                        href="{{ route('back.student-attendance.history.student') }}">
+                            href="{{ route('back.student-attendance.history.student') }}">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-user-tick fs-2">
                                     <span class="path1"></span>
@@ -455,7 +455,8 @@
 
 
                 @role('admin|guru|guru_bk')
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.student-attendance.*')) here show @endif">
+                    <div data-kt-menu-trigger="click"
+                        class="menu-item menu-accordion @if (request()->routeIs('back.student-attendance.*')) here show @endif">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-user-tick fs-2">
@@ -477,21 +478,21 @@
                                     <span class="menu-title">Scan</span>
                                 </a>
                             </div>
-                            @role("admin|guru_bk")
-                            <div class="menu-item">
-                                <a class="menu-link @if (request()->routeIs('back.student-attendance.timetable')) active @endif"
-                                    href="{{ route('back.student-attendance.timetable') }}">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                    <span class="menu-title">Jadwal</span>
-                                </a>
-                            </div>
+                            @role('admin|guru_bk')
+                                <div class="menu-item">
+                                    <a class="menu-link @if (request()->routeIs('back.student-attendance.timetable')) active @endif"
+                                        href="{{ route('back.student-attendance.timetable') }}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Jadwal</span>
+                                    </a>
+                                </div>
                             @endrole
 
                             <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.student-attendance.history')) active @endif"
-                                href="{{ route("back.student-attendance.history") }}">
+                                    href="{{ route('back.student-attendance.history') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -503,24 +504,25 @@
                 @endrole
 
 
-                @role("guru")
-                <div class="menu-item">
-                    <a class="menu-link @if (request()->routeIs('back.teacher-attendance.attandance')) active @endif"
-                    href="{{route("back.teacher-attendance.attandance")}}">
-                        <span class="menu-icon">
-                            <i class="ki-duotone ki-profile-user fs-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                                <span class="path3"></span>
-                                <span class="path4"></span>
-                            </i>
-                        </span>
-                        <span class="menu-title">Presensi Saya (Guru)</span>
-                    </a>
-                </div>
+                @role('guru')
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.teacher-attendance.attandance')) active @endif"
+                            href="{{ route('back.teacher-attendance.attandance') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-profile-user fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Presensi Saya (Guru)</span>
+                        </a>
+                    </div>
                 @endrole
                 @role('admin')
-                    <div data-kt-menu-trigger="click" class="menu-item menu-accordion @if (request()->routeIs('back.teacher-attendance.*')) here show @endif">
+                    <div data-kt-menu-trigger="click"
+                        class="menu-item menu-accordion @if (request()->routeIs('back.teacher-attendance.*')) here show @endif">
                         <span class="menu-link">
                             <span class="menu-icon">
                                 <i class="ki-duotone ki-profile-user fs-2">
@@ -544,8 +546,7 @@
                                 </a>
                             </div>
                             <div class="menu-item">
-                                <a class="menu-link"
-                                    href="#">
+                                <a class="menu-link" href="#">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -613,15 +614,15 @@
                         <div class="menu-sub menu-sub-accordion">
 
                             @role('admin|guru_bk')
-                            <div class="menu-item">
-                                <a class="menu-link @if (request()->routeIs('back.discipline.rule.index')) active @endif"
-                                    href="{{ route('back.discipline.rule.index') }}">
-                                    <span class="menu-bullet">
-                                        <span class="bullet bullet-dot"></span>
-                                    </span>
-                                    <span class="menu-title">Rules</span>
-                                </a>
-                            </div>
+                                <div class="menu-item">
+                                    <a class="menu-link @if (request()->routeIs('back.discipline.rule.index')) active @endif"
+                                        href="{{ route('back.discipline.rule.index') }}">
+                                        <span class="menu-bullet">
+                                            <span class="bullet bullet-dot"></span>
+                                        </span>
+                                        <span class="menu-title">Rules</span>
+                                    </a>
+                                </div>
                             @endrole
                             <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.discipline.student.index')) active @endif"
@@ -671,6 +672,56 @@
                                 </i>
                             </span>
                             <span class="menu-title">Proktor Ujian</span>
+                        </a>
+                    </div>
+                @endrole
+
+                @role('ppdb|admin')
+                    <div class="menu-item pt-5">
+                        <div class="menu-content"><span class="menu-heading fw-bold text-uppercase fs-7">
+                                PPDB
+                            </span>
+                        </div>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.ppdb.path') || request()->routeIs('back.ppdb.path.*')) active @endif"
+                            href="{{ route('back.ppdb.path') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-abstract-49 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Jalur Pendafataran</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.ppdb.student') || request()->routeIs('back.ppdb.student.*')) active @endif"
+                            href="{{ route('back.ppdb.student') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-people fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                    <span class="path4"></span>
+                                    <span class="path5"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Calon Siswa</span>
+                        </a>
+                    </div>
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.ppdb.message')) active @endif"
+                            href="{{ route('back.ppdb.message') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-message-question fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                    <span class="path3"></span>
+                                </i>
+                            </span>
+                            <span class="menu-title">Pesan</span>
                         </a>
                     </div>
                 @endrole

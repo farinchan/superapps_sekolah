@@ -11,8 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ppdb_paths', function (Blueprint $table) {
+        Schema::create('ppdb_path', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->text('description')->nullable();
+            $table->string('wa_group')->nullable();
+            $table->foreignId('school_year_id')->constrained('school_year')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

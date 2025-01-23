@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('ppdb_user_certificate', function (Blueprint $table) {
             $table->id();
             $table->foreignId('ppdb_user_id')->constrained('ppdb_user')->onDelete('cascade');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('path');
             $table->timestamps();
         });
