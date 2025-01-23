@@ -192,7 +192,7 @@
                                 </li>
 
                                 <li><a href="">E-Learning</a></li>
-                                <li><a href="">PPDB</a></li>
+                                <li><a href="{{ route("ppdb.home") }}">PPDB</a></li>
 
 
                             </ul>

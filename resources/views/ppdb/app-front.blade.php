@@ -312,7 +312,7 @@
                                     Bergabunglah dengan ribuan siswa yang telah bergabung dengan kami di MAN 1 Padang Panjang.
                                 </div>
                             </div>
-                            <a href="https://1.envato.market/Vm7VRE"
+                            <a href="{{ route("ppdb.register") }}"
                                 class="btn btn-lg btn-outline border-2 btn-outline-white flex-shrink-0 my-2 text-white fw-bold">
                                 Daftar Sekarang
                             </a>
