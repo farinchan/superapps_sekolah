@@ -385,39 +385,39 @@
                                 <div class="mb-10">
                                     <label for="exampleFormControlInput1" class="required form-label">Dari Mana Mendapatkan informasi PPDB MAN 1 Padang Panjang</label>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" value="Brosur dan Pamflet sekolah" name="additional_data[]" id="flexCheckDefault"  @if (old('additional_data') && old('additional_data')->contains('Brosur dan Pamflet sekolah')) checked @endif />
+                                            <input class="form-check-input" type="checkbox" value="Brosur dan Pamflet sekolah" name="additional_data[]" id="flexCheckDefault"  @if (old('additional_data') && in_array('Brosur dan Pamflet sekolah', old('additional_data'))) checked @endif />
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Brosur dan Pamflet sekolah
                                             </label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" value="Sosmed (IG, FB, Yt, WA Group, Tiktok)" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && old('additional_data')->contains('Sosmed (IG, FB, Yt, WA Group, Tiktok)')) checked @endif />
+                                            <input class="form-check-input" type="checkbox" value="Sosmed (IG, FB, Yt, WA Group, Tiktok)" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && in_array('Sosmed (IG, FB, Yt, WA Group, Tiktok)', old('additional_data'))) checked @endif />
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Sosmed (IG, FB, Yt, WA Group, Tiktok)
                                             </label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" value="Keluarga" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && old('additional_data')->contains('Keluarga')) checked @endif />
+                                            <input class="form-check-input" type="checkbox" value="Keluarga" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && in_array('Keluarga', old('additional_data'))) checked @endif />
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Keluarga
                                             </label>
                                         </div>
                                         <div class="form-check mb-3">
-                                            <input class="form-check-input" type="checkbox" value="Guru/tenaga kependidikan MAN 1 Padang Panjang" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && old('additional_data')->contains('Guru/tenaga kependidikan MAN 1 Padang Panjang')) checked @endif />
+                                            <input class="form-check-input" type="checkbox" value="Guru/tenaga kependidikan MAN 1 Padang Panjang" name="additional_data[]" id="flexCheckDefault" @if (old('additional_data') && in_array('Guru/tenaga kependidikan MAN 1 Padang Panjang', old('additional_data'))) checked @endif />
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Guru/tenaga kependidikan MAN 1 Padang Panjang
                                             </label>
                                         </div>
                                         <div class="form-check mb-3">
                                             <input class="form-check-input" type="checkbox" value="Siswa/Siswi MAN 1 Padang Panjang" name="additional_data[]" id="flexCheckDefault"
-                                            @if (old('additional_data') && old('additional_data')->contains('Siswa/Siswi MAN 1 Padang Panjang')) checked @endif />
+                                            @if (old('additional_data') && in_array('Siswa/Siswi MAN 1 Padang Panjang', old('additional_data'))) checked @endif />
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Siswa/Siswi MAN 1 Padang Panjang
                                             </label>
                                         </div>
                                         <div class="form-check mb-3">
                                             <input class="form-check-input" type="checkbox" value="Website MAN 1 Padang Padang Panjang" name="additional_data[]" id="flexCheckDefault"
-                                            @if (old('additional_data') && old('additional_data')->contains('Website MAN 1 Padang Padang Panjang')) checked @endif />
+                                            @if (old('additional_data') && in_array('Website MAN 1 Padang Padang Panjang', old('additional_data'))) checked @endif />
                                             <label class="form-check-label" for="flexCheckDefault">
                                                 Website MAN 1 Padang Padang Panjang
                                             </label>
