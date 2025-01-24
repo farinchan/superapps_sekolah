@@ -505,5 +505,6 @@ Route::domain('ppdb.' . env('APP_URL'))->name('ppdb.')->group(function () {
         Route::get('/profile/other-data', [App\Http\Controllers\PPDB\ProfileController::class, 'otherData'])->name('profile.other-data');
         Route::put('/profile/other-data', [App\Http\Controllers\PPDB\ProfileController::class, 'otherDataUpdate'])->name('profile.other-data.update');
         Route::post('/select/path/{path_id}', [App\Http\Controllers\PPDB\DashboardController::class, 'selectPath'])->name('select.path');
+        Route::get('/registerPathCard/{path_id}', [App\Http\Controllers\PPDB\DashboardController::class, 'registerPathCard'])->name('registerPathCard');
     });
 });

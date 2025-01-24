@@ -151,7 +151,7 @@
                                                             width="40px">
                                                     </a>
                                                     @if ($my_path->status == 'registered')
-                                                        <a href="" class="btn btn-sm btn-light"
+                                                        <a href="{{ route("ppdb.registerPathCard", $my_path->path->id) }}" class="btn btn-sm btn-light"
                                                             data-bs-toggle="tooltip" data-bs-placement="top"
                                                             title="Cetak Kartu Ujian">
                                                             <img src="{{ asset('img_ext/print.svg') }}" alt="Kartu Ujian"

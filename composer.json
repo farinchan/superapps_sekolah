@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "alkoumi/laravel-hijri-date": "^1.0",
+        "barryvdh/laravel-dompdf": "^3.1",
         "dymantic/laravel-instagram-feed": "^3.3",
         "jenssegers/agent": "^2.6",
         "laravel/framework": "^11.9",

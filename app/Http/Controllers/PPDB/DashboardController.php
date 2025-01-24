@@ -5,6 +5,7 @@ namespace App\Http\Controllers\PPDB;
 use App\Http\Controllers\Controller;
 use App\Models\PpdbPath;
 use App\Models\PpdbRegistrationUser;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -49,5 +50,19 @@ class DashboardController extends Controller
 
         Alert::success('Berhasil', 'Anda telah memilih jalur PPDB');
         return redirect()->back();
+    }
+
+    public function registerPathCard($path_id)
+    {
+        $path_card = PpdbRegistrationUser::with(['path.schoolYear', 'user'])->where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->where('ppdb_path_id', $path_id)->first();
+        $data = [
+            'path_card' => $path_card,
+        ];
+
+        // return response()->json($data);
+
+        $pdf = Pdf::loadView('ppdb.pages.back.pdf.register-path-card', $data);
+        $pdf->setPaper('b5', 'portrait');
+        return $pdf->stream('katu_ppdb.pdf');
     }
 }
