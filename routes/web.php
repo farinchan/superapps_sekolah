@@ -32,6 +32,7 @@ use App\Http\Controllers\Back\UserController as BackUserController;
 use App\Http\Controllers\Back\PpdbController as BackPPDBController;
 use App\Http\Controllers\Back\MenuPersonaliaController as BackMenuPersonaliaController;
 use App\Http\Controllers\Back\MenuProfilController as BackMenuProfilController;
+use App\Http\Controllers\Back\WhatsappController as BackWhatsappController;
 use App\Http\Controllers\Back\SettingController as BackSettingController;
 use App\Http\Controllers\Back\DisciplineRulesController as BackDisciplineRulesController;
 use App\Http\Controllers\Back\DisciplineStudentController as BackDisciplineStudentController;
@@ -434,6 +435,11 @@ Route::domain(env('APP_URL'))->group(function () {
 
                 Route::post('/upload', [BackMenuPersonaliaController::class, 'upload'])->name('upload');
             });
+        });
+
+        Route::prefix('whatsapp')->name('whatsapp.')->group(function () {
+            Route::get('/setting', [BackWhatsappController::class, 'setting'])->name('setting');
+            Route::get('/message', [BackWhatsappController::class, 'message'])->name('message');
         });
 
 

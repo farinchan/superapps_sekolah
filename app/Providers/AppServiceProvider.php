@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\PpdbUser;
+use App\Observers\PpdbUserObserver;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
@@ -24,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Carbon::setLocale(env('LOCALE', 'id'));
 
+        PpdbUser::observe(PpdbUserObserver::class);
+
         Blade::if('notRole', function ($role) {
             return !auth()->check() || !auth()->user()->hasRole($role);
         });
@@ -40,5 +44,6 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('guest', function ($guard = null) {
             return !Auth::guard($guard)->check();
         });
+
     }
 }
