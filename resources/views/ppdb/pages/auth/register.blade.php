@@ -278,55 +278,464 @@
                             </div>
                             <div class="fv-row">
                                 <div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Nilai Rapor Semester
-                                        1</label>
-                                    <input type="text" class="form-control form-control-solid"
-                                        placeholder="Nilai Rapor Semester 1" name="rapor_semester_1"
-                                        value="{{ old('rapor_semester_1') }}" required />
-                                    @error('rapor_semester_1')
-                                        <small class="text-danger">*{{ $message }}</small>
-                                    @enderror
-                                </div>
+                                    <label for="exampleFormControlInput1" class="required form-label">Data Rapor</label><br>
+                                    <small class="text-muted fw-semibold">Masukkan nilai rapor semester 1 - 5, yaitu nilai dari kelas 7 (semester 1) hingga kelas 9 (semester 1)</small>
+                                        <div class="m-5">
+                                            <label for="exampleFormControlInput1" class="required form-label">Jenis Rapor</label>
+                                            <select class="form-select form-select-solid" name="rapor_type"  id="rapor_type" required>
+                                                <option value="SMP" @if (old('rapor_type') == 'SMP') selected @endif>SMP</option>
+                                                <option value="MTS" @if (old('rapor_type') == 'MTS') selected @endif>MTS</option>
+                                            </select>
+                                            @error('rapor_type')
+                                                <small class="text-danger">*{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    <ul class="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-6 ms-5">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-bs-toggle="tab" href="#tab_sem1">Semester 1</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#tab_sem2">Semester 2</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#tab_sem3">Semester 3</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#tab_sem4">Semester 4</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-bs-toggle="tab" href="#tab_sem5">Semester 5</a>
+                                        </li>
+                                    </ul>
 
-                                <div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Nilai Rapor Semester
-                                        2</label>
-                                    <input type="text" class="form-control form-control-solid"
-                                        placeholder="Nilai Rapor Semester 2" name="rapor_semester_2"
-                                        value="{{ old('rapor_semester_2') }}" required />
-                                    @error('rapor_semester_2')
-                                        <small class="text-danger">*{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Nilai Rapor Semester
-                                        3</label>
-                                    <input type="text" class="form-control form-control-solid"
-                                        placeholder="Nilai Rapor Semester 3" name="rapor_semester_3"
-                                        value="{{ old('rapor_semester_3') }}" required />
-                                    @error('rapor_semester_3')
-                                        <small class="text-danger">*{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Nilai Rapor Semester
-                                        4</label>
-                                    <input type="text" class="form-control form-control-solid"
-                                        placeholder="Nilai Rapor Semester 4" name="rapor_semester_4"
-                                        value="{{ old('rapor_semester_4') }}" required />
-                                    @error('rapor_semester_4')
-                                        <small class="text-danger">*{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Nilai Rapor Semester
-                                        5</label>
-                                    <input type="text" class="form-control form-control-solid"
-                                        placeholder="Nilai Rapor Semester 5" name="rapor_semester_5"
-                                        value="{{ old('rapor_semester_5') }}" required />
-                                    @error('rapor_semester_5')
-                                        <small class="text-danger">*{{ $message }}</small>
-                                    @enderror
+                                    <div class="tab-content ms-5" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="tab_sem1" role="tabpanel">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Alam (IPA)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPA" name="sem1_ipa" value="{{ old('sem1_ipa') }}" required />
+                                                @error('sem1_ipa')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Sosial (IPS)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPS" name="sem1_ips" value="{{ old('sem1_ips') }}" required />
+                                                @error('sem1_ips')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Indonesia</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Indonesia" name="sem1_indonesia" value="{{ old('sem1_indonesia') }}" required />
+                                                @error('sem1_indonesia')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Inggris</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Inggris" name="sem1_inggris" value="{{ old('sem1_inggris') }}" required />
+                                                @error('sem1_inggris')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Matematika</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Matematika" name="sem1_matematika" value="{{ old('sem1_matematika') }}" required />
+                                                @error('sem1_matematika')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div id="sem1_type_smp">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Pendidikan Agama</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Pendidikan Agama" name="sem1_agama" value="{{ old('sem1_agama') }}"  />
+                                                    @error('sem1_agama')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div id="sem1_type_mts">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Alquran Hadits</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Alquran Hadits" name="sem1_qhadits" value="{{ old('sem1_qhadits') }}"  />
+                                                    @error('sem1_qhadits')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Akidah Akhlak</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Akidah Akhlak" name="sem1_akidah" value="{{ old('sem1_akidah') }}"  />
+                                                    @error('sem1_akidah')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Fiqih</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Fiqih" name="sem1_fiqih" value="{{ old('sem1_fiqih') }}"  />
+                                                    @error('sem1_fiqih')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Sejarah Kebudayaan Islam (SKI)</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai SKI" name="sem1_ski" value="{{ old('sem1_ski') }}"  />
+                                                    @error('sem1_ski')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">File Rapor Semester 1</label>
+                                                <input type="file" class="form-control form-control-solid" name="sem1_file" accept=".pdf, .png, .jpg, .jpeg" required />
+                                                <small class="text-muted">File dengan format PDF, PNG, JPG, JPEG, maksimal 10MB</small>
+                                                @error('sem1_file')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_sem2" role="tabpanel">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Alam (IPA)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPA" name="sem2_ipa" value="{{ old('sem2_ipa') }}" required />
+                                                @error('sem2_ipa')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Sosial (IPS)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPS" name="sem2_ips" value="{{ old('sem2_ips') }}" required />
+                                                @error('sem2_ips')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Indonesia</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Indonesia" name="sem2_indonesia" value="{{ old('sem2_indonesia') }}" required />
+                                                @error('sem2_indonesia')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Inggris</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Inggris" name="sem2_inggris" value="{{ old('sem2_inggris') }}" required />
+                                                @error('sem2_inggris')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Matematika</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Matematika" name="sem2_matematika" value="{{ old('sem2_matematika') }}" required />
+                                                @error('sem2_matematika')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div id="sem2_type_smp">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Pendidikan Agama</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Pendidikan Agama" name="sem2_agama" value="{{ old('sem2_agama') }}"  />
+                                                    @error('sem2_agama')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div id="sem2_type_mts">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Alquran Hadits</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Alquran Hadits" name="sem2_qhadits" value="{{ old('sem2_qhadits') }}"  />
+                                                    @error('sem2_qhadits')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Akidah Akhlak</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Akidah Akhlak" name="sem2_akidah" value="{{ old('sem2_akidah') }}"  />
+                                                    @error('sem2_akidah')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Fiqih</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Fiqih" name="sem2_fiqih" value="{{ old('sem2_fiqih') }}"  />
+                                                    @error('sem2_fiqih')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Sejarah Kebudayaan Islam (SKI)</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai SKI" name="sem2_ski" value="{{ old('sem2_ski') }}"  />
+                                                    @error('sem2_ski')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">File Rapor Semester 2</label>
+                                                <input type="file" class="form-control form-control-solid" name="sem2_file" accept=".pdf, .png, .jpg, .jpeg" required />
+                                                <small class="text-muted">File dengan format PDF, PNG, JPG, JPEG, maksimal 10MB</small>
+                                                @error('sem2_file')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_sem3" role="tabpanel">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Alam (IPA)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPA" name="sem3_ipa" value="{{ old('sem3_ipa') }}" required />
+                                                @error('sem3_ipa')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Sosial (IPS)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPS" name="sem3_ips" value="{{ old('sem3_ips') }}" required />
+                                                @error('sem3_ips')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Indonesia</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Indonesia" name="sem3_indonesia" value="{{ old('sem3_indonesia') }}" required />
+                                                @error('sem3_indonesia')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Inggris</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Inggris" name="sem3_inggris" value="{{ old('sem3_inggris') }}" required />
+                                                @error('sem3_inggris')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Matematika</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Matematika" name="sem3_matematika" value="{{ old('sem3_matematika') }}" required />
+                                                @error('sem3_matematika')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div id="sem3_type_smp">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Pendidikan Agama</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Pendidikan Agama" name="sem3_agama" value="{{ old('sem3_agama') }}"  />
+                                                    @error('sem3_agama')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div id="sem3_type_mts">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Alquran Hadits</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Alquran Hadits" name="sem3_qhadits" value="{{ old('sem3_qhadits') }}"  />
+                                                    @error('sem3_qhadits')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Akidah Akhlak</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Akidah Akhlak" name="sem3_akidah" value="{{ old('sem3_akidah') }}"  />
+                                                    @error('sem3_akidah')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Fiqih</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Fiqih" name="sem3_fiqih" value="{{ old('sem3_fiqih') }}"  />
+                                                    @error('sem3_fiqih')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Sejarah Kebudayaan Islam (SKI)</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai SKI" name="sem3_ski" value="{{ old('sem3_ski') }}"  />
+                                                    @error('sem3_ski')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">File Rapor Semester 3</label>
+                                                <input type="file" class="form-control form-control-solid" name="sem3_file" accept=".pdf, .png, .jpg, .jpeg" required />
+                                                <small class="text-muted">File dengan format PDF, PNG, JPG, JPEG, maksimal 10MB</small>
+                                                @error('sem3_file')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_sem4" role="tabpanel">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Alam (IPA)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPA" name="sem4_ipa" value="{{ old('sem4_ipa') }}" required />
+                                                @error('sem4_ipa')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Sosial (IPS)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPS" name="sem4_ips" value="{{ old('sem4_ips') }}" required />
+                                                @error('sem4_ips')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Indonesia</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Indonesia" name="sem4_indonesia" value="{{ old('sem4_indonesia') }}" required />
+                                                @error('sem4_indonesia')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Inggris</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Inggris" name="sem4_inggris" value="{{ old('sem4_inggris') }}" required />
+                                                @error('sem4_inggris')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Matematika</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Matematika" name="sem4_matematika" value="{{ old('sem4_matematika') }}" required />
+                                                @error('sem4_matematika')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div id="sem4_type_smp">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Pendidikan Agama</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Pendidikan Agama" name="sem4_agama" value="{{ old('sem4_agama') }}"  />
+                                                    @error('sem4_agama')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div id="sem4_type_mts">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Alquran Hadits</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Alquran Hadits" name="sem4_qhadits" value="{{ old('sem4_qhadits') }}"  />
+                                                    @error('sem4_qhadits')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Akidah Akhlak</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Akidah Akhlak" name="sem4_akidah" value="{{ old('sem4_akidah') }}"  />
+                                                    @error('sem4_akidah')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Fiqih</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Fiqih" name="sem4_fiqih" value="{{ old('sem4_fiqih') }}"  />
+                                                    @error('sem4_fiqih')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Sejarah Kebudayaan Islam (SKI)</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai SKI" name="sem4_ski" value="{{ old('sem4_ski') }}"  />
+                                                    @error('sem4_ski')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">File Rapor Semester 4</label>
+                                                <input type="file" class="form-control form-control-solid" name="sem4_file" accept=".pdf, .png, .jpg, .jpeg" required />
+                                                <small class="text-muted">File dengan format PDF, PNG, JPG, JPEG, maksimal 10MB</small>
+                                                @error('sem4_file')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab_sem5" role="tabpanel">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Alam (IPA)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPA" name="sem5_ipa" value="{{ old('sem5_ipa') }}" required />
+                                                @error('sem5_ipa')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Ilmu Pengetahuan Sosial (IPS)</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai IPS" name="sem5_ips" value="{{ old('sem5_ips') }}" required />
+                                                @error('sem5_ips')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Indonesia</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Indonesia" name="sem5_indonesia" value="{{ old('sem5_indonesia') }}" required />
+                                                @error('sem5_indonesia')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Bahasa Inggris</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Bahasa Inggris" name="sem5_inggris" value="{{ old('sem5_inggris') }}" required />
+                                                @error('sem5_inggris')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">Matematika</label>
+                                                <input type="number" class="form-control form-control-solid" placeholder="Nilai Matematika" name="sem5_matematika" value="{{ old('sem5_matematika') }}" required />
+                                                @error('sem5_matematika')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+
+                                            <div id="sem5_type_smp">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Pendidikan Agama</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Pendidikan Agama" name="sem5_agama" value="{{ old('sem5_agama') }}"  />
+                                                    @error('sem5_agama')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div id="sem5_type_mts">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Alquran Hadits</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Alquran Hadits" name="sem5_qhadits" value="{{ old('sem5_qhadits') }}"  />
+                                                    @error('sem5_qhadits')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Akidah Akhlak</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Akidah Akhlak" name="sem5_akidah" value="{{ old('sem5_akidah') }}"  />
+                                                    @error('sem5_akidah')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Fiqih</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai Fiqih" name="sem5_fiqih" value="{{ old('sem5_fiqih') }}"  />
+                                                    @error('sem5_fiqih')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="required form-label">Sejarah Kebudayaan Islam (SKI)</label>
+                                                    <input type="number" class="form-control form-control-solid" placeholder="Nilai SKI" name="sem5_ski" value="{{ old('sem5_ski') }}"  />
+                                                    @error('sem5_ski')
+                                                        <small class="text-danger">*{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="required form-label">File Rapor Semester 5</label>
+                                                <input type="file" class="form-control form-control-solid" name="sem5_file" accept=".pdf, .png, .jpg, .jpeg" required />
+                                                <small class="text-muted">File dengan format PDF, PNG, JPG, JPEG, maksimal 10MB</small>
+                                                @error('sem5_file')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="mb-10">
                                     <label for="exampleFormControlInput1" class="required form-label">Screenshot NISN dari
@@ -346,17 +755,30 @@
                                             <div data-repeater-list="certificates">
                                                 <div data-repeater-item>
                                                     <div class="form-group row">
-                                                        <div class="col-md-5">
+                                                        <div class="col-md-3">
                                                             <label class="form-label ">File Sertifikat:</label>
                                                             <input type="file" class="form-control mb-2 mb-md-0"
                                                                 name="certificate_file" placeholder="File Sertifikat" accept=".pdf,.png,.jpg,.jpeg" />
                                                             <small class="text-muted">Berkas maksimal 10MB</small>
                                                         </div>
-                                                        <div class="col-md-5">
+                                                        <div class="col-md-4">
                                                             <label class="form-label ">Nama Prestasi:</label>
                                                             <input type="text" class="form-control mb-2 mb-md-0"
                                                                 name="certificate_name"
                                                                 placeholder="Nama Prestasi (Akademik/Non-Akademik)" />
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <label class="form-label ">Peringkat:</label>
+                                                            <select class="form-select form-select-solid"
+                                                                name="certificate_rank">
+                                                                <option value="Juara 1">Peringkat 1</option>
+                                                                <option value="Peringkat 2">Peringkat 2</option>
+                                                                <option value="Peringkat 3">Peringkat 3</option>
+                                                                <option value="Peringkat Harapan 1">Peringkat Harapan 1</option>
+                                                                <option value="Peringkat Harapan 2">Peringkat Harapan 2</option>
+                                                                <option value="Peringkat Harapan 3">Peringkat Harapan 3</option>
+                                                                <option value="Juara Lainnya">Juara Lainnya</option>
+                                                            </select>
                                                         </div>
                                                         <div class="col-md-2">
                                                             <a href="javascript:;" data-repeater-delete
@@ -520,6 +942,59 @@
                 $(this).slideUp(deleteElement);
             }
         });
+    </script>
+    <script>
+        document.getElementById('rapor_type').addEventListener('change', function() {
+            var schoolOrigin = document.getElementById('rapor_type').value;
+            var sem1TypeSmp = document.getElementById('sem1_type_smp');
+            var sem1TypeMts = document.getElementById('sem1_type_mts');
+            var sem2TypeSmp = document.getElementById('sem2_type_smp');
+            var sem2TypeMts = document.getElementById('sem2_type_mts');
+            var sem3TypeSmp = document.getElementById('sem3_type_smp');
+            var sem3TypeMts = document.getElementById('sem3_type_mts');
+            var sem4TypeSmp = document.getElementById('sem4_type_smp');
+            var sem4TypeMts = document.getElementById('sem4_type_mts');
+            var sem5TypeSmp = document.getElementById('sem5_type_smp');
+            var sem5TypeMts = document.getElementById('sem5_type_mts');
+            if (schoolOrigin == 'SMP') {
+                sem1TypeSmp.style.display = 'block';
+                sem1TypeMts.style.display = 'none';
+                sem2TypeSmp.style.display = 'block';
+                sem2TypeMts.style.display = 'none';
+                sem3TypeSmp.style.display = 'block';
+                sem3TypeMts.style.display = 'none';
+                sem4TypeSmp.style.display = 'block';
+                sem4TypeMts.style.display = 'none';
+                sem5TypeSmp.style.display = 'block';
+                sem5TypeMts.style.display = 'none';
+            } else if (schoolOrigin == 'MTS') {
+                sem1TypeSmp.style.display = 'none';
+                sem1TypeMts.style.display = 'block';
+                sem2TypeSmp.style.display = 'none';
+                sem2TypeMts.style.display = 'block';
+                sem3TypeSmp.style.display = 'none';
+                sem3TypeMts.style.display = 'block';
+                sem4TypeSmp.style.display = 'none';
+                sem4TypeMts.style.display = 'block';
+                sem5TypeSmp.style.display = 'none';
+                sem5TypeMts.style.display = 'block';
+            } else {
+                sem1TypeSmp.style.display = 'none';
+                sem1TypeMts.style.display = 'none';
+                sem2TypeSmp.style.display = 'none';
+                sem2TypeMts.style.display = 'none';
+                sem3TypeSmp.style.display = 'none';
+                sem3TypeMts.style.display = 'none';
+                sem4TypeSmp.style.display = 'none';
+                sem4TypeMts.style.display = 'none';
+                sem5TypeSmp.style.display = 'none';
+                sem5TypeMts.style.display = 'none';
+            }
+        });
+
+        document.getElementById('rapor_type').dispatchEvent(new Event('change'));
+
+
     </script>
 
 <script>

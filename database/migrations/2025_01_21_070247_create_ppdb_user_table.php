@@ -31,11 +31,6 @@ return new class extends Migration
             $table->string('father_nik');
             $table->string('father_name');
             $table->string('father_phone_number')->nullable();
-            $table->string('rapor_semester_1');
-            $table->string('rapor_semester_2');
-            $table->string('rapor_semester_3');
-            $table->string('rapor_semester_4');
-            $table->string('rapor_semester_5');
             $table->string('screenshoot_nisn');
             $table->json('additional_data')->nullable();
             $table->timestamps();

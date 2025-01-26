@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ppdb_user_id')->constrained('ppdb_user')->onDelete('cascade');
             $table->string('name')->nullable();
+            $table->string('rank')->nullable();
             $table->string('path');
             $table->timestamps();
         });

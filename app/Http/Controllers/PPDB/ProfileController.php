@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
 use App\Models\PpdbUser;
+use App\Models\PpdbUserRapor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -128,7 +129,8 @@ class ProfileController extends Controller
             'submenu' => 'Profile',
             'page_title' => 'Profile',
             'page_description' => 'Data lainnya',
-            'user' => Auth::guard('ppdb')->user()
+            'user' => Auth::guard('ppdb')->user(),
+            'rapor' => PpdbUserRapor::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->first()
         ];
         // return response()->json($data);
         return view('ppdb.pages.back.profile-update.other-data', $data);
