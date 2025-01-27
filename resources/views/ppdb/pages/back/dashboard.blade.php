@@ -44,13 +44,13 @@
                     </div>
                 </div>
                 <div class="card mb-5 mb-xl-8">
-                    <a href="https://wa.me/6282288358026" target="_blank" >
-                    <div class="card-body border border-hover-primary rounded">
+                    <a href="https://wa.me/6282288358026" target="_blank">
+                        <div class="card-body border border-hover-primary rounded">
 
                             <div class="">
 
 
-                                <img src="{{ asset("img_ext/help_ppdb.svg") }}" alt="" width="100%">
+                                <img src="{{ asset('img_ext/help_ppdb.svg') }}" alt="" width="100%">
                             </div>
                         </div>
                     </a>
@@ -143,14 +143,28 @@
                                         <div class="d-flex flex-column">
                                             <div class="separator separator-dashed border-muted my-5"></div>
                                             <div class="d-flex flex-stack">
-                                                <div class="d-flex flex-column mw-200px">
+                                                <div class="d-flex flex-column mw-300px">
                                                     <div class="d-flex align-items-center mb-2">
-                                                        <span class="text-gray-700 fs-6 fw-semibold me-2">Status: </span>
-                                                        @if ($my_path->status == 'registered')
-                                                            <span class="badge badge-light-primary">Terdaftar</span>
-                                                        @elseif($my_path->status == 'passed')
+                                                        <span class="text-gray-700 fs-6 fw-semibold me-2">Status Berkas:
+                                                        </span>
+                                                        @if ($my_path->status_berkas == 'sedang divirefikasi')
+                                                            <span class="badge badge-light-primary">Sedang
+                                                                Divirefikasi</span>
+                                                        @elseif($my_path->status == 'berkas lengkap')
+                                                            <span class="badge badge-light-success">Berkas Lengkap</span>
+                                                        @elseif($my_path->status == 'berkas tidak lengkap')
+                                                            <span class="badge badge-light-danger">Berkas Tidak
+                                                                Lengkap</span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <span class="text-gray-700 fs-6 fw-semibold me-2">Status Kelulusan:
+                                                        </span>
+                                                        @if ($my_path->status_kelulusan == '-')
+                                                            <span class="badge badge-light-primary">-</span>
+                                                        @elseif($my_path->status_kelulusan == 'lulus')
                                                             <span class="badge badge-light-success">Lulus</span>
-                                                        @elseif($my_path->status == 'rejected')
+                                                        @elseif($my_path->status_kelulusan == 'tidak lulus')
                                                             <span class="badge badge-light-danger">Tidak Lulus</span>
                                                         @endif
                                                     </div>
@@ -163,15 +177,30 @@
                                                             width="40px">
                                                     </a>
                                                     @if ($my_path->status == 'registered')
-                                                        <a href="{{ route("ppdb.registerPathCard", $my_path->path->id) }}" class="btn btn-sm btn-light"
-                                                            data-bs-toggle="tooltip" data-bs-placement="top"
-                                                            title="Cetak Kartu Ujian">
+                                                        <a href="{{ route('ppdb.registerPathCard', $my_path->path->id) }}"
+                                                            class="btn btn-sm btn-light" data-bs-toggle="tooltip"
+                                                            data-bs-placement="top" title="Cetak Kartu Ujian">
                                                             <img src="{{ asset('img_ext/print.svg') }}" alt="Kartu Ujian"
                                                                 width="40px">
                                                         </a>
                                                     @endif
                                                 </div>
                                             </div>
+                                            @if ($my_path->reason != null && $my_path->reason != '' && isset($my_path->reason))
+                                                <div class="separator separator-dashed border-muted my-5"></div>
+
+                                                <div class="d-flex flex-stack">
+                                                    <div class="d-flex flex-column ">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <span class="text-gray-700 fs-6 fw-bold me-2">Tanggapan:
+                                                            </span>
+                                                        </div>
+                                                        <p class="fs-6 text-gray-700">
+                                                            {{ $my_path->reason }}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
