@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('ppdb_path_id')->constrained('ppdb_path')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('ppdb_user_id')->constrained('ppdb_user')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('status_berkas', ['sedang divirefikasi', 'berkas lengkap', 'berkas tidak lengkap'])->default('sedang divirefikasi');
+            $table->enum('status_berkas', ['sedang diverifikasi', 'diterima', 'ditolak'])->default('sedang diverifikasi');
             $table->enum('status_kelulusan', ['-' ,'lulus', 'tidak lulus'])->default('-');
             $table->text('reason')->nullable();
             $table->timestamps();
