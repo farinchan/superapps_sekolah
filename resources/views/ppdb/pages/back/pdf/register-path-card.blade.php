@@ -136,7 +136,7 @@
                                 <td style="width: 120px;"
                                 ><strong>No Pendaftaran</strong></td>
                                 <td>:</td>
-                                <td>4190000001</td>
+                                <td>#{{ $path_card->path->id }}/{{ $path_card->id }}/{{ $path_card->user->nisn }}
                             </tr>
                             <tr>
                                 <td><strong>NISN</strong></td>

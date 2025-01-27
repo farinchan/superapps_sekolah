@@ -129,7 +129,7 @@
                                             <div class="text-end pb-3">
                                                 <span class="text-muted fs-7">ID Pendaftaran</span><br>
                                                 <span class="text-info fw-bold fs-5">
-                                                    ID-{{ $my_path->path->id }}-{{ $my_path->id }}
+                                                    #{{ $my_path->path->id }}/{{ $my_path->id }}/{{ $my_path->user->nisn }}
                                                 </span>
                                             </div>
                                         </div>
@@ -150,9 +150,9 @@
                                                         @if ($my_path->status_berkas == 'sedang divirefikasi')
                                                             <span class="badge badge-light-primary">Sedang
                                                                 Divirefikasi</span>
-                                                        @elseif($my_path->status == 'berkas lengkap')
+                                                        @elseif($my_path->status_berkas == 'berkas lengkap')
                                                             <span class="badge badge-light-success">Berkas Lengkap</span>
-                                                        @elseif($my_path->status == 'berkas tidak lengkap')
+                                                        @elseif($my_path->status_berkas == 'berkas tidak lengkap')
                                                             <span class="badge badge-light-danger">Berkas Tidak
                                                                 Lengkap</span>
                                                         @endif
@@ -176,7 +176,7 @@
                                                         <img src="{{ asset('img_ext/whatsapp.svg') }}" alt="WA Group"
                                                             width="40px">
                                                     </a>
-                                                    @if ($my_path->status == 'registered')
+                                                    @if ($my_path->status_berkas == 'berkas lengkap')
                                                         <a href="{{ route('ppdb.registerPathCard', $my_path->path->id) }}"
                                                             class="btn btn-sm btn-light" data-bs-toggle="tooltip"
                                                             data-bs-placement="top" title="Cetak Kartu Ujian">
