@@ -45,7 +45,6 @@ class DashboardController extends Controller
         $registrationUser = new PpdbRegistrationUser();
         $registrationUser->ppdb_user_id = Auth::guard('ppdb')->user()->id;
         $registrationUser->ppdb_path_id = $path_id;
-        $registrationUser->status = 'registered';
         $registrationUser->save();
 
         Alert::success('Berhasil', 'Anda telah memilih jalur PPDB');
