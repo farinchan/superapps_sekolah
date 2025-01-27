@@ -151,10 +151,9 @@
                                                             <span class="badge badge-light-primary">Sedang
                                                                 Diverifikasi</span>
                                                         @elseif($my_path->status_berkas == 'diterima')
-                                                            <span class="badge badge-light-success">Berkas Lengkap</span>
+                                                            <span class="badge badge-light-success">Diterima</span>
                                                         @elseif($my_path->status_berkas == 'ditolak')
-                                                            <span class="badge badge-light-danger">Berkas Tidak
-                                                                Lengkap</span>
+                                                            <span class="badge badge-light-danger">Ditolak</span>
                                                         @endif
                                                     </div>
                                                     <div class="d-flex align-items-center mb-2">
