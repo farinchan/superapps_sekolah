@@ -22,8 +22,8 @@ class DashboardController extends Controller
             'user' => Auth::guard('ppdb')->user(),
             'path_select_check' => PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->first() ? true : false,
             'path_rejected_check' => PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->where(function ($query) {
-                $query->where('status', 'registered')
-                      ->orWhere('status', 'passed');
+                $query->where('status_kelulusan', '-')
+                      ->orWhere('status_kelulusan', 'tidak lulus');
             })->first() ? false : true,
             'my_list_path' => PpdbRegistrationUser::with(['path.schoolYear'])->where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->get(),
             'list_path' => PpdbPath::with(['schoolYear','registrationUsers'])->where('start_date', '<=', date('Y-m-d'))->where('end_date', '>=', date('Y-m-d'))->get(),
