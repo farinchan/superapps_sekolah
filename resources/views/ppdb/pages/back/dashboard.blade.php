@@ -43,6 +43,18 @@
                         </div>
                     </div>
                 </div>
+                <div class="card mb-5 mb-xl-8">
+                    <a href="https://wa.me/6282288358026" target="_blank" >
+                    <div class="card-body border border-hover-primary rounded">
+
+                            <div class="">
+
+
+                                <img src="{{ asset("img_ext/help_ppdb.svg") }}" alt="" width="100%">
+                            </div>
+                        </div>
+                    </a>
+                </div>
             </div>
             <div class="flex-lg-row-fluid ms-lg-15">
                 <div class="card bgi-position-y-bottom bgi-position-x-end bgi-no-repeat bgi-size-cover min-h-250px bg-body mb-5 mb-xl-8"
