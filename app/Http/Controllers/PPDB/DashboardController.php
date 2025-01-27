@@ -35,7 +35,7 @@ class DashboardController extends Controller
 
     public function selectPath($path_id)
     {
-        $path_select_check = PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->where('status', 'registered')->orWhere('status', 'passed')->first() ? true : false;
+        $path_select_check = PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->where('status_kelulusan', '-')->orWhere('status_kelulusan', 'lulus')->first() ? true : false;
         if ($path_select_check) {
             Alert::error('Gagal', 'Anda sudah memilih jalur PPDB');
             return redirect()->back();
