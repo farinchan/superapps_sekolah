@@ -148,7 +148,7 @@ class PpdbController extends Controller
 
     public function studentDetail($id)
     {
-        $user = PpdbUser::with(['certificate'])->find($id);
+        $user = PpdbUser::with(['certificate', 'rapor'])->find($id);
         $data = [
             'title' => $user->name,
             'menu' => 'PPDB',

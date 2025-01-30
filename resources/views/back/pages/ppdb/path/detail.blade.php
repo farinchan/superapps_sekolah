@@ -82,14 +82,25 @@
                                 <div class="separator border-gray-200"></div>
                                 <div class="px-7 py-5" data-kt-user-table-filter="form">
                                     <div class="mb-5">
-                                        <label class="form-label fs-6 fw-semibold">Status</label>
+                                        <label class="form-label fs-6 fw-semibold">Status Berkas</label>
                                         <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
                                             data-placeholder="Select option" data-allow-clear="true"
                                             data-kt-user-table-filter="status" data-hide-search="true">
                                             <option></option>
-                                            <option value="Terdaftar">Terdaftar</option>
-                                            <option value="Lulus">Lulus</option>
+                                            <option value="Sedang Diverifikasi">Sedang Diverifikasi</option>
+                                            <option value="Diterima">Diterima</option>
                                             <option value="Ditolak">Ditolak</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-5">
+                                        <label class="form-label fs-6 fw-semibold">Status Kelulusan</label>
+                                        <select class="form-select form-select-solid fw-bold" data-kt-select2="true"
+                                            data-placeholder="Select option" data-allow-clear="true"
+                                            data-kt-user-table-filter="status" data-hide-search="true">
+                                            <option></option>
+                                            <option value="-">-</option>
+                                            <option value="Lulus">Lulus</option>
+                                            <option value="Tidak Lulus">Tidak Lulus</option>
                                         </select>
                                     </div>
                                     <div class="d-flex justify-content-end">
@@ -143,7 +154,8 @@
                                 <th class="min-w-125px">Siswa</th>
                                 <th class="min-w-125px">Info</th>
                                 <th class="min-w-125px">Asal Sekolah</th>
-                                <th class="min-w-125px">Status</th>
+                                <th class="min-w-125px">Status Berkas</th>
+                                <th class="min-w-125px">Status Kelulusan</th>
                                 <th class="min-w-125px">Waktu Bergabung</th>
                                 <th class="text-end min-w-100px">Actions</th>
                             </tr>
@@ -192,12 +204,21 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @if ($registration_user->status == 'registered')
-                                            <span class="badge badge-light-primary">Terdaftar</span>
-                                        @elseif ($registration_user->status == 'passed')
-                                            <span class="badge badge-light-success">Lulus</span>
-                                        @elseif ($registration_user->status == 'rejected')
+                                        @if ($registration_user->status_berkas == 'sedang diverifikasi')
+                                            <span class="badge badge-light-primary">Sedang Diverifikasi</span>
+                                        @elseif ($registration_user->status_berkas == 'diterima')
+                                            <span class="badge badge-light-success">Diterima</span>
+                                        @elseif ($registration_user->status_berkas == 'ditolak')
                                             <span class="badge badge-light-danger">Ditolak</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($registration_user->status_kelulusan == '-')
+                                            <span class="badge badge-light-primary">-</span>
+                                        @elseif ($registration_user->status_kelulusan == 'lulus')
+                                            <span class="badge badge-light-success">Lulus</span>
+                                        @elseif ($registration_user->status_kelulusan == 'tidak lulus')
+                                            <span class="badge badge-light-danger">Tidak Lulus</span>
                                         @endif
                                     </td>
                                     <td>
