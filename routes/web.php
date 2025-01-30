@@ -413,6 +413,10 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/message', [BackPPDBController::class, 'message'])->name('message');
             Route::delete('/message/{id}', [BackPPDBController::class, 'messageDestroy'])->name('message.destroy');
 
+            Route::get('/infomration-setting', [BackPPDBController::class, 'informationSetting'])->name('information-setting');
+            Route::put('/infomration-setting', [BackPPDBController::class, 'informationSettingUpdate'])->name('information-setting.update');
+            Route::put('/infomration-setting-register', [BackPPDBController::class, 'informationSettingRegisterUpdate'])->name('information-setting.register.update');
+
         });
 
         Route::prefix('menu')->name('menu.')->group(function () {

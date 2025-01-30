@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\PpdbContact;
+use App\Models\PpdbInformation;
 use App\Models\PpdbPath;
 use App\Models\PpdbRegistrationUser;
 use App\Models\PpdbUser;
@@ -14,6 +15,64 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class PpdbController extends Controller
 {
+
+    public function informationSetting()
+    {
+        $data = [
+            'title' => 'Informasi dan Pengaturan PPDB',
+            'menu' => 'PPDB',
+            'information' => PpdbInformation::first(),
+        ];
+        return view('back.pages.ppdb.information.index', $data);
+    }
+
+    public function informationSettingRegisterUpdate(Request $request)
+    {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'registration_status' => 'nullable|boolean',
+            'registration_message' => 'nullable',
+        ], [
+            'registration_status.required' => 'Status pendaftaran harus diisi',
+            'registration_status.boolean' => 'Status pendaftaran harus berupa boolean',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        PpdbInformation::updateOrCreate(
+            ['id' => 1],
+            ['registration_status' => $request->registration_status ? true : false, 'registration_message' => $request->registration_message]
+        );
+
+        Alert::success('Berhasil', 'Data berhasil diubah');
+        return redirect()->back();
+    }
+
+    public function informationSettingUpdate(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'information' => 'required',
+        ], [
+            'information.required' => 'Informasi harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        PpdbInformation::updateOrCreate(
+            ['id' => 1],
+            ['information' => $request->information]
+        );
+
+        Alert::success('Berhasil', 'Data berhasil diubah');
+        return redirect()->back();
+    }
+
     public function path()
     {
         $data = [

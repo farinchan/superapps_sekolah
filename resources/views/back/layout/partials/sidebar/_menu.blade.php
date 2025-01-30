@@ -724,6 +724,18 @@
                             <span class="menu-title">Pesan</span>
                         </a>
                     </div>
+                    <div class="menu-item">
+                        <a class="menu-link @if (request()->routeIs('back.ppdb.information-setting')) active @endif"
+                            href="{{ route('back.ppdb.information-setting') }}">
+                            <span class="menu-icon">
+                                <i class="ki-duotone ki-abstract-27 fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                   </i>
+                            </span>
+                            <span class="menu-title">Informasi & Pengaturan</span>
+                        </a>
+                    </div>
                 @endrole
 
 

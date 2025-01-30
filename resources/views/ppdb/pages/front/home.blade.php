@@ -2,7 +2,8 @@
 @section('styles')
 @endsection
 @section('content')
-    <div id="kt_app_content" class="app-content  flex-column-fluid ">
+    <div id="kt_app_content" class="app-
+      flex-column-fluid ">
         <div class="row g-5 g-xl-8">
             <div class="row flex-lg-row-reverse align-items-center g-5 py-5 mb-10">
                 <div class="col-10 col-sm-8 col-lg-6">

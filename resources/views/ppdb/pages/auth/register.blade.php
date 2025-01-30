@@ -3,6 +3,8 @@
 @endsection
 @section('content')
     <div id="kt_app_content" class="app-content flex-column-fluid">
+        @if ($information->registration_status)
+
         <div class="stepper stepper-pills stepper-column d-flex flex-column flex-xl-row flex-row-fluid gap-10"
             id="kt_create_account_stepper">
             <div
@@ -911,6 +913,24 @@
                 </form>
             </div>
         </div>
+        @else
+        <div class="d-flex flex-wrap justify-content-center pb-lg-0">
+
+            <div class="card d-flex justify-content-xl-start w-600 w-xl-600px w-xxl-600px">
+                <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
+                    <div class="pb-5">
+                        <h2 class="fw-bold d-flex justify-content-center text-gray-900">Pendaftaran Tutup
+                        </h2>
+                    </div>
+                    <div class="text-center">
+                        <p class="fs-6 text-gray-600">
+                            {{ $information->registration_message }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 @endsection
 @section('scripts')

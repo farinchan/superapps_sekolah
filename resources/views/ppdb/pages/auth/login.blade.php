@@ -5,8 +5,7 @@
     <div id="kt_app_content" class="app-content flex-column-fluid">
         <div class="d-flex flex-wrap justify-content-center pb-lg-0">
 
-            <div
-                class="card d-flex justify-content-xl-start w-500 w-xl-500px w-xxl-500px">
+            <div class="card d-flex justify-content-xl-start w-500 w-xl-500px w-xxl-500px">
                 <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
                     <div class="pb-10 pb-lg-15">
                         <h2 class="fw-bold d-flex justify-content-center text-gray-900">Form Login
@@ -36,8 +35,7 @@
                         </div>
                         <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
                             <div></div>
-                            <a href="#"
-                                class="link-primary">
+                            <a href="#" class="link-primary">
                                 Lupa Password ?
                             </a>
                             <!--end::Link-->
@@ -51,7 +49,7 @@
                         <div class="text-gray-500 text-center fw-semibold fs-6">
                             Belum Punya Akun?
 
-                            <a href="{{ route("ppdb.register") }}" class="link-primary">
+                            <a href="{{ route('ppdb.register') }}" class="link-primary">
                                 Daftar Sekarang
                             </a>
                         </div>

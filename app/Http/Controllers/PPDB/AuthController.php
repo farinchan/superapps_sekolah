@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
 use App\Models\ppdb_user;
+use App\Models\PpdbInformation;
 use App\Models\PpdbUser;
 use App\Models\PpdbUserRapor;
 use Illuminate\Http\Request;
@@ -20,8 +21,10 @@ class AuthController extends Controller
             'menu' => 'PPDB',
             'submenu' => 'Form Pendaftaran',
             'page_title' => 'Formulir Pendftaran Peserta didik Baru',
-            'page_description' => 'Silakan isi form pendaftaran berikut untuk mendaftar PPDB'
+            'page_description' => 'Silakan isi form pendaftaran berikut untuk mendaftar PPDB',
+            'information' => PpdbInformation::first(),
         ];
+        // return response()->json($data);
         return view('ppdb.pages.auth.register', $data);
     }
 

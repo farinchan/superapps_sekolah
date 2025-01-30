@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
 use App\Models\PpdbContact;
+use App\Models\PpdbInformation;
 use App\Models\PpdbPath;
 use App\Models\Student;
 use App\Models\StudentAchievement;
@@ -39,6 +40,8 @@ class HomeController extends Controller
             'page_description' => 'Informasi PPDB Madrasah Aliyah Negeri 1 Padang Panjang',
             'list_achievement' => StudentAchievement::latest()->limit(5)->get(),
             'list_path' => PpdbPath::with(['schoolYear','registrationUsers'])->where('start_date', '<=', date('Y-m-d'))->where('end_date', '>=', date('Y-m-d'))->get(),
+            'information' => PpdbInformation::first(),
+
         ];
         // return response()->json($data);
         return view('ppdb.pages.front.information', $data);

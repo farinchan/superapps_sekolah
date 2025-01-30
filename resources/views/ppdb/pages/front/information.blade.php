@@ -24,6 +24,10 @@
                 <div class="d-flex flex-column flex-lg-row mb-17">
                     <div class="flex-lg-row-fluid me-0 me-lg-20">
                         <div class="mb-17">
+                            <div class="mb-15">
+                                <h3 class="fs-2hx text-gray-800 w-bolder mb-6">Informasi</h3>
+                                {!! $information->information !!}
+                            </div>
                             <div class="m-0">
                                 <h4 class="fs-1 text-gray-800 w-bolder mb-6">Jalur Pendaftaran PPDB</h4>
                                 <p class="fw-semibold fs-4 text-gray-600 mb-2">
