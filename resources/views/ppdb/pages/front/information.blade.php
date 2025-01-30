@@ -26,7 +26,7 @@
                         <div class="mb-17">
                             <div class="mb-15">
                                 <h3 class="fs-2hx text-gray-800 w-bolder mb-6">Informasi</h3>
-                                {!! $information->information !!}
+                                {!! $information->information?? "" !!}
                             </div>
                             <div class="m-0">
                                 <h4 class="fs-1 text-gray-800 w-bolder mb-6">Jalur Pendaftaran PPDB</h4>

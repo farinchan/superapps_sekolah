@@ -924,7 +924,7 @@
                     </div>
                     <div class="text-center">
                         <p class="fs-6 text-gray-600">
-                            {{ $information->registration_message }}
+                            {{ $information->registration_message ?? "" }}
                         </p>
                     </div>
                 </div>
