@@ -107,6 +107,8 @@ Route::domain(env('APP_URL'))->group(function () {
         Route::get('/dashboard/news', [BackDashboardController::class, 'news'])->name('dashboard.news');
         Route::get('/dashboard/news-stat', [BackDashboardController::class, 'newsStat'])->name('dashboard.news-stat');
         Route::get('/dashboard/log', [BackDashboardController::class, 'log'])->name('dashboard.log');
+        Route::get('/dashboard/ppdb', [BackDashboardController::class, 'ppdbDashboard'])->name('dashboard.ppdb');
+        Route::get('/dashboard/ppdb-stat', [BackDashboardController::class, 'ppdbStat'])->name('dashboard.ppdb-stat');
 
         Route::prefix('announcement')->name('announcement.')->group(function () {
             Route::get('/', [BackAnnouncementController::class, 'index'])->name('index');

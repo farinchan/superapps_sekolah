@@ -12,6 +12,9 @@ use App\Models\NewsViewer;
 use App\Models\GalleryAlbum;
 use App\Models\LogLogin;
 use App\Models\LogLoginElearning;
+use App\Models\PpdbRegistrationUser;
+use App\Models\PpdbUser;
+use App\Models\SchoolYear;
 use App\Models\StudentAttendance;
 use App\Models\Teacher;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +28,6 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Dashboard Saya',
             'menu' => 'dashboard',
-            'sub_menu' => '',
 
         ];
         if (Auth::user()->hasRole('guru')) {
@@ -73,7 +75,6 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Dashboard Berita',
             'menu' => 'dashboard',
-            'sub_menu' => '',
             'berita_count' => News::count(),
             'news_popular' => News::with('comments')->withCount('viewers')->orderBy('viewers_count', 'desc')->limit(8)->get(),
             'news_new' => News::with(['comments', 'viewers'])->latest()->limit(5)->get(),
@@ -117,7 +118,6 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Dashboard log',
             'menu' => 'dashboard',
-            'sub_menu' => '',
             'log_login' => LogLogin::with('user')->latest()->get(),
             'log_login_elearning' => LogLoginElearning::with('user')->latest()->get(),
             'log_activity' => Activity::all(),
@@ -140,6 +140,47 @@ class DashboardController extends Controller
             'news_viewer_browser' => NewsViewer::select('browser', DB::raw('count(*) as total'))
                 ->groupBy('browser')
                 ->get(),
+        ];
+        return response()->json($data);
+    }
+
+    public function ppdbDashboard()
+    {
+        $data = [
+            'title' => 'Dashboard PPDB',
+            'menu' => 'dashboard',
+            'list_school_year' => SchoolYear::latest()->get(),
+            'register_stat' => PpdbUser::select(DB::raw('Date(created_at) as date'), DB::raw('count(*) as total'))
+                ->orderBy('date', 'desc')
+                ->limit(30)
+                ->groupBy('date')
+                ->get(),
+
+        ];
+        // return response()->json($data);
+        return view('back.pages.dashboard.ppdb', $data);
+    }
+
+    public function ppdbStat(Request $request)
+    {
+        $school_year_id = $request->school_year_id;
+        if (!$school_year_id) {
+            return response()->json(['error' => 'Tahun ajaran tidak ditemukan'], 404);
+        }
+        $data = [
+            'register_path_stat' => PpdbRegistrationUser::select('ppdb_path_id', DB::raw('count(*) as total'), DB::raw('MAX(ppdb_path.name) as name'), DB::raw('MAX(ppdb_path.description) as description'))
+                ->whereHas('path', function ($query) use ($school_year_id) {
+                    $query->where('school_year_id', $school_year_id);
+                })
+                ->leftJoin('ppdb_path', 'ppdb_registration_user.ppdb_path_id', '=', 'ppdb_path.id')
+                ->groupBy('ppdb_path_id')
+                ->get()
+                ->map(function ($item) {
+                    $total = PpdbRegistrationUser::count();
+                    $item->percentage = $total ? ($item->total / $total) * 100 : 0;
+                    return $item;
+                }),
+
         ];
         return response()->json($data);
     }

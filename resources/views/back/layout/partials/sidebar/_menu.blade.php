@@ -34,6 +34,17 @@
                                 </a>
                             </div>
                         @endrole
+                        @role('kepsek|admin|ppd')
+                            <div class="menu-item">
+                                <a class="menu-link @if (request()->routeIs('back.dashboard.ppdb')) active @endif"
+                                    href="{{ route('back.dashboard.ppdb') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">PPDB</span>
+                                </a>
+                            </div>
+                        @endrole
                         @role('proktor|kepsek|admin')
                             <div class="menu-item">
                                 <a class="menu-link @if (request()->routeIs('back.dashboard.log')) active @endif"
