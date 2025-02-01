@@ -16,21 +16,12 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PpdbRegistrationPath implements FromCollection, WithHeadings, WithStyles, WithEvents, WithCustomStartCell
+class PpdbUser implements FromCollection, WithHeadings, WithStyles, WithEvents, WithCustomStartCell
 {
-    protected $path_id;
-
-    public function __construct($path_id)
-    {
-        $this->path_id = $path_id;
-    }
 
     public function collection()
     {
         return PpdbRegistrationUser::with(['user.rapor', 'user.certificate'])
-            ->whereHas('path', function ($query) {
-                $query->where('id', $this->path_id);
-            })
             ->get()
             ->map(function ($item) {
                 $semesters = ['semester1', 'semester2', 'semester3', 'semester4', 'semester5'];
@@ -167,19 +158,12 @@ class PpdbRegistrationPath implements FromCollection, WithHeadings, WithStyles, 
         return [
             AfterSheet::class => function (AfterSheet $event) {
 
-                $path = PpdbPath::with('schoolYear')->find($this->path_id);
-
-                PpdbRegistrationUser::with(['user.rapor', 'user.certificate'])
-                    ->whereHas('path', function ($query) {
-                        $query->where('id', $this->path_id);
-                    })
-                    ->get();
 
                 $sheet = $event->sheet->getDelegate();
 
                 // Menambahkan judul di baris 1
                 $sheet->mergeCells('A1:BW1');
-                $sheet->setCellValue('A1', 'Data Pendaftar ' . $path->name . ' Tahun Ajaran ' . $path->schoolYear->start_year . '/' . $path->schoolYear->end_year);
+                $sheet->setCellValue('A1', 'Seluruh Data Pendaftar PPDB');
                 $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
                 $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 

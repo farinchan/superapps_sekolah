@@ -406,11 +406,13 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::put('/path/{id}', [BackPPDBController::class, 'pathUpdate'])->name('path.update');
             Route::delete('/path/{id}', [BackPPDBController::class, 'pathDestroy'])->name('path.destroy');
             Route::get('/path/{id}/detail', [BackPPDBController::class, 'pathDetail'])->name('path.detail');
+            Route::get('/path/{id}/export-student', [BackPPDBController::class, 'pathExportStudent'])->name('path.export-student');
             Route::delete('/path/kick-student/{register_id}', [BackPPDBController::class, 'pathKickStudent'])->name('path.kick-student');
 
             Route::get('/student', [BackPPDBController::class, 'student'])->name('student');
             Route::get('/student/{id}/detail', [BackPPDBController::class, 'studentDetail'])->name('student.detail');
             Route::delete('/student/{id}', [BackPPDBController::class, 'studentDestroy'])->name('student.destroy');
+            Route::get('/student/export', [BackPPDBController::class, 'studentExport'])->name('student.export');
 
             Route::get('/message', [BackPPDBController::class, 'message'])->name('message');
             Route::delete('/message/{id}', [BackPPDBController::class, 'messageDestroy'])->name('message.destroy');

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Exports\PpdbRegistrationPath;
+use App\Exports\PpdbUser as ExportsPpdbUser;
 use App\Http\Controllers\Controller;
 use App\Models\PpdbContact;
 use App\Models\PpdbInformation;
@@ -11,7 +13,9 @@ use App\Models\PpdbUser;
 use App\Models\SchoolYear;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Str;
 
 class PpdbController extends Controller
 {
@@ -188,6 +192,12 @@ class PpdbController extends Controller
         return view('back.pages.ppdb.path.detail', $data);
     }
 
+    public function pathExportStudent($path_id)
+    {
+        $path = PpdbPath::find($path_id);
+        return Excel::download(new PpdbRegistrationPath($path_id), 'Data-pendaftar-' . Str::slug($path->name) . 'tahun-ajaran-' . $path->schoolYear->start_year . '-' . $path->schoolYear->end_year . '.xlsx');
+    }
+
     public function pathKickStudent( $registration_id)
     {
         PpdbRegistrationUser::where('id', $registration_id)->delete();
@@ -223,6 +233,11 @@ class PpdbController extends Controller
         PpdbUser::find($id)->delete();
         Alert::success('Berhasil', 'Calon siswa berhasil dihapus');
         return redirect()->back();
+    }
+
+    public function studentExport()
+    {
+        return Excel::download(new ExportsPpdbUser(), 'Data-pendaftar-PPDB.xlsx');
     }
 
     public function message()
