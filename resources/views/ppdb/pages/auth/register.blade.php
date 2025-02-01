@@ -805,6 +805,12 @@
                                             </a>
                                         </div>
                                     </div>
+                                    <small class="text-danger fw-semibold">
+                                        <b>Note : </b>Untuk Yang ingin memilih jalur pendaftaran prestasi wajib memasukkan sertifikat/piagam yang dimiliki sesuai dengan informasi yang sudah diberikan
+                                    </small><br>
+                                    <small >
+                                    info lebih lanjut silahkan buka <a href="{{ route("ppdb.information") }}" target="_blank">Link Ini</a>
+                                    </small>
                                 </div>
                                 <div class="mb-10">
                                     <label for="exampleFormControlInput1" class="required form-label">Dari Mana Mendapatkan informasi PPDB MAN 1 Padang Panjang</label>
