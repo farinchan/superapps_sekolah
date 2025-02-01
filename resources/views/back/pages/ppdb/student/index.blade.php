@@ -193,7 +193,7 @@
                     </div>
                     <div class="modal-body px-5">
                         <form class="form" method="POST"
-                            action="{{ route('back.user.student.destroy', $user->id) }}">
+                            action="{{ route('back.ppdb.student.destroy', $user->id) }}">
                             @method('DELETE')
                             @csrf
                             <h3 class="text-center">

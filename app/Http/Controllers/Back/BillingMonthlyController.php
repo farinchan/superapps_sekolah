@@ -152,7 +152,12 @@ class BillingMonthlyController extends Controller
             ->when($classroom_id, function ($query) use ($classroom_id) {
                 $query->where('classroom_id', $classroom_id);
             })
-            ->with(['billingMonthly', 'classroom_student.student.billing_payment'])
+            ->with([
+                'billingMonthly',
+                'classroom_student.student.BillingMonthlyStudentPayment' => function ($query) use ($billing_id) {
+                    $query->where('billing_monthly_id', $billing_id);
+                },
+            ])
             ->get();
 
         return response()->json($billing_classroom);
@@ -203,5 +208,4 @@ class BillingMonthlyController extends Controller
         Alert::success('Berhasil', 'Pembayaran berhasil ditambahkan');
         return redirect()->back();
     }
-
 }

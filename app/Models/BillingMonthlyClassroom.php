@@ -29,4 +29,6 @@ class BillingMonthlyClassroom extends Model
         return $this->hasMany(BillingPayment::class, 'billing_id', 'billing_id');
     }
 
+    
+
 }

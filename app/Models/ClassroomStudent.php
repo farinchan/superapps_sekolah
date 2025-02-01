@@ -34,4 +34,5 @@ class ClassroomStudent extends Model
     {
         return $this->belongsTo(Student::class);
     }
+
 }

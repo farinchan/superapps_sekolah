@@ -29,5 +29,10 @@ class BillingMonthly extends Model
         return $this->hasMany(BillingMonthlyPayment::class);
     }
 
+    public function billing_monthly_student_payment()
+    {
+        return $this->hasMany(BillingMonthlyStudentPayment::class, 'billing_monthly_id', 'billing_monthly_id');
+    }
+
 
 }

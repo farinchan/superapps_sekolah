@@ -43,4 +43,9 @@ class Student extends Model
         return $this->photo ? Storage::url($this->photo) : asset('img_ext/anonim_person.png');
     }
 
+    public function BillingMonthlyStudentPayment()
+    {
+        return $this->hasMany(BillingMonthlyStudentPayment::class);
+    }
+
 }

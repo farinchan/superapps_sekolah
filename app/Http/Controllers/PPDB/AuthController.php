@@ -534,8 +534,12 @@ class AuthController extends Controller
         $rapor->semester5_file = $request->file('sem5_file')->storeAs('ppdb/rapor', Str::slug($request->nisn) . '-5.' . $request->file('sem5_file')->getClientOriginalExtension(), 'public');
         $rapor->save();
 
-        Alert::success('Berhasil', 'Pendaftaran berhasil');
-        return redirect()->route('ppdb.login');
+        Alert::success('Berhasil', 'Pendaftaran berhasil, Silahkan memilih jalur pendaftaran yang diinginkan');
+        $credentials = $request->only('nisn', 'password');
+        if (Auth::guard('ppdb')->attempt($credentials)) {
+            return redirect()->route('ppdb.dashboard');
+        }
+
     }
 
     public function login()

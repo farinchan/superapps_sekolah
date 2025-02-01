@@ -48,7 +48,8 @@
                                     <div class="fw-bold mt-5">Jumlah Tagihan</div>
                                     <div class="text-gray-600">@money($billing->amount)</div>
                                     <div class="fw-bold mt-5">Tahun Ajaran</div>
-                                    <div class="text-gray-600">{{ $billing->schoolYear->start_year }}/{{ $billing->schoolYear->end_year }}</div>
+                                    <div class="text-gray-600">
+                                        {{ $billing->schoolYear->start_year }}/{{ $billing->schoolYear->end_year }}</div>
                                     <div class="fw-bold mt-5">Semester</div>
                                     <div class="text-gray-600">{{ $billing->semester }}</div>
                                     <div class="fw-bold mt-5">Untuk Kelas</div>
@@ -98,7 +99,8 @@
                                         </span></a>
                                 </div>
                                 <div class="menu-item px-5">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#delete_tagihan" class="menu-link text-danger px-5">Hapus Tagihan</a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#delete_tagihan"
+                                        class="menu-link text-danger px-5">Hapus Tagihan</a>
                                 </div>
                             </div>
                         </li>
@@ -212,7 +214,8 @@
                                                             Bendahara/Admin
                                                         @endif
                                                     </td>
-                                                    <td>{{ Carbon\Carbon::parse($billing_payment->created_at)->format('d F Y') }} {{ Carbon\Carbon::parse($billing_payment->created_at)->format('H:i') }}
+                                                    <td>{{ Carbon\Carbon::parse($billing_payment->created_at)->format('d F Y') }}
+                                                        {{ Carbon\Carbon::parse($billing_payment->created_at)->format('H:i') }}
                                                         WIB </td>
                                                 </tr>
                                             @endforeach
@@ -248,7 +251,8 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <div class="fs-3 fw-semibold text-danger">Apakah Anda yakin?</div>
-                            <div class="fs-5 fw-semibold text-muted">Tagihan yang dihapus tidak dapat dikembalikan dan semua
+                            <div class="fs-5 fw-semibold text-muted">Tagihan yang dihapus tidak dapat dikembalikan dan
+                                semua
                                 data terkait akan dihapus juga.</div>
                         </div>
                     </div>
@@ -275,7 +279,8 @@
                     </div>
                     <!--end::Close-->
                 </div>
-                <form action="{{ route('back.billing.payment', $billing->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('back.billing.payment', $billing->id) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-10">
@@ -349,8 +354,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 @section('scripts')
     <script>
@@ -403,23 +406,6 @@
                             let billing_payment = student.student.billing_payment;
                             console.log("billing_payment", billing_payment);
 
-                            let html_billing_payment = '';
-                            billing_payment.forEach(function(payment) {
-                                html_billing_payment += `
-                                    <tr>
-                                        <td>#${payment.id}</td>
-                                        <td>${formatRupiah(payment.total)}</td>
-                                        ${payment.status == 'paid' ? '<td><span class="badge badge-light-success">Pembayaran diterima</span></td>' : payment.status == 'pending' ? '<td><span class="badge badge-light-warning">Pembayaran tertunda</span></td>' : '<td><span class="badge badge-light-danger">Pembayaran ditolak</span></td>'}
-                                        <td>${formatTanggalWaktu(payment.created_at)}</td>
-                                    </tr>
-                                `;
-                            });
-                            let sum_billing_payment = billing_payment.reduce((a, b) => b
-                                .status == 'paid' ? a + b.total : a, 0);
-                            let remaining_billing_payment = response[0].billing.amount -
-                                sum_billing_payment;
-                            let percentage_billing_payment = (sum_billing_payment /
-                                response[0].billing.amount) * 100;
                             $('#classroom_detail').append(`
                                 <div class="py-0" data-kt-customer-payment-method="row">
                                     <div class="py-3 d-flex flex-stack flex-wrap">
@@ -436,7 +422,7 @@
                                             <div class="me-3">
                                                 <div class="d-flex align-items-center">
                                                     <div class="text-gray-800 fw-bold">${student.student?.name}</div>
-                                                    ${percentage_billing_payment == 100 ? '<div class="badge badge-light-success ms-5">Lunas</div>' : percentage_billing_payment > 0 ? '<div class="badge badge-light-warning ms-5">Mencicil</div>' : '<div class="badge badge-light-danger ms-5">Belum Bayar</div>'}
+                                                    <div class="badge badge-light-success ms-5">Lunas</div>
                                                 </div>
                                                 <div class="text-muted">NISN. ${student.student?.nisn}</div>
                                             </div>
@@ -450,19 +436,19 @@
                                                 <table class="table table-flush fw-semibold gy-1">
                                                     <tr>
                                                         <td class="text-muted min-w-125px w-125px">Tagihan</td>
-                                                        <td class="text-gray-800">${formatRupiah(response[0].billing.amount)}</td>
+                                                        <td class="text-gray-800"></td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted min-w-125px w-125px">Dibayar</td>
-                                                        <td class="text-gray-800">${formatRupiah(sum_billing_payment)}</td>
+                                                        <td class="text-gray-800">0</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted min-w-125px w-125px">Sisa</td>
-                                                        <td class="text-gray-800">${formatRupiah(remaining_billing_payment)}</td>
+                                                        <td class="text-gray-800">0</td>
                                                     </tr>
                                                     <tr>
                                                         <td class="text-muted min-w-125px w-125px">Persen</td>
-                                                        <td class="text-gray-800">${percentage_billing_payment}%</td>
+                                                        <td class="text-gray-800">0%</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -479,7 +465,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    ${html_billing_payment}
                                                 </tbody>
                                             </table>
                                         </div>

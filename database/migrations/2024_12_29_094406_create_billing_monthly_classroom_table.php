@@ -15,12 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('billing_monthly_id')->constrained("billing_monthly")->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('classroom_id')->constrained("classroom")->onDelete('cascade')->onUpdate('cascade');
-            $table->boolean('first_month')->default(false);
-            $table->boolean('second_month')->default(false);
-            $table->boolean('third_month')->default(false);
-            $table->boolean('fourth_month')->default(false);
-            $table->boolean('fifth_month')->default(false);
-            $table->boolean('sixth_month')->default(false);
             $table->timestamps();
         });
     }
