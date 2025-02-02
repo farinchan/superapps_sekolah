@@ -171,28 +171,9 @@ class AuthController extends Controller
         $user->additional_data = $request->additional_data;
         $user->save();
 
-        if ($request->certificates) {
-            foreach ($request->certificates as $certificate) {
-                if (!isset($certificate['certificate_file'])) {
-                    continue;
-                }
-                $certificateName = $certificate['certificate_name'];
-                $certificateRank = $certificate['certificate_rank'];
-                $certificateFile = $certificate['certificate_file'];
-                $certificatePath = $certificateFile->storeAs('ppdb/certificates', Str::slug($request->nisn) . '-' . Str::random(10) . '.' . $certificateFile->getClientOriginalExtension(), 'public');
-                $user->certificate()->create([
-                    'ppdb_user_id' => $user->id,
-                    'name' => Str::limit($certificateName, 250),
-                    'rank' => $certificateRank,
-                    'path' => $certificatePath
-                ]);
-            }
-        }
-
         $rapor = new PpdbUserRapor();
         $rapor->ppdb_user_id = $user->id;
         $rapor->rapor_type = $request->rapor_type;
-
         if ($request->rapor_type == 'SMP') {
             $semester1_nilai = [
                 [
@@ -219,7 +200,7 @@ class AuthController extends Controller
                     'mapel' => 'Pendidikan Agama Islam',
                     'nilai' => $request->sem1_agama
                 ]
-                ];
+            ];
             $semester2_nilai = [
                 [
                     'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
@@ -329,7 +310,6 @@ class AuthController extends Controller
             $rapor->semester3_nilai = $semester3_nilai;
             $rapor->semester4_nilai = $semester4_nilai;
             $rapor->semester5_nilai = $semester5_nilai;
-
         } else {
             $semester1_nilai = [
                 [
@@ -534,12 +514,29 @@ class AuthController extends Controller
         $rapor->semester5_file = $request->file('sem5_file')->storeAs('ppdb/rapor', Str::slug($request->nisn) . '-5.' . $request->file('sem5_file')->getClientOriginalExtension(), 'public');
         $rapor->save();
 
+        if ($request->certificates) {
+            foreach ($request->certificates as $certificate) {
+                if (!isset($certificate['certificate_file'])) {
+                    continue;
+                }
+                $certificateName = $certificate['certificate_name'];
+                $certificateRank = $certificate['certificate_rank'];
+                $certificateFile = $certificate['certificate_file'];
+                $certificatePath = $certificateFile->storeAs('ppdb/certificates', Str::slug($request->nisn) . '-' . Str::random(10) . '.' . $certificateFile->getClientOriginalExtension(), 'public');
+                $user->certificate()->create([
+                    'ppdb_user_id' => $user->id,
+                    'name' => Str::limit($certificateName, 250),
+                    'rank' => $certificateRank,
+                    'path' => $certificatePath
+                ]);
+            }
+        }
+
         Alert::success('Berhasil', 'Pendaftaran berhasil, Silahkan memilih jalur pendaftaran yang diinginkan');
         $credentials = $request->only('nisn', 'password');
         if (Auth::guard('ppdb')->attempt($credentials)) {
             return redirect()->route('ppdb.dashboard');
         }
-
     }
 
     public function login()
