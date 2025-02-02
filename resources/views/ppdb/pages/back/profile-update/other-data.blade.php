@@ -36,9 +36,9 @@
                                                     <select class="form-select form-select-solid" name="rapor_type"
                                                         id="rapor_type" required disabled>
                                                         <option value="SMP"
-                                                            @if ($rapor->rapor_type == 'SMP') selected @endif>SMP</option>
+                                                            @if ($rapor?->rapor_type == 'SMP') selected @endif>SMP</option>
                                                         <option value="MTS"
-                                                            @if ($rapor->rapor_type == 'MTS') selected @endif>MTS</option>
+                                                            @if ($rapor?->rapor_type == 'MTS') selected @endif>MTS</option>
                                                     </select>
                                                     @error('rapor_type')
                                                         <small class="text-danger">*{{ $message }}</small>
@@ -79,14 +79,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor->semester1_nilai as $rapor_nilai)
+                                                                    @foreach ($rapor?->semester1_nilai as $rapor?_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -98,8 +98,8 @@
                                                                 1</label><br>
                                                             <div class="fs-3 fw-semibold">
                                                                 <span class="text-muted">File : </span>
-                                                                <a href="{{ asset('storage/' . $rapor->semester1_file) }}"
-                                                                    target="_blank">{{ $rapor->semester1_file }}</a>
+                                                                <a href="{{ asset('storage/' . $rapor?->semester1_file) }}"
+                                                                    target="_blank">{{ $rapor?->semester1_file }}</a>
                                                             </div>
                                                             @error('sem1_file')
                                                                 <small class="text-danger">*{{ $message }}</small>
@@ -117,14 +117,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor->semester2_nilai as $rapor_nilai)
+                                                                    @foreach ($rapor?->semester2_nilai as $rapor?_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -135,8 +135,8 @@
                                                                 class="required form-label">File Rapor Semester 2</label>
                                                             <div class="fs-3 fw-semibold">
                                                                 <span class="text-muted">File : </span>
-                                                                <a href="{{ asset('storage/' . $rapor->semester2_file) }}"
-                                                                    target="_blank">{{ $rapor->semester2_file }}</a>
+                                                                <a href="{{ asset('storage/' . $rapor?->semester2_file) }}"
+                                                                    target="_blank">{{ $rapor?->semester2_file }}</a>
                                                             </div> @error('sem2_file')
                                                                 <small class="text-danger">*{{ $message }}</small>
                                                             @enderror
@@ -153,14 +153,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor->semester3_nilai as $rapor_nilai)
+                                                                    @foreach ($rapor?->semester3_nilai as $rapor?_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -171,8 +171,8 @@
                                                                 class="required form-label">File Rapor Semester 3</label>
                                                             <div class="fs-3 fw-semibold">
                                                                 <span class="text-muted">File : </span>
-                                                                <a href="{{ asset('storage/' . $rapor->semester3_file) }}"
-                                                                    target="_blank">{{ $rapor->semester3_file }}</a>
+                                                                <a href="{{ asset('storage/' . $rapor?->semester3_file) }}"
+                                                                    target="_blank">{{ $rapor?->semester3_file }}</a>
                                                             </div> @error('sem3_file')
                                                                 <small class="text-danger">*{{ $message }}</small>
                                                             @enderror
@@ -189,14 +189,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor->semester4_nilai as $rapor_nilai)
+                                                                    @foreach ($rapor?->semester4_nilai as $rapor?_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -207,8 +207,8 @@
                                                                 class="required form-label">File Rapor Semester 4</label>
                                                             <div class="fs-3 fw-semibold">
                                                                 <span class="text-muted">File : </span>
-                                                                <a href="{{ asset('storage/' . $rapor->semester4_file) }}"
-                                                                    target="_blank">{{ $rapor->semester4_file }}</a>
+                                                                <a href="{{ asset('storage/' . $rapor?->semester4_file) }}"
+                                                                    target="_blank">{{ $rapor?->semester4_file }}</a>
                                                             </div> @error('sem4_file')
                                                                 <small class="text-danger">*{{ $message }}</small>
                                                             @enderror
@@ -225,14 +225,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor->semester5_nilai as $rapor_nilai)
+                                                                    @foreach ($rapor?->semester5_nilai as $rapor?_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -243,8 +243,8 @@
                                                                 class="required form-label">File Rapor Semester 5</label>
                                                             <div class="fs-3 fw-semibold">
                                                                 <span class="text-muted">File : </span>
-                                                                <a href="{{ asset('storage/' . $rapor->semester5_file) }}"
-                                                                    target="_blank">{{ $rapor->semester5_file }}</a>
+                                                                <a href="{{ asset('storage/' . $rapor?->semester5_file) }}"
+                                                                    target="_blank">{{ $rapor?->semester5_file }}</a>
                                                             </div>
                                                             @error('sem5_file')
                                                                 <small class="text-danger">*{{ $message }}</small>

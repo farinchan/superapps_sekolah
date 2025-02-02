@@ -801,7 +801,7 @@
                                         <div class="form-group mt-5">
                                             <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
                                                 <i class="ki-duotone ki-plus fs-3"></i>
-                                                Add
+                                                Tambah
                                             </a>
                                         </div>
                                     </div>

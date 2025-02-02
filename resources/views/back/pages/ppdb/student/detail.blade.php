@@ -204,9 +204,9 @@
                                 <select class="form-select form-select-solid" name="rapor_type"
                                     id="rapor_type" required disabled>
                                     <option value="SMP"
-                                        @if ($user->rapor->rapor_type == 'SMP') selected @endif>SMP</option>
+                                        @if ($user?->rapor?->rapor_type == 'SMP') selected @endif>SMP</option>
                                     <option value="MTS"
-                                        @if ($user->rapor->rapor_type == 'MTS') selected @endif>MTS</option>
+                                        @if ($user?->rapor?->rapor_type == 'MTS') selected @endif>MTS</option>
                                 </select>
                                 @error('rapor_type')
                                     <small class="text-danger">*{{ $message }}</small>
@@ -247,7 +247,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user->rapor->semester1_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester1_nilai as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -266,8 +266,8 @@
                                             1</label><br>
                                         <div class="fs-3 fw-semibold">
                                             <span class="text-muted">File : </span>
-                                            <a href="{{ asset('storage/' . $user->rapor->semester1_file) }}"
-                                                target="_blank">{{ $user->rapor->semester1_file }}</a>
+                                            <a href="{{ asset('storage/' . $user?->rapor?->semester1_file) }}"
+                                                target="_blank">{{ $user?->rapor?->semester1_file }}</a>
                                         </div>
                                         @error('sem1_file')
                                             <small class="text-danger">*{{ $message }}</small>
@@ -285,7 +285,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user->rapor->semester2_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester2_nilai as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -303,8 +303,8 @@
                                             class="required form-label">File Rapor Semester 2</label>
                                         <div class="fs-3 fw-semibold">
                                             <span class="text-muted">File : </span>
-                                            <a href="{{ asset('storage/' . $user->rapor->semester2_file) }}"
-                                                target="_blank">{{ $user->rapor->semester2_file }}</a>
+                                            <a href="{{ asset('storage/' . $user?->rapor?->semester2_file) }}"
+                                                target="_blank">{{ $user?->rapor?->semester2_file }}</a>
                                         </div> @error('sem2_file')
                                             <small class="text-danger">*{{ $message }}</small>
                                         @enderror
@@ -321,7 +321,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user->rapor->semester3_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester3_nilai as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -339,8 +339,8 @@
                                             class="required form-label">File Rapor Semester 3</label>
                                         <div class="fs-3 fw-semibold">
                                             <span class="text-muted">File : </span>
-                                            <a href="{{ asset('storage/' . $user->rapor->semester3_file) }}"
-                                                target="_blank">{{ $user->rapor->semester3_file }}</a>
+                                            <a href="{{ asset('storage/' . $user?->rapor?->semester3_file) }}"
+                                                target="_blank">{{ $user?->rapor?->semester3_file }}</a>
                                         </div> @error('sem3_file')
                                             <small class="text-danger">*{{ $message }}</small>
                                         @enderror
@@ -357,7 +357,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user->rapor->semester4_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester4_nilai as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -375,8 +375,8 @@
                                             class="required form-label">File Rapor Semester 4</label>
                                         <div class="fs-3 fw-semibold">
                                             <span class="text-muted">File : </span>
-                                            <a href="{{ asset('storage/' . $user->rapor->semester4_file) }}"
-                                                target="_blank">{{ $user->rapor->semester4_file }}</a>
+                                            <a href="{{ asset('storage/' . $user?->rapor?->semester4_file) }}"
+                                                target="_blank">{{ $user?->rapor?->semester4_file }}</a>
                                         </div> @error('sem4_file')
                                             <small class="text-danger">*{{ $message }}</small>
                                         @enderror
@@ -393,7 +393,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user->rapor->semester5_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester5_nilai as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -411,8 +411,8 @@
                                             class="required form-label">File Rapor Semester 5</label>
                                         <div class="fs-3 fw-semibold">
                                             <span class="text-muted">File : </span>
-                                            <a href="{{ asset('storage/' . $user->rapor->semester5_file) }}"
-                                                target="_blank">{{ $user->rapor->semester5_file }}</a>
+                                            <a href="{{ asset('storage/' . $user?->rapor?->semester5_file) }}"
+                                                target="_blank">{{ $user?->rapor?->semester5_file }}</a>
                                         </div>
                                         @error('sem5_file')
                                             <small class="text-danger">*{{ $message }}</small>
@@ -461,11 +461,11 @@
                                     @foreach ($user->certificate as $certificate)
                                         <tr>
                                             <td class="fs-5 ">{{ $loop->iteration }}</td>
-                                            <td class="fs-5 ">{{ $certificate->name ?? '-' }}</td>
-                                            <td class="fs-5 ">{{ $certificate->rank ?? '-' }}</td>
+                                            <td class="fs-5 ">{{ $certificate?->name ?? '-' }}</td>
+                                            <td class="fs-5 ">{{ $certificate?->rank ?? '-' }}</td>
                                             <td class="fs-5 ">
-                                                <a href="{{ asset('storage/' . $certificate->path) }}"
-                                                    target="_blank">{{ $certificate->path }}</a>
+                                                <a href="{{ asset('storage/' . $certificate?->path?? "#") }}"
+                                                    target="_blank">{{ $certificate?->path?? "-" }}</a>
                                             </td>
                                         </tr>
                                     @endforeach
