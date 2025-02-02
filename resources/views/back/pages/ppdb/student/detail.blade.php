@@ -285,7 +285,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user?->rapor?->semester2_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester2_nilai?? [] as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -321,7 +321,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user?->rapor?->semester3_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester3_nilai?? [] as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -357,7 +357,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user?->rapor?->semester4_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester4_nilai?? [] as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
@@ -393,7 +393,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @foreach ($user?->rapor?->semester5_nilai as $rapor_nilai)
+                                                @foreach ($user?->rapor?->semester5_nilai?? [] as $rapor_nilai)
                                                     <tr>
                                                         <td class="fs-5 fw-semibold">
                                                             {{ $loop->iteration }}</td>
