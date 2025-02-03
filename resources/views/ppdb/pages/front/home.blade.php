@@ -14,7 +14,8 @@
                     <h1 class="fs-2hx text-gray-900 mb-5">
                         Mari Bergabung Bersama Kami di MAN 1 Padang Panjang
                     </h1>
-                    <p class="fs-5 text-muted fw-semibold">PPDB telah dibuka untuk tahun ajaran baru! Nikmati pendidikan berkualitas dengan
+                    <p class="fs-5 text-muted fw-semibold">PPDB telah dibuka untuk tahun ajaran baru! Nikmati pendidikan
+                        berkualitas dengan
                         fasilitas modern, bimbingan dari guru profesional, dan program unggulan yang mendukung prestasi
                         akademik dan pengembangan karakter. Jangan lewatkan kesempatan untuk menjadi bagian dari keluarga
                         besar MAN 1 Padang Panjang, tempat di mana impian masa depan Anda dimulai!"
@@ -28,23 +29,87 @@
             <div class="mb-18">
                 <div class="text-center mb-12">
                     <h3 class="fs-2hx  mb-5 ">
-                        <a class="text-gray-900 text-hover-primary" href="{{ route('teacher') }}">Bersama Dengan guru Profesional</a>
+                        <a class="text-gray-900 text-hover-primary" href="{{ route('teacher') }}">Berita PPDB</a>
                     </h3>
                     <div class="fs-5 text-muted fw-semibold">
-                        Guru-guru kami adalah profesional yang berpengalaman dan berdedikasi tinggi. <br> Mereka tidak hanya mengajar, tetapi juga memberikan bimbingan dan dukungan untuk meraih prestasi akademik dan pengembangan karakter.
+                        Berita terbaru seputar Penerimaan Peserta Didik Baru
+                    </div>
+                </div>
+                @if (count($list_berita) == 0)
+                    <div class="text-center">
+                        <img src="{{ asset('img_ext/empty.svg') }}" class="mw-100 mh-300px" alt="">
+                        <div class="fs-5 text-muted fw-semibold">Belum ada berita terbaru</div>
+                    </div>
+                @else
+                    <div class="tns tns-default mb-10">
+                        <div data-tns="true" data-tns-loop="true" data-tns-swipe-angle="false" data-tns-speed="2000"
+                            data-tns-autoplay="true" data-tns-autoplay-timeout="18000" data-tns-controls="true"
+                            data-tns-nav="false" data-tns-items="1" data-tns-center="false" data-tns-dots="false"
+                            data-tns-prev-button="#kt_news_slider_prev" data-tns-next-button="#kt_news_slider_next"
+                            data-tns-responsive="{1200: {items: 3}, 992: {items: 2}}">
+                            @foreach ($list_berita as $news)
+                                <div class="col-md-4 px-5">
+                                    <div class="card-xl-stretch mx-md-3">
+                                        <a class="d-block overlay"
+                                            href="{{ route("ppdb.news.detail", $news->slug) }}">
+                                            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px"
+                                                style="background-image:url('{{ $news->getThumbnail() }}')"></div>
+                                        </a>
+                                        <div class="m-0">
+                                            <a href="{{ route("ppdb.news.detail", $news->slug) }}"
+                                                class="fs-4 text-gray-900 fw-bold text-hover-primary text-gray-900 lh-base">
+                                                {{ Str::limit($news->title, 76) }}
+                                            </a>
+                                            <div class="fw-semibold fs-5 text-gray-600  my-4">
+                                                {{ strip_tags(Str::limit($news->content, 100)) }}
+                                            </div>
+                                            <div class="fs-6 fw-bold">
+                                                <a href="#"
+                                                    class="text-gray-700 text-hover-primary">{{ $news->user->teacher->name }}</a>
+                                                <span class="text-muted">{{ $news->created_at->diffForHumans() }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                        <button class="btn btn-icon btn-active-color-primary" id="kt_news_slider_prev">
+                            <i class="ki-outline ki-left fs-3x"></i>
+                        </button>
+                        <button class="btn btn-icon btn-active-color-primary" id="kt_news_slider_next">
+                            <i class="ki-outline ki-right fs-3x"></i>
+                        </button>
+                    </div>
+                @endif
+            </div>
+            <div class="mb-18">
+                <div class="text-center mb-12">
+                    <h3 class="fs-2hx  mb-5 ">
+                        <a class="text-gray-900 text-hover-primary" href="{{ route('teacher') }}">Bersama Dengan guru
+                            Profesional</a>
+                    </h3>
+                    <div class="fs-5 text-muted fw-semibold">
+                        Guru-guru kami adalah profesional yang berpengalaman dan berdedikasi tinggi. <br> Mereka tidak hanya
+                        mengajar, tetapi juga memberikan bimbingan dan dukungan untuk meraih prestasi akademik dan
+                        pengembangan karakter.
                     </div>
                 </div>
                 <div class="tns tns-default mb-10">
-                    <div data-tns="true" data-tns-loop="true" data-tns-swipe-angle="false" data-tns-speed="2000" data-tns-autoplay="true" data-tns-autoplay-timeout="18000" data-tns-controls="true" data-tns-nav="false" data-tns-items="1" data-tns-center="false" data-tns-dots="false" data-tns-prev-button="#kt_team_slider_prev" data-tns-next-button="#kt_team_slider_next" data-tns-responsive="{1200: {items: 3}, 992: {items: 2}}">
+                    <div data-tns="true" data-tns-loop="true" data-tns-swipe-angle="false" data-tns-speed="2000"
+                        data-tns-autoplay="true" data-tns-autoplay-timeout="18000" data-tns-controls="true"
+                        data-tns-nav="false" data-tns-items="1" data-tns-center="false" data-tns-dots="false"
+                        data-tns-prev-button="#kt_team_slider_prev" data-tns-next-button="#kt_team_slider_next"
+                        data-tns-responsive="{1200: {items: 3}, 992: {items: 2}}">
                         @foreach ($list_teacher as $teacher)
-
-                        <div class="text-center">
-                            <div class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-cover bgi-position-center" style="background-image:url('{{ $teacher->getPhoto() }}')"></div>
-                            <div class="mb-0">
-                                <a href="{{ route('staff.detail', $teacher->id) }}" class="text-gray-900 fw-bold text-hover-primary fs-3">{{ $teacher->name }}</a>
-                                <div class="text-muted fs-6 fw-semibold mt-1">{{ $teacher->position }}</div>
+                            <div class="text-center">
+                                <div class="octagon mx-auto mb-5 d-flex w-200px h-200px bgi-no-repeat bgi-size-cover bgi-position-center"
+                                    style="background-image:url('{{ $teacher->getPhoto() }}')"></div>
+                                <div class="mb-0">
+                                    <a href="{{ route('staff.detail', $teacher->id) }}"
+                                        class="text-gray-900 fw-bold text-hover-primary fs-3">{{ $teacher->name }}</a>
+                                    <div class="text-muted fs-6 fw-semibold mt-1">{{ $teacher->position }}</div>
+                                </div>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                     <button class="btn btn-icon btn-active-color-primary" id="kt_team_slider_prev">
@@ -62,7 +127,8 @@
                             <a class="text-gray-900 text-hover-primary" href="{{ route('teacher') }}">Mengenai Kami</a>
                         </h3>
                         <div class="fs-5 text-muted fw-semibold">
-                            Dengan Tenaga Pendidik yang profesional kami telah menghasilkan lulusan yang berkualitas <br> dan siap bersaing di era global.
+                            Dengan Tenaga Pendidik yang profesional kami telah menghasilkan lulusan yang berkualitas <br>
+                            dan siap bersaing di era global.
                         </div>
                     </div>
                     <div class="d-flex flex-center">
@@ -72,10 +138,12 @@
                                     <i class="ki-outline ki-profile-user fs-2tx text-primary"></i>
                                     <div class="mt-1">
                                         <div class="fs-lg-2hx fs-2x fw-bold text-gray-800 d-flex justify-content-center">
-                                            <div class="min-w-70px" data-kt-countup="true" data-kt-countup-value="{{ $tenaga_pendidik_kependidikan }}">0
+                                            <div class="min-w-70px" data-kt-countup="true"
+                                                data-kt-countup-value="{{ $tenaga_pendidik_kependidikan }}">0
                                             </div>
                                         </div>
-                                        <span class="text-gray-600 fw-semibold fs-5 lh-0">Tenaga Pendidik <br> & Kependidikan</span>
+                                        <span class="text-gray-600 fw-semibold fs-5 lh-0">Tenaga Pendidik <br> &
+                                            Kependidikan</span>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +152,8 @@
                                     <i class="ki-outline ki-people fs-2tx text-success"></i>
                                     <div class="mt-1">
                                         <div class="fs-lg-2hx fs-2x fw-bold text-gray-800 d-flex justify-content-center">
-                                            <div class="min-w-50px" data-kt-countup="true" data-kt-countup-value="{{ $siswa_count }}">0
+                                            <div class="min-w-50px" data-kt-countup="true"
+                                                data-kt-countup-value="{{ $siswa_count }}">0
                                             </div>
                                         </div>
                                         <span class="text-gray-600 fw-semibold fs-5 lh-0">siswa Aktif</span>
@@ -96,7 +165,8 @@
                                     <i class="ki-outline ki-user-tick fs-2tx text-info"></i>
                                     <div class="mt-1">
                                         <div class="fs-lg-2hx fs-2x fw-bold text-gray-800 d-flex align-items-center">
-                                            <div class="min-w-50px" data-kt-countup="true" data-kt-countup-value="{{ $alumni_count }}">0
+                                            <div class="min-w-50px" data-kt-countup="true"
+                                                data-kt-countup-value="{{ $alumni_count }}">0
                                             </div>RB+
                                         </div>
                                         <span class="text-gray-600 fw-semibold fs-5 lh-0">Alumni</span>
@@ -105,7 +175,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

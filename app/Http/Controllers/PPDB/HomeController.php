@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use App\Models\PpdbContact;
 use App\Models\PpdbInformation;
 use App\Models\PpdbPath;
@@ -25,6 +26,9 @@ class HomeController extends Controller
             'tenaga_pendidik_kependidikan' => Teacher::count(),
             'siswa_count' => Student::count(),
             'alumni_count' => "10",
+            'list_berita' => News::whereHas('category', function ($query) {
+                $query->where('slug', 'berita-ppdb');
+            })->where('status', 'published')->latest()->limit(5)->get(),
 
         ];
         // return response()->json($data);
@@ -91,5 +95,26 @@ class HomeController extends Controller
         $ppdbContact->save();
 
         return response()->json(['status' => 'success', 'message' => 'Pesan berhasil dikirim']);
+    }
+
+    public function newsDetail($slug)
+    {
+        $news = News::where('slug', $slug)->first();
+        if (!$news) {
+            return abort(404);
+        }
+        $data = [
+            'menu' => 'Beranda',
+            'submenu' => 'Berita',
+            'page_title' => "Berita Detail",
+            'page_description' => $news->title,
+            'news' => $news,
+            'list_berita_terbaru' => News::whereHas('category', function ($query) {
+                $query->where('slug', 'berita-ppdb');
+            })->where('status', 'published')->latest()->limit(4)->get(),
+            'list_achievement' => StudentAchievement::latest()->limit(5)->get(),
+
+        ];
+        return view('ppdb.pages.front.news-detail', $data);
     }
 }

@@ -503,6 +503,7 @@ Route::domain('ppdb.' . env('APP_URL'))->name('ppdb.')->group(function () {
     Route::get('/information', [App\Http\Controllers\PPDB\HomeController::class, 'information'])->name('information');
     Route::get('/contact', [App\Http\Controllers\PPDB\HomeController::class, 'contact'])->name('contact');
     Route::post('/contact', [App\Http\Controllers\PPDB\HomeController::class, 'ContactSend'])->name('contact.send');
+    Route::get('/news/{slug}', [App\Http\Controllers\PPDB\HomeController::class, 'newsDetail'])->name('news.detail');
 
     Route::get('/login', [App\Http\Controllers\PPDB\AuthController::class, 'login'])->name('login');
     Route::post('/login', [App\Http\Controllers\PPDB\AuthController::class, 'loginProcess'])->name('login.process');
