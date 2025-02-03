@@ -519,8 +519,8 @@ class AuthController extends Controller
                 if (!isset($certificate['certificate_file'])) {
                     continue;
                 }
-                $certificateName = $certificate['certificate_name'];
-                $certificateRank = $certificate['certificate_rank'];
+                $certificateName = $certificate['certificate_name'] ?? '-';
+                $certificateRank = $certificate['certificate_rank'] ?? 'Juara Lainnya';
                 $certificateFile = $certificate['certificate_file'];
                 $certificatePath = $certificateFile->storeAs('ppdb/certificates', Str::slug($request->nisn) . '-' . Str::random(10) . '.' . $certificateFile->getClientOriginalExtension(), 'public');
                 $user->certificate()->create([
