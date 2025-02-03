@@ -79,14 +79,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor?->semester1_nilai as $rapor?_nilai)
+                                                                    @foreach ($rapor->semester1_nilai ?? [] as $rapor_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -117,14 +117,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor?->semester2_nilai as $rapor?_nilai)
+                                                                    @foreach ($rapor?->semester2_nilai?? [] as $rapor_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -153,14 +153,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor?->semester3_nilai as $rapor?_nilai)
+                                                                    @foreach ($rapor?->semester3_nilai?? [] as $rapor_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -189,14 +189,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor?->semester4_nilai as $rapor?_nilai)
+                                                                    @foreach ($rapor?->semester4_nilai?? [] as $rapor_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -225,14 +225,14 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach ($rapor?->semester5_nilai as $rapor?_nilai)
+                                                                    @foreach ($rapor?->semester5_nilai?? [] as $rapor_nilai)
                                                                         <tr>
                                                                             <td class="fs-5 fw-semibold">
                                                                                 {{ $loop->iteration }}</td>
                                                                             <td class="fs-5 fw-semibold">
-                                                                                {{ $rapor?_nilai['mapel'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['mapel'] ?? '-' }}</td>
                                                                             <td class="fs-5 fw-bold">
-                                                                                {{ $rapor?_nilai['nilai'] ?? '-' }}</td>
+                                                                                {{ $rapor_nilai['nilai'] ?? '-' }}</td>
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
