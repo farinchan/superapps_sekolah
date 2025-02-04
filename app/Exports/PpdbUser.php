@@ -27,25 +27,25 @@ class PpdbUser implements FromCollection, WithHeadings, WithStyles, WithEvents, 
             ->map(function ($item) {
                 $semesters = ['semester1', 'semester2', 'semester3', 'semester4', 'semester5'];
                 $data = [
-                    $item->user->nisn,
-                    $item->user->name,
-                    $item->user->birth_place,
-                    $item->user->birth_date,
-                    $item->user->school_origin,
-                    $item->user->npsn,
-                    $item->user->whatsapp_number,
-                    $item->user->address,
-                    $item->user->email,
-                    $item->user->no_kk,
-                    $item->user->nik,
-                    $item->user->mother_nik,
-                    $item->user->mother_name,
-                    $item->user->mother_phone_number,
-                    $item->user->father_nik,
-                    $item->user->father_name,
-                    $item->user->father_phone_number,
-                    '=HYPERLINK("' . url('storage/' . $item->user->screenshoot_nisn) . '", "Lihat Disini")',
-                    $item->user->rapor->rapor_type ?? "-"
+                    $item->nisn,
+                    $item->name,
+                    $item->birth_place,
+                    $item->birth_date,
+                    $item->school_origin,
+                    $item->npsn,
+                    $item->whatsapp_number,
+                    $item->address,
+                    $item->email,
+                    $item->no_kk,
+                    $item->nik,
+                    $item->mother_nik,
+                    $item->mother_name,
+                    $item->mother_phone_number,
+                    $item->father_nik,
+                    $item->father_name,
+                    $item->father_phone_number,
+                    '=HYPERLINK("' . url('storage/' . $item->screenshoot_nisn) . '", "Lihat Disini")',
+                    $item->rapor->rapor_type ?? "-"
                 ];
 
                 foreach ($semesters as $semester) {
@@ -60,17 +60,17 @@ class PpdbUser implements FromCollection, WithHeadings, WithStyles, WithEvents, 
                     $nilai_fiqih = null;
                     $nilai_ski = null;
 
-                    if (!empty($item->user->rapor->{$semester . '_nilai'})) {
-                        $nilai_ipa = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Ilmu Pengetahuan Alam (IPA)')['nilai'] ?? null;
-                        $nilai_ips = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Ilmu Pengetahuan Sosial (IPS)')['nilai'] ?? null;
-                        $nilai_indo = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Bahasa Indonesia')['nilai'] ?? null;
-                        $nilai_inggris = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Bahasa Inggris')['nilai'] ?? null;
-                        $nilai_mtk = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Matematika')['nilai'] ?? null;
-                        $nilai_agama = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Pendidikan Agama Islam')['nilai'] ?? null;
-                        $nilai_qurdis = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', "Al-qur'an Hadits")['nilai'] ?? null;
-                        $nilai_akidah = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Akidah Akhlak')['nilai'] ?? null;
-                        $nilai_fiqih = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Fiqih')['nilai'] ?? null;
-                        $nilai_ski = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Sejarah Kebudayaan Islam (SKI)')['nilai'] ?? null;
+                    if (!empty($item->rapor->{$semester . '_nilai'})) {
+                        $nilai_ipa = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Ilmu Pengetahuan Alam (IPA)')['nilai'] ?? null;
+                        $nilai_ips = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Ilmu Pengetahuan Sosial (IPS)')['nilai'] ?? null;
+                        $nilai_indo = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Bahasa Indonesia')['nilai'] ?? null;
+                        $nilai_inggris = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Bahasa Inggris')['nilai'] ?? null;
+                        $nilai_mtk = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Matematika')['nilai'] ?? null;
+                        $nilai_agama = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Pendidikan Agama Islam')['nilai'] ?? null;
+                        $nilai_qurdis = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', "Al-qur'an Hadits")['nilai'] ?? null;
+                        $nilai_akidah = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Akidah Akhlak')['nilai'] ?? null;
+                        $nilai_fiqih = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Fiqih')['nilai'] ?? null;
+                        $nilai_ski = collect($item->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Sejarah Kebudayaan Islam (SKI)')['nilai'] ?? null;
                     }
 
                     $data = array_merge($data, [
@@ -84,13 +84,13 @@ class PpdbUser implements FromCollection, WithHeadings, WithStyles, WithEvents, 
                         $nilai_akidah,
                         $nilai_fiqih,
                         $nilai_ski,
-                        $item->user->rapor != null && $item->user->rapor->{$semester . '_file'} != null ?
-                            '=HYPERLINK("' . url('storage/' . $item->user->rapor->{$semester . '_file'}) . '", "Lihat Disini")'
+                        $item->rapor != null && $item->rapor->{$semester . '_file'} != null ?
+                            '=HYPERLINK("' . url('storage/' . $item->rapor->{$semester . '_file'}) . '", "Lihat Disini")'
                             : '-', // Jika file tidak ada, isi dengan tanda strip (-)
                     ]);
                 }
 
-                $data[] = $item->user->certificate->map(function ($certificate) {
+                $data[] = $item->certificate->map(function ($certificate) {
                     $fileUrl = url('storage/' . ($certificate->path ?? ''));
                     return  $certificate->name . ' - ' . $certificate->rank . ' ( file : ' . $fileUrl . ' )';
                 })->implode(', ');
