@@ -75,7 +75,7 @@ class PpdbRegistrationPath implements FromCollection, WithHeadings, WithStyles, 
                         $nilai_inggris = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Bahasa Inggris')['nilai'] ?? null;
                         $nilai_mtk = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Matematika')['nilai'] ?? null;
                         $nilai_agama = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Pendidikan Agama Islam')['nilai'] ?? null;
-                        $nilai_qurdis = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', "Al-qur\'an Hadits")['nilai'] ?? null;
+                        $nilai_qurdis = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', "Al-qur'an Hadits")['nilai'] ?? null;
                         $nilai_akidah = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Akidah Akhlak')['nilai'] ?? null;
                         $nilai_fiqih = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Fiqih')['nilai'] ?? null;
                         $nilai_ski = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Sejarah Kebudayaan Islam (SKI)')['nilai'] ?? null;
