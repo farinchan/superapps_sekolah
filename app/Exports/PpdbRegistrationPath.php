@@ -92,9 +92,9 @@ class PpdbRegistrationPath implements FromCollection, WithHeadings, WithStyles, 
                         $nilai_akidah,
                         $nilai_fiqih,
                         $nilai_ski,
-                        $item->user->rapor->{$semester . '_file'} != null ?
-                            '=HYPERLINK("' . url('storage/' . $item->user->rapor->{$semester . '_file'}) . '", "Lihat Disini")'
-                            : '-', // Jika file tidak ada, isi dengan tanda strip (-)
+                        $item->user->rapor != null && $item->user->rapor->{$semester . '_file'} != null ?
+                        '=HYPERLINK("' . url('storage/' . $item->user->rapor->{$semester . '_file'}) . '", "Lihat Disini")'
+                        : '-', // Jika file tidak ada, isi dengan tanda strip (-)
                     ]);
                 }
 
