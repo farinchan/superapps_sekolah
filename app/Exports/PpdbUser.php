@@ -83,7 +83,7 @@ class PpdbUser implements FromCollection, WithHeadings, WithStyles, WithEvents, 
                         $nilai_akidah,
                         $nilai_fiqih,
                         $nilai_ski,
-                        $item->user->rapor->{$semester . '_file'} ?
+                        $item->user->rapor->{$semester . '_file'} != null ?
                             '=HYPERLINK("' . url('storage/' . $item->user->rapor->{$semester . '_file'}) . '", "Lihat Disini")'
                             : '-', // Jika file tidak ada, isi dengan tanda strip (-)
                     ]);
