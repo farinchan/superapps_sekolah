@@ -44,7 +44,7 @@ class PpdbUser implements FromCollection, WithHeadings, WithStyles, WithEvents, 
                     $item->user->father_name,
                     $item->user->father_phone_number,
                     '=HYPERLINK("' . url('storage/' . $item->user->screenshoot_nisn) . '", "Lihat Disini")',
-                    $item->user->rapor->rapor_type,
+                    $item->user->rapor->rapor_type ?? "-"
                 ];
 
                 foreach ($semesters as $semester) {
