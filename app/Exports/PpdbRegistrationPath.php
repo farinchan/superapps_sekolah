@@ -69,16 +69,16 @@ class PpdbRegistrationPath implements FromCollection, WithHeadings, WithStyles, 
                     $nilai_ski = null;
 
                     if (!empty($item->user->rapor->{$semester . '_nilai'})) {
-                        $nilai_ipa = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'ipa')['nilai'] ?? null;
-                        $nilai_ips = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'ips')['nilai'] ?? null;
-                        $nilai_indo = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'bahasa indonesia')['nilai'] ?? null;
-                        $nilai_inggris = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'bahasa inggris')['nilai'] ?? null;
-                        $nilai_mtk = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'matematika')['nilai'] ?? null;
-                        $nilai_agama = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Pendidikan Agama')['nilai'] ?? null;
-                        $nilai_qurdis = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', "qur'an hadits")['nilai'] ?? null;
-                        $nilai_akidah = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'akidah akhlak')['nilai'] ?? null;
-                        $nilai_fiqih = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'fiqih')['nilai'] ?? null;
-                        $nilai_ski = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'ski')['nilai'] ?? null;
+                        $nilai_ipa = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Ilmu Pengetahuan Alam (IPA)')['nilai'] ?? null;
+                        $nilai_ips = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Ilmu Pengetahuan Sosial (IPS)')['nilai'] ?? null;
+                        $nilai_indo = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Bahasa Indonesia')['nilai'] ?? null;
+                        $nilai_inggris = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Bahasa Inggris')['nilai'] ?? null;
+                        $nilai_mtk = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Matematika')['nilai'] ?? null;
+                        $nilai_agama = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Pendidikan Agama Islam')['nilai'] ?? null;
+                        $nilai_qurdis = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', "Al-qur\'an Hadits")['nilai'] ?? null;
+                        $nilai_akidah = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Akidah Akhlak')['nilai'] ?? null;
+                        $nilai_fiqih = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Fiqih')['nilai'] ?? null;
+                        $nilai_ski = collect($item->user->rapor->{$semester . '_nilai'})->firstWhere('mapel', 'Sejarah Kebudayaan Islam (SKI)')['nilai'] ?? null;
                     }
 
                     $data = array_merge($data, [
