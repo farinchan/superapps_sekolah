@@ -117,4 +117,13 @@ class HomeController extends Controller
         ];
         return view('ppdb.pages.front.news-detail', $data);
     }
+
+    // public function test(Request $request)
+    // {
+    //     $data = [
+    //         "ppdb_user" => PpdbRegistrationUser::with(['user.rapor', 'user.certificate'])
+
+    //     ];
+    //     return view('ppdb.pages.front.test', $data);
+    // }
 }

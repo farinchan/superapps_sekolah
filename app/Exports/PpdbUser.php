@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Models\PpdbPath;
 use App\Models\PpdbRegistrationUser;
+use App\Models\PpdbUser as ModelsPpdbUser;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use App\Models\Student;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -21,7 +22,7 @@ class PpdbUser implements FromCollection, WithHeadings, WithStyles, WithEvents, 
 
     public function collection()
     {
-        return PpdbRegistrationUser::with(['user.rapor', 'user.certificate'])
+        return ModelsPpdbUser::with(['rapor', 'certificate'])
             ->get()
             ->map(function ($item) {
                 $semesters = ['semester1', 'semester2', 'semester3', 'semester4', 'semester5'];
