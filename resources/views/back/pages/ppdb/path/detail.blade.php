@@ -89,6 +89,7 @@
                                             <option></option>
                                             <option value="Sedang Diverifikasi">Sedang Diverifikasi</option>
                                             <option value="Diterima">Diterima</option>
+                                            <option value="Perbaiki">Perbaiki</option>
                                             <option value="Ditolak">Ditolak</option>
                                         </select>
                                     </div>
@@ -208,6 +209,8 @@
                                             <span class="badge badge-light-primary">Sedang Diverifikasi</span>
                                         @elseif ($registration_user->status_berkas == 'diterima')
                                             <span class="badge badge-light-success">Diterima</span>
+                                        @elseif ($registration_user->status_berkas == 'perbaiki')
+                                            <span class="badge badge-light-warning">Perbaiki</span>
                                         @elseif ($registration_user->status_berkas == 'ditolak')
                                             <span class="badge badge-light-danger">Ditolak</span>
                                         @endif

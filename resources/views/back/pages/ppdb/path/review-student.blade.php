@@ -650,6 +650,7 @@
                                                 <select class="form-select form-select-solid" name="status_berkas"  id="status_berkas" required>
                                                     <option value="sedang diverifikasi" @if ($registration_user->status_berkas == 'sedang diverifikasi') selected @endif>Sedang Diverifikasi</option>
                                                     <option value="diterima" @if ($registration_user->status_berkas == 'diterima') selected @endif>Diterima</option>
+                                                    <option value="perbaiki" @if ($registration_user->status_berkas == 'perbaiki') selected @endif>Perbaiki</option>
                                                     <option value="ditolak" @if ($registration_user->status_berkas == 'ditolak') selected @endif>Ditolak</option>
                                                 </select>
                                                 @error('status_berkas')

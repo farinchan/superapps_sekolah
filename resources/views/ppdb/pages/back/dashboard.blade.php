@@ -152,6 +152,8 @@
                                                                 Diverifikasi</span>
                                                         @elseif($my_path->status_berkas == 'diterima')
                                                             <span class="badge badge-light-success">Diterima</span>
+                                                        @elseif($my_path->status_berkas == 'perbaiki')
+                                                            <span class="badge badge-light-warning">Perbaiki</span>
                                                         @elseif($my_path->status_berkas == 'ditolak')
                                                             <span class="badge badge-light-danger">Ditolak</span>
                                                         @endif
