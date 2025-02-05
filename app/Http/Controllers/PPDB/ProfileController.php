@@ -7,6 +7,7 @@ use App\Models\PpdbUser;
 use App\Models\PpdbUserRapor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
@@ -69,7 +70,6 @@ class ProfileController extends Controller
 
         Alert::success('Berhasil', 'Data berhasil diupdate');
         return redirect()->back();
-
     }
 
     public function parentData()
@@ -131,7 +131,7 @@ class ProfileController extends Controller
             'page_title' => 'Profile',
             'page_description' => 'Data lainnya',
             'user' => Auth::guard('ppdb')->user(),
-            'rapor' =>$rapor,
+            'rapor' => $rapor,
             'sem1_ipa' => collect($rapor->semester1_nilai)->firstWhere('mapel', 'Ilmu Pengetahuan Alam (IPA)')['nilai'] ?? 0,
             'sem1_ips' => collect($rapor->semester1_nilai)->firstWhere('mapel', 'Ilmu Pengetahuan Sosial (IPS)')['nilai'] ?? 0,
             'sem1_indonesia' => collect($rapor->semester1_nilai)->firstWhere('mapel', 'Bahasa Indonesia')['nilai'] ?? 0,
@@ -193,86 +193,460 @@ class ProfileController extends Controller
 
     public function otherDataUpdate(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $validator_rule = [
             'rapor_type' => 'required|in:SMP,MTS',
             'sem1_ipa' => 'required|numeric',
             'sem1_ips' => 'required|numeric',
             'sem1_indonesia' => 'required|numeric',
             'sem1_inggris' => 'required|numeric',
             'sem1_matematika' => 'required|numeric',
-            'sem1_file' => 'required|mimes:pdf,jpg,jpeg,png|max:10240',
+            'sem1_file' => 'nullable|mimes:pdf,jpg,jpeg,png|max:10240',
             'sem2_ipa' => 'required|numeric',
             'sem2_ips' => 'required|numeric',
             'sem2_indonesia' => 'required|numeric',
             'sem2_inggris' => 'required|numeric',
             'sem2_matematika' => 'required|numeric',
-            'sem2_file' => 'required|mimes:pdf,jpg,jpeg,png|max:10240',
+            'sem2_file' => 'nullable|mimes:pdf,jpg,jpeg,png|max:10240',
             'sem3_ipa' => 'required|numeric',
             'sem3_ips' => 'required|numeric',
             'sem3_indonesia' => 'required|numeric',
             'sem3_inggris' => 'required|numeric',
             'sem3_matematika' => 'required|numeric',
-            'sem3_file' => 'required|mimes:pdf,jpg,jpeg,png|max:10240',
+            'sem3_file' => 'nullable|mimes:pdf,jpg,jpeg,png|max:10240',
             'sem4_ipa' => 'required|numeric',
             'sem4_ips' => 'required|numeric',
             'sem4_indonesia' => 'required|numeric',
             'sem4_inggris' => 'required|numeric',
             'sem4_matematika' => 'required|numeric',
-            'sem4_file' => 'required|mimes:pdf,jpg,jpeg,png|max:10240',
+            'sem4_file' => 'nullable|mimes:pdf,jpg,jpeg,png|max:10240',
             'sem5_ipa' => 'required|numeric',
             'sem5_ips' => 'required|numeric',
             'sem5_indonesia' => 'required|numeric',
             'sem5_inggris' => 'required|numeric',
             'sem5_matematika' => 'required|numeric',
-            'sem5_file' => 'required|mimes:pdf,jpg,jpeg,png|max:10240',
+            'sem5_file' => 'nullable|mimes:pdf,jpg,jpeg,png|max:10240',
 
             'screenshoot_nisn' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'certificates.*.certificate_name' => 'required',
-            'certificates.*.certificate_file' => 'required|image|mimes:jpeg,png,jpg|max:2048'
-        ], [
-            'required' => ':attribute harus diisi',
-            'numeric' => ':attribute harus berupa angka',
-            'image' => ':attribute harus berupa gambar',
-            'mimes' => ':attribute harus berupa gambar dengan format jpeg, png, jpg',
-            'max' => ':attribute maksimal :max KB'
-        ]);
+            'certificates' => 'array',
+            'certificates.*.certificate_name' => 'nullable',
+            'certificates.*.certificate_rank' => 'nullable',
+            'certificates.*.certificate_file' => 'nullable|mimes:pdf,jpg,jpeg,png|max:10240',
+        ];
+        if ($request->rapor_type == 'SMP') {
+            $validator_rule = array_merge($validator_rule, [
+                'sem1_agama' => 'required|numeric',
+                'sem2_agama' => 'required|numeric',
+                'sem3_agama' => 'required|numeric',
+                'sem4_agama' => 'required|numeric',
+                'sem5_agama' => 'required|numeric',
+            ]);
+        } else {
+            $validator_rule = array_merge($validator_rule, [
+                'sem1_qhadits' => 'required|numeric',
+                'sem1_akidah' => 'required|numeric',
+                'sem1_fiqih' => 'required|numeric',
+                'sem1_ski' => 'required|numeric',
+                'sem2_qhadits' => 'required|numeric',
+                'sem2_akidah' => 'required|numeric',
+                'sem2_fiqih' => 'required|numeric',
+                'sem2_ski' => 'required|numeric',
+                'sem3_qhadits' => 'required|numeric',
+                'sem3_akidah' => 'required|numeric',
+                'sem3_fiqih' => 'required|numeric',
+                'sem3_ski' => 'required|numeric',
+                'sem4_qhadits' => 'required|numeric',
+                'sem4_akidah' => 'required|numeric',
+                'sem4_fiqih' => 'required|numeric',
+                'sem4_ski' => 'required|numeric',
+                'sem5_qhadits' => 'required|numeric',
+                'sem5_akidah' => 'required|numeric',
+                'sem5_fiqih' => 'required|numeric',
+                'sem5_ski' => 'required|numeric',
+
+            ]);
+        }
+        $validator = Validator::make(
+            $request->all(),
+            $validator_rule,
+            [
+                'required' => ':attribute harus diisi',
+                'numeric' => ':attribute harus berupa angka',
+                'image' => ':attribute harus berupa gambar',
+                'mimes' => ':attribute harus berupa gambar dengan format jpeg, png, jpg',
+                'max' => ':attribute maksimal :max KB',
+                'in' => ':attribute harus diisi dengan SMP atau MTS'
+            ]
+        );
 
         if ($validator->fails()) {
             Alert::error('Gagal', $validator->errors()->all());
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $user = PpdbUser::find(Auth::guard('ppdb')->user()->id);
-        $user->rapor_semester_1 = $request->rapor_semester_1;
-        $user->rapor_semester_2 = $request->rapor_semester_2;
-        $user->rapor_semester_3 = $request->rapor_semester_3;
-        $user->rapor_semester_4 = $request->rapor_semester_4;
-        $user->rapor_semester_5 = $request->rapor_semester_5;
-        if ($request->hasFile('screenshoot_nisn')) {
-            $file = $request->file('screenshoot_nisn');
-            $path = $file->storeAs('ppdb/screenshoot_nisn', Str::slug($request->nisn) . '-' . Str::slug($request->name) . '.' . $file->getClientOriginalExtension(), 'public');
-            $user->screenshoot_nisn = $path;
+        $user_rapor = PpdbUserRapor::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->first();
+        $user_rapor->rapor_type = $request->rapor_type;
+        if ($request->rapor_type == 'SMP') {
+            $semester1_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem1_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem1_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem1_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem1_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem1_matematika
+                ],
+                [
+                    'mapel' => 'Pendidikan Agama Islam',
+                    'nilai' => $request->sem1_agama
+                ]
+            ];
+            $semester2_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem2_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem2_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem2_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem2_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem2_matematika
+                ],
+                [
+                    'mapel' => 'Pendidikan Agama Islam',
+                    'nilai' => $request->sem2_agama
+                ]
+            ];
+            $semester3_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem3_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem3_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem3_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem3_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem3_matematika
+                ],
+                [
+                    'mapel' => 'Pendidikan Agama Islam',
+                    'nilai' => $request->sem3_agama
+                ]
+            ];
+            $semester4_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem4_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem4_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem4_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem4_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem4_matematika
+                ],
+                [
+                    'mapel' => 'Pendidikan Agama Islam',
+                    'nilai' => $request->sem4_agama
+                ]
+            ];
+            $semester5_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem5_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem5_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem5_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem5_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem5_matematika
+                ],
+                [
+                    'mapel' => 'Pendidikan Agama Islam',
+                    'nilai' => $request->sem5_agama
+                ]
+            ];
+            $user_rapor->semester1_nilai = $semester1_nilai;
+            $user_rapor->semester2_nilai = $semester2_nilai;
+            $user_rapor->semester3_nilai = $semester3_nilai;
+            $user_rapor->semester4_nilai = $semester4_nilai;
+            $user_rapor->semester5_nilai = $semester5_nilai;
+        } else {
+            $semester1_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem1_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem1_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem1_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem1_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem1_matematika
+                ],
+                [
+                    'mapel' => 'Al-qur\'an Hadits',
+                    'nilai' => $request->sem1_qhadits
+                ],
+                [
+                    'mapel' => 'Akidah Akhlak',
+                    'nilai' => $request->sem1_akidah
+                ],
+                [
+                    'mapel' => 'Fiqih',
+                    'nilai' => $request->sem1_fiqih
+                ],
+                [
+                    'mapel' => 'Sejarah Kebudayaan Islam (SKI)',
+                    'nilai' => $request->sem1_ski
+                ]
+            ];
+            $semester2_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem2_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem2_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem2_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem2_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem2_matematika
+                ],
+                [
+                    'mapel' => 'Al-qur\'an Hadits',
+                    'nilai' => $request->sem2_qhadits
+                ],
+                [
+                    'mapel' => 'Akidah Akhlak',
+                    'nilai' => $request->sem2_akidah
+                ],
+                [
+                    'mapel' => 'Fiqih',
+                    'nilai' => $request->sem2_fiqih
+                ],
+                [
+                    'mapel' => 'Sejarah Kebudayaan Islam (SKI)',
+                    'nilai' => $request->sem2_ski
+                ]
+            ];
+            $semester3_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem3_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem3_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem3_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem3_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem3_matematika
+                ],
+                [
+                    'mapel' => 'Al-qur\'an Hadits',
+                    'nilai' => $request->sem3_qhadits
+                ],
+                [
+                    'mapel' => 'Akidah Akhlak',
+                    'nilai' => $request->sem3_akidah
+                ],
+                [
+                    'mapel' => 'Fiqih',
+                    'nilai' => $request->sem3_fiqih
+                ],
+                [
+                    'mapel' => 'Sejarah Kebudayaan Islam (SKI)',
+                    'nilai' => $request->sem3_ski
+                ]
+            ];
+            $semester4_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem4_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem4_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem4_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem4_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem4_matematika
+                ],
+                [
+                    'mapel' => 'Al-qur\'an Hadits',
+                    'nilai' => $request->sem4_qhadits
+                ],
+                [
+                    'mapel' => 'Akidah Akhlak',
+                    'nilai' => $request->sem4_akidah
+                ],
+                [
+                    'mapel' => 'Fiqih',
+                    'nilai' => $request->sem4_fiqih
+                ],
+                [
+                    'mapel' => 'Sejarah Kebudayaan Islam (SKI)',
+                    'nilai' => $request->sem4_ski
+                ]
+            ];
+            $semester5_nilai = [
+                [
+                    'mapel' => 'Ilmu Pengetahuan Alam (IPA)',
+                    'nilai' => $request->sem5_ipa
+                ],
+                [
+                    'mapel' => 'Ilmu Pengetahuan Sosial (IPS)',
+                    'nilai' => $request->sem5_ips
+                ],
+                [
+                    'mapel' => 'Bahasa Indonesia',
+                    'nilai' => $request->sem5_indonesia
+                ],
+                [
+                    'mapel' => 'Bahasa Inggris',
+                    'nilai' => $request->sem5_inggris
+                ],
+                [
+                    'mapel' => 'Matematika',
+                    'nilai' => $request->sem5_matematika
+                ],
+                [
+                    'mapel' => 'Al-qur\'an Hadits',
+                    'nilai' => $request->sem5_qhadits
+                ],
+                [
+                    'mapel' => 'Akidah Akhlak',
+                    'nilai' => $request->sem5_akidah
+                ],
+                [
+                    'mapel' => 'Fiqih',
+                    'nilai' => $request->sem5_fiqih
+                ],
+                [
+                    'mapel' => 'Sejarah Kebudayaan Islam (SKI)',
+                    'nilai' => $request->sem5_ski
+                ]
+            ];
+            $user_rapor->semester1_nilai = $semester1_nilai;
+            $user_rapor->semester2_nilai = $semester2_nilai;
+            $user_rapor->semester3_nilai = $semester3_nilai;
+            $user_rapor->semester4_nilai = $semester4_nilai;
+            $user_rapor->semester5_nilai = $semester5_nilai;
         }
-        $user->save();
 
-        if ($request->certificates) {
-            foreach ($request->certificates as $certificate) {
-                if (!isset($certificate['certificate_file']) || !$certificate['certificate_name']) {
-                    continue;
-                }
-                $certificateName = $certificate['certificate_name'];
-                $certificateFile = $certificate['certificate_file'];
-                $certificatePath = $certificateFile->storeAs('ppdb/certificates', Str::slug($request->nisn) . '-' . Str::random(10) . '.' . $certificateFile->getClientOriginalExtension(), 'public');
-                $user->sertifikat()->create([
-                    'ppdb_user_id' => $user->id,
-                    'name' => Str::limit($certificateName, 250),
-                    'path' => $certificatePath
-                ]);
-            }
+        if ($request->hasFile('sem1_file')) {
+            Storage::delete($user_rapor->semester1_file);
+            $semester1_file = $request->file('sem1_file')->storeAs('ppdb/rapor', Str::slug(Auth::guard('ppdb')->user()->nisn) . '-1.' . $request->file('sem1_file')->getClientOriginalExtension(), 'public');
+            $user_rapor->semester1_file = $semester1_file;
         }
+        if ($request->hasFile('sem2_file')) {
+            Storage::delete($user_rapor->semester2_file);
+            $semester2_file = $request->file('sem2_file')->storeAs('ppdb/rapor', Str::slug(Auth::guard('ppdb')->user()->nisn) . '-2.' . $request->file('sem2_file')->getClientOriginalExtension(), 'public');
+            $user_rapor->semester2_file = $semester2_file;
+        }
+        if ($request->hasFile('sem3_file')) {
+            Storage::delete($user_rapor->semester3_file);
+            $semester3_file = $request->file('sem3_file')->storeAs('ppdb/rapor', Str::slug(Auth::guard('ppdb')->user()->nisn) . '-3.' . $request->file('sem3_file')->getClientOriginalExtension(), 'public');
+            $user_rapor->semester3_file = $semester3_file;
+        }
+        if ($request->hasFile('sem4_file')) {
+            Storage::delete($user_rapor->semester4_file);
+            $semester4_file = $request->file('sem4_file')->storeAs('ppdb/rapor', Str::slug(Auth::guard('ppdb')->user()->nisn) . '-4.' . $request->file('sem4_file')->getClientOriginalExtension(), 'public');
+            $user_rapor->semester4_file = $semester4_file;
+        }
+        if ($request->hasFile('sem5_file')) {
+            Storage::delete($user_rapor->semester5_file);
+            $semester5_file = $request->file('sem5_file')->storeAs('ppdb/rapor', Str::slug(Auth::guard('ppdb')->user()->nisn) . '-5.' . $request->file('sem5_file')->getClientOriginalExtension(), 'public');
+            $user_rapor->semester5_file = $semester5_file;
+        }
+        $user_rapor->save();
 
         Alert::success('Berhasil', 'Data berhasil diupdate');
         return redirect()->back();
-
     }
 }

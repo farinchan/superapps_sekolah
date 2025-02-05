@@ -407,6 +407,8 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::delete('/path/{id}', [BackPPDBController::class, 'pathDestroy'])->name('path.destroy');
             Route::get('/path/{id}/detail', [BackPPDBController::class, 'pathDetail'])->name('path.detail');
             Route::get('/path/{id}/export-student', [BackPPDBController::class, 'pathExportStudent'])->name('path.export-student');
+            Route::get('/path/{id}/review-student/{register_id}', [BackPPDBController::class, 'pathReviewStudent'])->name('path.review-student');
+            Route::put('/path/{id}/review-student/{register_id}', [BackPPDBController::class, 'pathReviewStudentUpdate'])->name('path.review-student.update');
             Route::delete('/path/kick-student/{register_id}', [BackPPDBController::class, 'pathKickStudent'])->name('path.kick-student');
 
             Route::get('/student', [BackPPDBController::class, 'student'])->name('student');

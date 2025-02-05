@@ -192,6 +192,45 @@ class PpdbController extends Controller
         return view('back.pages.ppdb.path.detail', $data);
     }
 
+    public function pathReviewStudent(Request $request, $path_id, $registration_id){
+        $data = [
+            'title' => 'Review Calon Siswa',
+            'menu' => 'PPDB',
+            'sub_menu' => 'Jalur Pendaftaran',
+            'path_id' => $path_id,
+            'registration_id' => $registration_id,
+            'registration_user' => PpdbRegistrationUser::with(['user.certificate', 'user.rapor', 'path'])->find($registration_id),
+
+        ];
+        // return response()->json($data);
+        return view('back.pages.ppdb.path.review-student', $data);
+
+    }
+
+    public function pathReviewStudentUpdate(Request $request, $path_id, $registration_id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status_berkas' => 'required',
+            'reason' => 'required',
+        ], [
+            'status.required' => 'Status harus diisi',
+            'reason.required' => 'Tanggapan harus diisi',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        PpdbRegistrationUser::find($registration_id)->update([
+            'status_berkas' => $request->status_berkas,
+            'reason' => $request->reason,
+        ]);
+
+        Alert::success('Berhasil', 'Data berhasil diubah');
+        return redirect()->back();
+    }
+
     public function pathExportStudent($path_id)
     {
         $path = PpdbPath::find($path_id);
