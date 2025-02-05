@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
 use App\Models\PpdbUser;
+use App\Models\PpdbUserCertificate;
 use App\Models\PpdbUserRapor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -131,6 +132,7 @@ class ProfileController extends Controller
             'page_title' => 'Profile',
             'page_description' => 'Data lainnya',
             'user' => Auth::guard('ppdb')->user(),
+            'certificates' => PpdbUserCertificate::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->get(),
             'rapor' => $rapor,
             'sem1_ipa' => collect($rapor->semester1_nilai)->firstWhere('mapel', 'Ilmu Pengetahuan Alam (IPA)')['nilai'] ?? 0,
             'sem1_ips' => collect($rapor->semester1_nilai)->firstWhere('mapel', 'Ilmu Pengetahuan Sosial (IPS)')['nilai'] ?? 0,
@@ -193,6 +195,7 @@ class ProfileController extends Controller
 
     public function otherDataUpdate(Request $request)
     {
+        // dd($request->all());
         $validator_rule = [
             'rapor_type' => 'required|in:SMP,MTS',
             'sem1_ipa' => 'required|numeric',
@@ -645,6 +648,85 @@ class ProfileController extends Controller
             $user_rapor->semester5_file = $semester5_file;
         }
         $user_rapor->save();
+
+        $user = PpdbUser::find(Auth::guard('ppdb')->user()->id);
+
+        if ($request->hasFile('screenshoot_nisn')) {
+            Storage::delete($user->screenshoot_nisn);
+            $screenshootNisn = $request->file('screenshoot_nisn')->storeAs('ppdb/screenshoot_nisn', Str::slug(Auth::guard('ppdb')->user()->nisn) . '.' . $request->file('screenshoot_nisn')->getClientOriginalExtension(), 'public');
+            $user->screenshoot_nisn = $screenshootNisn;
+        }
+
+        $user->save();
+
+        if($request->delete_certificate) {
+            $certificate_delete = json_decode($request->delete_certificate, true);
+            foreach ($certificate_delete as $certificateId) {
+                $certificate = PpdbUserCertificate::find($certificateId);
+                if ($certificate) {
+                    Storage::delete('public/' . $certificate->path);
+                    $certificate->delete();
+                }
+            }
+        }
+
+
+        // Looping data sertifikat dari request
+        if ($request->certificates) {
+            foreach ($request->certificates as $certificateData) {
+                $certificateName = $certificateData['certificate_name'] ?? '-';
+                $certificateRank = $certificateData['certificate_rank'] ?? 'Juara Lainnya';
+
+                // Jika ada ID sertifikat, berarti update data lama
+                if (isset($certificateData['certificate_id'])) {
+                    $certificate = PpdbUserCertificate::find($certificateData['certificate_id']);
+
+                    if (!$certificate) continue;
+
+                    // Jika ada file baru yang diunggah, hapus file lama dan simpan yang baru
+                    if (isset($certificateData['certificate_file']) && $certificateData['certificate_file']) {
+                        // Hapus file lama jika ada
+                        if ($certificate->path) {
+                            Storage::delete('public/' . $certificate->path);
+                        }
+
+                        // Simpan file baru
+                        $certificateFile = $certificateData['certificate_file'];
+                        $certificatePath = $certificateFile->storeAs(
+                            'ppdb/certificates',
+                            Str::slug($user->nisn) . '-' . Str::random(10) . '.' . $certificateFile->getClientOriginalExtension(),
+                            'public'
+                        );
+
+                        // Update path sertifikat
+                        $certificate->path = $certificatePath;
+                    }
+
+                    // Update informasi lainnya
+                    $certificate->name = Str::limit($certificateName, 250);
+                    $certificate->rank = $certificateRank;
+                    $certificate->save();
+                } else {
+                    // Jika tidak ada ID, buat data baru
+                    if (isset($certificateData['certificate_file']) && $certificateData['certificate_file']) {
+                        $certificateFile = $certificateData['certificate_file'];
+                        $certificatePath = $certificateFile->storeAs(
+                            'ppdb/certificates',
+                            Str::slug($user->nisn) . '-' . Str::random(10) . '.' . $certificateFile->getClientOriginalExtension(),
+                            'public'
+                        );
+
+                        // Simpan data baru
+                        $user->certificate()->create([
+                            'ppdb_user_id' => $user->id,
+                            'name' => Str::limit($certificateName, 250),
+                            'rank' => $certificateRank,
+                            'path' => $certificatePath
+                        ]);
+                    }
+                }
+            }
+        }
 
         Alert::success('Berhasil', 'Data berhasil diupdate');
         return redirect()->back();

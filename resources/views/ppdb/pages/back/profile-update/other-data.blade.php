@@ -530,15 +530,12 @@
                                                 <small class="text-muted fw-semibold">Anda dapat mengambil screenshot NISN dari web
                                                     resmi Kemendikbud yaitu : <a href="https://nisn.data.kemdikbud.go.id"
                                                         target="_blank">https://nisn.data.kemdikbud.go.id/</a>
+                                                    </small><br>
+                                                    <small class="text-gray700">File Sebelumnya : <a href="{{ asset('storage/' . $user->screenshoot_nisn) }}" target="_blank">{{ $user->screenshoot_nisn ?? "-" }}</a>
+                                                        @if ($user->screenshoot_nisn)
+                                                            <span class="text-danger">(Kosongkan jika tidak ingin mengganti)</span>
+                                                        @endif
                                                     </small>
-                                                <a class="d-block overlay" data-fslightbox="lightbox-basic" href="{{ asset('storage/' . $user->screenshoot_nisn) }}">
-                                                    <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-175px"
-                                                        style="background-image:url('{{ asset('storage/' . $user->screenshoot_nisn) }}')">
-                                                    </div>
-                                                    <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
-                                                        <i class="bi bi-eye-fill text-white fs-3x"></i>
-                                                    </div>
-                                                </a>
                                                 @error('screenshoot_nisn')
                                                     <small class="text-danger">*{{ $message }}</small>
                                                 @enderror
@@ -547,31 +544,36 @@
                                                 <div id="kt_docs_repeater_basic">
                                                     <div class="form-group">
                                                         <div data-repeater-list="certificates">
+                                                            @foreach ($certificates as $certificate)
+
                                                             <div data-repeater-item>
-                                                                <div class="form-group row">
+                                                                <input type="hidden" name="certificate_id" value="{{ $certificate->id ?? '' }}" id="certificate_id">
+                                                                <div class="form-group row mb-5">
                                                                     <div class="col-md-3">
                                                                         <label class="form-label ">File Sertifikat:</label>
                                                                         <input type="file" class="form-control mb-2 mb-md-0"
                                                                             name="certificate_file" placeholder="File Sertifikat" accept=".pdf,.png,.jpg,.jpeg" />
+
                                                                         <small class="text-muted">Berkas maksimal 10MB</small>
+
                                                                     </div>
                                                                     <div class="col-md-4">
                                                                         <label class="form-label ">Nama Prestasi:</label>
                                                                         <input type="text" class="form-control mb-2 mb-md-0"
-                                                                            name="certificate_name"
+                                                                            name="certificate_name" value="{{ $certificate->name ?? old('certificate_name') }}"
                                                                             placeholder="Nama Prestasi (Akademik/Non-Akademik)" />
                                                                     </div>
                                                                     <div class="col-md-3">
                                                                         <label class="form-label ">Peringkat:</label>
                                                                         <select class="form-select form-select-solid"
                                                                             name="certificate_rank">
-                                                                            <option value="Juara 1">Peringkat 1</option>
-                                                                            <option value="Peringkat 2">Peringkat 2</option>
-                                                                            <option value="Peringkat 3">Peringkat 3</option>
-                                                                            <option value="Peringkat Harapan 1">Peringkat Harapan 1</option>
-                                                                            <option value="Peringkat Harapan 2">Peringkat Harapan 2</option>
-                                                                            <option value="Peringkat Harapan 3">Peringkat Harapan 3</option>
-                                                                            <option value="Juara Lainnya">Juara Lainnya</option>
+                                                                            <option value="Juara 1" @if ($certificate->rank == 'Juara 1') selected @endif>Peringkat 1</option>
+                                                                            <option value="Peringkat 2" @if ($certificate->rank == 'Peringkat 2') selected @endif>Peringkat 2</option>
+                                                                            <option value="Peringkat 3" @if ($certificate->rank == 'Peringkat 3') selected @endif>Peringkat 3</option>
+                                                                            <option value="Peringkat Harapan 1" @if ($certificate->rank == 'Peringkat Harapan 1') selected @endif>Peringkat Harapan 1</option>
+                                                                            <option value="Peringkat Harapan 2" @if ($certificate->rank == 'Peringkat Harapan 2') selected @endif>Peringkat Harapan 2</option>
+                                                                            <option value="Peringkat Harapan 3" @if ($certificate->rank == 'Peringkat Harapan 3') selected @endif>Peringkat Harapan 3</option>
+                                                                            <option value="Juara Lainnya" @if ($certificate->rank == 'Juara Lainnya') selected @endif>Juara Lainnya</option>
                                                                         </select>
                                                                     </div>
                                                                     <div class="col-md-2">
@@ -586,9 +588,19 @@
                                                                             Hapus
                                                                         </a>
                                                                     </div>
+                                                                    <div id="certificate_file_info">
+                                                                        <small class="text-gray700">File Sebelumnya : <a href="{{ asset('storage/' . $certificate->path) }}" target="_blank">{{ $certificate->path ?? "-" }}</a>
+                                                                            @if ($certificate->path)
+                                                                                <span class="text-danger">(Kosongkan jika tidak ingin mengganti)</span>
+                                                                            @endif
+                                                                        </small>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+
+                                                            @endforeach
                                                         </div>
+                                                        <input type="hidden" name="delete_certificate" id="delete_certificate" value="">
                                                     </div>
                                                     <div class="form-group mt-5">
                                                         <a href="javascript:;" data-repeater-create class="btn btn-light-primary">
@@ -604,7 +616,7 @@
                                                 info lebih lanjut silahkan buka <a href="{{ route("ppdb.information") }}" target="_blank">Link Ini</a>
                                                 </small>
                                             </div>
-                                            <div class="mb-10">
+                                            {{-- <div class="mb-10">
                                                 <label for="exampleFormControlInput1" class="required form-label">Dari
                                                     Mana Mendapatkan informasi PPDB MAN 1 Padang Panjang</label>
                                                 <div class="form-check mb-3">
@@ -707,7 +719,7 @@
                                                 @error('additional_data')
                                                     <small class="text-danger">*{{ $message }}</small>
                                                 @enderror
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -716,16 +728,16 @@
 
                     </div>
                     <div class="card-footer">
-                        {{-- <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end">
                             <a href="{{ route('ppdb.dashboard') }}"
                                 class="btn btn-light btn-active-light-primary me-2">Cancel</a>
                             <button type="submit" class="btn btn-primary">Save Changes</button>
-                        </div> --}}
-                        <div class="d-flex justify-content-end">
+                        </div>
+                        {{-- <div class="d-flex justify-content-end">
                             <span class="text-muted me-2">
                                 *Data tidak dapat diubah.
                             </span>
-                        </div>
+                        </div> --}}
                     </div>
                 </form>
             </div>
@@ -748,10 +760,28 @@
 
             show: function() {
                 $(this).slideDown();
+                // Sembunyikan informasi file sebelumnya di item yang baru
+                $(this).find('#certificate_file_info').remove();
             },
 
             hide: function(deleteElement) {
                 $(this).slideUp(deleteElement);
+
+                // Ambil id sertifikat yang dihapus
+                var certificate_id = $(this).find('#certificate_id').val();
+                console.log(certificate_id);
+                // Tambahkan id sertifikat yang dihapus ke inputan delete_certificate
+                var delete_certificate = $('#delete_certificate').val();
+                if (certificate_id != '') {
+                    if (delete_certificate == '') {
+                        $('#delete_certificate').val('[' + certificate_id + ']');
+                    } else {
+                        delete_certificate = delete_certificate.slice(0, -1) + ',' + certificate_id + ']';
+                        $('#delete_certificate').val(delete_certificate);
+                    }
+                }
+                console.log($('#delete_certificate').val());
+
             }
         });
     </script>
