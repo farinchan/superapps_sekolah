@@ -48,6 +48,7 @@ class PpdbRegistrationUserObserver
                 'session' => env('WHATSAPP_API_SESSION'),
                 'to' => whatsappNumber($ppdbRegistrationUser->user?->whatsapp_number),
                 'text' => "Status anda telah diperbarui silahkan Cek status pendaftaran anda di website https://ppdb.man1kotapadangpanjang.sch.id. \n \n" .
+                    "Tanggapan dari panitia PPDB: _" . $ppdbRegistrationUser->reason . "_\n \n" .
                     "Jika ada pertanyaan, silakan hubungi kami melalui WhatsApp atau email. \n" .
                     "Terima kasih, \n" .
                     "*Panitia PPDB* \n \n" .
