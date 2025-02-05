@@ -413,6 +413,7 @@ Route::domain(env('APP_URL'))->group(function () {
 
             Route::get('/student', [BackPPDBController::class, 'student'])->name('student');
             Route::get('/student/{id}/detail', [BackPPDBController::class, 'studentDetail'])->name('student.detail');
+            Route::put('/student/{id}/change-password', [BackPPDBController::class, 'studentChangePassword'])->name('student.change-password');
             Route::delete('/student/{id}', [BackPPDBController::class, 'studentDestroy'])->name('student.destroy');
             Route::get('/student/export', [BackPPDBController::class, 'studentExport'])->name('student.export');
 

@@ -267,6 +267,28 @@ class PpdbController extends Controller
         return view('back.pages.ppdb.student.detail', $data);
     }
 
+    public function studentChangePassword(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'password' => 'required|min:8',
+        ], [
+            'password.required' => 'Password harus diisi',
+            'password.min' => 'Password minimal 8 karakter',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        PpdbUser::find($id)->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        Alert::success('Berhasil', 'Password berhasil diubah');
+        return redirect()->back();
+    }
+
     public function studentDestroy($id)
     {
         PpdbUser::find($id)->delete();

@@ -93,11 +93,9 @@
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <div class="card mb-5">
                 <div class="card-header">
                     <h3 class="card-title">Data Keluarga</h3>
@@ -181,11 +179,9 @@
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
                         </div>
-
                     </div>
                 </div>
             </div>
-
             <div class="card mb-5">
                 <div class="card-header">
                     <h3 class="card-title">Data Lainnya</h3>
@@ -234,7 +230,6 @@
                                         5</a>
                                 </li>
                             </ul>
-
                             <div class="tab-content ms-5" id="myTabContent">
                                 <div class="tab-pane fade show active" id="tab_sem1" role="tabpanel">
                                     <div class="mb-10">
@@ -432,7 +427,6 @@
                                     style="background-image:url('{{ asset('storage/' . $user->screenshoot_nisn) }}')">
                                 </div>
                                 <!--end::Image-->
-
                                 <!--begin::Action-->
                                 <div class="overlay-layer card-rounded bg-dark bg-opacity-25 shadow">
                                     <i class="bi bi-eye-fill text-white fs-3x"></i>
@@ -447,7 +441,6 @@
                         <div class="mb-10">
                             <label for="exampleFormControlInput1"
                                 class="required form-label">Serifikat Prestasi</label>
-
                             <table class="table table-bordered">
                                 <thead>
                                     <tr class="fs-5 ">
@@ -552,7 +545,6 @@
                                 ) {
                                     $additional_data_other = $additional_data_other_temp;
                                 }
-
                             @endphp
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" value="Lainnya"
@@ -571,7 +563,6 @@
                                     name="additional_data_other" id="additional_data_other"
                                     value="{{ $additional_data_other }}" readonly />
                             </div>
-
                             @error('additional_data')
                                 <small class="text-danger">*{{ $message }}</small>
                             @enderror
@@ -579,12 +570,53 @@
                     </div>
                 </div>
             </div>
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h3 class="card-title">Ubah Password</h3>
+                </div>
+                <form action="{{ route('back.ppdb.student.change-password', $user->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-body py-4">
+                        <div class="fv-row" data-kt-password-meter="true">
+                            <div class="mb-1">
+                                <label class="form-label fw-semibold fs-6 mb-2">
+                                    Password Baru
+                                </label>
+                                <div class="position-relative mb-3">
+                                    <input class="form-control form-control-lg form-control-solid"
+                                        type="password" placeholder="" name="password" autocomplete="off" placeholder="********" />
+                                    <span class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
+                                        data-kt-password-meter-control="visibility">
+                                            <i class="ki-duotone ki-eye-slash fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span></i>
+                                            <i class="ki-duotone ki-eye d-none fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                                    </span>
+                                </div>
+                                <div class="d-flex align-items-center mb-3" data-kt-password-meter-control="highlight">
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px me-2"></div>
+                                    <div class="flex-grow-1 bg-secondary bg-active-success rounded h-5px"></div>
+                                </div>
+                            </div>
+                            <div class="text-muted">
+                                password minimal 8 karakter, kosongkan jika tidak ingin mengubah password
+                            </div>
+                            @error('new_password')
+                                <div class="text-danger">
+                                    *{{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-end">
+                        <button type="submit" class="btn btn-warning ms-2">Update</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-
 @endsection
-
 @section('scripts')
 <script src="{{ asset("back/plugins/custom/fslightbox/fslightbox.bundle.js") }}"></script>
-
 @endsection
