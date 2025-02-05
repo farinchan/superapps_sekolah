@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
+use App\Models\PpdbRegistrationUser;
 use App\Models\PpdbUser;
 use App\Models\PpdbUserCertificate;
 use App\Models\PpdbUserRapor;
@@ -80,6 +81,7 @@ class ProfileController extends Controller
             'submenu' => 'Profile',
             'page_title' => 'Profile',
             'page_description' => 'Data orang tua anda',
+            'path_select_perbaiki' => PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->where('status_berkas', 'perbaiki')->first() ? true : false,
             'user' => Auth::guard('ppdb')->user()
         ];
         // return response()->json($data);
@@ -131,6 +133,7 @@ class ProfileController extends Controller
             'submenu' => 'Profile',
             'page_title' => 'Profile',
             'page_description' => 'Data lainnya',
+            'path_select_perbaiki' => PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->where('status_berkas', 'perbaiki')->first() ? true : false,
             'user' => Auth::guard('ppdb')->user(),
             'certificates' => PpdbUserCertificate::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->get(),
             'rapor' => $rapor,

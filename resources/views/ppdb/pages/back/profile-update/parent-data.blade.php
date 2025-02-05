@@ -35,7 +35,8 @@
                                                 @enderror
                                             </div>
                                             <div class="mb-10">
-                                                <label for="exampleFormControlInput1" class="required form-label">NIK Calon Peserta Didik</label>
+                                                <label for="exampleFormControlInput1" class="required form-label">NIK Calon
+                                                    Peserta Didik</label>
                                                 <input type="text" class="form-control form-control-solid"
                                                     placeholder="Nomor Induk Kependudukan" name="nik"
                                                     value="{{ $user->nik }}" required />
@@ -119,11 +120,19 @@
 
                     </div>
                     <div class="card-footer">
-                        <div class="d-flex justify-content-end">
-                            <a href="{{ route('ppdb.dashboard') }}"
-                                class="btn btn-light btn-active-light-primary me-2">Cancel</a>
-                            <button type="submit" class="btn btn-warning">Update</button>
-                        </div>
+                        @if ($path_select_perbaiki)
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('ppdb.dashboard') }}"
+                                    class="btn btn-light btn-active-light-primary me-2">Cancel</a>
+                                <button type="submit" class="btn btn-warning">Update</button>
+                            </div>
+                        @else
+                            <div class="d-flex justify-content-end">
+                                <span class="text-muted me-2">
+                                    *Data tidak dapat diubah.
+                                </span>
+                            </div>
+                        @endif
                     </div>
                 </form>
             </div>

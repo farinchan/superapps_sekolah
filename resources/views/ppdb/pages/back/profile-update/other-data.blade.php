@@ -728,16 +728,19 @@
 
                     </div>
                     <div class="card-footer">
-                        <div class="d-flex justify-content-end">
-                            <a href="{{ route('ppdb.dashboard') }}"
-                                class="btn btn-light btn-active-light-primary me-2">Cancel</a>
-                            <button type="submit" class="btn btn-warning">Update</button>
-                        </div>
-                        {{-- <div class="d-flex justify-content-end">
-                            <span class="text-muted me-2">
-                                *Data tidak dapat diubah.
-                            </span>
-                        </div> --}}
+                        @if($path_select_perbaiki){}
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('ppdb.dashboard') }}"
+                                    class="btn btn-light btn-active-light-primary me-2">Cancel</a>
+                                <button type="submit" class="btn btn-warning">Update</button>
+                            </div>
+                        @else
+                            <div class="d-flex justify-content-end">
+                                <span class="text-muted me-2">
+                                    *Data tidak dapat diubah.
+                                </span>
+                            </div>
+                        @endif
                     </div>
                 </form>
             </div>
