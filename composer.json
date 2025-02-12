@@ -17,8 +17,8 @@
         "maatwebsite/excel": "^3.1",
         "realrashid/sweet-alert": "^7.2",
         "spatie/laravel-activitylog": "^4.9",
-        "spatie/laravel-permission": "^6.9",
-        "stevebauman/location": "^7.3",
+        "spatie/laravel-permission": "^6.13",
+        "stevebauman/location": "^7.4",
         "yajra/laravel-datatables": "^11.0"
     },
     "require-dev": {
