@@ -787,8 +787,8 @@
             <div class="section-title-2 mb65 headline text-left ">
                 <h2><span>Video</span> Youtube Terbaru</h2>
             </div>
-            <div class="row" id="youtube">
-            </div>
+            {{-- <div class="tagembed-widget" style="width:100%;height:100%" data-widget-id="2153028" data-tags="false"  view-url="https://widget.tagembed.com/2153028"></div> --}}
+            <div class="row" id="youtube"></div>
     </section>
     <!-- End of sponsor section
                                                                                                                                                      ============================================= -->
