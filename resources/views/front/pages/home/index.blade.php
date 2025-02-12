@@ -124,7 +124,7 @@
 
 @section('content')
     <!-- Start of slider section
-                                                                                                                                                                                                  ============================================= -->
+                                                                                                                                                                                                      ============================================= -->
     <section id="slide" class="slider-section">
         <div id="slider-item" class="slider-item-details">
             @foreach ($list_banner as $banner)
@@ -155,10 +155,10 @@
         </div>
     </section>
     <!-- End of slider section
-                                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                                    ============================================= -->
 
     <!-- Start Latest News
-                                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                                    ============================================= -->
     <section id="popular-course" class="popular-course-section mt-5">
         <div class="container">
             <div class="section-title mb20 headline text-left ">
@@ -170,7 +170,8 @@
                 @foreach ($list_news as $news)
                     <div class="course-item-pic-text ">
                         <div class="course-pic relative-position mb25">
-                            <img src="{{ $news->getThumbnail() }}" alt="" style="height: 250px; width: 100%; object-fit: cover;">
+                            <img src="{{ $news->getThumbnail() }}" alt=""
+                                style="height: 250px; width: 100%; object-fit: cover;">
                             {{-- <div class="course-price text-center gradient-bg">
                                 <span>$99.00</span>
                             </div> --}}
@@ -183,7 +184,8 @@
                             <div class="course-meta">
                                 <span class="course-category bold-font"><a
                                         href="{{ route('news.category', $news->category->name) }}">{{ $news->category->name }}</a></span>
-                                <span class="course-author bold-font"><a href="{{ route('staff.detail', $news->user?->teacher?->id) }}">{{ $news->user?->teacher?->name }}</a></span>
+                                <span class="course-author bold-font"><a
+                                        href="{{ route('staff.detail', $news->user?->teacher?->id) }}">{{ $news->user?->teacher?->name }}</a></span>
 
                             </div>
                             <div class="course-title mt10 headline pb45 relative-position">
@@ -212,10 +214,10 @@
         </div>
     </section>
     <!-- End Latest News
-                                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                                    ============================================= -->
 
     <!-- Start latest section
-                                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                                    ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -257,8 +259,7 @@
                 <div class="col-md-3">
                     <div class="latest-area-content ">
                         <div class="section-title-2 mb65 headline text-left">
-                            <h2 style="font-size: 30px;"
-                            ><span>Pengumuman</span></h2>
+                            <h2 style="font-size: 30px;"><span>Pengumuman</span></h2>
                         </div>
                         <div class="row">
                             @foreach ($list_pengumuman as $pengumuman)
@@ -272,7 +273,8 @@
                                                         {{ Str::limit($pengumuman->title, 65) }}
                                                     </a></h3>
                                                 <div class="course-meta">
-                                                    <span class="course-category"><a href="#">{{ Carbon\Carbon::parse($pengumuman->created_at)->format('d M Y') }}</a></span>
+                                                    <span class="course-category"><a
+                                                            href="#">{{ Carbon\Carbon::parse($pengumuman->created_at)->format('d M Y') }}</a></span>
                                                     <span class="course-author"><a href="#">HUMAS</a></span>
                                                 </div>
                                             </div>
@@ -349,10 +351,10 @@
         </div>
     </section>
     <!-- End latest section
-                                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                                    ============================================= -->
 
     <!-- Start why choose section
-                                                                                                                                                                                              ========================================= ==== -->
+                                                                                                                                                                                                  ========================================= ==== -->
     <section id="why-choose" class="why-choose-section backgroud-style">
         <div class="container">
             <div class="section-title mb20 headline text-center ">
@@ -393,11 +395,11 @@
         </div>
     </section>
     <!-- End why choose section
-                                                                                                                                                                                              ============================================= -->
+                                                                                                                                                                                                  ============================================= -->
 
 
     <!-- Start of Search Courses
-                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                    ============================================= -->
     <section id="search-course" class="search-course-section">
         <div class="container">
             <div class="section-title mb20 headline text-center mb-5">
@@ -473,10 +475,10 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                                                        ============================================= -->
+                                                                                                            ============================================= -->
 
     <!-- Start prestasi section
-                                                                                                           ============================================= -->
+                                                                                                               ============================================= -->
     <section id="latest-area" class="latest-area-section">
         <div class="container">
             <div class="row">
@@ -527,10 +529,10 @@
         </div>
     </section>
     <!-- End prestasi section
-                                                                                                           ============================================= -->
+                                                                                                               ============================================= -->
 
     <!-- Start Course category
-                                                                                                                                                                                    ============================================= -->
+                                                                                                                                                                                        ============================================= -->
     <section id="course-category" class="course-category-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -562,12 +564,12 @@
         </div>
     </section>
     <!-- End Course category
-                                                                                                                ============================================= -->
+                                                                                                                    ============================================= -->
 
 
 
     <!-- Start of course teacher
-                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                    ============================================= -->
     <section id="course-teacher" class="course-teacher-section">
         <div class="jarallax">
             <div class="container">
@@ -600,7 +602,8 @@
                                         </div>
                                         <div class="teacher-img-category">
                                             <div class="teacher-img">
-                                                <img src="{{ $teacher->getPhoto() }}" alt="" style="height: 170px; width: 200px; object-fit: cover;">
+                                                <img src="{{ $teacher->getPhoto() }}" alt=""
+                                                    style="height: 170px; width: 200px; object-fit: cover;">
                                                 {{-- <div class="course-price text-uppercase text-center gradient-bg">
                                                     <span>Featured</span>
                                                 </div> --}}
@@ -632,10 +635,10 @@
         </div>
     </section>
     <!-- End of course teacher
-                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                    ============================================= -->
 
     <!-- Start of best course
-                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                    ============================================= -->
     <section id="best-course" class="best-course-section">
         <div class="container">
             <div class="section-title mb45 headline text-center ">
@@ -686,11 +689,11 @@
         </div>
     </section>
     <!-- End of best course
-                                                      ============================================= -->
+                                                          ============================================= -->
 
 
     <!-- Start of genius teacher v2
-                                                       ============================================= -->
+                                                           ============================================= -->
     <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -716,17 +719,19 @@
         </div>
     </section>
     <!-- End of genius teacher v2
-                                                     ============================================= -->
+                                                         ============================================= -->
 
 
     <!-- Start of genius teacher v2
-                                                       ============================================= -->
-    {{-- <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
+                                                           ============================================= -->
+    <section id="genius-teacher-2" class="genius-teacher-section-2 mt-5">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
                 <h2><span>Instagram</span> Post.</h2>
             </div>
-            <div class="teacher-third-slide">
+            <div class="tagembed-widget" style="width:100%;height:100%" data-widget-id="2153025" data-tags="false"
+                view-url="https://widget.tagembed.com/2153025"></div>
+            {{-- <div class="teacher-third-slide">
                 @foreach ($instagram_feed['feed'] as $instagram)
                     @php
                         $image = '';
@@ -768,16 +773,15 @@
                         </div>
                     </div>
                 @endforeach
-
-            </div>
+            </div> --}}
         </div>
-    </section> --}}
+    </section>
     <!-- End of genius teacher v2
-                                                     ============================================= -->
+                                                         ============================================= -->
 
 
     <!-- Start of sponsor section
-                                                                                                                                                    ============================================= -->
+                                                                                                                                                        ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -787,10 +791,10 @@
             </div>
     </section>
     <!-- End of sponsor section
-                                                                                                                                                 ============================================= -->
+                                                                                                                                                     ============================================= -->
 
     <!-- Start of sponsor section
-                                                                                                                                                    ============================================= -->
+                                                                                                                                                        ============================================= -->
     <section id="sponsor" class="sponsor-section">
         <div class="container">
             <div class="section-title-2 mb65 headline text-left ">
@@ -807,12 +811,12 @@
         </div>
     </section>
     <!-- End of sponsor section
-                                                                                                                                                 ============================================= -->
+                                                                                                                                                     ============================================= -->
 
 
 
     <!-- Start of Search Courses
-                                                                                                                                                                                ============================================= -->
+                                                                                                                                                                                    ============================================= -->
     <section id="search-course" class="search-course-section home-secound-course-search backgroud-style">
         <div class="container">
 
@@ -849,14 +853,20 @@
                                 <div class="about-btn">
                                     <div
                                         class="genius-btn gradient-bg text-center text-uppercase ul-li-block bold-font float-left">
-                                        <a href="https://docs.google.com/uc?export=download&id=1gmHKvb8Na_2sAhH1S4N4-niQefdC9-9e">Download </a>
+                                        <a
+                                            href="https://docs.google.com/uc?export=download&id=1gmHKvb8Na_2sAhH1S4N4-niQefdC9-9e">Download
+                                        </a>
                                     </div>
 
                                     <div class="app-stor ul-li mt10">
                                         <ul>
-                                            <li><a href="https://docs.google.com/uc?export=download&id=1gmHKvb8Na_2sAhH1S4N4-niQefdC9-9e"><i class="fab fa-android"></i></a></li>
+                                            <li><a
+                                                    href="https://docs.google.com/uc?export=download&id=1gmHKvb8Na_2sAhH1S4N4-niQefdC9-9e"><i
+                                                        class="fab fa-android"></i></a></li>
                                             {{-- <li><a href="#"><i class="fab fa-apple"></i></a></li> --}}
-                                            <li><a href="https://docs.google.com/uc?export=download&id=18HF1doKz1xlz6TwpBiIndrMy1r6TVDT5"><i class="fab fa-windows"></i></a></li>
+                                            <li><a
+                                                    href="https://docs.google.com/uc?export=download&id=18HF1doKz1xlz6TwpBiIndrMy1r6TVDT5"><i
+                                                        class="fab fa-windows"></i></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -868,10 +878,11 @@
         </div>
     </section>
     <!-- End of Search Courses
-                                                                                                                                                                                                  ============================================= -->
+                                                                                                                                                                                                      ============================================= -->
 @endsection
 
 @section('scripts')
+    <script src="https://widget.tagembed.com/embed.min.js" type="text/javascript"></script>
     <script>
         $('.image-popup').magnificPopup({
             gallery: {
