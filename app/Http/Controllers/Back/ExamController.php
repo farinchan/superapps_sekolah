@@ -16,6 +16,7 @@ use App\Models\ExamQuestion;
 use App\Models\ExamQuestionMatchingPair;
 use App\Models\ExamQuestionMultipleChoice;
 use App\Models\ExamQuestionMultipleChoiceComplex;
+use App\Models\ExamQuestionTrueFalse;
 use App\Models\ExamSession;
 use App\Models\LogLoginElearning;
 use App\Models\SchoolYear;
@@ -25,6 +26,7 @@ use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
@@ -955,6 +957,178 @@ class ExamController extends Controller
 
         return view('back.pages.exam.create.true-false', $data);
     }
+
+    public function questionStoreTrueFalse(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'question_text' => 'required',
+            'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'question_score' => 'required|numeric',
+            'true_false_option' => 'required|in:fixed,calculated',
+            'choices' => 'required|array|min:1',
+            'choices.*.choice_text' => 'required',
+            'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'choices.*.true_false_answer' => 'required'
+        ], [
+            'question_text.required' => 'Pertanyaan wajib diisi',
+            'question_image.image' => 'Pertanyaan harus berupa gambar',
+            'question_image.mimes' => 'Format gambar tidak valid',
+            'question_image.max' => 'Ukuran gambar terlalu besar',
+            'question_score.required' => 'Skor soal wajib diisi',
+            'question_score.numeric' => 'Skor soal harus berupa angka',
+            'true_false_option.required' => 'Pilih salah satu opsi',
+            'true_false_option.in' => 'Opsi tidak valid',
+
+            'choices.required' => 'Pilihan jawaban wajib diisi',
+            'choices.array' => 'Pilihan jawaban harus berupa array',
+            'choices.min' => 'Pilihan jawaban minimal 1',
+            'choices.*.choice_text.required' => 'Pilihan jawaban wajib diisi',
+            'choices.*.choice_image.image' => 'Pilihan jawaban harus berupa gambar',
+            'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
+            'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
+            'choices.*.true_false_answer.required' => 'Pilih salah satu jawaban yang benar atau salah',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        $question = ExamQuestion::create([
+            'exam_id' => $id,
+            'question_type' => 'benar salah',
+            'question_text' => $request->question_text,
+            'question_image' => $request->hasFile('question_image') ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public') : null,
+            'question_score' => $request->question_score,
+            'true_false_option' => $request->true_false_option,
+        ]);
+
+        foreach ($request->choices as $index => $choice) {
+            ExamQuestionTrueFalse::create([
+                'exam_question_id' => $question->id,
+                'choice_text' => $choice['choice_text'],
+                'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
+                    ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
+                    : null,
+                'true_false_answer' => $choice['true_false_answer'],
+            ]);
+        }
+
+        Alert::success('Success', 'Data berhasil ditambahkan');
+        return redirect()->route('back.exam.question', $id);
+
+    }
+
+    public function questionEditTrueFalse($id, $question_id)
+    {
+        $data = [
+            'title' => 'Edit Soal Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+            'exam_id' => $id,
+
+            'exam' => Exam::with('teacher', 'schoolYear')->find($id),
+            'question' => ExamQuestion::with('trueFalse')->find($question_id),
+        ];
+
+        return view('back.pages.exam.edit.true-false', $data);
+    }
+
+    public function questionUpdateTrueFalse(Request $request, $exam_id, $question_id)
+    {
+        // dd($request->all());
+        // Validasi data yang diterima dari form
+        $validator = Validator::make($request->all(), [
+            'question_text' => 'required',
+            'question_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4096',
+            'question_score' => 'required|numeric',
+            'true_false_option' => 'required|in:fixed,calculated',
+            'choices' => 'required|array|min:1',
+            'choices.*.choice_text' => 'required',
+            'choices.*.choice_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'choices.*.true_false_answer' => 'required'
+        ], [
+            'question_text.required' => 'Pertanyaan wajib diisi',
+            'question_image.image' => 'Pertanyaan harus berupa gambar',
+            'question_image.mimes' => 'Format gambar tidak valid',
+            'question_image.max' => 'Ukuran gambar terlalu besar',
+            'question_score.required' => 'Skor soal wajib diisi',
+            'question_score.numeric' => 'Skor soal harus berupa angka',
+            'true_false_option.required' => 'Pilih salah satu opsi',
+            'true_false_option.in' => 'Opsi tidak valid',
+
+            'choices.required' => 'Pilihan jawaban wajib diisi',
+            'choices.array' => 'Pilihan jawaban harus berupa array',
+            'choices.min' => 'Pilihan jawaban minimal 1',
+            'choices.*.choice_text.required' => 'Pilihan jawaban wajib diisi',
+            'choices.*.choice_image.image' => 'Pilihan jawaban harus berupa gambar',
+            'choices.*.choice_image.mimes' => 'Format gambar tidak valid',
+            'choices.*.choice_image.max' => 'Ukuran gambar terlalu besar',
+            'choices.*.true_false_answer.required' => 'Pilih salah satu jawaban yang benar atau salah',
+        ]);
+
+        // Jika validasi gagal
+        if ($validator->fails()) {
+            Alert::error('Error', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // Update soal
+        $question = ExamQuestion::findOrFail($question_id);
+        $question->update([
+            'question_text' => $request->question_text,
+            'question_image' => $request->hasFile('question_image')
+                ? $request->file('question_image')->storeAs('exam/question', Str::random(16) . '.' . $request->file('question_image')->getClientOriginalExtension(), 'public')
+                : $question->question_image,
+            'question_score' => $request->question_score,
+            'true_false_option' => $request->true_false_option,
+        ]);
+
+        if ($request->delete_choice ) {
+            $choice_delete = json_decode($request->delete_choice, true);
+            foreach ($choice_delete as $key => $value) {
+                $choice = ExamQuestionTrueFalse::find($value);
+                if ($choice) {
+                    if ($choice->choice_image) {
+                        Storage::delete('public/' . $choice->choice_image);
+                    }
+                    $choice->delete();
+                }
+            }
+        }
+
+        // Update atau buat pilihan jawaban
+        foreach ($request->choices as $index => $choice) {
+
+            if (isset($choice['choice_id']) && $choice['choice_id']) {
+                // Jika ID ada, update pilihan yang ada
+                $choiceRecord = ExamQuestionTrueFalse::find($choice['choice_id']);
+                $choiceRecord->update([
+                    'choice_text' => $choice['choice_text'],
+                    'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
+                        ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
+                        : $choiceRecord->choice_image, // Tidak mengubah jika tidak ada gambar baru
+                    'true_false_answer' => $choice['true_false_answer'],
+                ]);
+            } else {
+                // Jika tidak ada ID, berarti ini pilihan baru
+                ExamQuestionTrueFalse::create([
+                    'exam_question_id' => $question->id,
+                    'choice_text' => $choice['choice_text'],
+                    'choice_image' => isset($choice['choice_image']) && is_file($choice['choice_image'])
+                        ? $choice['choice_image']->storeAs('exam/choice', Str::random(16) . '.' . $choice['choice_image']->getClientOriginalExtension(), 'public')
+                        : null,
+                    'true_false_answer' => $choice['true_false_answer'],
+                ]);
+            }
+        }
+
+        Alert::success('Success', 'Data berhasil diperbarui');
+        return redirect()->back();
+    }
+
+
+
 
     //TODO: EXAM QUESTION MATCHING PAIR
 

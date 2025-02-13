@@ -20,6 +20,11 @@ class ExamQuestion extends Model
         return $this->hasMany(ExamQuestionMultipleChoiceComplex::class, 'exam_question_id');
     }
 
+    public function trueFalse()
+    {
+        return $this->hasMany(ExamQuestionTrueFalse::class, 'exam_question_id');
+    }
+
     public function matchingPair()
     {
         return $this->hasMany(ExamQuestionMatchingPair::class, 'exam_question_id');

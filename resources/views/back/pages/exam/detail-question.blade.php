@@ -54,6 +54,8 @@
                         @if ($question->question_type == 'pilihan ganda') {{ route('back.exam.question.multiple-choice.edit', [$exam->id, $question->id]) }}
                         @elseif ($question->question_type == 'pilihan ganda kompleks')
                             {{ route('back.exam.question.multiple-choice-complex.edit', [$exam->id, $question->id]) }}
+                        @elseif ($question->question_type == 'benar salah')
+                            {{ route('back.exam.question.true-false.edit', [$exam->id, $question->id]) }}
                         @elseif ($question->question_type == 'menjodohkan')
                             {{-- {{ route("back.exam.question.matching.edit", [$exam->id, $question->id]) }} --}} @endif
                         "
@@ -149,7 +151,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-md-12">
+                        {{-- <div class="col-md-12">
                             <a href="{{ route('back.exam.question.matching-pair.create', $exam->id) }}"
                                 class="card hover-elevate-up shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
@@ -163,7 +165,7 @@
                                     </span>
                                 </div>
                             </a>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 
@@ -196,7 +198,8 @@
                                 data-hide-search="true" data-dropdown-parent="#import" name="question_type" required>
                                 <option value="pilihan ganda">Pilihan Ganda</option>
                                 <option value="pilihan ganda kompleks">Pilihan Ganda Kompleks</option>
-                                <option value="menjodohkan">Menjodohkan</option>
+                                <option value="benar salah">Benar Salah</option>
+                                {{-- <option value="menjodohkan">Menjodohkan</option> --}}
                             </select>
                             <small class="text-muted">pastikan tipe soal yang dipilih sesuai dengan file yang akan diimport
                                 dan
@@ -207,6 +210,9 @@
                                     download>Download</a></small><br>
                             <small class="text-muted">Format file pilihan ganda kompleks: <a
                                     href="{{ asset('exam/media/files/soal-pilihan-ganda-kompleks.xlsx') }}"
+                                    download>Download</a></small><br>
+                            <small class="text-muted">Format file benar salah: <a
+                                    href="{{ asset('exam/media/files/soal-benar-salah.xlsx') }}"
                                     download>Download</a></small><br>
                             <small class="text-muted text-danger">Format file menjodohkan: <a
                                     href="{{ asset('exam/media/files/soal-menjodohkan.xlsx') }}"
