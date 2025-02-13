@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('exam_question_id')->constrained('exam_question')->onDelete('cascade')->onUpdate('cascade');
             $table->json('answer')->nullable();
             $table->boolean('is_correct')->nullable();
+            $table->float('score')->nullable();
             $table->timestamps();
         });
     }

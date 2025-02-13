@@ -941,6 +941,21 @@ class ExamController extends Controller
         return redirect()->back();
     }
 
+    //TODO: EXAM QUESTION TRUE OR FALSE
+    public function questionTrueFalse($id)
+    {
+        $data = [
+            'title' => 'Tambah Soal Ujian',
+            'menu' => 'E-Learning',
+            'sub_menu' => 'Ujian',
+            'exam_id' => $id,
+
+            'exam' => Exam::with('teacher', 'schoolYear')->find($id),
+        ];
+
+        return view('back.pages.exam.create.true-false', $data);
+    }
+
     //TODO: EXAM QUESTION MATCHING PAIR
 
     public function questionMatchingPair($id)

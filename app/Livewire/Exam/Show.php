@@ -25,7 +25,7 @@ class Show extends Component
     public $exam_question_state;
     public $exam_question_percentage;
 
-    public $exam_multiple_choice_complex_text = [];
+    public $exam_multiple_choice_complex_id = [];
     public $exam_multiple_choice_complex_is_correct = [];
 
     public function mount($session_id)
@@ -136,19 +136,38 @@ class Show extends Component
 
     public function answerMultipleChoiceComplex($id)
     {
-        $answer = ExamQuestionMultipleChoiceComplex::find($id);
+        $anwer_correct_id = ExamQuestionMultipleChoiceComplex::where('exam_question_id', $this->exam_question->id)
+            ->where('is_correct', true)
+            ->pluck('id')->toArray();
 
-        // Cek apakah pilihan sudah ada dalam array
-        if (in_array($id, $this->exam_multiple_choice_complex_text)) {
-            // Jika sudah ada, hapus dari array
-            $key = array_search($id, $this->exam_multiple_choice_complex_text);
-            array_splice($this->exam_multiple_choice_complex_text, $key, 1);
-            array_splice($this->exam_multiple_choice_complex_is_correct, $key, 1);
-        } else {
-            // Jika belum ada, tambahkan ke array
-            $this->exam_multiple_choice_complex_text[] = $id;
-            $this->exam_multiple_choice_complex_is_correct[] = $answer->is_correct;
-        }
+        $exam_answer_multiple_choice_complex = ExamAnswer::where('exam_session_id', $this->exam_session->id)
+            ->where('exam_question_id', $this->exam_question->id)
+            ->first();
+
+            // Ambil id jawaban yang sudah ada
+
+
+            $new_answer = array_column($exam_answer_multiple_choice_complex->answer['multiple_choice_complex'] ?? [], 'id');
+            $correct = null;
+
+            // dd($new_answer, $exam_answer_multiple_choice_complex_id, $anwer_correct_id);
+
+            // Cek apakah pilihan sudah ada dalam array
+            if (in_array($id,  $new_answer)) {
+                // Jika sudah ada, hapus dari array
+                $new_answer = array_diff($new_answer, [$id]);
+            } else {
+                // Jika belum ada, tambahkan ke array
+                $new_answer[] = $id;
+            }
+
+            if (empty(array_diff($anwer_correct_id, $new_answer)) && empty(array_diff($new_answer, $anwer_correct_id))) {
+                $correct = true;
+            } else {
+                $correct = false;
+            }
+
+
 
         // Simpan atau perbarui jawaban di database
         ExamAnswer::updateOrCreate(
@@ -163,9 +182,9 @@ class Show extends Component
                             'id' => $id,
                             'text' => ExamQuestionMultipleChoiceComplex::find($id)->choice_text
                         ];
-                    }, $this->exam_multiple_choice_complex_text)
+                    }, $new_answer)
                 ],
-                'is_correct' => collect($this->exam_multiple_choice_complex_is_correct)->contains(false) ? false : true
+                'is_correct' => $correct
             ]
         );
 

@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('exam_question', function (Blueprint $table) {
             $table->id();
             $table->foreignId('exam_id')->constrained('exam')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('question_type', ['pilihan ganda', 'pilihan ganda kompleks', 'menjodohkan']);
+            $table->enum('question_type', ['pilihan ganda', 'pilihan ganda kompleks', 'menjodohkan', 'benar salah', 'esai']);
             $table->longText('question_text')->nullable();
             $table->string('question_image')->nullable();
             $table->integer('question_score')->default(1);
+            $table->enum('true_false_option', ['fixed', 'calculated'])->nullable();
             $table->timestamps();
         });
     }

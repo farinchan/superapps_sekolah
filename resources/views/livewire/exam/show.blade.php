@@ -44,7 +44,8 @@
                                 @foreach ($exam_question_state as $state)
                                     @if ($state->id == $exam_question->id)
                                         <div class="col-4">
-                                            <button wire:click.prevent="changeQuestion({{ $state->id }})" id="side_question_number"
+                                            <button wire:click.prevent="changeQuestion({{ $state->id }})"
+                                                id="side_question_number"
                                                 class="btn btn-icon btn-outline btn-light-primary btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                 data-kt-button="true" data-kt-drawer-dismiss="true">
                                                 <span class="mb-2" style="font-size: 1.8rem;"> {{ $loop->iteration }}
@@ -54,7 +55,8 @@
                                     @else
                                         @if ($state->answer)
                                             <div class="col-4">
-                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"  id="side_question_number"
+                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"
+                                                    id="side_question_number"
                                                     class="btn btn-icon btn-outline btn-light-success btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                     data-kt-button="true" data-kt-drawer-dismiss="true">
                                                     <span class="mb-2" style="font-size: 1.8rem;">
@@ -64,7 +66,8 @@
                                             </div>
                                         @else
                                             <div class="col-4">
-                                                <button wire:click.prevent="changeQuestion({{ $state->id }})" id="side_question_number"
+                                                <button wire:click.prevent="changeQuestion({{ $state->id }})"
+                                                    id="side_question_number"
                                                     class="btn btn-icon btn-outline btn-bg-light btn-active-light-primary btn-flex flex-column flex-center w-65px h-65px border-gray-200"
                                                     data-kt-button="true" data-kt-drawer-dismiss="true">
                                                     <span class="mb-2"
@@ -171,11 +174,21 @@
                                         @endforeach
                                     @elseif ($exam_question->question_type == 'pilihan ganda kompleks')
                                         @foreach ($exam_question->multipleChoiceComplex as $choice)
+                                            @php
+                                                $answer = $exam_answer?->answer['multiple_choice_complex'];
+                                                $answer_id = array_column($answer ?? [], 'id');
+                                            @endphp
+                                            {{-- @dd([
+                                            $answer_id,
+                                            $exam_question->multipleChoiceComplex
+                                        ]) --}}
                                             <div class="d-flex fv-row">
                                                 <div class="form-check form-check-custom form-check-solid">
                                                     <input class="form-check-input me-3" type="checkbox"
+                                                        id="{{ $choice->id }}"
                                                         wire:change="answerMultipleChoiceComplex({{ $choice->id }})"
-                                                        @if (in_array($choice->id, $exam_multiple_choice_complex_text)) checked @endif>
+                                                        onload="@if (!in_array($choice->id, $answer_id)) unchecked({{ $choice->id }}); @endif"
+                                                        @if (in_array($choice->id, $answer_id)) checked @endif>
                                                     <label class="form-check-label">
                                                         @if ($choice->choice_image)
                                                             <img class="img-fluid" src="{{ $choice->getImage() }}"

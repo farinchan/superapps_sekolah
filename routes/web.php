@@ -393,6 +393,11 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::get('/detail/{id}/question/edit-multipleChoicecomplex/{question_id}', [BackExamController::class, 'questionEditMultipleChoiceComplex'])->name('question.multiple-choice-complex.edit');
             Route::put('/detail/{id}/question/update-multipleChoicecomplex/{question_id}', [BackExamController::class, 'questionUpdateMultipleChoiceComplex'])->name('question.multiple-choice-complex.update');
 
+            Route::get('/detail/{id}/question/create-trueFalse', [BackExamController::class, 'questionTrueFalse'])->name('question.true-false.create');
+            Route::post('/detail/{id}/question/store-trueFalse', [BackExamController::class, 'questionStoreTrueFalse'])->name('question.true-false.store');
+            Route::get('/detail/{id}/question/edit-trueFalse/{question_id}', [BackExamController::class, 'questionEditTrueFalse'])->name('question.true-false.edit');
+            Route::put('/detail/{id}/question/update-trueFalse/{question_id}', [BackExamController::class, 'questionUpdateTrueFalse'])->name('question.true-false.update');
+
             Route::get('/detail/{id}/question/create-matchingPair', [BackExamController::class, 'questionMatchingPair'])->name('question.matching-pair.create');
 
             Route::get('/detail/{id}/question/{question_id}/edit', [BackExamController::class, 'questionEdit'])->name('question.edit');

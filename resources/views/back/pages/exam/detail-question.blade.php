@@ -135,6 +135,21 @@
                             </a>
                         </div>
                         <div class="col-md-12">
+                            <a href="{{ route('back.exam.question.true-false.create', $exam->id) }}"
+                                class="card hover-elevate-up shadow-sm parent-hover">
+                                <div class="card-body d-flex align-items">
+                                    <i class="ki-duotone ki-abstract-5 fs-1">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+
+                                    <span class="ms-3 text-gray-700 parent-hover-primary fs-6 fw-bold">
+                                        Benar Salah
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-md-12">
                             <a href="{{ route('back.exam.question.matching-pair.create', $exam->id) }}"
                                 class="card hover-elevate-up shadow-sm parent-hover">
                                 <div class="card-body d-flex align-items">
