@@ -956,7 +956,10 @@
 
                 if (!input.value) {
                     isValid = false;
+                    input.classList.add('is-invalid');
                     toastr.error('Data ' + input.placeholder + ' tidak boleh kosong');
+                } else {
+                    input.classList.remove('is-invalid');
                 }
             });
 
