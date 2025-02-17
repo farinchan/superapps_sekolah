@@ -435,10 +435,7 @@ class ExamController extends Controller
 
     public function studentExamForceEnd($session_id)
     {
-        $total_score = ExamAnswer::where('exam_session_id', $session_id)
-            ->where('is_correct', true)
-            ->join('exam_question', 'exam_question.id', '=', 'exam_answer.exam_question_id')
-            ->sum('exam_question.question_score');
+        $total_score = ExamAnswer::where('exam_session_id', $session_id)->sum('score');
 
         ExamSession::find($session_id)->update([
             'end_time' => now(),
