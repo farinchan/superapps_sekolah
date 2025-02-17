@@ -101,9 +101,9 @@
                                             class="btn btn-icon btn-outline
                                             @if ($question->examAnswer->isEmpty()) btn-light-dark
                                             @else
-                                                @if ($question->examAnswer->first()->is_correct == 1)
+                                                @if ($question->examAnswer->first()->is_correct == 1 || $question->examAnswer->first()->score > 0)
                                                     btn-light-success
-                                                @elseif ($question->examAnswer->first()->is_correct == 0)
+                                                @elseif ($question->examAnswer->first()->is_correct == 0 || $question->examAnswer->first()->score == 0)
                                                     btn-light-danger @endif
                                             @endif
                                             btn-flex flex-column flex-center w-65px h-65px border-gray-200">
@@ -173,26 +173,103 @@
                                         </div>
                                         <div class="separator separator-dashed my-5"></div>
                                     @endforeach
-                                    {{-- @elseif ($exam_question_number->question_type == 'pilihan ganda kompleks')
+                                @elseif ($exam_question_number->question_type == 'pilihan ganda kompleks')
+                                    @php
+                                        $answer =
+                                            $exam_question_number?->examAnswer[0]?->answer['multiple_choice_complex'] ??
+                                            [];
+                                        $answer_id = array_column($answer, 'id');
+                                    @endphp
                                     @foreach ($exam_question_number->multipleChoiceComplex as $choice)
                                         <div class="d-flex fv-row">
                                             <div class="form-check form-check-custom form-check-solid">
                                                 <input class="form-check-input me-3" type="checkbox"
-                                                    wire:change="answerMultipleChoiceComplex({{ $choice->id }})"
-                                                    @if (in_array($choice->id, $exam_multiple_choice_complex_text)) checked @endif>
+                                                    onclick="return false" name="{{ $exam_question_number->id }}[]"
+                                                    id="{{ $choice->id }}"
+                                                    @if (in_array($choice->id, $answer_id)) checked @endif>
                                                 <label class="form-check-label">
                                                     @if ($choice->choice_image)
                                                         <img class="img-fluid" src="{{ $choice->getImage() }}"
                                                             alt="">
                                                     @endif
                                                     <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
+                                                        @if ($choice->is_correct)
+                                                            <span class="fw-bold text-success">&nbsp; ( Jawaban Benar )
+                                                            </span>
+                                                        @endif
                                                     </div>
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="separator separator-dashed my-5"></div>
-                                    @endforeach --}}
+                                    @endforeach
+                                @elseif ($exam_question_number->question_type == 'benar salah')
+                                    @foreach ($exam_question_number->trueFalse as $choice)
+                                        @php
+                                            $answer =
+                                                $exam_question_number?->examAnswer[0]?->answer['true_false'] ?? [];
+                                            // dd($answer, $exam_question->trueFalse);
+                                        @endphp
+                                        <div class="d-flex fv-row border rounded border-hover-primary p-5 mb-3">
+                                            <div class="col-md-8">
+
+                                                @if ($choice->choice_image)
+                                                    <img class="img-fluid" src="{{ $choice->getImage() }}"
+                                                        alt="">
+                                                @endif
+                                                <div class="fw-bold text-gray-800">{!! $choice->choice_text !!}
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="row ps-5">
+                                                    <div class="col-md-12 mb-5">
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input me-3" type="radio"
+                                                                name="{{ $exam_question_number->id }}_{{ $loop->index }}"
+                                                                onclick="return false" id="{{ $choice->id }}"
+                                                                {{ in_array($choice->id, array_column($answer, 'id')) && $answer[array_search($choice->id, array_column($answer, 'id'))]['choice'] == 1 ? 'checked' : '' }}>
+                                                            <label class="form-check-label">Benar
+                                                                @if ($choice->true_false_answer)
+                                                                    <span class="fw-bold text-success">&nbsp; ( Jawaban
+                                                                        Benar )</span>
+                                                                @endif
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <input class="form-check-input me-3" type="radio"
+                                                                name="{{ $exam_question_number->id }}_{{ $loop->index }}"
+                                                                onclick="return false" id="{{ $choice->id }}"
+                                                                {{ in_array($choice->id, array_column($answer, 'id')) && $answer[array_search($choice->id, array_column($answer, 'id'))]['choice'] == 0 ? 'checked' : '' }}>
+                                                            <label class="form-check-label">Salah
+                                                                @if (!$choice->true_false_answer)
+                                                                    <span class="fw-bold text-success">&nbsp; ( Jawaban
+                                                                        Benar )</span>
+                                                                @endif
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    @endforeach
                                 @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mt-5">
+                        <div class="card-header card-header-stretch">
+                            <!--begin::Title-->
+                            <div class="card-title d-flex align-items-center">
+                                <i class="ki-duotone ki-like-shapes fs-1 text-primary me-3 lh-0">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                                Nilai Yang Diperoleh : <span class="text-primary">&nbsp;
+                                    {{ $exam_question_number->examAnswer->first()->score }} </span>
                             </div>
                         </div>
                     </div>

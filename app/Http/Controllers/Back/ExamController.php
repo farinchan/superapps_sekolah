@@ -457,6 +457,8 @@ class ExamController extends Controller
         if ($question_id) {
             $exam_question_number = ExamQuestion::with([
                 'multipleChoice',
+                'multipleChoiceComplex',
+                'trueFalse',
                 'examAnswer' => function ($query) use ($session_id) {
                     $query->where('exam_session_id', $session_id);
                 }
@@ -467,6 +469,8 @@ class ExamController extends Controller
         } else {
             $exam_question_number = ExamQuestion::with([
                 'multipleChoice',
+                'multipleChoiceComplex',
+                'trueFalse',
                 'examAnswer' => function ($query) use ($session_id) {
                     $query->where('exam_session_id', $session_id);
                 }
