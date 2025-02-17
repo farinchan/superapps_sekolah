@@ -213,7 +213,6 @@
         });
 
 
-        updateRadioValues();
         initCKEditor();
     </script>
 @endsection

@@ -115,7 +115,7 @@
                                                 </div>
                                                 <div class="col-md-5">
                                                     <label class="form-label required">Text:</label>
-                                                    <textarea class="form-control mb-2 mb-md-0" rows="1" name="choices[{{ $loop->index }}][choice_text]"
+                                                    <textarea class="form-control mb-2 mb-md-0 choice-text-editor" rows="1" name="choices[{{ $loop->index }}][choice_text]"
                                                         placeholder="Text">{{ $choice->choice_text }}</textarea>
                                                 </div>
                                                 <div class="col-md-2">
@@ -165,6 +165,9 @@
 
 @section('scripts')
     <script src="{{ asset('back/plugins/custom/formrepeater/formrepeater.bundle.js') }}"></script>
+    <script src="{{ asset('back/plugins/custom/ckeditor/ckeditor-classic.bundle.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@wiris/mathtype-ckeditor5/build/mathtype.min.js"></script>
+
 
     <script>
         var quill = new Quill('#question_text_quill', {
@@ -173,8 +176,20 @@
                     [{
                         header: [1, 2, false]
                     }],
-                    ['bold', 'italic', 'underline'],
-                    ['image', 'code-block']
+                    ['bold', 'italic', 'underline', 'formula'],
+
+                    [{
+                        'script': 'sub'
+                    }, {
+                        'script': 'super'
+                    }],
+                    [{
+                        list: 'ordered'
+                    }, {
+                        list: 'bullet'
+                    }],
+                    ['image'],
+                    ['clean']
                 ]
             },
             placeholder: 'Type your text here...',
@@ -185,6 +200,41 @@
             $('#question_text').val(quill.root.innerHTML);
         });
 
+        function initCKEditor() {
+            document.querySelectorAll('.choice-text-editor').forEach(textarea => {
+                if (!textarea.classList.contains('ckeditor-initialized')) {
+                    ClassicEditor.create(textarea, {
+                            toolbar: {
+                                items: [
+                                    'bold',
+                                    'italic',
+                                    'underline',
+                                    'subscript', // Tambahkan tombol Subscript
+                                    'superscript', // Tambahkan tombol Superscript
+                                ]
+                            },
+                            plugins: [
+                                'Essentials',
+                                'Paragraph',
+                                'Bold',
+                                'Italic',
+                                // 'Underline',
+                                // 'Subscript', // Tambahkan plugin Subscript
+                                // 'Superscript', // Tambahkan plugin Superscript
+                            ]
+                        })
+                        .then(editor => {
+                            textarea.classList.add(
+                                'ckeditor-initialized'); // Tandai sebagai sudah diinisialisasi
+                            editor.ui.view.editable.element.style.minHeight = '80px';
+                        })
+                        .catch(error => {
+                            console.error(error);
+                        });
+                }
+            });
+        }
+
         $('#kt_docs_repeater_basic').repeater({
             initEmpty: false,
             defaultValues: {
@@ -192,6 +242,8 @@
             },
             show: function() {
                 $(this).slideDown();
+                initCKEditor();
+
             },
             hide: function(deleteElement) {
                 var repeaterItem = $(this);
@@ -211,5 +263,8 @@
             repeaterItem.find('.is_deleted').val(1); // Set is_deleted to 1 when deleted
             repeaterItem.slideUp(); // Hide the item
         }
+
+        initCKEditor();
+
     </script>
 @endsection
