@@ -206,16 +206,16 @@
                                 sudah
                                 sesuai dengan format yang telah ditentukan</small><br>
                             <small class="text-muted">Format file pilihan ganda: <a
-                                    href="{{ asset('exam/media/files/soal-pilihan-ganda.xlsx') }}"
+                                    href="{{ asset('exam/pdf/multiple_choice.xlsx') }}"
                                     download>Download</a></small><br>
                             <small class="text-muted">Format file pilihan ganda kompleks: <a
-                                    href="{{ asset('exam/media/files/soal-pilihan-ganda-kompleks.xlsx') }}"
+                                    href="{{ asset('exam/pdf/multiple_choice_complex.xlsx') }}"
                                     download>Download</a></small><br>
                             <small class="text-muted">Format file benar salah: <a
-                                    href="{{ asset('exam/media/files/soal-benar-salah.xlsx') }}"
+                                    href="{{ asset('exam/pdf/true_false.xlsx') }}"
                                     download>Download</a></small><br>
                             <small class="text-muted text-danger">Format file menjodohkan: <a
-                                    href="{{ asset('exam/media/files/soal-menjodohkan.xlsx') }}"
+                                    href="#"
                                     download>Download</a></small>
                         </div>
 

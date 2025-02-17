@@ -3,67 +3,70 @@
 namespace App\Imports;
 
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionMultipleChoiceComplex;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
-use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 
 
-class ImportExamMultipleChoiceComplexImport implements ToModel, WithHeadingRow, WithValidation, WithCustomStartCell
+class ImportExamMultipleChoiceComplexImport implements ToModel, WithHeadingRow, WithValidation, WithStartRow
 {
    /**
      * @param Collection $collection
      */
 
-     public function __construct()
+     private $exam_id;
+     private $question_id = 0;
+
+     public function __construct($exam_id)
     {
         HeadingRowFormatter::default('none');
+        $this->exam_id = $exam_id;
     }
 
     public function model(array $row)
     {
 
-        $question_id = 0;
 
-        if ($row["kode"] == "Q") {
+        if ($row[1] == "Q") {
             $question = new ExamQuestion();
-            $question->question_type = "pilihan ganda";
-            $question->question_text = $row["isi"];
-            $question->question_score = $row["bobot"];
+            $question->exam_id = $this->exam_id;
+            $question->question_type = "pilihan ganda kompleks";
+            $question->question_text = $row[2];
+            $question->question_score = $row[4];
             $question->save();
-            $question_id = $question->id;
-        } elseif ($row["kode"] == "A") {
-            $question = new ExamQuestionMultipleChoiceComplex();
-            $question->question_id = $question_id;
-            $question->choice_text = $row["isi"];
-            $question->is_correct = $row["jawaban_benar"];
-            $question->save();
+            $this->question_id = $question->id;
+        } elseif ($row[1] == "A") {
+            $multipleChoiceComplex = new ExamQuestionMultipleChoiceComplex();
+            $multipleChoiceComplex->exam_question_id = $this->question_id;
+            $multipleChoiceComplex->choice_text = $row[2];
+            $multipleChoiceComplex->is_correct = $row[3];
+            $multipleChoiceComplex->save();
         }
     }
 
     public function rules(): array
     {
         return [
-            'kode' => 'required',
-            'isi' => 'required',
-            'jawaban_benar' => 'nullable',
+            '1' => 'required',
+            '2' => 'required',
+            '3' => 'nullable',
         ];
     }
 
     public function customValidationMessages()
     {
         return [
-            'kode.required' => 'Kode soal harus diisi',
-            'isi.required' => 'Isi soal harus diisi',
+            '1.required' => 'Kode soal/Jawaban harus diisi',
+            '2.required' => 'Isi soal/Jawaban harus diisi',
         ];
     }
 
-    public function startCell(): string
+    public function startRow(): int
     {
-        return 'A7';  // Mulai di baris 1
+        return 7;  // Mulai di baris 7
     }
 }

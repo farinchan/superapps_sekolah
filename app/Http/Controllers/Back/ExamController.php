@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Imports\ImportExamMatchingPairImport;
 use App\Imports\ImportExamMultipleChoiceComplexImport;
 use App\Imports\ImportExamMultipleChoiceImport;
+use App\Imports\ImportExamTrueFalseImport;
 use App\Models\Classroom;
 use App\Models\ClassroomStudent;
 use App\Models\Exam;
@@ -553,7 +554,9 @@ class ExamController extends Controller
             if ($request->question_type == 'pilihan ganda') {
                 Excel::import(new ImportExamMultipleChoiceImport($id), $file);
             } elseif ($request->question_type == 'pilihan ganda kompleks') {
-                Excel::import(new ImportExamMultipleChoiceComplexImport, $file);
+                Excel::import(new ImportExamMultipleChoiceComplexImport($id), $file);
+            } elseif ($request->question_type == 'benar salah') {
+                Excel::import(new ImportExamTrueFalseImport($id), $file);
             } elseif ($request->question_type == 'menjodohkan') {
                 // Excel::import(new ExamQuestionMatching, $file);
             } else {
