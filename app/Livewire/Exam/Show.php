@@ -7,6 +7,7 @@ use App\Models\ExamAnswer;
 use App\Models\ExamQuestion;
 use App\Models\ExamQuestionMultipleChoice;
 use App\Models\ExamQuestionMultipleChoiceComplex;
+use App\Models\ExamQuestionTrueFalse;
 use App\Models\ExamSession;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Layout;
@@ -127,7 +128,8 @@ class Show extends Component
                         'text' => $answer->choice_text
                     ]
                 ],
-                'is_correct' => $answer->is_correct
+                'is_correct' => $answer->is_correct,
+                'score' => $answer->is_correct ? $this->exam_question->question_score : 0
             ]
         );
 
@@ -144,28 +146,28 @@ class Show extends Component
             ->where('exam_question_id', $this->exam_question->id)
             ->first();
 
-            // Ambil id jawaban yang sudah ada
+        // Ambil id jawaban yang sudah ada
 
 
-            $new_answer = array_column($exam_answer_multiple_choice_complex->answer['multiple_choice_complex'] ?? [], 'id');
-            $correct = null;
+        $new_answer = array_column($exam_answer_multiple_choice_complex->answer['multiple_choice_complex'] ?? [], 'id');
+        $correct = null;
 
-            // dd($new_answer, $exam_answer_multiple_choice_complex_id, $anwer_correct_id);
+        // dd($new_answer, $exam_answer_multiple_choice_complex_id, $anwer_correct_id);
 
-            // Cek apakah pilihan sudah ada dalam array
-            if (in_array($id,  $new_answer)) {
-                // Jika sudah ada, hapus dari array
-                $new_answer = array_diff($new_answer, [$id]);
-            } else {
-                // Jika belum ada, tambahkan ke array
-                $new_answer[] = $id;
-            }
+        // Cek apakah pilihan sudah ada dalam array
+        if (in_array($id,  $new_answer)) {
+            // Jika sudah ada, hapus dari array
+            $new_answer = array_diff($new_answer, [$id]);
+        } else {
+            // Jika belum ada, tambahkan ke array
+            $new_answer[] = $id;
+        }
 
-            if (empty(array_diff($anwer_correct_id, $new_answer)) && empty(array_diff($new_answer, $anwer_correct_id))) {
-                $correct = true;
-            } else {
-                $correct = false;
-            }
+        if (empty(array_diff($anwer_correct_id, $new_answer)) && empty(array_diff($new_answer, $anwer_correct_id))) {
+            $correct = true;
+        } else {
+            $correct = false;
+        }
 
 
 
@@ -184,11 +186,111 @@ class Show extends Component
                         ];
                     }, $new_answer)
                 ],
-                'is_correct' => $correct
+                'is_correct' => $correct,
+                'score' => $correct ? $this->exam_question->question_score : 0
             ]
         );
 
         // Perbarui state soal ujian
+        $this->refresh($this->exam_session_id);
+    }
+
+    public function answerTrueFalse($id, $answer)
+    {
+
+        $true_false_option = $this->exam_question->true_false_option;
+
+        $anwer_all = ExamQuestionTrueFalse::where('exam_question_id', $this->exam_question->id)->get();
+        $answer_truefalse = [];
+        foreach ($anwer_all as $key => $value) {
+            $answer_truefalse[] = [
+                'id' => $value->id,
+                'choice' => $value->true_false_answer
+            ];
+        }
+
+
+        $exam_answer_true_false = ExamAnswer::where('exam_session_id', $this->exam_session->id)
+            ->where('exam_question_id', $this->exam_question->id)
+            ->first()->answer['true_false'] ?? [];
+
+        if (in_array($id, array_column($exam_answer_true_false, 'id'))) {
+            $exam_answer_true_false = array_map(function ($item) use ($id, $answer) {
+                if ($item['id'] == $id) {
+                    return [
+                        'id' => $id,
+                        'choice' => $answer
+                    ];
+                }
+                return $item;
+            }, $exam_answer_true_false);
+        } else {
+            $exam_answer_true_false[] = [
+                'id' => $id,
+                'choice' => $answer
+            ];
+        }
+
+        // dd($answer_truefalse, $exam_answer_true_false);
+
+        // Mengubah array ke format associative array untuk kemudahan pencocokan
+        $kunci_dict = [];
+        foreach ($answer_truefalse as $item) {
+            $kunci_dict[$item["id"]] = $item["choice"];
+        }
+
+        $user_dict = [];
+        foreach ($exam_answer_true_false as $item) {
+            $user_dict[$item["id"]] = $item["choice"];
+        }
+
+        $score = 0;
+
+        if ($true_false_option == 'fixed') {
+            $score = $this->exam_question->question_score;
+            foreach ($kunci_dict as $id => $choice) {
+                if (!isset($user_dict[$id]) || $user_dict[$id] != $choice) {
+                    $score = 0;
+                }
+            }
+
+        }
+
+        if ($true_false_option == 'calculated') {
+            $total_questions = count($kunci_dict);
+            $correct_answers = 0;
+
+            foreach ($user_dict as $id => $choice) {
+                if (isset($kunci_dict[$id]) && $kunci_dict[$id] == $choice) {
+                    $correct_answers++;
+                }
+            }
+
+            $score = round(($correct_answers / $total_questions) * $this->exam_question->question_score, 2);
+
+        }
+
+
+        // Simpan atau perbarui jawaban di database
+        ExamAnswer::updateOrCreate(
+            [
+                'exam_session_id' => $this->exam_session->id,
+                'exam_question_id' => $this->exam_question->id,
+            ],
+            [
+                'answer' => [
+                    'true_false' => array_map(function ($exam_answer_true_false) {
+                        return [
+                            'id' => $exam_answer_true_false['id'],
+                            'choice' => $exam_answer_true_false['choice']
+                        ];
+                    }, $exam_answer_true_false)
+                ],
+                'is_correct' => null,
+                'score' => $score
+            ]
+        );
+
         $this->refresh($this->exam_session_id);
     }
 
@@ -216,9 +318,7 @@ class Show extends Component
     public function endExam()
     {
         $total_score = ExamAnswer::where('exam_session_id', $this->exam_session_id)
-            ->where('is_correct', true)
-            ->join('exam_question', 'exam_question.id', '=', 'exam_answer.exam_question_id')
-            ->sum('exam_question.question_score');
+            ->sum('score');
 
         ExamSession::find($this->exam_session_id)->update([
             'end_time' => now(),

@@ -194,12 +194,56 @@
                                                             <img class="img-fluid" src="{{ $choice->getImage() }}"
                                                                 alt="">
                                                         @endif
-                                                        <div class="fw-bold text-gray-800">{{ $choice->choice_text }}
+                                                        <div class="fw-bold text-gray-800">{!! $choice->choice_text !!}
                                                         </div>
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="separator separator-dashed my-5"></div>
+                                        @endforeach
+                                    @elseif ($exam_question->question_type == 'benar salah')
+                                        @foreach ($exam_question->trueFalse as $choice)
+                                            @php
+                                                $answer = $exam_answer?->answer['true_false']??[];
+                                                // dd($answer, $exam_question->trueFalse);
+                                            @endphp
+                                            <div class="d-flex fv-row border rounded border-hover-primary p-5 mb-3">
+                                                <div class="col-md-8">
+
+                                                    @if ($choice->choice_image)
+                                                        <img class="img-fluid" src="{{ $choice->getImage() }}"
+                                                            alt="">
+                                                    @endif
+                                                    <div class="fw-bold text-gray-800">{!! $choice->choice_text !!}
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="row ps-5">
+                                                        <div class="col-md-12 mb-5">
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <input class="form-check-input me-3" type="radio"
+                                                                    wire:click="answerTrueFalse({{ $choice->id }}, true)"
+                                                                    name="{{ $exam_question->id }}_{{$loop->index}}"
+                                                                    id="{{ $choice->id }}"
+                                                                    {{ in_array($choice->id, array_column($answer, 'id')) && $answer[array_search($choice->id, array_column($answer, 'id'))]['choice'] == 1 ? 'checked' : '' }}>
+                                                                <label class="form-check-label">Benar</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-check form-check-custom form-check-solid">
+                                                                <input class="form-check-input me-3" type="radio"
+                                                                    wire:click="answerTrueFalse({{ $choice->id }}, false)"
+                                                                    name="{{ $exam_question->id }}_{{$loop->index}}"
+                                                                    id="{{ $choice->id }}"
+                                                                    {{ in_array($choice->id, array_column($answer, 'id')) && $answer[array_search($choice->id, array_column($answer, 'id'))]['choice'] == 0 ? 'checked' : '' }}>
+                                                                <label class="form-check-label">Salah</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         @endforeach
                                     @endif
                                 </div>
