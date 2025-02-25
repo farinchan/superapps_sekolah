@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('end_time');
             $table->integer('duration');
             $table->foreignId('teacher_id')->constrained('teacher')->onDelete('cascade')->onUpdate('cascade');
-            $table->enum('type', ['UH', 'UTS', 'UAS']);
+            $table->enum('type', ['UH', 'UTS', 'UAS', 'UAM']);
             $table->foreignId('school_year_id')->constrained('school_year')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('semester', ['ganjil', 'genap']);
             $table->timestamps();

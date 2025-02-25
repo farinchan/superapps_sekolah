@@ -37,6 +37,8 @@
                                                 <option value="UH">Ulangan Harian</option>
                                                 <option value="UTS">Sumatif Tengah Semester</option>
                                                 <option value="UAS">Sumatif Akhir Semester</option>
+                                                <option value="UAS">Sumatif Akhir Semester</option>
+                                                <option value="UAM">Ujian Akhir Madrasah</option>
                                             </select>
                                         </div>
                                         <div class="mb-5">
@@ -178,6 +180,8 @@
                                             STS
                                         @elseif ($exam->type == 'UAS')
                                             SAS
+                                        @elseif ($exam->type == 'UAM')
+                                            UAM
                                         @endif
                                     </td>
                                     <td>
@@ -276,6 +280,7 @@
                                 <option value="UH">Ulangan Harian</option>
                                 <option value="UTS">Sumatif Tengah Semester</option>
                                 <option value="UAS">Sumatif Akhir Semester</option>
+                                <option value="UAM">Ujian Akhir Madrasah</option>
                             </select>
                         </div>
                         <div class="mb-3">
