@@ -422,6 +422,34 @@ Route::domain(env('APP_URL'))->group(function () {
             Route::delete('/student/{id}', [BackPPDBController::class, 'studentDestroy'])->name('student.destroy');
             Route::get('/student/export', [BackPPDBController::class, 'studentExport'])->name('student.export');
 
+            Route::prefix('exam')->name('exam.')->group(function () {
+                Route::get('/', [BackPPDBController::class, 'exam'])->name('exam');
+                Route::post('/create', [BackPPDBController::class, 'examStore'])->name('store');
+
+                Route::get('/detail/{id}/setting', [BackPPDBController::class, 'examSetting'])->name('setting');
+                Route::put('/detail/{id}/setting/update', [BackPPDBController::class, 'examSettingUpdate'])->name('setting.update');
+                Route::delete('/detail/{id}/setting/delete', [BackPPDBController::class, 'examSettingDestroy'])->name('setting.destroy');
+
+                Route::get('/detail/{id}/schedule', [BackPPDBController::class, 'examSchedule'])->name('schedule');
+                Route::post('/detail/{id}/schedule/store', [BackPPDBController::class, 'examScheduleStore'])->name('schedule.store');
+                Route::put('/detail/{id}/schedule/{shedule_id}/update', [BackPPDBController::class, 'examScheduleUpdate'])->name('schedule.update');
+
+                Route::get('/detail/{id}/student', [BackPPDBController::class, 'examStudent'])->name('student');
+                Route::get('/detail/{id}/student/datatable', [BackPPDBController::class, 'examStudentDatatable'])->name('student.datatable');
+
+
+                Route::get('/detail/{id}/question', [BackPPDBController::class, 'examQuestion'])->name('question');
+                Route::post('/detail/{id}/question/import', [BackPPDBController::class, 'examQuestionImport'])->name('question.import');
+                Route::delete('/detail/{id}/question/reset', [BackPPDBController::class, 'examQuestionReset'])->name('question.reset');
+
+                Route::delete('/detail/question/delete/{question_id}', [BackPPDBController::class, 'examQuestionDestroy'])->name('question.destroy');
+
+                Route::get('/detail/{id}/question/create-multipleChoice', [BackPPDBController::class, 'examQuestionMultipleChoice'])->name('question.multiple-choice.create');
+                Route::post('/detail/{id}/question/store-multipleChoice', [BackPPDBController::class, 'examQuestionStoreMultipleChoice'])->name('question.multiple-choice.store');
+                Route::get('/detail/{id}/question/edit-multipleChoice/{question_id}', [BackPPDBController::class, 'examQuestionEditMultipleChoice'])->name('question.multiple-choice.edit');
+                Route::put('/detail/{id}/question/update-multipleChoice/{question_id}', [BackPPDBController::class, 'examQuestionUpdateMultipleChoice'])->name('question.multiple-choice.update');
+            });
+
             Route::get('/message', [BackPPDBController::class, 'message'])->name('message');
             Route::delete('/message/{id}', [BackPPDBController::class, 'messageDestroy'])->name('message.destroy');
 

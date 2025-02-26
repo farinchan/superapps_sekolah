@@ -35,4 +35,9 @@ class PpdbUser extends Authenticatable
         return $this->hasOne(PpdbUserRapor::class, 'ppdb_user_id');
     }
 
+    public function examSession()
+    {
+        return $this->hasMany(PpdbExamScheduleUser::class, 'ppdb_user_id');
+    }
+
 }
