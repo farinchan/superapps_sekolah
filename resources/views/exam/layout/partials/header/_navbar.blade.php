@@ -40,7 +40,7 @@
         <div class="cursor-pointer symbol symbol-35px symbol-md-40px"
             data-kt-menu-trigger="{default: 'click', lg: 'hover'}" data-kt-menu-attach="parent"
             data-kt-menu-placement="bottom-end">
-            <img class="symbol symbol-circle symbol-35px symbol-md-40px" src="{{ Auth::user()->student->getPhoto() }}"
+            <img class="symbol symbol-circle symbol-35px symbol-md-40px" src="{{ Auth::user()?->student?->getPhoto()?? asset("img_ext/anonim_person.png") }}"
                 alt="user" />
         </div>
         @include('exam/partials/menus/_user-account-menu')

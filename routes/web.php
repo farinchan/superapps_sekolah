@@ -531,6 +531,11 @@ Route::domain('elearning.' . env('APP_URL'))->name('exam.')->group(function () {
     Route::get("/logout", App\Livewire\Exam\Logout::class)->name('logout');
     Route::get("/", App\Livewire\Exam\Home::class)->name('home')->middleware('auth-exam');
     Route::get("/exam/{session_id}", App\Livewire\Exam\Show::class)->name('show')->middleware('auth-exam');
+
+    Route::prefix('ppdb')->name('ppdb.')->group(function () {
+        Route::get("/exam", App\Livewire\PpdbExam\Home::class)->name('home')->middleware('auth-ppdb-exam');
+
+    });
 });
 
 

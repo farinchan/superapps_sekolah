@@ -3,6 +3,7 @@
 namespace App\Livewire\Exam;
 
 use App\Models\LogLoginElearning;
+use App\Models\PpdbUser;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -42,23 +43,38 @@ class Login extends Component
         $student = Student::where('nisn', $this->identifier)->first();
         if ($student) {
             $user = $student->user;
+            if ($user && Hash::check($this->password, $user->password)) {
+                Auth::login($user);
+                LogLoginElearning::create([
+                    'user_id' => $user->id,
+                    'ip_address' => request()->ip(),
+                    'user_agent' => Agent::getUserAgent(),
+                    'platform' => Agent::platform(),
+                    'browser' => Agent::browser(),
+                    'device' => Agent::device(),
+                ]);
+                session()->flash('success', 'Login berhasil');
+                return redirect()->route('exam.home');
+            } else {
+                session()->flash('error', 'NISN atau password salah');
+            }
         }
 
-        if ($user && Hash::check($this->password, $user->password)) {
-            Auth::login($user);
-            LogLoginElearning::create([
-                'user_id' => $user->id,
-                'ip_address' => request()->ip(),
-                'user_agent' => Agent::getUserAgent(),
-                'platform' => Agent::platform(),
-                'browser' => Agent::browser(),
-                'device' => Agent::device(),
-            ]);
-            session()->flash('success', 'Login berhasil');
-            return redirect()->route('exam.home');
-        } else {
-            session()->flash('error', 'NISN atau password salah');
+        $ppdb_student = PpdbUser::where('nisn', $this->identifier)->first();
+        if ($ppdb_student) {
+            $user = $ppdb_student;
+            if ($user && Hash::check($this->password, $user->password)) {
+                Auth::guard('ppdb')->login($user);
+                session()->flash('success', 'Login berhasil');
+                return redirect()->route('exam.ppdb.home');
+            } else {
+                session()->flash('error', 'NISN atau password salah');
+            }
         }
+
+        session()->flash('error', 'NISN atau password salah');
+
+
     }
 
 }
