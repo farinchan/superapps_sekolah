@@ -16,31 +16,32 @@
                     </div>
                 </div>
             </div>
-                @forelse ($list_exam_schedule as $exam_schedule)
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <div class="py-0" data-kt-customer-payment-method="row">
-                                <div class="py-3 d-flex flex-stack flex-wrap">
-                                    <div class="d-flex align-items-center collapsible collapsed rotate"
-                                        data-bs-toggle="collapse"
-                                        href="#kt_customer_view_payment_method_{{ $exam_schedule->id }}" role="button"
-                                        aria-expanded="false"
-                                        aria-controls="kt_customer_view_payment_method_{{ $exam_schedule->id }}">
-                                        <div class="me-3 rotate-90">
-                                            <i class="ki-outline ki-right fs-3"></i>
-                                        </div>
-                                        <div class="me-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="text-gray-800 fw-bold">Tanggal Ujian :
-                                                    {{ Carbon\Carbon::parse($exam_schedule->start_time)->format('d F Y H:i') }}
-                                                    s/d
-                                                    {{ Carbon\Carbon::parse($exam_schedule->end_time)->format('d F Y H:i') }}
-                                                </div>
-                                            </div>
-                                            <div class="text-muted">Lokasi : {{ $exam_schedule->location }}</div>
-                                        </div>
-
+            @forelse ($list_exam_schedule as $exam_schedule)
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="py-0" data-kt-customer-payment-method="row">
+                            <div class="py-3 d-flex flex-stack flex-wrap">
+                                <div class="d-flex align-items-center collapsible collapsed rotate"
+                                    data-bs-toggle="collapse"
+                                    href="#kt_customer_view_payment_method_{{ $exam_schedule->id }}" role="button"
+                                    aria-expanded="false"
+                                    aria-controls="kt_customer_view_payment_method_{{ $exam_schedule->id }}">
+                                    <div class="me-3 rotate-90">
+                                        <i class="ki-outline ki-right fs-3"></i>
                                     </div>
+                                    <div class="me-3">
+                                        <div class="d-flex align-items-center">
+                                            <div class="text-gray-800 fw-bold">Tanggal Ujian :
+                                                {{ Carbon\Carbon::parse($exam_schedule->start_time)->format('d F Y H:i') }}
+                                                s/d
+                                                {{ Carbon\Carbon::parse($exam_schedule->end_time)->format('d F Y H:i') }}
+                                            </div>
+                                        </div>
+                                        <div class="text-muted">Lokasi : {{ $exam_schedule->location }}</div>
+                                    </div>
+
+                                </div>
+                                @if ($exam_schedule->start_time > now())
                                     <a href="#" class="btn btn-light-warning btn-sm" data-bs-toggle="modal"
                                         data-bs-target="#edit_schedule_{{ $exam_schedule->id }}">
                                         <i class="ki-duotone ki-pencil fs-5">
@@ -48,57 +49,58 @@
                                             <span class="path2"></span>
                                         </i>
                                     </a>
+                                @endif
 
-                                </div>
-                                <div id="kt_customer_view_payment_method_{{ $exam_schedule->id }}"
-                                    class="collapse fs-6 ps-10" data-bs-parent="#kt_customer_view_payment_method">
+                            </div>
+                            <div id="kt_customer_view_payment_method_{{ $exam_schedule->id }}" class="collapse fs-6 ps-10"
+                                data-bs-parent="#kt_customer_view_payment_method">
 
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr class="fw-bold fs-6 text-gray-800">
-                                                    <th>NISN</th>
-                                                    <th>Nama</th>
-                                                    <th>Asal Sekolah</th>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr class="fw-bold fs-6 text-gray-800">
+                                                <th>NISN</th>
+                                                <th>Nama</th>
+                                                <th>Asal Sekolah</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($exam_schedule->scheduleUser as $user)
+                                                <tr>
+                                                    <td>
+                                                        {{ $user->ppdbUser?->nisn }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $user->ppdbUser?->name }}
+                                                    </td>
+                                                    <td>
+                                                        {{ $user->ppdbUser?->school_origin }}
+
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($exam_schedule->scheduleUser as $user)
-                                                    <tr>
-                                                        <td>
-                                                            {{ $user->ppdbUser?->nisn }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $user->ppdbUser?->name }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $user->ppdbUser?->school_origin }}
-
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @empty
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="text-center">
-                                <img src="{{ asset('assets/media/illustrations/empty.svg') }}" class="w-50px mb-5"
-                                    alt="" />
-                                <h3>Belum ada jadwal ujian</h3>
-                                <p class="text-muted">Tambahkan jadwal ujian untuk peserta</p>
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#add_schedule">Tambah
-                                    Jadwal</a>
-                            </div>
+                </div>
+            @empty
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src="{{ asset('assets/media/illustrations/empty.svg') }}" class="w-50px mb-5"
+                                alt="" />
+                            <h3>Belum ada jadwal ujian</h3>
+                            <p class="text-muted">Tambahkan jadwal ujian untuk peserta</p>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#add_schedule">Tambah
+                                Jadwal</a>
                         </div>
                     </div>
-                @endforelse
+                </div>
+            @endforelse
 
         </div>
     </div>
@@ -181,7 +183,8 @@
                         <!--end::Close-->
                     </div>
 
-                    <form action="{{ route('back.ppdb.exam.schedule.update', [$exam->id, $exam_schedule->id]) }}" method="POST">
+                    <form action="{{ route('back.ppdb.exam.schedule.update', [$exam->id, $exam_schedule->id]) }}"
+                        method="POST">
                         @csrf
                         @method('PUT')
                         <div class="modal-body">
@@ -212,9 +215,13 @@
                                         data-placeholder="Pilih Siswa" data-allow-clear="true" multiple="multiple"
                                         data-close-on-select="false" required>
                                         <option></option>
-                                        @foreach ($list_user_ppdb_all as $user)
-                                            <option value="{{ $user->id }}"
-                                                {{ $exam_schedule->scheduleUser->contains('ppdb_user_id', $user->id) ? 'selected' : '' }}>
+                                        @foreach ($exam_schedule->scheduleUser as $user_select)
+                                            <option value="{{ $user_select->ppdb_user_id }}" selected>
+                                                {{ $user_select->ppdbUser->nisn }}-{{ $user_select->ppdbUser->name }}
+                                            </option>
+                                        @endforeach
+                                        @foreach ($list_user_ppdb as $user)
+                                            <option value="{{ $user->id }}">
                                                 {{ $user->nisn }}-{{ $user->name }}
                                             </option>
                                         @endforeach
