@@ -787,7 +787,7 @@ class PpdbController extends Controller
             ->leftJoin('ppdb_exam', 'ppdb_exam.id', '=', 'ppdb_exam_schedule.ppdb_exam_id')
             ->where('ppdb_exam.id', $id)
             ->leftJoin('ppdb_user', 'ppdb_user.id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
-            ->leftJoin('ppdb_exam_session', 'ppdb_exam_session.ppdb_exam_id', '=', 'ppdb_exam.id')
+            ->leftJoin('ppdb_exam_session', 'ppdb_exam_session.ppdb_user_id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
             ->where('ppdb_user.name', 'like', '%' . $search . '%')
             ->select('ppdb_exam_schedule.id as schedule_id', 'ppdb_exam_schedule_user.id as schedule_user_id', 'ppdb_exam_schedule_user.ppdb_user_id', 'ppdb_user.name', 'ppdb_user.nisn',   'ppdb_exam_session.id as session_id', 'ppdb_exam_session.score', 'ppdb_exam_session.start_time', 'ppdb_exam_session.end_time', 'ppdb_exam_schedule_user.created_at', 'ppdb_exam_schedule_user.updated_at')
             ->get();
