@@ -6,20 +6,21 @@
         <div class="menu-content d-flex align-items-center px-3">
             <!--begin::Avatar-->
             <div class="symbol symbol-50px me-5">
-                <img alt="Logo" src="{{ Auth::user()?->student?->getPhoto()?? asset("img_ext/anonim_person.png") }}" />
+                <img alt="Logo"
+                    src="{{ Auth::user()?->student?->getPhoto() ?? asset('img_ext/anonim_person.png') }}" />
             </div>
             <!--end::Avatar-->
             <!--begin::Username-->
             <div class="d-flex flex-column">
                 <div class="fw-bold d-flex align-items-center fs-5">
-                    {{ Auth::user()?->student?->name ?? "" }}
-                    {{ Auth::guard("ppdb")->user()?->name ?? "" }}
+                    {{ Auth::user()?->student?->name ?? '' }}
+                    {{ Auth::guard('ppdb')->user()?->name ?? '' }}
                     <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2"></span>
                 </div>
                 <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">
-                    NISN. {{ Auth::user()?->student?->nisn?? "" }}
-                    {{ Auth::guard("ppdb")->user()?->nisn?? "" }}
-                     </a>
+                    NISN. {{ Auth::user()?->student?->nisn ?? '' }}
+                    {{ Auth::guard('ppdb')->user()?->nisn ?? '' }}
+                </a>
             </div>
             <!--end::Username-->
         </div>
@@ -38,8 +39,15 @@
         @include('exam/partials/theme-mode/__menu')
     </div>
 
+    @if (Auth::check())
+        <livewire:exam.logout />
+    @endif
 
-    <livewire:exam.logout />
+    @if (Auth::guard('ppdb')->check())
+        <livewire:ppdb-exam.logout />
+    @endif
+
+
     <!--end::Menu item-->
 </div>
 <!--end::User account menu-->

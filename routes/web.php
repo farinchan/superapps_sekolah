@@ -534,7 +534,7 @@ Route::domain('elearning.' . env('APP_URL'))->name('exam.')->group(function () {
 
     Route::prefix('ppdb')->name('ppdb.')->group(function () {
         Route::get("/exam", App\Livewire\PpdbExam\Home::class)->name('home')->middleware('auth-ppdb-exam');
-
+        Route::get("/exam/{session_id}", App\Livewire\PpdbExam\Show::class)->name('show')->middleware('auth-ppdb-exam');
     });
 });
 
