@@ -87,6 +87,7 @@
                                     <option value="UH" @if ($exam->type == 'UH') selected @endif>Ulangan Harian</option>
                                     <option value="UTS" @if ($exam->type == 'UTS') selected @endif>Ujian Tengah Semester</option>
                                     <option value="UAS" @if ($exam->type == 'UAS') selected @endif>Ujian Akhir Semester</option>
+                                    <option value="UAM" @if ($exam->type == 'UAM') selected @endif>Ujian Akhir Madrasah</option>
                                 </select>
                             </div>
                         </div>
