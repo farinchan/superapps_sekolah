@@ -13,6 +13,8 @@
                                     Sumatif Tengah Semester
                                 @elseif ($exam->type == 'UAS')
                                     Sumatif Akhir Semester
+                                @elseif ($exam->type == 'UAM')
+                                    Ujian Akhir Madrasah
                                 @endif
                                 - {{ $exam->subject?->name }}
                             </a>
