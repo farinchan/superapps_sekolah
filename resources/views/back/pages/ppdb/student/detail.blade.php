@@ -472,7 +472,7 @@
                                 <input class="form-check-input" type="checkbox"
                                     value="Brosur dan Pamflet sekolah" name="additional_data[]"
                                     id="flexCheckDefault"
-                                    @if (in_array('Brosur dan Pamflet sekolah', $user->additional_data)) checked @endif
+                                    @if (in_array('Brosur dan Pamflet sekolah', $user->additional_data?? [])) checked @endif
                                     onclick="return false" />
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Brosur dan Pamflet sekolah
@@ -482,7 +482,7 @@
                                 <input class="form-check-input" type="checkbox"
                                     value="Sosmed (IG, FB, Yt, WA Group, Tiktok)"
                                     name="additional_data[]" id="flexCheckDefault"
-                                    @if (in_array('Sosmed (IG, FB, Yt, WA Group, Tiktok)', $user->additional_data)) checked @endif
+                                    @if (in_array('Sosmed (IG, FB, Yt, WA Group, Tiktok)', $user->additional_data?? [])) checked @endif
                                     onclick="return false" />
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Sosmed (IG, FB, Yt, WA Group, Tiktok)
@@ -491,7 +491,7 @@
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" value="Keluarga"
                                     name="additional_data[]" id="flexCheckDefault"
-                                    @if (in_array('Keluarga', $user->additional_data)) checked @endif
+                                    @if (in_array('Keluarga', $user->additional_data?? [])) checked @endif
                                     onclick="return false" />
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Keluarga
@@ -501,7 +501,7 @@
                                 <input class="form-check-input" type="checkbox"
                                     value="Guru/tenaga kependidikan MAN 1 Padang Panjang"
                                     name="additional_data[]" id="flexCheckDefault"
-                                    @if (in_array('Guru/tenaga kependidikan MAN 1 Padang Panjang', $user->additional_data)) checked @endif
+                                    @if (in_array('Guru/tenaga kependidikan MAN 1 Padang Panjang', $user->additional_data?? [])) checked @endif
                                     onclick="return false" />
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Guru/tenaga kependidikan MAN 1 Padang Panjang
@@ -511,7 +511,7 @@
                                 <input class="form-check-input" type="checkbox"
                                     value="Siswa/Siswi MAN 1 Padang Panjang" name="additional_data[]"
                                     id="flexCheckDefault"
-                                    @if (in_array('Siswa/Siswi MAN 1 Padang Panjang', $user->additional_data)) checked @endif
+                                    @if (in_array('Siswa/Siswi MAN 1 Padang Panjang', $user->additional_data?? [])) checked @endif
                                     onclick="return false" />
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Siswa/Siswi MAN 1 Padang Panjang
@@ -521,14 +521,14 @@
                                 <input class="form-check-input" type="checkbox"
                                     value="Website MAN 1 Padang Padang Panjang"
                                     name="additional_data[]" id="flexCheckDefault"
-                                    @if (in_array('Website MAN 1 Padang Padang Panjang', $user->additional_data)) checked @endif
+                                    @if (in_array('Website MAN 1 Padang Padang Panjang', $user->additional_data?? [])) checked @endif
                                     onclick="return false" />
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Website MAN 1 Padang Padang Panjang
                                 </label>
                             </div>
                             @php
-                                $additional_data_array = (array) $user->additional_data;
+                                $additional_data_array = (array) $user->additional_data?? [];
                                 $additional_data_other_temp = end($additional_data_array);
                                 $additional_data_other = '';
                                 if (
