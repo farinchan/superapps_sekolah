@@ -72,7 +72,7 @@ class PpdbExamScoreStudent implements FromCollection, WithHeadings, WithStyles, 
 
                 // Menambahkan judul di baris 1
                 $sheet->mergeCells('A1:C1');
-                $sheet->setCellValue('A1', 'Nilai' . $Exam->name);
+                $sheet->setCellValue('A1', 'Nilai ' . $Exam->name);
                 $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
                 $sheet->getStyle('A1')->getAlignment()->setHorizontal(Alignment::HORIZONTAL_CENTER);
 
