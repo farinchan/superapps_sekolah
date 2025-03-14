@@ -16,7 +16,8 @@
                             </div>
                         </div>
 
-                        <a href="#" class="btn btn-light-primary">
+                        <a href="" id="export_excel"
+                            class="btn btn-light-primary">
                             Export
                         </a>
                     </div>
@@ -51,7 +52,7 @@
         var exam = @json($exam);
         exam_id = exam.id;
 
-
+        var search = '';
 
         $('#datatable_ajax').DataTable({
             processing: true, // Menampilkan indikator loading
@@ -93,11 +94,18 @@
         });
 
         $('#search').on('keyup', function() {
+            search = $(this).val();
             $('#datatable_ajax').DataTable().ajax.reload();
         });
 
         $('#class_id').on('change', function() {
             $('#datatable_ajax').DataTable().ajax.reload();
         });
+
+        $('#export_excel').on('click', function(e) {
+            e.preventDefault();
+            window.location.href = `/back/ppdb/exam/detail/${exam_id}/student/export?search=${search}`;
+        });
+
     </script>
 @endsection

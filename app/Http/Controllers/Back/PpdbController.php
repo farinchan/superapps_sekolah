@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\Back;
 
+use App\Exports\PpdbExamScoreStudent;
 use App\Exports\PpdbRegistrationPath;
 use App\Exports\PpdbUser as ExportsPpdbUser;
 use App\Http\Controllers\Controller;
 use App\Imports\ImportPpdbExamMultipleChoice;
 use App\Models\PpdbContact;
 use App\Models\PpdbExam;
+use App\Models\PpdbExamAnswer;
 use App\Models\PpdbExamQuestion;
 use App\Models\PpdbExamQuestionMultipleChoice;
 use App\Models\PpdbExamSchedule;
 use App\Models\PpdbExamScheduleUser;
+use App\Models\PpdbExamSession;
 use App\Models\PpdbInformation;
 use App\Models\PpdbPath;
 use App\Models\PpdbRegistrationUser;
@@ -822,14 +825,14 @@ class PpdbController extends Controller
                 if ($row->start_time === null) {
                     return '-';
                 } elseif ($row->score === null) {
-                    return '<a href=" ' . route('back.exam.student.finish', $row->session_id) . '"
+                    return '<a href=" ' . route('back.ppdb.exam.student.finish', $row->session_id) . '"
                                 class="btn btn-icon btn-light-youtube me-2"
                                 data-bs-toggle="tooltip" data-bs-placement="right"
                                 title="Selesaikan Paksa ujian?">
                                 <i class="fa-solid fa-xmark fs-4"></i>
                             </a>';
                 } else {
-                    return '<a href=" ' . route('back.exam.student.reset', $row->session_id) . '"
+                    return '<a href=" ' . route('back.ppdb.exam.student.reset', $row->session_id) . '"
                                 class="btn btn-icon btn-light-linkedin me-2"
                                 data-bs-toggle="tooltip" data-bs-placement="right"
                                 title="Buka Akses Kembali, dan reset waktu">
@@ -838,7 +841,7 @@ class PpdbController extends Controller
                                     <span class="path2"></span>
                                     </i>
                             </a>
-                            <a href=" ' . route('back.exam.student.analysis', $row->session_id) . '"
+                            <a href=" ' . route('back.ppdb.exam.student.analysis', $row->session_id) . '"
                                 class="btn btn-icon btn-light-info me-2"
                                 data-bs-toggle="tooltip" data-bs-placement="right"
                                 title="Analisis Siswa">
@@ -852,5 +855,86 @@ class PpdbController extends Controller
             })
             ->rawColumns(['index', 'siswa', 'nilai', 'action'])
             ->make(true);
+    }
+
+    public function examStudentForceEnd($id)
+    {
+        $examSession = PpdbExamSession::find($id);
+        $total_score = PpdbExamAnswer::where('ppdb_exam_session_id', $id)->sum('score');
+        $examSession->update([
+            'end_time' => now(),
+            'score' => $total_score,
+        ]);
+
+        Alert::success('Success', 'Ujian berhasil diakhiri');
+        return redirect()->back();
+    }
+
+    public function examStudentReset($id)
+    {
+        $examSession = PpdbExamSession::find($id);
+        $examSession->update([
+            'start_time' => now(),
+            'end_time' => null,
+            'score' => null,
+        ]);
+
+        Alert::success('Success', 'Ujian berhasil direset');
+        return redirect()->back();
+    }
+
+    public function examStudentAnalysis(Request $request, $session_id)
+    {
+        $examSession = PpdbExamSession::find($session_id);
+        $question_id = $request->question_id;
+        $exam_question_number = "";
+        if ($question_id) {
+            $exam_question_number = PpdbExamQuestion::with([
+                'multipleChoice',
+                'examAnswer' => function ($query) use ($session_id) {
+                    $query->where('ppdb_exam_session_id', $session_id);
+                }
+            ])
+                ->where('ppdb_exam_id', $examSession->ppdb_exam_id)
+                ->where('id', $question_id)
+                ->first();
+        } else {
+            $exam_question_number = PpdbExamQuestion::with([
+                'multipleChoice',
+                'examAnswer' => function ($query) use ($session_id) {
+                    $query->where('ppdb_exam_session_id', $session_id);
+                }
+            ])
+                ->where('ppdb_exam_id', $examSession->ppdb_exam_id)
+                ->first();
+        }
+        $exam_answer_analysis = PpdbExamQuestion::with(['examAnswer'])->when($question_id, function ($query) use ($question_id) {
+            $query->where('id', $question_id);
+        })->where('ppdb_exam_id', $examSession->ppdb_exam_id)->first()->examAnswer;
+        $data = [
+            'title' => 'Analisis Siswa',
+            'menu' => 'PPDB',
+            'sub_menu' => 'Ujian',
+            'exam_session' => $examSession,
+            'exam_question_number' => $exam_question_number,
+            'exam_answer_analysis' => $exam_answer_analysis,
+            'exam_question_n_answer' => PpdbExamQuestion::with([
+                'multipleChoice',
+                'examAnswer' => function ($query) use ($session_id) {
+                    $query->where('ppdb_exam_session_id', $session_id);
+                }
+            ])
+                ->where('ppdb_exam_id', $examSession->ppdb_exam_id)
+                ->get(),
+        ];
+        // return response()->json($data);
+        return view('back.pages.ppdb.exam.detail-analysis', $data);
+    }
+
+    public function examStudentExport(Request $request, $id)
+    {
+        $search = $request->search;
+
+        return Excel::download(new PpdbExamScoreStudent($id, $search), 'nilai-ujian-ppdb-' . now() . '.xlsx');
     }
 }

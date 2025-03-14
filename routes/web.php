@@ -371,11 +371,12 @@ Route::domain(env('APP_URL'))->group(function () {
 
             Route::get('/detail/{id}/student', [BackExamController::class, 'student'])->name('student');
             Route::get('/detail/{id}/student/datatable', [BackExamController::class, 'studentDatatable'])->name('student.datatable');
-            Route::get('/detail/{id}/student/export', [BackExamController::class, 'studentExport'])->name('student.export');
+            Route::get('/detail/{id}/student/export', [BackExamController::class, 'studentExportExam'])->name('student.export');
             Route::get('/detail/{id}/student/reset-all', [BackExamController::class, 'studentExamResetAll'])->name('student.reset-all');
             Route::get('/student/reset/{session_id}', [BackExamController::class, 'studentExamReset'])->name('student.reset');
             Route::get('/student/finish/{session_id}', [BackExamController::class, 'studentExamForceEnd'])->name('student.finish');
             Route::get('/student/analysis/{session_id}', [BackExamController::class, 'studentExamAnalysis'])->name('student.analysis');
+
 
             Route::get('/detail/{id}/question', [BackExamController::class, 'question'])->name('question');
             Route::post('/detail/{id}/question/import', [BackExamController::class, 'questionImport'])->name('question.import');
@@ -436,6 +437,11 @@ Route::domain(env('APP_URL'))->group(function () {
 
                 Route::get('/detail/{id}/student', [BackPPDBController::class, 'examStudent'])->name('student');
                 Route::get('/detail/{id}/student/datatable', [BackPPDBController::class, 'examStudentDatatable'])->name('student.datatable');
+                Route::get('/detail/{id}/student/export', [BackPPDBController::class, 'examStudentExport'])->name('student.export');
+                Route::get('/detail/{id}/student/reset-all', [BackPPDBController::class, 'examStudentResetAll'])->name('student.reset-all');
+                Route::get('/student/reset/{session_id}', [BackPPDBController::class, 'examStudentReset'])->name('student.reset');
+                Route::get('/student/finish/{session_id}', [BackPPDBController::class, 'examStudentForceEnd'])->name('student.finish');
+                Route::get('/student/analysis/{session_id}', [BackPPDBController::class, 'examStudentAnalysis'])->name('student.analysis');
 
 
                 Route::get('/detail/{id}/question', [BackPPDBController::class, 'examQuestion'])->name('question');
