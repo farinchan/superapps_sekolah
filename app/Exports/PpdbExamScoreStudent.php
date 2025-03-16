@@ -32,7 +32,10 @@ class PpdbExamScoreStudent implements FromCollection, WithHeadings, WithStyles, 
         ->leftJoin('ppdb_exam', 'ppdb_exam.id', '=', 'ppdb_exam_schedule.ppdb_exam_id')
         ->where('ppdb_exam.id', $this->id)
         ->leftJoin('ppdb_user', 'ppdb_user.id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
-        ->leftJoin('ppdb_exam_session', 'ppdb_exam_session.ppdb_user_id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
+        ->leftJoin('ppdb_exam_session', function ($join) {
+            $join->on('ppdb_exam_session.ppdb_user_id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
+                 ->where('ppdb_exam_session.ppdb_exam_id', '=', $this->id);
+        })
         ->where('ppdb_user.name', 'like', '%' . $this->search . '%')
         ->select( 'ppdb_user.nisn','ppdb_user.name', 'ppdb_exam_session.score')
         ->get();

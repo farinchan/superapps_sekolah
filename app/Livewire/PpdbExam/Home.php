@@ -21,7 +21,10 @@ class Home extends Component
         $this->exam_list = PpdbExamScheduleUser::leftJoin('ppdb_exam_schedule', 'ppdb_exam_schedule.id', '=', 'ppdb_exam_schedule_user.ppdb_exam_schedule_id')
             ->leftJoin('ppdb_exam', 'ppdb_exam.id', '=', 'ppdb_exam_schedule.ppdb_exam_id')
             ->leftJoin('ppdb_user', 'ppdb_user.id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
-            ->leftJoin('ppdb_exam_session', 'ppdb_exam_session.ppdb_user_id', '=', 'ppdb_user.id')
+            ->leftJoin('ppdb_exam_session', function ($join) {
+                $join->on('ppdb_exam_session.ppdb_user_id', '=', 'ppdb_user.id')
+                     ->on('ppdb_exam_session.ppdb_exam_id', '=', 'ppdb_exam.id');
+            })
             ->where('ppdb_user.id', Auth::guard('ppdb')->user()->id)
             ->select('ppdb_exam.id', 'ppdb_exam.name', 'ppdb_exam.duration', 'ppdb_exam_schedule.start_time', 'ppdb_exam_schedule.end_time','ppdb_exam_schedule.location', 'ppdb_exam_session.start_time as session_start_time', 'ppdb_exam_session.end_time as session_end_time', 'ppdb_exam_session.score as score')
             ->get();
