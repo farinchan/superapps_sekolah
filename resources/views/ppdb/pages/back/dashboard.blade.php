@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="card mb-5 mb-xl-8">
-                    <a href="https://wa.me/628" target="_blank">
+                    <a href="https://wa.me/6289518457796" target="_blank">
                         <div class="card-body border border-hover-primary rounded">
 
                             <div class="">
