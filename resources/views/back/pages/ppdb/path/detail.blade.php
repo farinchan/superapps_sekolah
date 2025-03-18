@@ -223,8 +223,8 @@
                                     </td>
                                     <td>
                                         @if (
-                                            $registration_user->status_kelulusan != 'CADANGAN' ||
-                                                $registration_user->status_kelulusan != 'TIDAK LULUS' ||
+                                            $registration_user->status_kelulusan != 'CADANGAN' &&
+                                                $registration_user->status_kelulusan != 'TIDAK LULUS' &&
                                                 $registration_user->status_kelulusan != '-')
                                             <span
                                                 class="badge badge-light-success">{{ $registration_user->status_kelulusan }}</span>
