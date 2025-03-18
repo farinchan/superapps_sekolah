@@ -15,7 +15,13 @@ return new class extends Migration
             $table->id();
             $table->boolean('registration_status')->default(false);
             $table->string('registration_message')->nullable();
+            $table->string('login_status')->nullable();
+            $table->string('login_message')->nullable();
             $table->longText('information')->nullable();
+            $table->string('phone_admin')->nullable();
+            $table->longText('re_registration_information')->nullable();
+            $table->string('statement_letter')->nullable();
+
             $table->timestamps();
         });
     }

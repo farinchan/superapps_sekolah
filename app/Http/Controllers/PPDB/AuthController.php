@@ -545,7 +545,8 @@ class AuthController extends Controller
             'menu' => 'PPDB',
             'submenu' => 'Login',
             'page_title' => 'Login ',
-            'page_description' => 'Silakan Masuk untuk melanjutkan'
+            'page_description' => 'Silakan Masuk untuk melanjutkan',
+            'information' => PpdbInformation::first(),
         ];
         return view('ppdb.pages.auth.login', $data);
     }

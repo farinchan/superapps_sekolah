@@ -161,12 +161,18 @@
                                                     <div class="d-flex align-items-center mb-2">
                                                         <span class="text-gray-700 fs-6 fw-semibold me-2">Status Kelulusan:
                                                         </span>
-                                                        @if ($my_path->status_kelulusan == '-')
+                                                        @if (
+                                                            $my_path->status_kelulusan != 'CADANGAN' &&
+                                                                $my_path->status_kelulusan != 'TIDAK LULUS' &&
+                                                                $my_path->status_kelulusan != '-')
+                                                            <span
+                                                                class="badge badge-light-success">{{ $my_path->status_kelulusan }}</span>
+                                                        @elseif ($my_path->status_kelulusan == '-')
                                                             <span class="badge badge-light-primary">-</span>
-                                                        @elseif($my_path->status_kelulusan == 'lulus')
-                                                            <span class="badge badge-light-success">Lulus</span>
-                                                        @elseif($my_path->status_kelulusan == 'tidak lulus')
-                                                            <span class="badge badge-light-danger">Tidak Lulus</span>
+                                                        @elseif ($my_path->status_kelulusan == 'CADANGAN')
+                                                            <span class="badge badge-light-warning">CADANGAN</span>
+                                                        @elseif ($my_path->status_kelulusan == 'TIDAK LULUS')
+                                                            <span class="badge badge-light-danger">TIDAK LULUS</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -190,17 +196,41 @@
                                             @if ($my_path->reason != null && $my_path->reason != '' && isset($my_path->reason))
                                                 <div class="separator separator-dashed border-muted my-5"></div>
 
-                                                <div class="d-flex flex-stack">
-                                                    <div class="d-flex flex-column ">
-                                                        <div class="d-flex align-items-center mb-2">
-                                                            <span class="text-gray-700 fs-6 fw-bold me-2">Tanggapan:
-                                                            </span>
+                                                @if (
+                                                    $my_path->status_kelulusan == 'CADANGAN' ||
+                                                        $my_path->status_kelulusan == 'TIDAK LULUS' ||
+                                                        $my_path->status_kelulusan == '-')
+                                                    <div class="d-flex flex-stack">
+                                                        <div class="d-flex flex-column ">
+                                                            <div class="d-flex align-items-center mb-2">
+                                                                <span class="text-gray-700 fs-6 fw-bold me-2">Tanggapan:
+                                                                </span>
+                                                            </div>
+                                                            <p class="fs-6 text-gray-700">
+                                                                {{ $my_path->reason }}
+                                                            </p>
                                                         </div>
-                                                        <p class="fs-6 text-gray-700">
-                                                            {{ $my_path->reason }}
-                                                        </p>
                                                     </div>
-                                                </div>
+                                                @else
+                                                    <div class="d-flex flex-stack">
+                                                        <div class="d-flex flex-column ">
+                                                            <div class="d-flex align-items-center mb-2">
+                                                                <span class="text-gray-700 fs-6 fw-bold me-2">Tanggapan:
+                                                                </span>
+                                                            </div>
+                                                            <p class="fs-6 text-gray-700">
+                                                                SELAMAT ANANDA {{ $my_path->status_kelulusan }} DI MAN 1 KOTA PADANG PANJANG
+                                                            </p>
+                                                        </div>
+                                                        <div>
+                                                            <a href="#"
+                                                               class="ms-3 btn btn-sm btn-success" style="width: 100px" data-bs-toggle="modal"
+                                                               data-bs-target="#re_registration">
+                                                               Pendaftaran Ulang Disini
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             @endif
                                         </div>
                                     </div>
@@ -330,6 +360,26 @@
                                 </div>
                             </div>
                         @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="re_registration" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog mw-700px">
+            <div class="modal-content">
+                <div class="modal-header pb-0 border-0 d-flex justify-content-end">
+                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                        <i class="ki-outline ki-cross fs-1"></i>
+                    </div>
+                </div>
+                <div class="modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15">
+                    <div class="text-center mb-13">
+                        <h1 class="d-flex justify-content-center align-items-center mb-3">Pendaftaran Ulang</h1>
+                    </div>
+                    <div>
+                        {!! $information->re_registration_information??"-" !!}
                     </div>
                 </div>
             </div>

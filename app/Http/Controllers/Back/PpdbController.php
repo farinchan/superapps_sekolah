@@ -46,6 +46,8 @@ class PpdbController extends Controller
         $validator = Validator::make($request->all(), [
             'registration_status' => 'nullable|boolean',
             'registration_message' => 'nullable',
+            'login_status' => 'nullable',
+            'login_message' => 'nullable',
         ], [
             'registration_status.required' => 'Status pendaftaran harus diisi',
             'registration_status.boolean' => 'Status pendaftaran harus berupa boolean',
@@ -58,7 +60,12 @@ class PpdbController extends Controller
 
         PpdbInformation::updateOrCreate(
             ['id' => 1],
-            ['registration_status' => $request->registration_status ? true : false, 'registration_message' => $request->registration_message]
+            [
+                'registration_status' => $request->registration_status ? true : false,
+                'registration_message' => $request->registration_message,
+                'login_status' => $request->login_status,
+                'login_message' => $request->login_message,
+            ]
         );
 
         Alert::success('Berhasil', 'Data berhasil diubah');
@@ -68,9 +75,14 @@ class PpdbController extends Controller
     public function informationSettingUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'information' => 'required',
+            'information' => 'nullable',
+            'phone_admin' => 'nullable',
+            're_registration_information' => 'nullable',
+            'statement_letter' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
         ], [
-            'information.required' => 'Informasi harus diisi',
+            'statement_letter.file' => 'Surat pernyataan harus berupa file',
+            'statement_letter.mimes' => 'Format file tidak valid',
+            'statement_letter.max' => 'Ukuran file terlalu besar',
         ]);
 
         if ($validator->fails()) {
@@ -80,8 +92,51 @@ class PpdbController extends Controller
 
         PpdbInformation::updateOrCreate(
             ['id' => 1],
-            ['information' => $request->information]
+            [
+                'information' => $request->information,
+                'phone_admin' => $request->phone_admin,
+                're_registration_information' => $request->re_registration_information,
+            ]
         );
+
+        if ($request->hasFile('statement_letter')) {
+            $statement_letter = PpdbInformation::find(1);
+            $statement_letter->statement_letter = $request->file('statement_letter')->storeAs('ppdb/statement-letter', 'statement-letter.pdf', 'public');
+            $statement_letter->save();
+        }
+
+        Alert::success('Berhasil', 'Data berhasil diubah');
+        return redirect()->back();
+    }
+    public function informationSettingAnother(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+
+            're_registration_information' => 'nullable',
+            'statement_letter' => 'nullable|file|mimes:pdf,doc,docx|max:10240',
+        ], [
+            'statement_letter.file' => 'Surat pernyataan harus berupa file',
+            'statement_letter.mimes' => 'Format file tidak valid',
+            'statement_letter.max' => 'Ukuran file terlalu besar',
+        ]);
+
+        if ($validator->fails()) {
+            Alert::error('Gagal', $validator->errors()->all());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        PpdbInformation::updateOrCreate(
+            ['id' => 1],
+            [
+                're_registration_information' => $request->re_registration_information,
+            ]
+        );
+
+        if ($request->hasFile('statement_letter')) {
+            $statement_letter = PpdbInformation::find(1);
+            $statement_letter->statement_letter = $request->file('statement_letter')->storeAs('ppdb/statement-letter', 'statement-letter.pdf', 'public');
+            $statement_letter->save();
+        }
 
         Alert::success('Berhasil', 'Data berhasil diubah');
         return redirect()->back();
@@ -795,7 +850,7 @@ class PpdbController extends Controller
             ->leftJoin('ppdb_user', 'ppdb_user.id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
             ->leftJoin('ppdb_exam_session', function ($join) use ($id) {
                 $join->on('ppdb_exam_session.ppdb_user_id', '=', 'ppdb_exam_schedule_user.ppdb_user_id')
-                     ->where('ppdb_exam_session.ppdb_exam_id', '=', $id);
+                    ->where('ppdb_exam_session.ppdb_exam_id', '=', $id);
             })
             ->where('ppdb_user.name', 'like', '%' . $search . '%')
             ->select('ppdb_exam_schedule.id as schedule_id', 'ppdb_exam_schedule_user.id as schedule_user_id', 'ppdb_exam_schedule_user.ppdb_user_id', 'ppdb_user.name', 'ppdb_user.nisn',   'ppdb_exam_session.id as session_id', 'ppdb_exam_session.score', 'ppdb_exam_session.start_time', 'ppdb_exam_session.end_time', 'ppdb_exam_schedule_user.created_at', 'ppdb_exam_schedule_user.updated_at')

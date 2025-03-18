@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
+use App\Models\PpdbInformation;
 use App\Models\PpdbPath;
 use App\Models\PpdbRegistrationUser;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -22,11 +23,11 @@ class DashboardController extends Controller
             'user' => Auth::guard('ppdb')->user(),
             'path_select_check' => PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->first() ? true : false,
             'path_rejected_check' => PpdbRegistrationUser::where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->where(function ($query) {
-                $query->where('status_kelulusan', '-')
-                      ->orWhere('status_kelulusan', 'tidak lulus');
-            })->first() ? false : true,
+                $query->where('status_kelulusan', 'TIDAK LULUS');
+            })->first() ,
             'my_list_path' => PpdbRegistrationUser::with(['path.schoolYear'])->where('ppdb_user_id', Auth::guard('ppdb')->user()->id)->get(),
             'list_path' => PpdbPath::with(['schoolYear','registrationUsers'])->where('start_date', '<=', date('Y-m-d'))->where('end_date', '>=', date('Y-m-d'))->get(),
+            'information' => PpdbInformation::first(),
 
         ];
         // return response()->json($data);

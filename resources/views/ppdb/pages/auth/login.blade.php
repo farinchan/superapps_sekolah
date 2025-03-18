@@ -6,6 +6,7 @@
         <div class="d-flex flex-wrap justify-content-center pb-lg-0">
 
             <div class="card d-flex justify-content-xl-start w-500 w-xl-500px w-xxl-500px">
+                @if ($information->login_status)
                 <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
                     <div class="pb-10 pb-lg-15">
                         <h2 class="fw-bold d-flex justify-content-center text-gray-900">Form Login
@@ -14,6 +15,8 @@
                             </span>
                         </h2>
                     </div>
+
+
                     <form action="{{ route('ppdb.login') }}" method="POST" class="form">
                         @csrf
                         <div class="mb-10">
@@ -54,7 +57,22 @@
                             </a>
                         </div>
                     </form>
+
+
                 </div>
+                @else
+                <div class="card-body px-6 px-lg-10 px-xxl-15 py-20">
+                    <div class="pb-5">
+                        <h2 class="fw-bold d-flex justify-content-center text-gray-900">Login ditutup
+                        </h2>
+                    </div>
+                    <div class="text-center">
+                        <p class="fs-6 text-gray-600">
+                            {{ $information->login_message ?? "" }}
+                        </p>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

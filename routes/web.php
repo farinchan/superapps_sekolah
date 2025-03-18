@@ -461,6 +461,7 @@ Route::domain(env('APP_URL'))->group(function () {
 
             Route::get('/infomration-setting', [BackPPDBController::class, 'informationSetting'])->name('information-setting');
             Route::put('/infomration-setting', [BackPPDBController::class, 'informationSettingUpdate'])->name('information-setting.update');
+            Route::put('/infomration-setting-another', [BackPPDBController::class, 'informationSettingAnother'])->name('information-setting.another');
             Route::put('/infomration-setting-register', [BackPPDBController::class, 'informationSettingRegisterUpdate'])->name('information-setting.register.update');
 
         });

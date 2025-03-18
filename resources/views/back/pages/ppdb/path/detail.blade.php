@@ -100,8 +100,13 @@
                                             data-kt-user-table-filter="status" data-hide-search="true">
                                             <option></option>
                                             <option value="-">-</option>
-                                            <option value="Lulus">Lulus</option>
-                                            <option value="Tidak Lulus">Tidak Lulus</option>
+                                            <option value="LULUS/ DITERIMA ASRAMA">LULUS/ DITERIMA ASRAMA</option>
+                                            <option value="LULUS/ TIDAK DIASRAMA">LULUS/ TIDAK DIASRAMA</option>
+                                            <option value="LULUS PRESTASI/ASRAMA">LULUS PRESTASI/ASRAMA</option>
+                                            <option value="LULUS PRESTASI/TIDAK DIASRAMA">LULUS PRESTASI/TIDAK DIASRAMA
+                                            </option>
+                                            <option value="CADANGAN">CADANGAN</option>
+                                            <option value="TIDAK LULUS">TIDAK LULUS</option>
                                         </select>
                                     </div>
                                     <div class="d-flex justify-content-end">
@@ -122,7 +127,8 @@
                                         <span class="path2"></span>
                                     </i>
                                     Import</a> --}}
-                                <a class="btn btn-secondary" href="{{ route('back.ppdb.path.export-student', $path->id) }}">
+                                <a class="btn btn-secondary"
+                                    href="{{ route('back.ppdb.path.export-student', $path->id) }}">
                                     <i class="ki-duotone ki-file-up fs-2">
                                         <span class="path1"></span>
                                         <span class="path2"></span>
@@ -216,12 +222,18 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($registration_user->status_kelulusan == '-')
+                                        @if (
+                                            $registration_user->status_kelulusan != 'CADANGAN' ||
+                                                $registration_user->status_kelulusan != 'TIDAK LULUS' ||
+                                                $registration_user->status_kelulusan != '-')
+                                            <span
+                                                class="badge badge-light-success">{{ $registration_user->status_kelulusan }}</span>
+                                        @elseif ($registration_user->status_kelulusan == '-')
                                             <span class="badge badge-light-primary">-</span>
-                                        @elseif ($registration_user->status_kelulusan == 'lulus')
-                                            <span class="badge badge-light-success">Lulus</span>
-                                        @elseif ($registration_user->status_kelulusan == 'tidak lulus')
-                                            <span class="badge badge-light-danger">Tidak Lulus</span>
+                                        @elseif ($registration_user->status_kelulusan == 'CADANGAN')
+                                            <span class="badge badge-light-warning">CADANGAN</span>
+                                        @elseif ($registration_user->status_kelulusan == 'TIDAK LULUS')
+                                            <span class="badge badge-light-danger">TIDAK LULUS</span>
                                         @endif
                                     </td>
                                     <td>
@@ -279,7 +291,8 @@
                             <div class="mb-3">
                                 <p>Apakah Anda yakin ingin mengeluarkan calon siswa
                                     <strong>{{ $registration_user->user->name }}</strong> dari jalur
-                                    <strong>{{ $path->name }}</strong> ?</p>
+                                    <strong>{{ $path->name }}</strong> ?
+                                </p>
                                 </p>
                             </div>
                         </div>
