@@ -647,13 +647,25 @@
                                         <div class="fv-row">
                                             <div class="m-5">
                                                 <label for="exampleFormControlInput1" class="required form-label">Status Berkas</label>
-                                                <select class="form-select form-select-solid" name="status_berkas"  id="status_berkas" required>
+                                                <select class="form-select form-select-solid" name="status_berkas"  id="status_berkas" required @if ($registration_user->status_kelulusan == 'lulus') disabled @endif>
                                                     <option value="sedang diverifikasi" @if ($registration_user->status_berkas == 'sedang diverifikasi') selected @endif>Sedang Diverifikasi</option>
                                                     <option value="diterima" @if ($registration_user->status_berkas == 'diterima') selected @endif>Diterima</option>
                                                     <option value="perbaiki" @if ($registration_user->status_berkas == 'perbaiki') selected @endif>Perbaiki</option>
                                                     <option value="ditolak" @if ($registration_user->status_berkas == 'ditolak') selected @endif>Ditolak</option>
                                                 </select>
                                                 @error('status_berkas')
+                                                    <small class="text-danger">*{{ $message }}</small>
+                                                @enderror
+                                            </div>
+                                            <div class="m-5">
+                                                <label for="exampleFormControlInput1" class="required text-danger form-label">Status Kelulusan</label>
+                                                <select class="form-select form-select-solid" name="status_kelulusan" id="status_kelulusan" required @if ($registration_user->status_kelulusan == 'lulus') disabled @endif>
+                                                    <option value="-" @if ($registration_user->status_kelulusan == '-') selected @endif>-</option>
+                                                    <option value="lulus" @if ($registration_user->status_kelulusan == 'lulus') selected @endif>Lulus</option>
+                                                    <option value="tidak lulus" @if ($registration_user->status_kelulusan == 'tidak lulus') selected @endif>Tidak Lulus</option>
+                                                </select>
+                                                <small class="text-danger">*Status kelulusan siswa jika sudah di set lulus maka keputusan tidak dapat diubah lagi</small>
+                                                @error('status_kelulusan')
                                                     <small class="text-danger">*{{ $message }}</small>
                                                 @enderror
                                             </div>

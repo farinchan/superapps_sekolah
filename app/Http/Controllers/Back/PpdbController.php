@@ -221,9 +221,11 @@ class PpdbController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'status_berkas' => 'required',
+            'status_kelulusan' => 'required',
             'reason' => 'required',
         ], [
-            'status.required' => 'Status harus diisi',
+            'status_berkas.required' => 'Status harus diisi',
+            'status_berkas.required' => 'Status berkas harus diisi',
             'reason.required' => 'Tanggapan harus diisi',
         ]);
 
@@ -234,6 +236,7 @@ class PpdbController extends Controller
 
         PpdbRegistrationUser::find($registration_id)->update([
             'status_berkas' => $request->status_berkas,
+            'status_kelulusan' => $request->status_kelulusan,
             'reason' => $request->reason,
         ]);
 
