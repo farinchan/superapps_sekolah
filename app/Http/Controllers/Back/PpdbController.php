@@ -134,7 +134,8 @@ class PpdbController extends Controller
 
         if ($request->hasFile('statement_letter')) {
             $statement_letter = PpdbInformation::find(1);
-            $statement_letter->statement_letter = $request->file('statement_letter')->storeAs('ppdb/statement-letter', 'statement-letter.pdf', 'public');
+
+            $statement_letter->statement_letter = $request->file('statement_letter')->storeAs('ppdb/statement-letter', 'statement-letter.' . $request->file('statement_letter')->getClientOriginalExtension(), 'public');
             $statement_letter->save();
         }
 
