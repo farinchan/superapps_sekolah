@@ -44,7 +44,7 @@ class PpdbRegistrationUserObserver
     {
         Log::info($ppdbRegistrationUser);
         try {
-            if ($ppdbRegistrationUser->status_kelulusan != 'TIDAK LULUS' && $ppdbRegistrationUser->status_kelulusan != 'CADANGAN') {
+            if ($ppdbRegistrationUser->status_kelulusan != 'TIDAK LULUS' && $ppdbRegistrationUser->status_kelulusan != 'CADANGAN' && $ppdbRegistrationUser->status_kelulusan != '-') {
                 $response_wa = Http::post(env('WHATSAPP_API_URL')  . "/send-message", [
                     'session' => env('WHATSAPP_API_SESSION'),
                     'to' => whatsappNumber($ppdbRegistrationUser->user?->whatsapp_number),

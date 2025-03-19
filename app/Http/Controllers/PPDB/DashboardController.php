@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PpdbInformation;
 use App\Models\PpdbPath;
 use App\Models\PpdbRegistrationUser;
+use App\Models\PpdbReRegistrationUser;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -65,4 +66,6 @@ class DashboardController extends Controller
         $pdf->setPaper('b5', 'portrait');
         return $pdf->stream('katu_ppdb.pdf');
     }
+
+
 }

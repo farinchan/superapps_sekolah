@@ -569,5 +569,8 @@ Route::domain('ppdb.' . env('APP_URL'))->name('ppdb.')->group(function () {
         Route::put('/profile/other-data', [App\Http\Controllers\PPDB\ProfileController::class, 'otherDataUpdate'])->name('profile.other-data.update');
         Route::post('/select/path/{path_id}', [App\Http\Controllers\PPDB\DashboardController::class, 'selectPath'])->name('select.path');
         Route::get('/registerPathCard/{path_id}', [App\Http\Controllers\PPDB\DashboardController::class, 'registerPathCard'])->name('registerPathCard');
+
+        Route::get('/re-registration/{registration_id}', [App\Http\Controllers\PPDB\ReRegistrationController::class, 'index'])->name('re-registration');
+        Route::put('/re-registration/{registration_id}', [App\Http\Controllers\PPDB\ReRegistrationController::class, 'update'])->name('re-registration.update');
     });
 });

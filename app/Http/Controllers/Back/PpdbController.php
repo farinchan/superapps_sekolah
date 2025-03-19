@@ -266,7 +266,7 @@ class PpdbController extends Controller
             'sub_menu' => 'Jalur Pendaftaran',
             'path_id' => $path_id,
             'registration_id' => $registration_id,
-            'registration_user' => PpdbRegistrationUser::with(['user.certificate', 'user.rapor', 'path'])->find($registration_id),
+            'registration_user' => PpdbRegistrationUser::with(['user.certificate', 'user.rapor', 'path', 'reRegistration'])->find($registration_id),
 
         ];
         // return response()->json($data);

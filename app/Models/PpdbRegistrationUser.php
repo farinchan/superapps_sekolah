@@ -18,4 +18,9 @@ class PpdbRegistrationUser extends Model
     {
         return $this->belongsTo(PpdbUser::class, 'ppdb_user_id', 'id');
     }
+
+    public function reRegistration()
+    {
+        return $this->hasOne(PpdbReRegistrationUser::class, 'ppdb_registration_user_id', 'id');
+    }
 }

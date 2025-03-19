@@ -221,10 +221,10 @@
                                                             </p>
                                                         </div>
                                                         <div>
-                                                            <a href="#"
-                                                               class="ms-3 btn btn-sm btn-success" style="width: 100px" data-bs-toggle="modal"
-                                                               data-bs-target="#re_registration">
-                                                               Pendaftaran Ulang Disini
+                                                            <a href="#" class="ms-3 btn btn-sm btn-success"
+                                                                style="width: 100px" data-bs-toggle="modal"
+                                                                data-bs-target="#re_registration_{{ $my_path->id }}">
+                                                                Pendaftaran Ulang Disini
                                                             </a>
                                                         </div>
                                                     </div>
@@ -364,25 +364,36 @@
         </div>
     </div>
 
-    <div class="modal fade" id="re_registration" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog mw-700px">
-            <div class="modal-content">
-                <div class="modal-header pb-0 border-0 d-flex justify-content-end">
-                    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
-                        <i class="ki-outline ki-cross fs-1"></i>
+    @foreach ($my_list_path as $my_path)
+        <div class="modal fade" id="re_registration_{{ $my_path->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog mw-700px">
+                <div class="modal-content">
+                    <div class="modal-header pb-0 border-0 d-flex justify-content-end">
+                        <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                            <i class="ki-outline ki-cross fs-1"></i>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15">
-                    <div class="text-center mb-13">
-                        <h1 class="d-flex justify-content-center align-items-center mb-3">Pendaftaran Ulang</h1>
-                    </div>
-                    <div>
-                        {!! $information->re_registration_information??"-" !!}
+                    <div class="modal-body scroll-y mx-5 mx-xl-10 pt-0 pb-15">
+                        <div class="text-center mb-13">
+                            <h1 class="d-flex justify-content-center align-items-center mb-10">Pendaftaran Ulang</h1>
+                        </div>
+
+                        <div>
+                            {!! $information->re_registration_information ?? '-' !!}
+                        </div>
+                        <div class=" fs-5">Siswa yang dinyatakan diterima pada jalur pendaftaran ini, Diwajibkan untuk
+                            melengkapi data dibawah ini
+
+                        </div>
+                        <div class="mb-5 text-center">
+                            <a href="{{ route('ppdb.re-registration', $my_path->id) }}"
+                                class="mt-5 btn btn-light-info">Lengkapi Data</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endforeach
 @endsection
 @section('scripts')
 @endsection
