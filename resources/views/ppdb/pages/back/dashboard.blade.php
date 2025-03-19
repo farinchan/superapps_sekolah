@@ -217,7 +217,7 @@
                                                                 </span>
                                                             </div>
                                                             <p class="fs-6 text-gray-700">
-                                                                SELAMAT ANANDA {{ $my_path->status_kelulusan }} DI MAN 1 KOTA PADANG PANJANG
+                                                                {{ $my_path->reason }}
                                                             </p>
                                                         </div>
                                                         <div>
