@@ -48,8 +48,6 @@
                         <div class="card-body border border-hover-primary rounded">
 
                             <div class="">
-
-
                                 <img src="{{ asset('img_ext/help_ppdb.svg') }}" alt="" width="100%">
                             </div>
                         </div>

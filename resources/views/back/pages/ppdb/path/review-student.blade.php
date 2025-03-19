@@ -660,13 +660,19 @@
                                             <div class="m-5">
                                                 <label for="exampleFormControlInput1" class="required text-danger form-label">Status Kelulusan</label>
                                                 <select class="form-select form-select-solid" name="status_kelulusan" id="status_kelulusan" required >
+
                                                     <option value="-" @if ($registration_user->status_kelulusan == '-') selected @endif>-</option>
-                                                    <option value="LULUS/ DITERIMA ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS/ DITERIMA ASRAMA') selected @endif>LULUS/ DITERIMA ASRAMA</option>
-                                                    <option value="LULUS/ TIDAK DIASRAMA" @if ($registration_user->status_kelulusan == 'LULUS/ TIDAK DIASRAMA') selected @endif>LULUS/ TIDAK DIASRAMA</option>
-                                                    <option value="LULUS PRESTASI/ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS PRESTASI/ASRAMA') selected @endif>LULUS PRESTASI/ASRAMA</option>
-                                                    <option value="LULUS PRESTASI/TIDAK DIASRAMA" @if ($registration_user->status_kelulusan == 'LULUS PRESTASI/TIDAK DIASRAMA') selected @endif>LULUS PRESTASI/TIDAK DIASRAMA</option>
+                                                    <option value="LULUS MADRASAH DAN DITERIMA DI ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS MADRASAH DAN DITERIMA DI ASRAMA') selected @endif>LULUS MADRASAH DAN DITERIMA DI ASRAMA</option>
+                                                    <option value="LULUS MADRASAH DAN TIDAK DITERIMA DI ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS MADRASAH DAN TIDAK DITERIMA DI ASRAMA') selected @endif>LULUS MADRASAH DAN TIDAK DITERIMA DI ASRAMA</option>
+                                                    <option value="LULUS PRESTASI MADRASAH DAN DITERIMA DI ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS PRESTASI MADRASAH DAN DITERIMA DI ASRAMA') selected @endif>LULUS PRESTASI MADRASAH DAN DITERIMA DI ASRAMA</option>
+                                                    <option value="LULUS PRESTASI MADRASAH DAN TIDAK DITERIMA DI ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS PRESTASI MADRASAH DAN TIDAK DITERIMA DI ASRAMA') selected @endif>LULUS PRESTASI MADRASAH DAN TIDAK DITERIMA DI ASRAMA</option>
                                                     <option value="CADANGAN" @if ($registration_user->status_kelulusan == 'CADANGAN') selected @endif>CADANGAN</option>
                                                     <option value="TIDAK LULUS" @if ($registration_user->status_kelulusan == 'TIDAK LULUS') selected @endif>TIDAK LULUS</option>
+                                                    <option value="" disabled>&nbsp;</option>
+                                                    <option value="LULUS/ DITERIMA ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS/ DITERIMA ASRAMA') selected @endif disabled >LULUS/ DITERIMA ASRAMA</option>
+                                                    <option value="LULUS/ TIDAK DIASRAMA" @if ($registration_user->status_kelulusan == 'LULUS/ TIDAK DIASRAMA') selected @endif disabled>LULUS/ TIDAK DIASRAMA</option>
+                                                    <option value="LULUS PRESTASI/ASRAMA" @if ($registration_user->status_kelulusan == 'LULUS PRESTASI/ASRAMA') selected @endif disabled>LULUS PRESTASI/ASRAMA</option>
+                                                    <option value="LULUS PRESTASI/TIDAK DIASRAMA" @if ($registration_user->status_kelulusan == 'LULUS PRESTASI/TIDAK DIASRAMA') selected @endif disabled>LULUS PRESTASI/TIDAK DIASRAMA</option>
                                                 </select>
                                                 <small class="text-danger">*Status kelulusan siswa jika sudah di set lulus maka <b>keputusan tidak dapat diubah lagi</b></small>
                                                 @error('status_kelulusan')
@@ -684,11 +690,11 @@
                                         </div>
                                     </div>
                                     <div class="card-footer d-flex justify-content-end">
-                                        @if ($registration_user->status_kelulusan == 'CADANGAN' || $registration_user->status_kelulusan == 'TIDAK LULUS' || $registration_user->status_kelulusan == '-')
+                                        {{-- @if ($registration_user->status_kelulusan == 'CADANGAN' || $registration_user->status_kelulusan == 'TIDAK LULUS' || $registration_user->status_kelulusan == '-') --}}
                                             <button type="submit" class="btn btn-primary">Simpan</button>
-                                        @else
+                                        {{-- @else
                                             <span class="text-danger">*Status kelulusan sudah di set tidak dapat diubah lagi</span>
-                                        @endif
+                                        @endif --}}
                                     </div>
                                 </form>
                             </div>
