@@ -52,7 +52,7 @@ class PpdbRegistrationUserObserver
                         "Lihat Informasi pendaftaran ulang di https://ppdb.man1kotapadangpanjang.sch.id/login. \n \n" .
                         "Jika ada pertanyaan, silakan hubungi kontak yang tertera di bawah ini: \n" .
                         'Ibu Dewi: +6282383661291' . "\n" .
-                        'Bapak Dedi: +6285263660287' . "\n\n" .
+                        'Bapak Hendra: +6285263660287' . "\n\n" .
 
                         "Bendahara Asrama: \n" .
                         'Ibu Aulia Roza: +6285274103940' . "\n\n" .
@@ -76,7 +76,7 @@ class PpdbRegistrationUserObserver
                     'text' => "*MAAF ANANDA BELUM DITERIMA DI MAN 1 KOTA PADANG PANJANG, ANANDA DAPAT MENCOBA KEMBALI PADA GELOMBANG SELANJUTKAN* \n \n" .
                         "Jika ada pertanyaan, silakan hubungi kontak yang tertera di bawah ini: \n" .
                         'Ibu Dewi: +6282383661291' . "\n" .
-                        'Bapak Dedi: +6285263660287' . "\n\n" .
+                        'Bapak Hendra: +6285263660287' . "\n\n" .
 
                         "Bendahara Asrama: \n" .
                         'Ibu Aulia Roza: +6285274103940' . "\n\n" .
@@ -100,7 +100,7 @@ class PpdbRegistrationUserObserver
                     'text' => "*ANANDA DITERIMA SEBAGAI CADANG KEMUNGKINAN DI TERIMA APABILA KUOTA MENCUKUPI* \n \n" .
                         "Jika ada pertanyaan, silakan hubungi kontak yang tertera di bawah ini: \n" .
                         'Ibu Dewi: +6282383661291' . "\n" .
-                        'Bapak Dedi: +6285263660287' . "\n\n" .
+                        'Bapak Hendra: +6285263660287' . "\n\n" .
 
                         "Bendahara Asrama: \n" .
                         'Ibu Aulia Roza: +6285274103940' . "\n\n" .
