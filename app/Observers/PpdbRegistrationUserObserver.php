@@ -55,7 +55,7 @@ class PpdbRegistrationUserObserver
                         'Bapak Dedi: +6285263660287' . "\n\n" .
 
                         "Bendahara Asrama: \n" .
-                        'Ibu Aulia Roza: +6285274103940' . "\n" .
+                        'Ibu Aulia Roza: +6285274103940' . "\n\n" .
 
                         "Salam Hormat, \n" .
                         "*Panitia PPDB* \n \n" .
@@ -79,7 +79,7 @@ class PpdbRegistrationUserObserver
                         'Bapak Dedi: +6285263660287' . "\n\n" .
 
                         "Bendahara Asrama: \n" .
-                        'Ibu Aulia Roza: +6285274103940' . "\n" .
+                        'Ibu Aulia Roza: +6285274103940' . "\n\n" .
 
                         "Salam Hormat, \n" .
                         "*Panitia PPDB* \n \n" .
@@ -103,7 +103,7 @@ class PpdbRegistrationUserObserver
                         'Bapak Dedi: +6285263660287' . "\n\n" .
 
                         "Bendahara Asrama: \n" .
-                        'Ibu Aulia Roza: +6285274103940' . "\n" .
+                        'Ibu Aulia Roza: +6285274103940' . "\n\n" .
 
                         "Salam Hormat, \n" .
                         "*Panitia PPDB* \n \n" .
