@@ -833,6 +833,22 @@
                                             @enderror
                                         </div>
                                         <div class="mb-5">
+                                            <label for="exampleFormControlInput1" class="form-label required">Surat Pernyataan:</label>
+                                            {{-- <input type="file" class="form-control form-control-solid"
+                                                name="file_kk" /> --}}
+                                            @if ($registration_user->reRegistration?->statement_letter)
+                                                <span class="text-muted"> <a
+                                                        href="{{ asset('storage/' . $registration_user->reRegistration?->statement_letter) }}"
+                                                        target="_blank">Lihat Disini</a></span><br>
+                                            @else
+                                                -
+                                            @endif
+
+                                            @error('file_kk')
+                                                <small class="text-danger">*{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-5">
                                             <label for="exampleFormControlInput1" class="form-label required">File Kartu
                                                 Keluarga (KK):</label>
                                             {{-- <input type="file" class="form-control form-control-solid"

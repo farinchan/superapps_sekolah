@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\PPDB;
 
 use App\Http\Controllers\Controller;
+use App\Models\PpdbInformation;
 use App\Models\PpdbRegistrationUser;
 use App\Models\PpdbReRegistrationUser;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class ReRegistrationController extends Controller
             // 'registration' => PpdbRegistrationUser::with(['path.schoolYear'])->where('id', $registration_id)->first(),
             'registration_id' => $registration_id,
             're_registration' => PpdbReRegistrationUser::where('ppdb_registration_user_id', $registration_id)->first(),
+            'information' => PpdbInformation::first(),
         ];
         // return response()->json($data);
         return view('ppdb.pages.back.re_registation.index', $data);
@@ -34,6 +36,7 @@ class ReRegistrationController extends Controller
         $validator  = Validator::make($request->all(), [
             'jenis_kelamin' => 'required',
             'parent_income' => 'required',
+            'statement_letter' => 'nullable|file|mimes:pdf|max:4096',
             'file_kk' => 'nullable|file|mimes:pdf|max:4096',
             'file_kip' => 'nullable|file|mimes:pdf|max:4096',
             'file_pkh' => 'nullable|file|mimes:pdf|max:4096',
@@ -56,6 +59,12 @@ class ReRegistrationController extends Controller
         $re_registration->ppdb_registration_user_id = $registration_id;
         $re_registration->jenis_kelamin = $request->jenis_kelamin;
         $re_registration->parent_income = $request->parent_income;
+
+        if ($request->hasFile('statement_letter')) {
+            $statement_letter = $request->file('statement_letter');
+            $statement_letter_name = 'statement_letter_' . Str::random(10) . '.' . $statement_letter->getClientOriginalExtension();
+            $re_registration->statement_letter = $statement_letter->storeAs('ppdb/re_registration', $statement_letter_name, 'public');
+        }
 
         if ($request->hasFile('file_kk')) {
             $file_kk = $request->file('file_kk');

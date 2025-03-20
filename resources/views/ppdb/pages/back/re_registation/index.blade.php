@@ -62,6 +62,19 @@
                                             @enderror
                                         </div>
                                         <div class="mb-10">
+                                            <label for="exampleFormControlInput1" class="form-label required">Surat Pernyataan</label>
+                                            <input type="file" class="form-control form-control-solid" name="statement_letter"/>
+
+                                            @if($re_registration?->statement_letter)
+                                                <span class="text-muted">File saat ini: <a href="{{ asset('storage/' . $re_registration?->statement_letter) }}" target="_blank">Lihat Disini</a>, Kosongkan jika ingin mengganti file</span><br>
+                                            @endif
+                                            <small class="text-muted">Surat penyataan bisa anda donwload <a href="{{ Storage::url($information->statement_letter) }}" target="_blank">disini</a>, File harus berformat pdf. Maksimal ukuran 4MB</small>
+                                            @error('statement_letter')
+                                            <br>
+                                                <small class="text-danger">*{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                        <div class="mb-10">
                                             <label for="exampleFormControlInput1" class="form-label required">File Kartu Keluarga (KK)</label>
                                             <input type="file" class="form-control form-control-solid" name="file_kk"/>
 
