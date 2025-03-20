@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('ppdb_registration_user_id')->nullable()->constrained('ppdb_registration_user')->onDelete('cascade')->onUpdate('cascade');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('parent_income')->nullable();
+            $table->string('statement_letter')->nullable();
             $table->string('file_kk')->nullable();
             $table->string('file_kip')->nullable();
             $table->string('file_pkh')->nullable();
