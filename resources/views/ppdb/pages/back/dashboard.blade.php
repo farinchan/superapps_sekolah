@@ -381,13 +381,10 @@
                         <div>
                             {!! $information->re_registration_information ?? '-' !!}
                         </div>
-                        <div class=" fs-5">Siswa yang dinyatakan diterima pada jalur pendaftaran ini, Diwajibkan untuk
-                            melengkapi data dibawah ini
-
-                        </div>
+                        <div class=" fs-5">Siswa yang dinyatakan diterima/Lulus, Diwajibkan juga untuk melakukan pendaftaran ulang secara online dengan mengisi data-data yang diperlukan. pada tombol dibawah ini</div>
                         <div class="mb-5 text-center">
                             <a href="{{ route('ppdb.re-registration', $my_path->id) }}"
-                                class="mt-5 btn btn-light-info">Lengkapi Data</a>
+                                class="mt-5 btn btn-light-success">Daftar Ulang Sekarang</a>
                         </div>
                     </div>
                 </div>

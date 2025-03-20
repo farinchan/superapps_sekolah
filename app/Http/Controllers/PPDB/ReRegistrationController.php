@@ -19,7 +19,7 @@ class ReRegistrationController extends Controller
         $data = [
             'menu' => 'PPDB',
             'submenu' => 'Dashboard',
-            'page_title' => 'Re-Registrasi',
+            'page_title' => 'Pendaftaran Ulang',
             'page_description' => 'Silahkan lengkapi data daftar ulang',
             'user' => Auth::guard('ppdb')->user(),
             // 'registration' => PpdbRegistrationUser::with(['path.schoolYear'])->where('id', $registration_id)->first(),
