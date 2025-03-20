@@ -572,5 +572,6 @@ Route::domain('ppdb.' . env('APP_URL'))->name('ppdb.')->group(function () {
 
         Route::get('/re-registration/{registration_id}', [App\Http\Controllers\PPDB\ReRegistrationController::class, 'index'])->name('re-registration');
         Route::put('/re-registration/{registration_id}', [App\Http\Controllers\PPDB\ReRegistrationController::class, 'update'])->name('re-registration.update');
+        Route::get('/re-registration/{registration_id}/success', [App\Http\Controllers\PPDB\ReRegistrationController::class, 'success'])->name('re-registration.success');
     });
 });

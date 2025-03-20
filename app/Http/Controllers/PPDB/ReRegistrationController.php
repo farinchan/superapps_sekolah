@@ -100,6 +100,19 @@ class ReRegistrationController extends Controller
         $re_registration->save();
 
         Alert::success('Berhasil', 'Data berhasil disimpan');
-        return redirect()->route('ppdb.dashboard');
+        return redirect()->route('ppdb.re-registration.success', $registration_id);
+    }
+
+    public function success($registration_id)
+    {
+        $data = [
+            'menu' => 'PPDB',
+            'submenu' => 'Dashboard',
+            'page_title' => 'Pendaftaran Ulang',
+            'page_description' => 'Penyelesaian Pendaftaran Ulang Sukses',
+            'user' => Auth::guard('ppdb')->user(),
+            'information' => PpdbInformation::first(),
+        ];
+        return view('ppdb.pages.back.re_registation.success', $data);
     }
 }
