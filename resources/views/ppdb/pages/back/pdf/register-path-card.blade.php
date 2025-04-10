@@ -13,7 +13,7 @@
         }
         .card {
             height: 217mm;
-            border: 1px solid #000;
+            /* border: 1px solid #000; */
             padding: 15px;
             box-sizing: border-box;
         }
@@ -84,7 +84,7 @@
             margin: 5px 0;
         }
         .signature {
-            margin-top: 20px;
+            margin-top: 60px;
             text-align: right;
         }
         .signature p {
@@ -105,10 +105,11 @@
 @endphp
 
 <body>
+    <img src="{{ public_path('img_ext/kop_surat.png') }}"  alt="Kop Surat" style="width: 115%; margin-left: -60px; margin-top: -60px; ">
     <div class="card">
         <!-- Header -->
         <div class="header">
-            <img src="{{ public_path('storage/' . $setting_website->logo) }}" alt="Logo Sekolah">
+            {{-- <img src="{{ public_path('storage/' . $setting_website->logo) }}" alt="Logo Sekolah"> --}}
             <h1>PENERIMAAN PESERTA DIDIK BARU</h1>
             <h3>MAN 1 PADANG PANJANG</h3>
         </div>
@@ -151,7 +152,7 @@
                             <tr>
                                 <td><strong>TTL</strong></td>
                                  <td>:</td>
-                                <td>{{ $path_card->user->birth_place }}, {{ $path_card->user->birth_date }}</td>
+                                <td>{{ $path_card->user->birth_place }}, {{ Carbon\Carbon::parse($path_card->user->birth_date)->translatedFormat('d F Y') }}</td>
                             </tr>
                             <tr>
                                 <td><strong>Asal Sekolah</strong></td>
@@ -187,6 +188,13 @@
                         <br>
                     </td>
                 </tr>
+                <tr>
+                    <td>
+                        Status Berkas :  <strong>{{ $path_card->status_berkas }} </strong> <br>
+                        Status Kelulusan :  <strong>{{ $path_card->status_kelulusan }} </strong> <br>
+                    </td>
+                </tr>
+
             </tbody>
         </table>
 

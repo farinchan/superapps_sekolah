@@ -63,7 +63,7 @@ class DashboardController extends Controller
         // return response()->json($data);
 
         $pdf = Pdf::loadView('ppdb.pages.back.pdf.register-path-card', $data);
-        $pdf->setPaper('b5', 'portrait');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream('katu_ppdb.pdf');
     }
 

@@ -175,28 +175,28 @@
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    @if (
-                                                        $my_path->status_kelulusan == 'CADANGAN' &&
-                                                            $my_path->status_kelulusan == 'TIDAK LULUS' &&
-                                                            $my_path->status_kelulusan == '-')
-                                                        <a href="{{ $my_path->path->wa_group }}" target="_blank"
+                                                    @if ($my_path->status_berkas == 'diterima')
+                                                        <a href="{{ route('ppdb.registerPathCard', $my_path->path->id) }}"
                                                             class="btn btn-sm btn-light" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="Bergabung Ke Whatsapp Grup">
-                                                            <img src="{{ asset('img_ext/whatsapp.svg') }}" alt="WA Group"
+                                                            data-bs-placement="top" title="Cetak Kartu Ujian">
+                                                            <img src="{{ asset('img_ext/print.svg') }}" alt="Kartu Ujian"
                                                                 width="40px">
                                                         </a>
-                                                        @if ($my_path->status_berkas == 'diterima')
-                                                            <a href="{{ route('ppdb.registerPathCard', $my_path->path->id) }}"
-                                                                class="btn btn-sm btn-light" data-bs-toggle="tooltip"
-                                                                data-bs-placement="top" title="Cetak Kartu Ujian">
-                                                                <img src="{{ asset('img_ext/print.svg') }}"
-                                                                    alt="Kartu Ujian" width="40px">
-                                                            </a>
-                                                        @endif
-                                                        @else
-                                                        <a href="https://chat.whatsapp.com/IAhBNxJih10HWHNBOA80Fs" target="_blank"
-                                                            class="btn btn-sm btn-light-danger" data-bs-toggle="tooltip"
-                                                            data-bs-placement="top" title="Bergabung Ke Whatsapp Grup Siswa Yang Lulus">
+                                                    @endif
+                                                    <a href="{{ $my_path->path->wa_group }}" target="_blank"
+                                                        class="btn btn-sm btn-light" data-bs-toggle="tooltip"
+                                                        data-bs-placement="top" title="Bergabung Ke Whatsapp Grup">
+                                                        <img src="{{ asset('img_ext/whatsapp.svg') }}" alt="WA Group"
+                                                            width="40px">
+                                                    </a>
+                                                    @if (
+                                                        $my_path->status_kelulusan != 'CADANGAN' &&
+                                                            $my_path->status_kelulusan != 'TIDAK LULUS' &&
+                                                            $my_path->status_kelulusan != '-')
+                                                        <a href="https://chat.whatsapp.com/IAhBNxJih10HWHNBOA80Fs"
+                                                            target="_blank" class="btn btn-sm btn-light-danger"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="Bergabung Ke Whatsapp Grup Siswa Yang Lulus">
                                                             <img src="{{ asset('img_ext/whatsapp.svg') }}" alt="WA Group"
                                                                 width="40px">
                                                         </a>
